@@ -2839,7 +2839,13 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
           }
     }
     document.getElementById('roleTeamBtn').onclick = () => tryRoleLogin('pferdeteam');
-    document.getElementById('roleHelferBtn').onclick = () => tryRoleLogin('ehrenamt');
+    document.getElementById('roleHelferBtn').onclick = () => {
+          setRole('ehrenamt');
+          document.getElementById('roleGateScreen').style.display = 'none';
+          document.getElementById('loading').style.display = 'block';
+          applyRoleRestrictions();
+          proceedAfterRole();
+    };
     document.getElementById('switchRoleBtn').onclick = () => {
           if (!confirm('Rolle wechseln? Du musst dich danach neu mit einem Code anmelden.')) return;
           localStorage.removeItem('ponyUserRole');
