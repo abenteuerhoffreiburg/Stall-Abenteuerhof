@@ -518,6 +518,8 @@
     gap: 4px;
   }
   .tag-group { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 5px; }
+      .schicht-names { display: flex; gap: 5px; flex-wrap: wrap; margin: 6px 0; }
+      .schicht-open { font-size: 12.5px; color: var(--text-tertiary); font-style: italic; }
   .tag {
     display: inline-block;
     padding: 3px 9px;
@@ -630,6 +632,8 @@
 
   .chip.role-team.selected { background: var(--brick); border-color: var(--brick); }
   .chip.role-ehrenamt.selected { background: var(--teal); border-color: var(--teal); }
+      body.role-ehrenamt-mode .ack-item-btn { display: none; }
+      body.role-ehrenamt-mode .schicht-delete-btn { display: none; }
 
   .entry.team-entry {
     border-left: 4px solid var(--brick);
