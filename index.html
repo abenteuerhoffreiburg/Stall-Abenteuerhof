@@ -2532,7 +2532,7 @@ document.getElementById('openInfos').onclick = async () => {
     document.getElementById('openKalender').onclick = () => {
           const url = getRole() === 'pferdeteam' ? 'https://kalender.digital/c2293dbb422655abfc91' : 'https://kalender.digital/f8fb4f88c81cef15eb50';
           window.open(url, '_blank');
-    }};
+    };
 document.getElementById('listBackBtn').onclick = async () => { await renderHome(); showScreen('homeScreen'); };
 document.getElementById('manageBtn').onclick = () => { renderPonyManage(); showScreen('manageScreen'); };
 document.getElementById('refreshBtn').onclick = async () => { await refreshAllData(); await renderHome(); };
