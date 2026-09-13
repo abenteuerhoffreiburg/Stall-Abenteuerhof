@@ -2660,6 +2660,13 @@ document.getElementById('belGruppeChips').querySelectorAll('.chip').forEach(chip
   };
 });
 
+    document.getElementById('schichtZeit').querySelectorAll('.chip').forEach(chip => {
+          chip.onclick = () => {
+                  document.getElementById('schichtZeit').querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+                  chip.classList.add('selected');
+          };
+    });
+
 document.getElementById('belAktivitaet').querySelectorAll('.chip').forEach(chip => {
   chip.onclick = () => {
     const val = chip.dataset.val;
