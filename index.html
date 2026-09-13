@@ -1461,6 +1461,9 @@ async function getShopItems() {
 }
 async function addShopItem(item) { return await storageSet(`shop:${item.id}`, JSON.stringify(item)); }
 async function deleteShopItem(itemId) { return await storageDelete(`shop:${itemId}`); }
+    async function getSchichten() { const prefix = 'schicht:'; const result = []; for (const key of Object.keys(cache)) { if (key.indexOf(prefix) === 0) { try { result.push(JSON.parse(cache[key])); } catch(e) { /* skip */ } } } return result; }
+    async function addSchicht(s) { return await storageSet(`schicht:${s.id}`, JSON.stringify(s)); }
+    async function deleteSchicht(schichtId) { return await storageDelete(`schicht:${schichtId}`); }
 
 // Pferdeteam-Meldungen: bleiben so lange als offene Meldung sichtbar, bis sie
 // jemand ausdrücklich als gesehen markiert — unabhängig davon, wie viele Tage
