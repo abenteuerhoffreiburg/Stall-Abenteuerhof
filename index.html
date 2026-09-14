@@ -2569,7 +2569,9 @@ document.getElementById('openInfos').onclick = async () => {
           const url = getRole() === 'pferdeteam' ? 'https://kalender.digital/c2293dbb422655abfc91' : 'https://kalender.digital/f8fb4f88c81cef15eb50';
           window.open(url, '_blank');
     };
-document.getElementById('listBackBtn').onclick = async () => { await renderHome(); showScreen('homeScreen'); };
+        document.getElementById('openSchichten').onclick = async () => { await renderSchichtList(); showScreen('schichtenScreen'); };
+        document.getElementById('schichtenBackBtn').onclick = async () => { await renderHome(); showScreen('homeScreen'); };
+    ment.getElementById('listBackBtn').onclick = async () => { await renderHome(); showScreen('homeScreen'); };
 document.getElementById('manageBtn').onclick = () => { renderPonyManage(); showScreen('manageScreen'); };
 document.getElementById('refreshBtn').onclick = async () => { await refreshAllData(); await renderHome(); };
 document.getElementById('manageBackBtn').onclick = async () => { await renderHome(); showScreen('homeScreen'); };
