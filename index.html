@@ -2852,7 +2852,7 @@ let schichtWeekIndex = 0;
     }
 
     document.getElementById('openSchichten').onclick = async () => {
-          schichtWeekOffset = findNextFerienOffset();
+              schichtWeekIndex = findStartFerienWeekIndex();
           await renderSchichtGrid();
           showScreen('schichtenScreen');
     };
