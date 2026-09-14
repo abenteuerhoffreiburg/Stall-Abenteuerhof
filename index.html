@@ -2680,34 +2680,83 @@ document.getElementById('belGruppeChips').querySelectorAll('.chip').forEach(chip
   };
 });
 
-    let schichtWeekOffset = 0;
-
+let schichtWeekIndex = 0;
+    
+    // BaWü-Schulferien — bitte jährlich aktualisieren (Quelle: Kultusministerium BW)
     const BW_FERIEN = [
         { name: 'Herbstferien 2026', start: '2026-10-26', end: '2026-10-30' },
         { name: 'Weihnachtsferien 2026/27', start: '2026-12-23', end: '2027-01-08' },
         { name: 'Osterferien 2027', start: '2027-03-30', end: '2027-04-03' },
         { name: 'Pfingstferien 2027', start: '2027-05-18', end: '2027-05-29' },
         ];
-
-    function findNextFerienOffset() {
-          const today = todayStr();
-          const relevant = BW_FERIEN.filter(f => f.end >= today).sort((a,b) => a.start.localeCompare(b.start))[0];
-          if (!relevant) return 0;
-          const thisMonday = getWeekDates(0)[0];
-          const diffDays = Math.round((new Date(relevant.start) - new Date(thisMonday)) / 86400000);
-          return Math.floor(diffDays / 7);
+    
+    function getFerienWeeks() {
+          const weeks = new Set();
+          for (const f of BW_FERIEN) {
+                  let d = new Date(f.start + 'T00:00:00');
+                  const day = d.getDay();
+                  d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day));
+                  const end = new Date(f.end + 'T00:00:00');
+                  while (d <= end) {
+                            weeks.add(toLocalDateStr(d));
+                            d.setDate(d.getDate() + 7);
+                  }
+          }
+          return [...weeks].sort();
     }
-
+    
+    function datesFromMonday(mondayStr) {
+          const d = new Date(mondayStr + 'T00:00:00');
+          const dates = [];
+          for (let i = 0; i < 5; i++) {
+                  const dd = new Date(d);
+                  dd.setDate(d.getDate() + i);
+                  dates.push(toLocalDateStr(dd));
+          }
+          return dates;
+    }
+    
+    function ferienNameForMonday(mondayStr) {
+          const friday = datesFromMonday(mondayStr)[4];
+          const match = BW_FERIEN.find(f => f.start <= friday && f.end >= mondayStr);
+          return match ? match.name : '';
+    }
+    
+    function findStartFerienWeekIndex() {
+          const weeks = getFerienWeeks();
+          const today = todayStr();
+          for (let i = 0; i < weeks.length; i++) {
+                  if (datesFromMonday(weeks[i])[4] >= today) return i;
+          }
+          return Math.max(0, weeks.length - 1);
+    }
+    
     async function renderSchichtGrid() {
+          const weeks = getFerienWeeks();
+          if (schichtWeekIndex < 0) schichtWeekIndex = 0;
+          if (schichtWeekIndex > weeks.length - 1) schichtWeekIndex = weeks.length - 1;
+          const monday = weeks[schichtWeekIndex];
+          const weekDates = datesFromMonday(monday);
+        
+          const [ry,rm,rd] = weekDates[0].split('-').map(Number);
+          const [ry2,rm2,rd2] = weekDates[4].split('-').map(Number);
+          const monthNames = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+          const rangeLabel = rm === rm2
+                  ? `${rd}.–${rd2}. ${monthNames[rm2-1]}`
+                  : `${rd}. ${monthNames[rm-1]} – ${rd2}. ${monthNames[rm2-1]}`;
+          const ferienName = ferienNameForMonday(monday);
+        
           const navWrap = document.getElementById('schichtWeekNav');
-          navWrap.innerHTML = weekNavHtml('schicht', schichtWeekOffset);
-          document.getElementById('schichtPrevWeek').onclick = () => { schichtWeekOffset--; renderSchichtGrid(); };
-          document.getElementById('schichtNextWeek').onclick = () => { schichtWeekOffset++; renderSchichtGrid(); };
-          const todayBtn = document.getElementById('schichtTodayWeek');
-          if (todayBtn) todayBtn.onclick = () => { schichtWeekOffset = 0; renderSchichtGrid(); };
-
-          const weekDates = getWeekDates(schichtWeekOffset).slice(0, 5);
-          const dayLabels = ['Mo','Di','Mi','Do','Fr'];
+          navWrap.innerHTML = `
+              <div class="week-nav">
+                    <button class="week-nav-btn" id="schichtPrevWeek"${schichtWeekIndex <= 0 ? ' disabled' : ''}>‹</button>
+                          <div class="week-nav-label"><strong>${ferienName}</strong><br>${rangeLabel}</div>
+                                <button class="week-nav-btn" id="schichtNextWeek"${schichtWeekIndex >= weeks.length - 1 ? ' disabled' : ''}>›</button>
+                                    </div>`;
+          document.getElementById('schichtPrevWeek').onclick = () => { schichtWeekIndex--; renderSchichtGrid(); };
+          document.getElementById('schichtNextWeek').onclick = () => { schichtWeekIndex++; renderSchichtGrid(); };
+        
+            const dayLabels = ['Mo','Di','Mi','Do','Fr'];
           const allSchichten = await getSchichten();
           const isTeam = getRole() === 'pferdeteam';
 
