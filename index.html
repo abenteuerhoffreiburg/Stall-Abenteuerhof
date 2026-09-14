@@ -2780,41 +2780,48 @@ let schichtWeekIndex = 0;
           wireSchichtCells(grid, allSchichten);
     }
 
+function schichtArtLabel(art) {
+      return art === 'kann' ? 'Kann' : art === 'programm' ? 'Programm' : 'Muss';
+}
+
     function schichtCellHtml(date, zeit, allSchichten, isTeam) {
           const entry = allSchichten.find(s => s.date === date && s.zeit === zeit);
           if (!entry) {
                   return `<div class="schicht-cell nicht-geplant" data-date="${date}" data-zeit="${zeit}">
                         <div class="schicht-cell-badge">Nicht geplant</div>
                               <div class="schicht-cell-name">–</div>
-                                    ${isTeam ? '<div class="schicht-cell-action create-action">Kann / Muss wählen</div>' : ''}
-                                        </div>`;
+                                    ${isTeam ? `<div class="schicht-create-options">
+                                            <span class="schicht-create-btn" data-art="muss">Muss</span>
+                                                    <span class="schicht-create-btn" data-art="kann">Kann</span>
+                                                            <span class="schicht-create-btn" data-art="programm">Programm</span>
+                                                                  </div>` : ''}
+                                                                      </div>`;
           }
           const names = entry.names || [];
           const filled = names.length > 0;
-          const artClass = entry.art === 'kann' ? 'kann' : 'muss';
+          const artClass = entry.art === 'kann' ? 'kann' : entry.art === 'programm' ? 'programm' : 'muss';
           return `<div class="schicht-cell ${artClass}${filled ? ' filled' : ''}" data-id="${entry.id}">
               ${isTeam ? `<div class="schicht-cell-delete" data-id="${entry.id}">×</div>` : ''}
-                  <div class="schicht-cell-badge">${entry.art === 'kann' ? 'Kann' : 'Muss'}</div>
+                  <div class="schicht-cell-badge">${schichtArtLabel(entry.art)}</div>
                       <div class="schicht-cell-name${filled ? ' unclaim-action' : ''}" data-id="${entry.id}">${filled ? names.map(n => n.replace(/</g,'&lt;')).join(', ') : 'Frei'}</div>
                           <div class="schicht-cell-action claim-action" data-id="${entry.id}">${filled ? '+ Mithelfen' : '+ Eintragen'}</div>
                             </div>`;
     }
-
     function wireSchichtCells(grid, allSchichten) {
-          grid.querySelectorAll('.create-action').forEach(el => {
-                  el.onclick = async () => {
-                            const cell = el.closest('.schicht-cell');
-                            const date = cell.dataset.date;
-                            const zeit = cell.dataset.zeit;
-                            const isMuss = confirm('Mussschicht anlegen?\n\nOK = Mussschicht\nAbbrechen = Kannschicht');
-                            const s = { id: 'sch' + Date.now() + '-' + Math.random().toString(36).slice(2,7), date, zeit, art: isMuss ? 'muss' : 'kann', names: [], created: Date.now() };
-                            const ok = await addSchicht(s);
-                            if (!ok) alert('Konnte nicht synchronisiert werden — Verbindung prüfen.');
-                            renderSchichtGrid();
-                            renderHome();
-                  };
-          });
-          grid.querySelectorAll('.schicht-cell-delete').forEach(el => {
+grid.querySelectorAll('.schicht-create-btn').forEach(el => {
+        el.onclick = async () => {
+                  const cell = el.closest('.schicht-cell');
+                  const date = cell.dataset.date;
+                  const zeit = cell.dataset.zeit;
+                  const art = el.dataset.art;
+                  const s = { id: 'sch' + Date.now() + '-' + Math.random().toString(36).slice(2,7), date, zeit, art, names: [], created: Date.now() };
+                  const ok = await addSchicht(s);
+                  if (!ok) alert('Konnte nicht synchronisiert werden — Verbindung prüfen.');
+                  renderSchichtGrid();
+                  renderHome();
+        };
+});
+        grid.querySelectorAll('.schicht-cell-delete').forEach(el => {
                   el.onclick = async () => {
                             if (!confirm('Diesen Stalldienst wirklich löschen?')) return;
                             const ok = await deleteSchicht(el.dataset.id);
