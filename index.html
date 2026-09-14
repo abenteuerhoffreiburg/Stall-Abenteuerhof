@@ -1673,6 +1673,13 @@ async function renderHome() {
   if (infos.length > 0) parts.push(`${infos.length} Hinweis(e) — z. B. „${infos[0].text.slice(0,40)}${infos[0].text.length>40?'…':''}“`);
   if (openShopCount > 0) parts.push(`${openShopCount} offene Anschaffung(en)`);
   document.getElementById('infosSummary').textContent = parts.length ? parts.join(' · ') : 'Keine Hinweise hinterlegt';
+
+  const schichten = await getSchichten();
+  const upcomingSchichten = schichten.filter(s => s.date >= today);
+  const offenSchichten = upcomingSchichten.filter(s => !(s.names||[]).length).length;
+  document.getElementById('schichtenSummary').textContent = upcomingSchichten.length === 0
+    ? 'Noch keine Stalldienste eingetragen'
+          : `${offenSchichten} von ${upcomingSchichten.length} noch offen`;
 }
 
 /* ---------- Pony-Liste ---------- */
@@ -2938,6 +2945,8 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
           if (shopSection) shopSection.style.display = (role === 'ehrenamt') ? 'none' : 'block';
           const teamChip = document.getElementById('gesRolleTeamChip');
           if (teamChip) teamChip.style.display = (role === 'ehrenamt') ? 'none' : 'block';
+                    const schichtAddCard = document.getElementById('schichtAddCard');
+                    if (schichtAddCard) schichtAddCard.style.display = (role === 'ehrenamt') ? 'none' : 'block';
           document.body.classList.toggle('role-ehrenamt-mode', role === 'ehrenamt');
     }
 
