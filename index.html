@@ -2657,108 +2657,134 @@ document.getElementById('belGruppeChips').querySelectorAll('.chip').forEach(chip
   };
 });
 
-    document.getElementById('schichtZeit').querySelectorAll('.chip').forEach(chip => {
-          chip.onclick = () => {
-                  document.getElementById('schichtZeit').querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-                  chip.classList.add('selected');
-          };
-    });
+    let schichtWeekOffset = 0;
 
-    function fmtDateWeekday(d) {
-          const [y,m,day] = d.split('-').map(Number);
-          const dt = new Date(y, m-1, day);
-          const wd = ['So','Mo','Di','Mi','Do','Fr','Sa'][dt.getDay()];
-          return `${wd} ${String(day).padStart(2,'0')}.${String(m).padStart(2,'0')}.`;
+    const BW_FERIEN = [
+        { name: 'Herbstferien 2026', start: '2026-10-26', end: '2026-10-30' },
+        { name: 'Weihnachtsferien 2026/27', start: '2026-12-23', end: '2027-01-08' },
+        { name: 'Osterferien 2027', start: '2027-03-30', end: '2027-04-03' },
+        { name: 'Pfingstferien 2027', start: '2027-05-18', end: '2027-05-29' },
+        ];
+
+    function findNextFerienOffset() {
+          const today = todayStr();
+          const relevant = BW_FERIEN.filter(f => f.end >= today).sort((a,b) => a.start.localeCompare(b.start))[0];
+          if (!relevant) return 0;
+          const thisMonday = getWeekDates(0)[0];
+          const diffDays = Math.round((new Date(relevant.start) - new Date(thisMonday)) / 86400000);
+          return Math.floor(diffDays / 7);
     }
 
-    async function renderSchichtList() {
-          const list = document.getElementById('schichtList');
-          const items = await getSchichten();
-          items.sort((a,b) => a.date.localeCompare(b.date) || (a.zeit === 'abends' ? 1 : 0) - (b.zeit === 'abends' ? 1 : 0));
-          const summary = document.getElementById('schichtenSummary');
-          if (summary) {
-                  const offen = items.filter(i => !(i.names||[]).length).length;
-                  summary.textContent = items.length === 0 ? 'Noch keine Stalldienste' : `${offen} von ${items.length} noch offen`;
+    async function renderSchichtGrid() {
+          const navWrap = document.getElementById('schichtWeekNav');
+          navWrap.innerHTML = weekNavHtml('schicht', schichtWeekOffset);
+          document.getElementById('schichtPrevWeek').onclick = () => { schichtWeekOffset--; renderSchichtGrid(); };
+          document.getElementById('schichtNextWeek').onclick = () => { schichtWeekOffset++; renderSchichtGrid(); };
+          const todayBtn = document.getElementById('schichtTodayWeek');
+          if (todayBtn) todayBtn.onclick = () => { schichtWeekOffset = 0; renderSchichtGrid(); };
+
+          const weekDates = getWeekDates(schichtWeekOffset).slice(0, 5);
+          const dayLabels = ['Mo','Di','Mi','Do','Fr'];
+          const allSchichten = await getSchichten();
+          const isTeam = getRole() === 'pferdeteam';
+
+          let html = '<div class="schicht-grid-header"><div></div><div>Morgens</div><div>Abends</div></div>';
+          weekDates.forEach((date, i) => {
+                  const [y,m,day] = date.split('-');
+                  html += `<div class="schicht-grid-row">
+                        <div class="schicht-day-label"><strong>${dayLabels[i]}</strong><span>${day}.${m}.</span></div>
+                              ${schichtCellHtml(date, 'morgens', allSchichten, isTeam)}
+                                    ${schichtCellHtml(date, 'abends', allSchichten, isTeam)}
+                                        </div>`;
+          });
+          const grid = document.getElementById('schichtGrid');
+          grid.innerHTML = html;
+          wireSchichtCells(grid, allSchichten);
+    }
+
+    function schichtCellHtml(date, zeit, allSchichten, isTeam) {
+          const entry = allSchichten.find(s => s.date === date && s.zeit === zeit);
+          if (!entry) {
+                  return `<div class="schicht-cell nicht-geplant" data-date="${date}" data-zeit="${zeit}">
+                        <div class="schicht-cell-badge">Nicht geplant</div>
+                              <div class="schicht-cell-name">–</div>
+                                    ${isTeam ? '<div class="schicht-cell-action create-action">Kann / Muss wählen</div>' : ''}
+                                        </div>`;
           }
-          if (items.length === 0) { list.innerHTML = '<div class="empty-state">Noch keine Stalldienste eingetragen.</div>'; return; }
-          list.innerHTML = '';
-          items.forEach(item => {
-                  const div = document.createElement('div');
-                  div.className = 'entry';
-                  const names = item.names || [];
-                  const namesHtml = names.length
-                    ? `<div class="schicht-names">${names.map(n => `<span class="tag">${n.replace(/</g,'&lt;')}</span>`).join('')}</div>`
-                            : '<div class="schicht-names"><span class="schicht-open">Noch offen</span></div>';
-                  div.innerHTML = `
-                        <div class="entry-top"><span>${fmtDateWeekday(item.date)} — ${item.zeit === 'morgens' ? 'Morgens' : 'Abends'}</span><span style="background:${item.art === 'kann' ? 'var(--teal-tint)' : 'var(--brick-tint)'}; color:${item.art === 'kann' ? 'var(--teal)' : 'var(--brick)'}; padding:2px 8px; border-radius:var(--radius-sm); font-size:11px; font-weight:700;">${item.art === 'kann' ? 'Kann' : 'Muss'}</span></div>
-          ${namesHtml}
-                <div class="entry-meta">
-                        <span class="entry-actions">
-                                  <button class="claim-btn">+ eintragen</button>
-                                            ${names.length ? '<button class="unclaim-btn">austragen</button>' : ''}
-                                                      <button class="delete-btn schicht-delete-btn">löschen</button>
-                                                              </span>
-                                                                    </div>`;
-                  div.querySelector('.claim-btn').onclick = async () => {
+          const names = entry.names || [];
+          const filled = names.length > 0;
+          const artClass = entry.art === 'kann' ? 'kann' : 'muss';
+          return `<div class="schicht-cell ${artClass}${filled ? ' filled' : ''}" data-id="${entry.id}">
+              ${isTeam ? `<div class="schicht-cell-delete" data-id="${entry.id}">×</div>` : ''}
+                  <div class="schicht-cell-badge">${entry.art === 'kann' ? 'Kann' : 'Muss'}</div>
+                      <div class="schicht-cell-name${filled ? ' unclaim-action' : ''}" data-id="${entry.id}">${filled ? names.map(n => n.replace(/</g,'&lt;')).join(', ') : 'Frei'}</div>
+                          <div class="schicht-cell-action claim-action" data-id="${entry.id}">${filled ? '+ Mithelfen' : '+ Eintragen'}</div>
+                            </div>`;
+    }
+
+    function wireSchichtCells(grid, allSchichten) {
+          grid.querySelectorAll('.create-action').forEach(el => {
+                  el.onclick = async () => {
+                            const cell = el.closest('.schicht-cell');
+                            const date = cell.dataset.date;
+                            const zeit = cell.dataset.zeit;
+                            const isMuss = confirm('Mussschicht anlegen?\n\nOK = Mussschicht\nAbbrechen = Kannschicht');
+                            const s = { id: 'sch' + Date.now() + '-' + Math.random().toString(36).slice(2,7), date, zeit, art: isMuss ? 'muss' : 'kann', names: [], created: Date.now() };
+                            const ok = await addSchicht(s);
+                            if (!ok) alert('Konnte nicht synchronisiert werden — Verbindung prüfen.');
+                            renderSchichtGrid();
+                            renderHome();
+                  };
+          });
+          grid.querySelectorAll('.schicht-cell-delete').forEach(el => {
+                  el.onclick = async () => {
+                            if (!confirm('Diesen Stalldienst wirklich löschen?')) return;
+                            const ok = await deleteSchicht(el.dataset.id);
+                            if (!ok) alert('Löschen konnte nicht mit dem Google Sheet synchronisiert werden.');
+                            renderSchichtGrid();
+                            renderHome();
+                  };
+          });
+          grid.querySelectorAll('.claim-action').forEach(el => {
+                  el.onclick = async () => {
+                            const entry = allSchichten.find(s => s.id === el.dataset.id);
+                            if (!entry) return;
+                            const names = entry.names || [];
                             const name = prompt('Dein Name:');
                             if (!name || !name.trim()) return;
                             const trimmed = name.trim();
                             if (names.includes(trimmed)) { alert('Du bist schon eingetragen.'); return; }
-                            const ok = await addSchicht({ ...item, names: [...names, trimmed] });
+                            const ok = await addSchicht({ ...entry, names: [...names, trimmed] });
                             if (!ok) alert('Konnte nicht synchronisiert werden — Verbindung prüfen.');
-                            renderSchichtList();
+                            renderSchichtGrid();
+                            renderHome();
                   };
-                  const unclaimBtn = div.querySelector('.unclaim-btn');
-                  if (unclaimBtn) {
-                            unclaimBtn.onclick = async () => {
-                                        let toRemove = names[0];
-                                        if (names.length > 1) {
-              toRemove = prompt('Welchen Namen austragen?\n' + names.join(', '));
-                                                      if (!toRemove || !names.includes(toRemove.trim())) return;
-                                                      toRemove = toRemove.trim();
-                                        } else if (!confirm(`"${toRemove}" austragen?`)) return;
-                                        const ok = await addSchicht({ ...item, names: names.filter(n => n !== toRemove) });
-                                        if (!ok) alert('Konnte nicht synchronisiert werden — Verbindung prüfen.');
-                                        renderSchichtList();
-                            };
-                  }
-                  div.querySelector('.delete-btn').onclick = async () => {
-                            if (!confirm('Diesen Stalldienst wirklich löschen?')) return;
-                            const ok = await deleteSchicht(item.id);
-                            if (!ok) alert('Löschen konnte nicht mit dem Google Sheet synchronisiert werden.');
-                            renderSchichtList();
+          });
+          grid.querySelectorAll('.unclaim-action').forEach(el => {
+                  el.onclick = async () => {
+                            const entry = allSchichten.find(s => s.id === el.dataset.id);
+                            if (!entry) return;
+                            const names = entry.names || [];
+                            let toRemove = names[0];
+                            if (names.length > 1) {
+                                        toRemove = prompt('Welchen Namen austragen?\n' + names.join(', '));
+                                        if (!toRemove || !names.includes(toRemove.trim())) return;
+                                        toRemove = toRemove.trim();
+                            } else if (!confirm(`"${toRemove}" austragen?`)) return;
+                            const ok = await addSchicht({ ...entry, names: names.filter(n => n !== toRemove) });
+                            if (!ok) alert('Konnte nicht synchronisiert werden — Verbindung prüfen.');
+                            renderSchichtGrid();
+                            renderHome();
                   };
-                  list.appendChild(div);
           });
     }
 
-    document.getElementById('schichtAddSubmit').onclick = async () => {
-          const btn = document.getElementById('schichtAddSubmit');
-          const statusEl = document.getElementById('schichtAddStatus');
-          if (btn.disabled) return;
-          const date = document.getElementById('schichtDate').value;
-          const zeitChip = document.getElementById('schichtZeit').querySelector('.chip.selected');
-            const artChip = document.getElementById('schichtArt').querySelector('.chip.selected');
-          if (!date) { alert('Bitte ein Datum wählen.'); return; }
-          if (!zeitChip) { alert('Bitte Morgens oder Abends wählen.'); return; }
-          btn.disabled = true;
-          showSaveStatus(statusEl, 'saving', 'Speichert …');
-          const s = {
-                  id: 'sch' + Date.now() + '-' + Math.random().toString(36).slice(2,7),
-                  date, zeit: zeitChip.dataset.val, art: artChip ? artChip.dataset.val : 'muss', names: [], created: Date.now()
-          };
-          const ok = await addSchicht(s);
-          btn.disabled = false;
-          if (ok) {
-                  showSaveStatus(statusEl, 'ok', '✓ Hinzugefügt');
-                  document.getElementById('schichtDate').value = '';
-                  document.getElementById('schichtZeit').querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-                  document.getElementById('schichtArt').querySelectorAll('.chip').forEach(c => c.classList.toggle('selected', c.dataset.val === 'muss'));
-          } else {
-                  showSaveStatus(statusEl, 'error', 'Nicht gespeichert — Verbindung prüfen und nochmal versuchen');
-          }
-          renderSchichtList();
+    document.getElementById('openSchichten').onclick = async () => {
+          schichtWeekOffset = findNextFerienOffset();
+          await renderSchichtGrid();
+          showScreen('schichtenScreen');
     };
+    document.getElementById('schichtenBackBtn').onclick = async () => { await renderHome(); showScreen('homeScreen'); };
 
 document.getElementById('belAktivitaet').querySelectorAll('.chip').forEach(chip => {
   chip.onclick = () => {
