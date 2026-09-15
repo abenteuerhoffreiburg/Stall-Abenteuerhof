@@ -2703,21 +2703,41 @@ let schichtWeekIndex = 0;
         { name: 'Pfingstferien 2027', start: '2027-05-18', end: '2027-05-29' },
         ];
     
-    function getFerienWeeks() {
-          const weeks = new Set();
-          for (const f of BW_FERIEN) {
-                  let d = new Date(f.start + 'T00:00:00');
-                  const day = d.getDay();
-                  d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day));
-                  const end = new Date(f.end + 'T00:00:00');
-                  while (d <= end) {
-                            weeks.add(toLocalDateStr(d));
-                            d.setDate(d.getDate() + 7);
-                  }
-          }
-          return [...weeks].sort();
+async function getFerienWeeks() {
+      const weeks = new Set();
+      for (const f of BW_FERIEN) {
+              let d = new Date(f.start + 'T00:00:00');
+              const day = d.getDay();
+              d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day));
+              const end = new Date(f.end + 'T00:00:00');
+              while (d <= end) {
+                        weeks.add(toLocalDateStr(d));
+                        d.setDate(d.getDate() + 7);
+              }
+      }
+      const customRaw = await storageGet('customFerienWeeks');
+      let custom = [];
+      try { custom = customRaw ? JSON.parse(customRaw) : []; } catch(e) {}
+      custom.forEach(w => weeks.add(w));
+      return [...weeks].sort();
+}
+
+    function mondayOfWeek(dateStr) {
+          const d = new Date(dateStr + 'T00:00:00');
+          const day = d.getDay();
+          d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day));
+          return toLocalDateStr(d);
     }
-    
+
+    async function addCustomFerienWeek(dateStr) {
+          const monday = mondayOfWeek(dateStr);
+          const customRaw = await storageGet('customFerienWeeks');
+          let custom = [];
+          try { custom = customRaw ? JSON.parse(customRaw) : []; } catch(e) {}
+          if (!custom.includes(monday)) custom.push(monday);
+          const ok = await storageSet('customFerienWeeks', JSON.stringify(custom));
+          return { ok, monday };
+    }
     function datesFromMonday(mondayStr) {
           const d = new Date(mondayStr + 'T00:00:00');
           const dates = [];
@@ -2735,18 +2755,19 @@ let schichtWeekIndex = 0;
           return match ? match.name : '';
     }
     
-    function findStartFerienWeekIndex() {
-          const weeks = getFerienWeeks();
-          const today = todayStr();
-          for (let i = 0; i < weeks.length; i++) {
-                  if (datesFromMonday(weeks[i])[4] >= today) return i;
-          }
-          return Math.max(0, weeks.length - 1);
-    }
+async function findStartFerienWeekIndex() {
+      const weeks = await getFerienWeeks();
+      const today = todayStr();
+      for (let i = 0; i < weeks.length; i++) {
+              if (datesFromMonday(weeks[i])[4] >= today) return i;
+      }
+      return Math.max(0, weeks.length - 1);
+}
     
     async function renderSchichtGrid() {
-          const weeks = getFerienWeeks();
-          if (schichtWeekIndex < 0) schichtWeekIndex = 0;
+          const isTeam = getRole() === 'pferdeteam';
+  const weeks = await getFerienWeeks();
+            if (schichtWeekIndex < 0) schichtWeekIndex = 0;
           if (schichtWeekIndex > weeks.length - 1) schichtWeekIndex = weeks.length - 1;
           const monday = weeks[schichtWeekIndex];
           const weekDates = datesFromMonday(monday);
@@ -2788,7 +2809,7 @@ let schichtWeekIndex = 0;
     }
 
 function schichtArtLabel(art) {
-      return art === 'kann' ? 'Kann' : art === 'programm' ? 'Programm' : 'Muss';
+        return art === 'kann' ? 'Kann' : 'Muss';
 }
 
     function schichtCellHtml(date, zeit, allSchichten, isTeam) {
@@ -2800,13 +2821,12 @@ function schichtArtLabel(art) {
                                     ${isTeam ? `<div class="schicht-create-options">
                                             <span class="schicht-create-btn" data-art="muss">Muss</span>
                                                     <span class="schicht-create-btn" data-art="kann">Kann</span>
-                                                            <span class="schicht-create-btn" data-art="programm">Programm</span>
                                                                   </div>` : ''}
                                                                       </div>`;
           }
           const names = entry.names || [];
           const filled = names.length > 0;
-          const artClass = entry.art === 'kann' ? 'kann' : entry.art === 'programm' ? 'programm' : 'muss';
+            const artClass = entry.art === 'kann' ? 'kann' : 'muss';
           return `<div class="schicht-cell ${artClass}${filled ? ' filled' : ''}" data-id="${entry.id}">
               ${isTeam ? `<div class="schicht-cell-delete" data-id="${entry.id}">×</div>` : ''}
                   <div class="schicht-cell-badge">${schichtArtLabel(entry.art)}</div>
