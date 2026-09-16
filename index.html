@@ -2764,7 +2764,7 @@ async function findStartFerienWeekIndex() {
 }
     
     async function renderSchichtGrid() {
-          const isTeam = getRole() === 'pferdeteam';
+          () === 'pferdeteam';
   const weeks = await getFerienWeeks();
             if (schichtWeekIndex < 0) schichtWeekIndex = 0;
           if (schichtWeekIndex > weeks.length - 1) schichtWeekIndex = weeks.length - 1;
@@ -2791,8 +2791,21 @@ async function findStartFerienWeekIndex() {
         
             const dayLabels = ['Mo','Di','Mi','Do','Fr'];
           const allSchichten = await getSchichten();
-          const isTeam = getRole() === 'pferdeteam';
-
+          const addWeekRow = document.getElementById('schichtAddWeekRow');
+          if (addWeekRow) addWeekRow.style.display = isTeam ? 'flex' : 'none';
+          const addWeekBtn = document.getElementById('schichtAddWeekBtn');
+          if (addWeekBtn) addWeekBtn.onclick = async () => {
+                  const dateInput = document.getElementById('schichtCustomWeekDate');
+                  if (!dateInput.value) { alert('Bitte ein Datum wählen.'); return; }
+                  const result = await addCustomFerienWeek(dateInput.value);
+                  if (!result.ok) { alert('Konnte nicht synchronisiert werden — Verbindung prüfen.'); return; }
+                  const newWeeks = await getFerienWeeks();
+                  schichtWeekIndex = newWeeks.indexOf(result.monday);
+                  if (schichtWeekIndex < 0) schichtWeekIndex = 0;
+                  dateInput.value = '';
+                  renderSchichtGrid();
+          };
+        
           let html = '<div class="schicht-grid-header"><div></div><div>Morgens</div><div>Abends</div></div>';
           weekDates.forEach((date, i) => {
                   const [y,m,day] = date.split('-');
