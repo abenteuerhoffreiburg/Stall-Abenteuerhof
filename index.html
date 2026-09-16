@@ -2760,11 +2760,10 @@ async function findStartFerienWeekIndex() {
       for (let i = 0; i < weeks.length; i++) {
               if (datesFromMonday(weeks[i])[4] >= today) return i;
       }
-      return Math.max(0, weeks.length - 1);
-}
+        
     
     async function renderSchichtGrid() {
-          () === 'pferdeteam';
+  const isTeam = getRole() === 'pferdeteam';
   const weeks = await getFerienWeeks();
             if (schichtWeekIndex < 0) schichtWeekIndex = 0;
           if (schichtWeekIndex > weeks.length - 1) schichtWeekIndex = weeks.length - 1;
