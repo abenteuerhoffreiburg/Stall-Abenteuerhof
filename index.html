@@ -1745,6 +1745,13 @@ async function renderHome() {
   document.getElementById('schichtenSummary').textContent = upcomingSchichten.length === 0
     ? 'Noch keine Stalldienste eingetragen'
           : `${offenSchichten} von ${upcomingSchichten.length} noch offen`;
+
+          const todoSummaryEl = document.getElementById('todoSummary');
+      if (todoSummaryEl) {
+              const todos = await getTodos();
+              const openTodos = todos.filter(t => !t.done).length;
+              todoSummaryEl.textContent = openTodos === 0 ? 'Keine offenen Aufgaben' : `${openTodos} offene Aufgabe${openTodos === 1 ? '' : 'n'}`;
+      }
 }
 
 /* ---------- Pony-Liste ---------- */
