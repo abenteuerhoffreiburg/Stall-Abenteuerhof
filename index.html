@@ -1545,6 +1545,20 @@ async function getShopItems() {
 }
 async function addShopItem(item) { return await storageSet(`shop:${item.id}`, JSON.stringify(item)); }
 async function deleteShopItem(itemId) { return await storageDelete(`shop:${itemId}`); }
+
+        // To-do-Liste — gleiches Prinzip: jeder Eintrag ein eigener Schlüssel
+    async function getTodos() {
+          const prefix = 'todo:';
+          const result = [];
+          for (const key of Object.keys(cache)) {
+                  if (key.indexOf(prefix) === 0) {
+                            try { result.push(JSON.parse(cache[key])); } catch(e) { /* skip */ }
+                  }
+          }
+          return result;
+    }
+    async function addTodo(item) { return await storageSet(`todo:${item.id}`, JSON.stringify(item)); }
+    async function deleteTodo(itemId) { return await storageDelete(`todo:${itemId}`); }
     async function getSchichten() { const prefix = 'schicht:'; const result = []; for (const key of Object.keys(cache)) { if (key.indexOf(prefix) === 0) { try { result.push(JSON.parse(cache[key])); } catch(e) { /* skip */ } } } return result; }
     async function addSchicht(s) { return await storageSet(`schicht:${s.id}`, JSON.stringify(s)); }
     async function deleteSchicht(schichtId) { return await storageDelete(`schicht:${schichtId}`); }
