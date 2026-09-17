@@ -2480,6 +2480,7 @@ document.getElementById('shopSubmit').onclick = async () => {
     }
 
     function renderTodoEntry(item) {
+      const safeDate = item.date || toLocalDateStr(new Date(item.created || Date.now()));
           const div = document.createElement('div');
           div.className = 'entry';
           div.innerHTML = `
@@ -2488,7 +2489,7 @@ document.getElementById('shopSubmit').onclick = async () => {
                           <div class="shop-body">
                                   <div class="shop-name ${item.done ? 'done' : ''}">${item.text.replace(/</g,'&lt;')}</div>
                                           ${commentsHtml(item)}
-                                                  <div class="entry-meta"><span>von ${item.author || 'unbekannt'} · ${fmtDate(item.date)}</span>
+                                                  <div class="entry-meta"><span>von ${item.author || 'unbekannt'} · ${fmtDate(safeDate)}</span>
                                                             <span class="entry-actions">
                                                                         <button class="delete-btn">löschen</button>
                                                                                   </span>
