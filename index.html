@@ -1205,7 +1205,24 @@
           <div id="schichtGrid"></div>
     </div>
 
+    <!-- TO-DO-LISTE -->
 <script>
+    <div id="todoScreen" style="display:none;">
+          <div class="detail-role-label">Bereich: Pferdeteam</div>
+      <button class="back-link" id="todoBackBtn">Übersicht</button>
+      <div class="detail-header">To-do-Liste</div>
+      <div class="detail-sub">Gemeinsame Aufgaben fürs Pferdeteam</div>
+      <div class="card">
+            <label>Neue Aufgabe</label>
+        <textarea id="todoText" placeholder="z. B. Heukammer aufräumen…"></textarea>
+        <button class="submit-btn" id="todoSubmit">Aufgabe hinzufügen</button>
+        <div class="save-status" id="todoSaveStatus"></div>
+        </div>
+      <div class="section-label" id="todoOpenLabel">OFFENE AUFGABEN (0)</div>
+      <div class="entry-list" id="todoOpenList"></div>
+      <button class="toggle-details" id="todoDoneToggle" style="width:100%; text-align:left; margin-top:20px;">▶ Erledigt (0)</button>
+      <div class="entry-list" id="todoDoneList" style="display:none;"></div>
+        </div>
 let ponies = [];
 let activePonyId = null;
 let belScaleVal = null;
