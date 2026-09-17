@@ -2503,6 +2503,45 @@ document.getElementById('shopSubmit').onclick = async () => {
           return div;
     }
 
+
+    let todoDoneExpanded = false;
+    document.getElementById('todoDoneToggle').onclick = () => {
+          todoDoneExpanded = !todoDoneExpanded;
+          document.getElementById('todoDoneList').style.display = todoDoneExpanded ? 'block' : 'none';
+          renderTodoList();
+    };
+
+    document.getElementById('todoSubmit').onclick = async () => {
+          const btn = document.getElementById('todoSubmit');
+          const statusEl = document.getElementById('todoSaveStatus');
+          if (btn.disabled) return;
+          const text = document.getElementById('todoText').value.trim();
+          if (!text) { alert('Bitte eine Aufgabe eintragen.'); return; }
+          const name = promptUserName();
+          if (!name) return;
+          btn.disabled = true;
+          showSaveStatus(statusEl, 'saving', 'Speichert …');
+          const item = {
+                  id: 't' + Date.now() + '-' + Math.random().toString(36).slice(2,7),
+                  text, author: name, done: false,
+                  date: todayStr(), created: Date.now()
+          };
+          const ok = await addTodo(item);
+          btn.disabled = false;
+          if (ok) {
+                  showSaveStatus(statusEl, 'ok', '✓ Hinzugefügt');
+                  document.getElementById('todoText').value = '';
+          } else {
+                  showSaveStatus(statusEl, 'error', 'Nicht gespeichert — Verbindung prüfen und nochmal versuchen');
+          }
+          renderTodoList();
+    };
+
+    document.getElementById('openTodos').onclick = async () => {
+          await renderTodoList();
+          showScreen('todoScreen');
+    };
+    document.getElementById('todoBackBtn').onclick = async () => { await renderHome(); showScreen('homeScreen'); };
 let editingInfoId = null;
 let editingInfoCreated = null;
 let editingInfoDate = null;
