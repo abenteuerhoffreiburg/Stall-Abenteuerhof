@@ -2448,6 +2448,61 @@ document.getElementById('shopSubmit').onclick = async () => {
   renderShopList();
 };
 
+    async function renderTodoList() {
+          const allTodos = await getTodos();
+          allTodos.sort((a,b) => b.created - a.created);
+          const open = allTodos.filter(t => !t.done);
+          const done = allTodos.filter(t => t.done);
+          document.getElementById('todoOpenLabel').textContent = `OFFENE AUFGABEN (${open.length})`;
+          const openList = document.getElementById('todoOpenList');
+          if (open.length === 0) {
+                  openList.innerHTML = '<div class="empty-state">Alles erledigt. Neue Aufgaben kannst du oben hinzufügen.</div>';
+          } else {
+                  openList.innerHTML = '';
+                  open.forEach(t => openList.appendChild(renderTodoEntry(t)));
+          }
+          document.getElementById('todoDoneToggle').textContent = (todoDoneExpanded ? '▼' : '▶') + ` Erledigt (${done.length})`;
+          const doneList = document.getElementById('todoDoneList');
+          doneList.innerHTML = '';
+          if (done.length === 0) {
+                  doneList.innerHTML = '<div class="empty-state">Noch nichts erledigt.</div>';
+          } else {
+                  done.forEach(t => doneList.appendChild(renderTodoEntry(t)));
+          }
+    }
+
+    function renderTodoEntry(item) {
+          const div = document.createElement('div');
+          div.className = 'entry';
+          div.innerHTML = `
+              <div class="shop-item">
+                    <input type="checkbox" class="shop-check" ${item.done ? 'checked' : ''}>
+                          <div class="shop-body">
+                                  <div class="shop-name ${item.done ? 'done' : ''}">${item.text.replace(/</g,'&lt;')}</div>
+                                          ${commentsHtml(item)}
+                                                  <div class="entry-meta"><span>von ${item.author || 'unbekannt'} · ${fmtDate(item.date)}</span>
+                                                            <span class="entry-actions">
+                                                                        <button class="delete-btn">löschen</button>
+                                                                                  </span>
+                                                                                          </div>
+                                                                                                </div>
+                                                                                                    </div>`;
+          div.querySelector('.shop-check').onchange = async (ev) => {
+                  const updated = { ...item, done: ev.target.checked };
+                  const ok = await addTodo(updated);
+                  if (!ok) { ev.target.checked = item.done; alert('Konnte nicht synchronisiert werden — Verbindung prüfen.'); return; }
+                  renderTodoList();
+          };
+          wireComments(div, item, addTodo, renderTodoList);
+          div.querySelector('.delete-btn').onclick = async () => {
+                  if (!confirm('Diese Aufgabe wirklich löschen?')) return;
+                  const ok = await deleteTodo(item.id);
+                  if (!ok) alert('Löschen konnte nicht mit dem Google Sheet synchronisiert werden.');
+                  renderTodoList();
+          };
+          return div;
+    }
+
 let editingInfoId = null;
 let editingInfoCreated = null;
 let editingInfoDate = null;
