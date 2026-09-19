@@ -5079,3 +5079,134 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
 
 </body>
 </html>
+function doPost(e) {
+  var data = {};
+
+  try {
+    data = JSON.parse(
+      e && e.postData && e.postData.contents
+        ? e.postData.contents
+        : '{}'
+    );
+  } catch (err) {
+    return jsonOut({ ok: false, error: 'invalid_json' });
+  }
+
+  var action = data.action || '';
+
+  // ---- Login ----
+  if (action === 'authenticateTeam') {
+    return jsonOut(
+      serverAuthenticateTeam(data.name, data.pin)
+    );
+  }
+
+  if (action === 'describeTeamSession') {
+    return jsonOut(
+      serverDescribeTeamSession(data.teamToken || '')
+    );
+  }
+
+  // ---- Admin / Zugänge verwalten ----
+  if (action === 'listTeamUsers') {
+    return jsonOut(
+      serverAdminListTeamUsers(data.teamToken || '')
+    );
+  }
+
+  if (action === 'addTeamUser') {
+    return jsonOut(
+      serverAdminAddTeamUser(
+        data.teamToken || '',
+        data.name,
+        data.pin,
+        data.admin
+      )
+    );
+  }
+
+  if (action === 'updateTeamUser') {
+    return jsonOut(
+      serverAdminUpdateTeamUser(
+        data.teamToken || '',
+        data.name,
+        data.pin || '',
+        data.admin
+      )
+    );
+  }
+
+  if (action === 'removeTeamUser') {
+    return jsonOut(
+      serverAdminRemoveTeamUser(
+        data.teamToken || '',
+        data.name
+      )
+    );
+  }
+
+  // ---- Alle Tracker-Daten laden ----
+  if (action === 'all') {
+    var sheet = getSheet();
+    var rows = sheet.getDataRange().getValues();
+    var obj = {};
+
+    for (var i = 1; i < rows.length; i++) {
+      if (rows[i][0]) {
+        obj[rows[i][0]] = rows[i][1];
+      }
+    }
+
+    obj = serverFilterAllDataForViewer_(
+      obj,
+      data.teamToken || ''
+    );
+
+    return jsonOut({ data: obj });
+  }
+
+  // ---- Daten speichern ----
+  if (action === 'set') {
+    serverRequireTeamForKey_(
+      data.key,
+      data.teamToken || ''
+    );
+
+    serverSet(data.key, data.value);
+
+    return jsonOut({ ok: true });
+  }
+
+  // ---- Daten löschen ----
+  if (action === 'delete') {
+    serverRequireTeamForKey_(
+      data.key,
+      data.teamToken || ''
+    );
+
+    serverDelete(data.key);
+
+    return jsonOut({ ok: true });
+  }
+
+  // ---- Fotos / Audio ----
+  if (action === 'uploadPhoto') {
+    return jsonOut(
+      serverUploadPhoto(
+        data.base64,
+        data.mimeType
+      )
+    );
+  }
+
+  if (action === 'deletePhoto') {
+    return jsonOut(
+      serverDeletePhoto(data.fileId)
+    );
+  }
+
+  return jsonOut({
+    ok: false,
+    error: 'unknown_action'
+  });
+}
