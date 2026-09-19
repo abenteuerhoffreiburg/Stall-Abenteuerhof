@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pony-tracker-shell-v15';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v15';
 
 const APP_SHELL = [
   './',
@@ -25,16 +25,16 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+    caches.keys()
+      .then(keys =>
+        Promise.all(
+          keys
+            .filter(key => key !== CACHE_NAME)
+            .map(key => caches.delete(key))
+        )
       )
-    )
+      .then(() => self.clients.claim())
   );
-
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
