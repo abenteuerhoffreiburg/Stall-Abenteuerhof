@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pony-tracker-shell-v10';
+const CACHE_NAME = 'pony-tracker-shell-v11';
 
 const APP_SHELL = [
   './',
