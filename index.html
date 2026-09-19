@@ -292,12 +292,24 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 26px;
+              color: var(--text-secondary);
       }
-      .folder-mark.movement { background: var(--navy-tint); }
-      .folder-mark.health { background: var(--brick-tint); }
-      .folder-mark.info { background: var(--slate-tint); }
-      .folder-mark.todo { background: var(--slate-tint); font-size: 20px; font-weight: 700; color: var(--text); }
+      .folder-mark svg {
+              width: 27px;
+              height: 27px;
+              display: block;
+              fill: none;
+              stroke: currentColor;
+              stroke-width: 1.9;
+              stroke-linecap: round;
+              stroke-linejoin: round;
+      }
+      .folder-mark.movement { background: var(--navy-tint); color: var(--navy-hover); }
+      .folder-mark.health { background: var(--brick-tint); color: var(--brick); }
+      .folder-mark.info { background: var(--slate-tint); color: var(--slate); }
+      .folder-mark.calendar { background: var(--teal-tint); color: var(--teal); }
+      .folder-mark.todo { background: var(--slate-tint); color: var(--slate); }
+      .folder-mark.shifts { background: var(--amber-tint); color: var(--amber); }
       body.role-ehrenamt-mode #openTodos { display: none; }
       .detail-role-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-tertiary); margin-bottom: 6px; }
       .folder-body { flex: 1; min-width: 0; }
@@ -1304,7 +1316,70 @@
   }
   .todo-assignee-choice.selected { background: var(--teal); color: #fff; border-color: var(--teal); }
   .todo-assignee-choice.add { border-style: dashed; color: var(--navy); }
+  .todo-assignee-manage-toggle {
+    width: 100%;
+    margin-top: 8px;
+    border: none;
+    background: transparent;
+    color: var(--navy);
+    font: 700 11.5px var(--font-display);
+    text-align: left;
+    cursor: pointer;
+    padding: 4px 2px;
+  }
+  .todo-assignee-manage {
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .todo-assignee-manage-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-alt);
+  }
+  .todo-assignee-manage-name {
+    flex: 1;
+    min-width: 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .todo-assignee-mini-btn {
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 5px 7px;
+    font: 700 10.5px var(--font-display);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .todo-assignee-mini-btn.danger { color: var(--brick); }
+
   .todo-created-meta { font-size: 10.5px; color: var(--text-tertiary); margin-top: 4px; }
+  .todo-repeat-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-alt);
+    cursor: pointer;
+  }
+  .todo-repeat-row input { margin-top: 2px; width: 18px; height: 18px; accent-color: var(--navy); flex: 0 0 auto; }
+  .todo-repeat-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .todo-repeat-sub { font-size: 11.5px; color: var(--text-secondary); margin-top: 2px; line-height: 1.35; }
+  .todo-weekly-badge { background: var(--navy-tint); color: var(--navy); }
+  .todo-entry.todo-weekly-done { background: var(--surface-alt); }
+
 
   /* ---------- Standalone / Android / Safe Areas ---------- */
   body { padding-bottom: max(48px, env(safe-area-inset-bottom)); }
@@ -1442,7 +1517,9 @@
   <div class="section-label">Bereiche</div>
   <div class="folder-list">
     <div class="folder-row info" id="openInfos">
-      <div class="folder-mark info">📌</div>
+      <div class="folder-mark info" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M14.5 4.5 19 9l-3 1-3.5 3.5L13 18l-2 2-1.5-5.5L4 9l2-2 4.5.5L14 4z"/><path d="m9.5 14.5-5 5"/></svg>
+      </div>
       <div class="folder-body">
         <div class="folder-title">Allgemeine Infos</div>
         <div class="folder-sub" id="infosSummary">…</div>
@@ -1450,7 +1527,9 @@
       <div class="folder-chevron">›</div>
     </div>
     <div class="folder-row health" id="openGesundheit">
-      <div class="folder-mark health">❤️</div>
+      <div class="folder-mark health" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M20.8 5.7c-2.1-2.2-5.5-2.2-7.6 0L12 6.9l-1.2-1.2a5.3 5.3 0 0 0-7.6 7.4L12 21l8.8-7.9a5.3 5.3 0 0 0 0-7.4z"/><path d="M6.5 12h3l1.3-2.7 2.2 5.2 1.3-2.5h3.2"/></svg>
+      </div>
       <div class="folder-body">
         <div class="folder-title">Gesundheit</div>
         <div class="folder-sub" id="gesundheitSummary">…</div>
@@ -1459,7 +1538,9 @@
       <div class="folder-chevron">›</div>
     </div>
     <div class="folder-row movement" id="openBewegung">
-      <div class="folder-mark movement">🐴</div>
+      <div class="folder-mark movement" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 20c.2-3.3 1-5.8 2.5-7.3 1.2-1.2 1.7-2.8 1.5-4.7L10.5 4l3 2 2-3 .7 4.2c2.2 1 3.3 2.7 3.3 5.2 0 2.9-2 4.6-5.3 4.6H12c-1.7 0-2.8 1-3 3"/><path d="M15.7 9.3h.1"/><path d="M11 8.3 7.5 6.5"/></svg>
+      </div>
       <div class="folder-body">
         <div class="folder-title">Bewegung</div>
         <div class="folder-sub" id="bewegungSummary">…</div>
@@ -1468,7 +1549,9 @@
       <div class="folder-chevron">›</div>
     </div>
     <div class="folder-row" id="openKalender" style="cursor:pointer;">
-      <div class="folder-mark" style="background:var(--teal-tint);">📅</div>
+      <div class="folder-mark calendar" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17"/><path d="M8 13h2M14 13h2M8 17h2M14 17h2"/></svg>
+      </div>
       <div class="folder-body">
         <div class="folder-title">Kalender</div>
         <div class="folder-sub">Termine, Hufpflege, Ferien — öffnet in neuem Tab</div>
@@ -1476,7 +1559,9 @@
       <div class="folder-chevron">↗</div>
     </div>
     <div class="folder-row" id="openTodos">
-      <div class="folder-mark todo">✓</div>
+      <div class="folder-mark todo" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+      </div>
       <div class="folder-body">
         <div class="folder-title">To-do-Liste</div>
         <div class="folder-sub" id="todoSummary">…</div>
@@ -1484,7 +1569,9 @@
       <div class="folder-chevron">›</div>
     </div>
     <div class="folder-row" id="openSchichten">
-      <div class="folder-mark" style="background:var(--amber-tint);">🗓️</div>
+      <div class="folder-mark shifts" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17"/><path d="M7 14h4l1 2h5"/><path d="m15 13 2 3-2 3"/></svg>
+      </div>
       <div class="folder-body">
         <div class="folder-title">Ferien-Stalldienste</div>
         <div class="folder-sub" id="schichtenSummary">…</div>
@@ -1823,6 +1910,13 @@
             </select>
           </div>
         </div>
+        <label class="todo-repeat-row" for="todoWeekly">
+          <input type="checkbox" id="todoWeekly">
+          <span>
+            <span class="todo-repeat-title">Wöchentlich wiederkehrend</span>
+            <span class="todo-repeat-sub">Bleibt dauerhaft in der Liste und kann jede Woche neu abgehakt werden.</span>
+          </span>
+        </label>
         <button class="submit-btn" id="todoSubmit">Aufgabe hinzufügen</button>
         <div class="save-status" id="todoSaveStatus"></div>
       </div>
@@ -1830,6 +1924,8 @@
         <div class="todo-filter-label">Filtern nach Zuständigkeit</div>
         <div class="todo-filter-chips" id="todoFilterChips"></div>
       </div>
+      <div class="section-label" id="todoWeeklyLabel">WÖCHENTLICHE AUFGABEN</div>
+      <div class="entry-list todo-list" id="todoWeeklyList"></div>
       <div class="section-label" id="todoOpenLabel">OFFENE AUFGABEN (0)</div>
       <div class="entry-list todo-list" id="todoOpenList"></div>
       <button class="toggle-details" id="todoDoneToggle" style="width:100%; text-align:left; margin-top:20px;">▶ Erledigt (0)</button>
@@ -2756,7 +2852,7 @@ async function renderHome() {
     : `${offenSchichten} von ${upcomingSchichten.length} noch offen`;
 
   const todos = await getTodos();
-  const openTodos = todos.filter(t => !t.done).length;
+  const openTodos = todos.filter(t => isWeeklyTodo(t) ? !isWeeklyTodoDoneThisWeek(t) : !t.done).length;
   const todoSummaryEl = document.getElementById('todoSummary');
   if (todoSummaryEl) todoSummaryEl.textContent = openTodos === 0 ? 'Keine offenen Aufgaben' : `${openTodos} offene Aufgabe${openTodos === 1 ? '' : 'n'}`;
 
@@ -3788,17 +3884,25 @@ document.getElementById('shopSubmit').onclick = async () => {
     let todoDoneExpanded = false;
     let todoFilter = 'Alle';
     let todoAssigneeSelected = 'Alle';
+    let todoAssigneeManageOpen = false;
+
+    function normalizeTodoAssigneeName(value) {
+          const clean = String(value || '').trim();
+          if (!clean) return 'Alle';
+          if (clean.toLocaleLowerCase('de') === 'pferdeteam') return 'Alle';
+          return clean;
+    }
 
     async function getTodoAssigneeOptions() {
           const raw = await storageGet('settings:todo-assignees');
           let saved = [];
           try { saved = raw ? JSON.parse(raw) : []; } catch(e) { saved = []; }
           const todos = await getTodos();
-          const fromTodos = todos.map(todoAssignee).filter(Boolean);
-          const merged = ['Alle', 'Pferdeteam', ...saved, ...fromTodos];
+          const fromTodos = todos.map(t => normalizeTodoAssigneeName(t.assignee)).filter(Boolean);
+          const merged = ['Alle', ...saved.map(normalizeTodoAssigneeName), ...fromTodos];
           const seen = new Set();
           return merged.filter(name => {
-                const clean = String(name || '').trim();
+                const clean = normalizeTodoAssigneeName(name);
                 const key = clean.toLocaleLowerCase('de');
                 if (!clean || seen.has(key)) return false;
                 seen.add(key);
@@ -3806,14 +3910,98 @@ document.getElementById('shopSubmit').onclick = async () => {
           });
     }
 
+    async function saveTodoAssigneeOptions(options) {
+          const clean = [];
+          const seen = new Set();
+          (options || []).forEach(name => {
+                const normalized = normalizeTodoAssigneeName(name);
+                const key = normalized.toLocaleLowerCase('de');
+                if (normalized === 'Alle' || seen.has(key)) return;
+                seen.add(key);
+                clean.push(normalized);
+          });
+          return storageSet('settings:todo-assignees', JSON.stringify(clean));
+    }
+
     async function saveTodoAssigneeOption(name) {
           const options = await getTodoAssigneeOptions();
-          const existing = options.find(x => x.toLocaleLowerCase('de') === name.toLocaleLowerCase('de'));
-          const clean = existing || name.trim();
-          const custom = options.filter(x => x !== 'Alle' && x !== 'Pferdeteam');
+          const normalized = normalizeTodoAssigneeName(name);
+          const existing = options.find(x => x.toLocaleLowerCase('de') === normalized.toLocaleLowerCase('de'));
+          const clean = existing || normalized;
+          const custom = options.filter(x => x !== 'Alle');
           if (!custom.some(x => x.toLocaleLowerCase('de') === clean.toLocaleLowerCase('de'))) custom.push(clean);
-          await storageSet('settings:todo-assignees', JSON.stringify(custom));
+          await saveTodoAssigneeOptions(custom);
           return clean;
+    }
+
+    async function renameTodoAssignee(oldName) {
+          const value = prompt(`„${oldName}“ umbenennen in:`, oldName);
+          if (value === null) return;
+          const newName = normalizeTodoAssigneeName(value);
+          if (!newName || newName === 'Alle') {
+                alert('Bitte einen anderen Namen eingeben.');
+                return;
+          }
+
+          const options = await getTodoAssigneeOptions();
+          const duplicate = options.some(x =>
+                x !== oldName &&
+                x.toLocaleLowerCase('de') === newName.toLocaleLowerCase('de')
+          );
+          if (duplicate) {
+                alert('Diese Zuständigkeit gibt es bereits.');
+                return;
+          }
+
+          const custom = options.filter(x => x !== 'Alle').map(x => x === oldName ? newName : x);
+          const okOptions = await saveTodoAssigneeOptions(custom);
+          if (!okOptions) {
+                alert('Umbenennen konnte nicht synchronisiert werden.');
+                return;
+          }
+
+          const todos = await getTodos();
+          for (const item of todos) {
+                if (todoAssignee(item) === oldName) {
+                      const ok = await addTodo({ ...item, assignee: newName });
+                      if (!ok) {
+                            alert('Einige Aufgaben konnten nicht aktualisiert werden. Bitte Verbindung prüfen.');
+                            break;
+                      }
+                }
+          }
+
+          if (todoAssigneeSelected === oldName) todoAssigneeSelected = newName;
+          if (todoFilter === oldName) todoFilter = newName;
+          await renderTodoList();
+    }
+
+    async function deleteTodoAssignee(name) {
+          const affected = (await getTodos()).filter(item => todoAssignee(item) === name);
+          const suffix = affected.length
+            ? `\n\n${affected.length} bestehende Aufgabe${affected.length === 1 ? '' : 'n'} werden anschließend „Alle“ zugeordnet.`
+            : '';
+          if (!confirm(`Zuständigkeit „${name}“ wirklich löschen?${suffix}`)) return;
+
+          const options = await getTodoAssigneeOptions();
+          const custom = options.filter(x => x !== 'Alle' && x !== name);
+          const okOptions = await saveTodoAssigneeOptions(custom);
+          if (!okOptions) {
+                alert('Löschen konnte nicht synchronisiert werden.');
+                return;
+          }
+
+          for (const item of affected) {
+                const ok = await addTodo({ ...item, assignee: 'Alle' });
+                if (!ok) {
+                      alert('Einige Aufgaben konnten nicht auf „Alle“ umgestellt werden. Bitte Verbindung prüfen.');
+                      break;
+                }
+          }
+
+          if (todoAssigneeSelected === name) todoAssigneeSelected = 'Alle';
+          if (todoFilter === name) todoFilter = 'Alle';
+          await renderTodoList();
     }
 
     async function renderTodoAssigneePicker() {
@@ -3822,6 +4010,7 @@ document.getElementById('shopSubmit').onclick = async () => {
           const options = await getTodoAssigneeOptions();
           if (!options.some(x => x === todoAssigneeSelected)) todoAssigneeSelected = 'Alle';
           wrap.innerHTML = '';
+
           options.forEach(name => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
@@ -3830,6 +4019,7 @@ document.getElementById('shopSubmit').onclick = async () => {
                 btn.onclick = () => { todoAssigneeSelected = name; renderTodoAssigneePicker(); };
                 wrap.appendChild(btn);
           });
+
           const add = document.createElement('button');
           add.type = 'button';
           add.className = 'todo-assignee-choice add';
@@ -3841,11 +4031,46 @@ document.getElementById('shopSubmit').onclick = async () => {
                 await renderTodoAssigneePicker();
           };
           wrap.appendChild(add);
+
+          const custom = options.filter(name => name !== 'Alle');
+          if (custom.length) {
+                const toggle = document.createElement('button');
+                toggle.type = 'button';
+                toggle.className = 'todo-assignee-manage-toggle';
+                toggle.textContent = todoAssigneeManageOpen ? '▲ Zuständigkeiten verwalten' : '▼ Zuständigkeiten verwalten';
+                toggle.onclick = () => {
+                      todoAssigneeManageOpen = !todoAssigneeManageOpen;
+                      renderTodoAssigneePicker();
+                };
+                wrap.appendChild(toggle);
+
+                if (todoAssigneeManageOpen) {
+                      const manager = document.createElement('div');
+                      manager.className = 'todo-assignee-manage';
+                      custom.forEach(name => {
+                            const row = document.createElement('div');
+                            row.className = 'todo-assignee-manage-row';
+                            row.innerHTML = `
+                              <span class="todo-assignee-manage-name">${escapeHtml(name)}</span>
+                              <button type="button" class="todo-assignee-mini-btn rename">umbenennen</button>
+                              <button type="button" class="todo-assignee-mini-btn danger delete">löschen</button>`;
+                            row.querySelector('.rename').onclick = (ev) => {
+                                  ev.stopPropagation();
+                                  renameTodoAssignee(name);
+                            };
+                            row.querySelector('.delete').onclick = (ev) => {
+                                  ev.stopPropagation();
+                                  deleteTodoAssignee(name);
+                            };
+                            manager.appendChild(row);
+                      });
+                      wrap.appendChild(manager);
+                }
+          }
     }
 
     function todoAssignee(item) {
-          const value = String(item.assignee || 'Alle').trim();
-          return value || 'Alle';
+          return normalizeTodoAssigneeName(item && item.assignee);
     }
 
     function todoPriorityMeta(item) {
@@ -3853,6 +4078,18 @@ document.getElementById('shopSubmit').onclick = async () => {
           if (priority === 'urgent') return { key: 'urgent', label: 'Dringend', rank: 3 };
           if (priority === 'important') return { key: 'important', label: 'Wichtig', rank: 2 };
           return { key: 'normal', label: 'Normal', rank: 1 };
+    }
+
+    function todoWeekKey() {
+          return mondayOfWeek(todayStr());
+    }
+
+    function isWeeklyTodo(item) {
+          return item && item.repeat === 'weekly';
+    }
+
+    function isWeeklyTodoDoneThisWeek(item) {
+          return isWeeklyTodo(item) && item.weeklyDoneWeek === todoWeekKey();
     }
 
     function todoMatchesFilter(item) {
@@ -3886,11 +4123,36 @@ document.getElementById('shopSubmit').onclick = async () => {
           const allTodos = await getTodos();
           renderTodoFilters(allTodos);
           const filtered = allTodos.filter(todoMatchesFilter);
-          const open = filtered.filter(t => !t.done).sort((a,b) => {
+
+          const weekly = filtered.filter(isWeeklyTodo).sort((a,b) => {
+                const aDone = isWeeklyTodoDoneThisWeek(a) ? 1 : 0;
+                const bDone = isWeeklyTodoDoneThisWeek(b) ? 1 : 0;
+                if (aDone !== bDone) return aDone - bDone;
                 const p = todoPriorityMeta(b).rank - todoPriorityMeta(a).rank;
                 return p || ((b.created || 0) - (a.created || 0));
           });
-          const done = filtered.filter(t => t.done).sort((a,b) => (b.completedAt || b.created || 0) - (a.completedAt || a.created || 0));
+
+          const regular = filtered.filter(t => !isWeeklyTodo(t));
+          const open = regular.filter(t => !t.done).sort((a,b) => {
+                const p = todoPriorityMeta(b).rank - todoPriorityMeta(a).rank;
+                return p || ((b.created || 0) - (a.created || 0));
+          });
+          const done = regular.filter(t => t.done).sort((a,b) => (b.completedAt || b.created || 0) - (a.completedAt || a.created || 0));
+
+          const weeklyOpen = weekly.filter(t => !isWeeklyTodoDoneThisWeek(t)).length;
+          const weeklyLabel = document.getElementById('todoWeeklyLabel');
+          if (weeklyLabel) weeklyLabel.textContent = `WÖCHENTLICHE AUFGABEN (${weeklyOpen} OFFEN)`;
+          const weeklyList = document.getElementById('todoWeeklyList');
+          if (weeklyList) {
+                weeklyList.innerHTML = '';
+                if (weekly.length === 0) {
+                      const filterText = todoFilter === 'Alle' ? '' : ` für „${escapeHtml(todoFilter)}“`;
+                      weeklyList.innerHTML = `<div class="empty-state">Noch keine wöchentlichen Aufgaben${filterText}.</div>`;
+                } else {
+                      weekly.forEach(t => weeklyList.appendChild(renderTodoEntry(t)));
+                }
+          }
+
           document.getElementById('todoOpenLabel').textContent = `OFFENE AUFGABEN (${open.length})`;
           const openList = document.getElementById('todoOpenList');
           if (open.length === 0) {
@@ -3915,17 +4177,24 @@ document.getElementById('shopSubmit').onclick = async () => {
     function renderTodoEntry(item) {
           const div = document.createElement('div');
           const priority = todoPriorityMeta(item);
-          div.className = `entry todo-entry todo-${priority.key}`;
+          const weekly = isWeeklyTodo(item);
+          const shownDone = weekly ? isWeeklyTodoDoneThisWeek(item) : !!item.done;
+          div.className = `entry todo-entry todo-${priority.key}${weekly && shownDone ? ' todo-weekly-done' : ''}`;
           const assignee = todoAssignee(item);
-          const doneMeta = item.done && item.completedAt
-            ? `<span class="todo-done-date">erledigt ${fmtDate(toLocalDateStr(new Date(item.completedAt)))}</span>`
-            : '';
+          const doneMeta = weekly
+            ? (shownDone
+                ? `<span class="todo-done-date">✓ diese Woche erledigt</span>`
+                : `<span>Woche ab ${fmtDate(todoWeekKey())}</span>`)
+            : (item.done && item.completedAt
+                ? `<span class="todo-done-date">erledigt ${fmtDate(toLocalDateStr(new Date(item.completedAt)))}</span>`
+                : '');
           div.innerHTML = `
               <div class="shop-item">
-                    <input type="checkbox" class="shop-check" aria-label="Aufgabe als erledigt markieren" ${item.done ? 'checked' : ''}>
+                    <input type="checkbox" class="shop-check" aria-label="${weekly ? 'Wöchentliche Aufgabe für diese Woche abhaken' : 'Aufgabe als erledigt markieren'}" ${shownDone ? 'checked' : ''}>
                     <div class="shop-body">
-                      <div class="shop-name ${item.done ? 'done' : ''}">${escapeHtml(item.text)} ${freshBadgeHtml(item.created)}</div>
+                      <div class="shop-name ${shownDone ? 'done' : ''}">${escapeHtml(item.text)} ${freshBadgeHtml(item.created)}</div>
                       <div class="todo-badges">
+                        ${weekly ? '<span class="todo-badge todo-weekly-badge">Wöchentlich</span>' : ''}
                         <span class="todo-badge todo-assignee-badge">${escapeHtml(assignee)}</span>
                         <span class="todo-badge todo-priority-${priority.key}">${priority.label}</span>
                       </div>
@@ -3940,11 +4209,22 @@ document.getElementById('shopSubmit').onclick = async () => {
               </div>`;
           div.querySelector('.shop-check').onchange = async (ev) => {
                   const nowDone = ev.target.checked;
-                  const updated = { ...item, done: nowDone };
-                  if (nowDone) updated.completedAt = Date.now();
-                  else delete updated.completedAt;
+                  const updated = { ...item };
+                  if (weekly) {
+                        if (nowDone) {
+                              updated.weeklyDoneWeek = todoWeekKey();
+                              updated.weeklyCompletedAt = Date.now();
+                        } else {
+                              delete updated.weeklyDoneWeek;
+                              delete updated.weeklyCompletedAt;
+                        }
+                  } else {
+                        updated.done = nowDone;
+                        if (nowDone) updated.completedAt = Date.now();
+                        else delete updated.completedAt;
+                  }
                   const ok = await addTodo(updated);
-                  if (!ok) { ev.target.checked = item.done; alert('Konnte nicht synchronisiert werden — Verbindung prüfen.'); return; }
+                  if (!ok) { ev.target.checked = shownDone; alert('Konnte nicht synchronisiert werden — Verbindung prüfen.'); return; }
                   renderTodoList();
           };
           wireComments(div, item, addTodo, renderTodoList);
@@ -3970,6 +4250,7 @@ document.getElementById('shopSubmit').onclick = async () => {
           if (!text) { alert('Bitte eine Aufgabe eintragen.'); return; }
           const assignee = todoAssigneeSelected || 'Alle';
           const priority = document.getElementById('todoPriority').value || 'normal';
+          const weekly = !!document.getElementById('todoWeekly').checked;
           const name = promptUserName();
           if (!name) return;
           btn.disabled = true;
@@ -3977,6 +4258,7 @@ document.getElementById('shopSubmit').onclick = async () => {
           const item = {
                   id: 't' + Date.now() + '-' + Math.random().toString(36).slice(2,7),
                   text, assignee, priority, author: name, done: false,
+                  repeat: weekly ? 'weekly' : 'once',
                   date: todayStr(), created: Date.now(), comments: []
           };
           const ok = await addTodo(item);
@@ -3986,6 +4268,7 @@ document.getElementById('shopSubmit').onclick = async () => {
                   document.getElementById('todoText').value = '';
                   todoAssigneeSelected = 'Alle';
                   document.getElementById('todoPriority').value = 'normal';
+                  document.getElementById('todoWeekly').checked = false;
                   await renderTodoAssigneePicker();
           } else {
                   showSaveStatus(statusEl, 'error', 'Nicht gespeichert — Verbindung prüfen und nochmal versuchen');
