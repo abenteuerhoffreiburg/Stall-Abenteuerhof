@@ -1,0 +1,92 @@
+STALL ABENTEUERHOF – PUSH EINRICHTUNG
+=====================================
+
+Die App-Dateien sind fertig vorbereitet. Für echte Pushs muss OneSignal einmal
+mit dem bestehenden Google-Apps-Script verbunden werden.
+
+1. ONESIGNAL ANLEGEN
+--------------------
+In OneSignal eine Web-Push-App anlegen (Custom Code / Web).
+Website-URL:
+https://abenteuerhoffreiburg.github.io/Stall-Abenteuerhof/
+
+Danach unter Settings / Keys & IDs kopieren:
+- App ID
+- App API Key
+
+2. APPS SCRIPT: DATEIEN HINZUFÜGEN
+----------------------------------
+Im bestehenden Apps-Script-Projekt zwei neue Script-Dateien anlegen und den
+Inhalt dieser Bundle-Dateien hineinkopieren:
+- Push_OneSignal.gs
+- Push_Router_Helper.gs
+
+Die bestehende Auth-Datei bleibt unverändert.
+
+3. APPS SCRIPT: SCRIPT PROPERTIES
+---------------------------------
+Apps Script > Projekteinstellungen > Skripteigenschaften:
+
+ONESIGNAL_APP_ID = <deine App ID>
+ONESIGNAL_APP_API_KEY = <dein App API Key>
+STALL_APP_URL = https://abenteuerhoffreiburg.github.io/Stall-Abenteuerhof/
+STALL_TIMEZONE = Europe/Berlin
+
+4. doPost(e) EINMAL ERWEITERN
+-----------------------------
+In der vorhandenen doPost(e)-Funktion wird der Request bereits als JSON gelesen,
+z. B. in eine Variable `data`.
+
+DIREKT NACH diesem JSON.parse(...) Block einfügen:
+
+  const pushRoute = serverHandlePushAction_(data);
+  if (pushRoute.handled) {
+    return ContentService
+      .createTextOutput(JSON.stringify(pushRoute.result))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+Falls die Variable in deinem doPost nicht `data` heißt, dort einfach denselben
+Variablennamen einsetzen.
+
+Danach: Speichern > Bereitstellen > Bereitstellungen verwalten > Bearbeiten >
+Neue Version > Bereitstellen.
+
+5. GITHUB PAGES
+---------------
+Den Inhalt des Ordners/ZIPs `Stall-Abenteuerhof-Push-GitHub-Bundle` ins Root des
+Repos `Stall-Abenteuerhof` laden. Wichtig sind besonders:
+- index.html
+- sw.js
+- manifest.webmanifest
+- icon-192.png
+- icon-512.png
+- onesignal/OneSignalSDKWorker.js
+
+6. EINMAL ALS ADMIN AKTIVIEREN
+------------------------------
+Franzi meldet sich in der App als Pferdeteam/Admin an:
+Einstellungen > Benachrichtigungen > Push aktivieren
+
+Dabei wird der 30-Minuten-Trigger für Erinnerungen automatisch angelegt.
+Danach kann direkt `Test senden` benutzt werden.
+
+7. ANDERE PERSONEN
+------------------
+Jede Person aktiviert Push einmal auf ihrem eigenen Gerät in den Einstellungen
+und kann dort Kategorien einzeln aus-/einschalten.
+
+Auf iPhone/iPad: Die Website zuerst über Safari zum Home-Bildschirm hinzufügen,
+dann die App über das neue Home-Screen-Symbol öffnen und erst dort Push aktivieren.
+
+PUSH-LOGIK
+----------
+- Gesundheit: neuer wichtiger Pferdeteam-Eintrag sofort
+- Wichtige Infos: neuer Hinweis vom Schwarzen Brett sofort
+- To-dos: am Fälligkeitstag; einmal zusätzlich, wenn erstmals überfällig
+- Ponygruppen: ungefähr 1 Stunde vor Beginn
+- Stalldienste: am Vorabend, wenn die Person für morgen eingetragen ist
+
+Pferdeteam-Pushs (To-dos/Ponygruppen) werden serverseitig an einen gültigen
+persönlichen Team-Zugang gebunden. Änderungen am PIN/Zugang machen die alte
+Push-Berechtigung ungültig, bis die Person sich erneut anmeldet.
