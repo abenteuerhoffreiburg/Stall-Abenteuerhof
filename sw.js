@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stall-abenteuerhof-shell-v16-push';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v17-push';
 const APP_SHELL = [
   './',
   './index.html',
