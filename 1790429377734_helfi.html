@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Helfi-Kalender · Stall Abenteuerhof</title>
+  <style>
+    :root{color-scheme:light;--green:#245437;--green2:#356b49;--ink:#22382a;--muted:#626b60;--line:#d8dece;--paper:#fffdfa;--soft:#f2f5ed;--warn:#8d4b27;--warnbg:#fbf0e8;--okbg:#edf5eb}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}
+    main{max-width:760px;margin:auto;padding:28px 20px 50px}header{padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:24px}
+    .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}h1{font-size:30px;margin:5px 0}h2{font-size:21px;margin:0}h3{font-size:18px;margin:0}
+    p{margin:8px 0}button,input{font:inherit}button{min-height:44px;padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:white;color:var(--green);cursor:pointer;font-weight:650}
+    button:hover:not(:disabled){background:var(--soft)}button.primary{background:var(--green);color:white;border-color:var(--green)}button.primary:hover:not(:disabled){background:#173e26}button.warn{color:var(--warn);border-color:#e4c8b6;background:var(--warnbg)}
+    button:disabled{opacity:.5;cursor:default}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #477cbd;outline-offset:3px}
+    input{display:block;width:100%;min-height:46px;padding:10px 12px;border:1px solid #bac5b2;border-radius:9px;margin:6px 0 14px;background:white;color:var(--ink)}label{font-weight:650}a{color:var(--green)}
+    [hidden]{display:none!important}.muted,small{color:var(--muted)}.muted{font-size:14px}.access{max-width:470px;background:var(--soft);padding:24px;border:1px solid var(--line);border-radius:16px}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.week-nav{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:10px;margin:24px 0 8px}.week-nav button{padding:8px}
+    #weekLabel{text-align:center;font-weight:750;font-size:19px}.week-tools{display:flex;gap:8px;justify-content:center;margin-bottom:18px}.identity{margin-top:18px;max-width:430px}.identity input{margin-bottom:5px}
+    .status{min-height:26px;font-size:14px;margin:12px 0}.status.error{color:#933d23}.status.success{color:var(--green)}
+    .day{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:16px 0}.day-head{display:flex;justify-content:space-between;align-items:baseline;background:var(--soft);padding:13px 18px;gap:10px}.day-head time{color:var(--muted);font-size:15px}
+    .slot{padding:18px}.slot+.slot{border-top:1px solid var(--line)}.slot-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.capacity{text-align:right;white-space:nowrap;font-size:14px}.capacity strong{display:block}.free{color:var(--green)}
+    .time{font-size:13px;color:var(--muted);margin-top:2px}.regular-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}.regular-row{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 11px;background:white}.regular-copy{min-width:0}.regular-name{font-weight:700}.regular-state{font-size:13px;color:var(--muted)}.regular-row.absent{background:var(--warnbg);border-color:#e7cdbd}.regular-row.replaced{background:var(--okbg)}
+    .regular-actions{flex:0 0 auto}.regular-actions button{min-height:36px;padding:6px 10px;font-size:13px}.vacancy{margin:10px 0 0;padding:12px;border:1px dashed #b8c9b5;border-radius:10px;background:#f7faf5;display:flex;justify-content:space-between;gap:10px;align-items:center}.vacancy strong{font-size:14px}.vacancy small{display:block}.vacancy button{flex:0 0 auto}
+    .booking-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}.booking-list li{display:flex;justify-content:space-between;gap:10px;align-items:center;border-radius:8px;background:var(--soft);border:1px solid var(--line);padding:7px 9px}.booking-list button{min-height:34px;padding:5px 9px;font-size:12px}
+    .empty{color:var(--muted);font-size:14px;margin:12px 0}.note{margin-top:4px;font-size:13px;color:var(--muted)}.plan-missing{padding:14px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);margin-top:12px}
+    footer{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+    @media(max-width:520px){main{padding:20px 14px 35px}h1{font-size:27px}.slot{padding:14px}.day-head{padding:11px 14px}.slot-head{gap:8px}.capacity{font-size:13px}.week-nav{gap:6px}#weekLabel{font-size:16px}.regular-row,.vacancy{align-items:flex-start;flex-direction:column}.regular-actions,.vacancy button{width:100%}.regular-actions button,.vacancy button{width:100%}}
+  </style>
+</head>
+<body><main>
+  <header><div class="eyebrow">Stall Abenteuerhof</div><h1>Helfi-Kalender</h1><p class="muted">Sieh, wann du eingeplant bist. Wenn du einmal nicht kannst, gib deinen Platz für eine Vertretung frei.</p></header>
+  <section id="accessPanel" class="access" aria-labelledby="accessTitle">
+    <h2 id="accessTitle">Helfi-Kalender</h2>
+    <p class="muted">Der Kalender wird über den Einladungslink des Pferdeteams geöffnet. Du brauchst keinen zusätzlichen Code.</p>
+    <p id="accessStatus" class="status" role="status">Einladungslink wird geprüft …</p>
+  </section>
+  <section id="calendarPanel" hidden aria-label="Wochenübersicht">
+    <div class="toolbar"><span class="muted">Helfi-Zugang · nur Kalender</span><button type="button" id="logout">Abmelden</button></div>
+    <div class="identity"><label for="helperName">Dein Vorname oder vereinbartes Kürzel</label><input id="helperName" type="text" autocomplete="off" maxlength="60" placeholder="Zum Beispiel Laura"><p class="muted">Damit erkennt der Kalender deine feste Einteilung und deine eigenen Änderungen. Bitte keine weiteren persönlichen Angaben.</p></div>
+    <div class="week-nav"><button type="button" id="weekPrev" aria-label="Vorherige Woche">‹</button><div id="weekLabel" aria-live="polite"></div><button type="button" id="weekNext" aria-label="Nächste Woche">›</button></div>
+    <div class="week-tools"><button type="button" id="weekToday">Diese Woche</button><button type="button" id="refresh">Aktualisieren</button></div>
+    <p id="calendarStatus" class="status" role="status"></p><div id="days"></div>
+    <p class="muted">Abmelden oder eine Vertretung übernehmen funktioniert auf dem Gerät und in dem Browser, mit dem die Änderung gemacht wurde. Dafür ist eine Internetverbindung nötig.</p>
+  </section>
+  <footer><a id="privacyLink" hidden target="_blank" rel="noopener noreferrer">Datenschutzhinweise</a><p id="retentionText">Gespeichert werden dein angegebener Name, der Termin und eine zufällige Gerätekennung zur Zuordnung. Gründe für Abmeldungen werden nicht erfasst.</p><p>Version 1.14.0</p></footer>
+</main>
+<script>
+var HelfiRules=(function(){
+  var groups=[
+    {id:'mo-ponybande',day:1,dayName:'Montag',title:'Ponybande',capacity:2},
+    {id:'di-1',day:2,dayName:'Dienstag',title:'Gruppe 1',capacity:2},
+    {id:'di-2',day:2,dayName:'Dienstag',title:'Gruppe 2',capacity:3,note:'3 Plätze wegen Inklusion'},
+    {id:'mi-1',day:3,dayName:'Mittwoch',title:'Gruppe 1',capacity:3,note:'3 Plätze wegen Inklusion'},
+    {id:'mi-2',day:3,dayName:'Mittwoch',title:'Gruppe 2',capacity:2}
+  ];
+  function parseDate(v){if(typeof v!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(v))return null;var d=new Date(v+'T12:00:00Z');return isNaN(d.getTime())||d.toISOString().slice(0,10)!==v?null:d}
+  function addDays(v,n){var d=parseDate(v);if(!d)return'';d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+  function monday(v){var d=parseDate(v);return d?addDays(v,-((d.getUTCDay()+6)%7)):''}
+  function name(v){return String(v||'').normalize('NFC').replace(/\s+/g,' ').trim()}
+  function sameName(a,b){return name(a).toLocaleLowerCase('de-DE')===name(b).toLocaleLowerCase('de-DE')}
+  return{groups:groups,addDays:addDays,monday:monday,name:name,sameName:sameName};
+})();
+const HELFI_ENDPOINT="https://script.google.com/macros/s/AKfycbydAWWFqswzO9dtC_fjkDvguZ3w77UBwq260J3yptsQjrrsLBESZdGNUF9q__EOeXeONw/exec";
+const el=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const localToday=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+let calendarToken='',deviceToken='',week=HelfiRules.monday(localToday()),snapshot=null,loading=false,saving=false,fresh=false,requestSequence=0;
+function deviceIdentity(){const key='helfiDeviceV1';try{const old=localStorage.getItem(key);if(/^[a-f0-9]{64}$/.test(old||''))return old;const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('');localStorage.setItem(key,token);return localStorage.getItem(key)===token?token:''}catch(e){return''}}
+async function helfiCall(action,payload={}){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);try{const response=await fetch(HELFI_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer',signal:controller.signal,body:JSON.stringify({action,...payload,calendarToken,deviceToken})});if(!response.ok)throw new Error('network');const result=await response.json();if(!result||typeof result.ok!=='boolean')throw new Error('network');return result}catch(e){return{ok:false,error:e.name==='AbortError'?'timeout':'network'}}finally{clearTimeout(timer)}}
+function message(code,mutation=false){return({unauthorized:'Der Zugang ist abgelaufen oder der Einladungslink wurde erneuert. Bitte den aktuellen Link öffnen.',not_configured:'Der Kalenderzugang muss vom Pferdeteam noch eingerichtet werden.',plan_missing:'Für diese Woche ist noch kein Helfi-Plan eingerichtet.',full:'Der freie Platz wurde inzwischen vergeben. Die Belegung wurde aktualisiert.',name_taken:'Dieser Name ist für den Termin bereits eingetragen.',fixed_member:'Du bist in dieser Woche bereits eingeplant. Nutze bei deinem Namen „Ich kann nicht“, wenn du für diesen Termin ausfällst.',name_mismatch:'Der eingegebene Name passt nicht zu dieser festen Einteilung.',not_owner:'Diese Änderung wurde auf einem anderen Gerät gemacht.',replacement_taken:'Für deinen freigegebenen Platz hat bereits jemand zugesagt. Bitte klärt die Änderung mit der Ponygruppen-Leitung.',vacancy_closed:'Dieser Vertretungsplatz ist nicht mehr frei.',invalid_target:'Dieser Platz kann so nicht übernommen werden. Bitte aktualisieren.',past_date:'Vergangene Termine können nicht mehr geändert werden.',group_inactive:'Diese Ponygruppe findet an diesem Termin nicht statt.',busy:'Gerade wird eine andere Eintragung gespeichert. Bitte erneut versuchen.',invalid_name:'Bitte einen Namen mit höchstens 60 Zeichen eingeben.',staff_member:'Mitarbeitende werden nicht im Helfi-Kalender eingeplant.',calendar_unavailable:'Die Kalenderdaten konnten nicht geladen werden. Bitte die Ponygruppen-Leitung informieren.',invalid_device:'Dein Browser kann die Gerätekennung nicht speichern. Bitte lokalen Speicher erlauben.'})[code]||(mutation?'Die Bestätigung fehlt. Bitte zuerst aktualisieren und prüfen, ob die Änderung gespeichert wurde.':'Keine Verbindung. Bitte erneut aktualisieren.')}
+function status(text,state=''){el('calendarStatus').textContent=text;el('calendarStatus').className='status '+state}
+function shortDate(date){return date.slice(8,10)+'.'+date.slice(5,7)+'.'}
+function longDate(date){try{return new Date(date+'T12:00:00').toLocaleDateString('de-DE',{weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'})}catch(e){return date}}
+function timeText(slot){return slot&&slot.start&&slot.end?slot.start+'–'+slot.end+' Uhr':''}
+function currentName(){return HelfiRules.name(el('helperName').value)}
+function renderCalendar(){
+  el('weekLabel').textContent=shortDate(week)+' – '+shortDate(HelfiRules.addDays(week,6))+' '+week.slice(0,4);
+  const name=currentName(),hasData=snapshot&&snapshot.week===week;
+  const inactiveText=reason=>({cancelled:'Fällt aus · von der Ponygruppen-Leitung abgesagt',school_holiday:'Keine Ponygruppe · Schulferien',public_holiday:'Keine Ponygruppe · Feiertag'})[reason]||'Diese Ponygruppe findet nicht statt.';
+  el('days').innerHTML=[1,2,3].map(day=>{
+    const groups=HelfiRules.groups.filter(g=>g.day===day),date=HelfiRules.addDays(week,day-1);
+    return `<section class="day"><div class="day-head"><h2>${groups[0].dayName}</h2><time datetime="${date}">${shortDate(date)}</time></div>${groups.map(g=>{
+      const slot=hasData?snapshot.slots.find(s=>s.groupId===g.id):null;
+      if(slot&&slot.active===false)return `<article class="slot"><div class="slot-head"><div><h3>${esc(g.title)}</h3><div class="time">${esc(timeText(slot))}</div></div></div><div class="plan-missing">${esc(inactiveText(slot.inactiveReason))}</div></article>`;
+      if(slot&&!slot.configured)return `<article class="slot"><div class="slot-head"><div><h3>${esc(g.title)}</h3></div><div class="capacity"><strong>–/${g.capacity}</strong></div></div><div class="plan-missing">Für diese Woche ist noch keine feste Helfi-Einteilung hinterlegt.</div></article>`;
+      const blocked=saving||!fresh||!navigator.onLine||!deviceToken||slot?.past||slot?.active===false;
+      const count=slot?`<strong>${slot.occupied}/${slot.capacity} Plätze belegt</strong><span class="${slot.free?'free':''}">${slot.past?'Vergangen':slot.free?slot.free+' '+(slot.free===1?'Platz frei':'Plätze frei'):'Voll besetzt'}</span>`:`<strong>–/${g.capacity}</strong><span>Noch nicht geladen</span>`;
+      const movedNote=slot?.moved?`<p class="note"><strong>Verschoben:</strong> ${esc(longDate(slot.date))}</p>`:'';
+      const regular=(slot?.regular||[]).map(m=>{
+        const isMe=name&&HelfiRules.sameName(name,m.name),replaced=!!m.replacement;
+        const state=replaced?`${esc(m.name)} kann nicht · <strong>${esc(m.replacement)} übernimmt</strong>`:m.absent?`${esc(m.name)} kann nicht`:`${esc(m.name)} · eingeplant`;
+        let action='';
+        if(isMe&&!slot.past){
+          if(!m.absent)action=`<button type="button" class="warn" data-absent="${esc(g.id)}" data-member="${esc(m.id)}" ${blocked?'disabled':''}>Ich kann nicht</button>`;
+          else if(m.mine&&!replaced)action=`<button type="button" data-present="${esc(g.id)}" data-member="${esc(m.id)}" ${blocked?'disabled':''}>Doch dabei</button>`;
+        }
+        return `<div class="regular-row${m.absent?' absent':''}${replaced?' replaced':''}"><div class="regular-copy"><div class="regular-name">${esc(m.name)}</div><div class="regular-state">${state}</div></div>${action?`<div class="regular-actions">${action}</div>`:''}</div>`;
+      }).join('');
+      const fixedName=(slot?.regular||[]).some(m=>name&&HelfiRules.sameName(name,m.name));
+      const vacancies=(slot?.vacancies||[]).map(v=>{
+        const label=v.forName?`Vertretung für ${esc(v.forName)}`:'Freier Helfi-Platz';
+        return `<div class="vacancy"><div><strong>${label}</strong><small>${v.forName?'Nur für diesen Termin. Dein eigener Rhythmus ändert sich nicht.':'Dieser Platz ist im Grundplan noch nicht fest vergeben.'}</small></div><button type="button" class="primary" data-join="${esc(g.id)}" data-target="${esc(v.target)}" ${blocked||!name||fixedName?'disabled':''}>Übernehmen</button></div>`;
+      }).join('');
+      const bookings=(slot?.bookings||[]).filter(b=>!b.integrated).map(b=>`<li><span><strong>${esc(b.name)}</strong>${b.forName?` <small>· für ${esc(b.forName)}</small>`:''}</span>${b.mine?`<button type="button" data-leave="${esc(g.id)}" data-booking="${esc(b.id)}" ${blocked?'disabled':''}>Austragen</button>`:''}</li>`).join('');
+      return `<article class="slot"><div class="slot-head"><div><h3>${esc(g.title)}</h3><div class="time">${esc(timeText(slot))}</div>${movedNote}${g.note?`<p class="note">${esc(g.note)}</p>`:''}</div><div class="capacity">${count}</div></div>${regular?`<div class="regular-list">${regular}</div>`:'<p class="empty">Noch niemand für diese Woche eingeplant.</p>'}${vacancies}${bookings?`<ul class="booking-list">${bookings}</ul>`:''}${fixedName?'<p class="note">Du bist in dieser Woche eingeplant. Wenn du einmal nicht kannst, gib nur diesen Termin frei.</p>':''}</article>`;
+    }).join('')}</section>`;
+  }).join('');
+  el('days').querySelectorAll('[data-absent]').forEach(b=>b.onclick=()=>change('helfiAbsent',b.dataset.absent,{memberId:b.dataset.member}));
+  el('days').querySelectorAll('[data-present]').forEach(b=>b.onclick=()=>change('helfiPresent',b.dataset.present,{memberId:b.dataset.member}));
+  el('days').querySelectorAll('[data-join]').forEach(b=>b.onclick=()=>change('helfiJoin',b.dataset.join,{target:b.dataset.target}));
+  el('days').querySelectorAll('[data-leave]').forEach(b=>b.onclick=()=>change('helfiLeave',b.dataset.leave,{bookingId:b.dataset.booking}));
+  ['weekPrev','weekNext','weekToday','logout'].forEach(id=>el(id).disabled=saving);el('refresh').disabled=saving||loading;
+}
+async function refreshWeek(){if(!calendarToken||saving)return;const seq=++requestSequence,requestedWeek=week;loading=true;fresh=false;renderCalendar();status(navigator.onLine?'Belegung wird aktualisiert …':'Offline – Änderungen sind erst mit Verbindung möglich.');if(!navigator.onLine){loading=false;renderCalendar();return}const result=await helfiCall('helfiWeek',{week:requestedWeek});if(seq!==requestSequence||week!==requestedWeek||!calendarToken)return;loading=false;if(result.error==='unauthorized'){logout(message(result.error));return}if(result.ok&&result.week===week&&Array.isArray(result.slots)){snapshot=result;fresh=true;status(result.configured?'Stand '+new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})+' Uhr':'Für diese Woche ist noch kein fester Helfi-Plan eingerichtet.',result.configured?'':'error')}else status(message(result.error),'error');renderCalendar()}
+async function change(action,groupId,extra={}){if(saving||!fresh||!calendarToken||!navigator.onLine)return;const name=currentName();if(!name){status(message('invalid_name'),'error');el('helperName').focus();return}saving=true;requestSequence++;loading=false;renderCalendar();status('Änderung wird gespeichert …');const result=await helfiCall(action,{week,groupId,name,...extra});saving=false;if(result.error==='unauthorized'){logout(message(result.error));return}if(result.week===week&&Array.isArray(result.slots)){snapshot=result;fresh=true}else fresh=false;const okText=action==='helfiAbsent'?'Dein Platz ist für diesen Termin freigegeben.':action==='helfiPresent'?'Du bist für diesen Termin wieder eingeplant.':action==='helfiJoin'?'Du hast den freien Platz übernommen.':'Du bist für diesen Termin ausgetragen.';status(result.ok?okText:message(result.error,true),result.ok?'success':'error');renderCalendar()}
+function logout(text='Du bist abgemeldet. Öffne deinen Einladungslink erneut, wenn du wieder in den Kalender möchtest.'){requestSequence++;calendarToken='';snapshot=null;fresh=false;loading=false;saving=false;try{sessionStorage.removeItem('helfiSessionV1')}catch(e){}el('days').innerHTML='';el('helperName').value='';el('calendarPanel').hidden=true;el('accessPanel').hidden=false;el('accessStatus').textContent=text}
+async function showCalendar(){deviceToken=deviceIdentity();el('accessPanel').hidden=true;el('calendarPanel').hidden=false;await refreshWeek();if(!deviceToken&&calendarToken)status(message('invalid_device'),'error')}
+function inviteFromUrl(){try{const hash=new URLSearchParams(location.hash.replace(/^#/,''));const fromHash=hash.get('invite')||'';const url=new URL(location.href);return fromHash||url.searchParams.get('invite')||''}catch(e){return''}}
+function clearInviteFromUrl(){try{const url=new URL(location.href);url.searchParams.delete('invite');url.hash='';history.replaceState(null,'',url.pathname+(url.search||''))}catch(e){}}
+async function authenticateInvite(inviteToken){el('accessStatus').textContent='Einladungslink wird geprüft …';const result=await helfiCall('helfiAuthenticate',{inviteToken});if(!result.ok){el('accessStatus').textContent=result.error==='unauthorized'?'Dieser Einladungslink ist nicht mehr gültig. Bitte lass dir vom Pferdeteam den aktuellen Link schicken.':message(result.error);return false}calendarToken=result.token;try{sessionStorage.setItem('helfiSessionV1',calendarToken)}catch(e){}clearInviteFromUrl();await showCalendar();return true}
+el('logout').onclick=()=>logout();el('helperName').oninput=()=>renderCalendar();el('weekPrev').onclick=()=>{week=HelfiRules.addDays(week,-7);refreshWeek()};el('weekNext').onclick=()=>{week=HelfiRules.addDays(week,7);refreshWeek()};el('weekToday').onclick=()=>{week=HelfiRules.monday(localToday());refreshWeek()};el('refresh').onclick=()=>refreshWeek();window.addEventListener('offline',()=>{fresh=false;renderCalendar();status('Offline – Änderungen sind erst mit Verbindung möglich.')});window.addEventListener('online',()=>refreshWeek());window.addEventListener('focus',()=>{if(!loading)refreshWeek()});setInterval(()=>{if(!document.hidden&&!loading)refreshWeek()},60000);
+async function initHelfi(){const result=await helfiCall('helfiConfig');if(result.privacyUrl&&/^https:\/\//.test(result.privacyUrl)){el('privacyLink').href=result.privacyUrl;el('privacyLink').hidden=false}if(result.retentionDays){el('retentionText').textContent=`Gespeichert werden dein angegebener Name, der Termin und eine zufällige Gerätekennung zur Zuordnung. Gründe für Abmeldungen werden nicht erfasst. Terminbezogene Änderungen werden nach ${result.retentionDays} Tagen automatisch gelöscht.`}if(!result.ready){el('accessStatus').textContent=result.ok?'Der Kalenderzugang und die Datenschutzhinweise werden noch eingerichtet.':'Der Kalender ist gerade nicht erreichbar. Bitte die Seite erneut laden.';return}try{calendarToken=sessionStorage.getItem('helfiSessionV1')||''}catch(e){}if(calendarToken){await showCalendar();return}const inviteToken=inviteFromUrl();if(inviteToken){await authenticateInvite(inviteToken);return}el('accessStatus').textContent='Bitte öffne den Einladungslink, den du vom Pferdeteam bekommen hast.'}
+initHelfi();
+</script>
+</body></html>
