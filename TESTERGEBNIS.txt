@@ -1,0 +1,78 @@
+STALL ABENTEUERHOF · v1.14.0 · TESTERGEBNIS
+Stand: 26.09.2026
+
+LOKAL GEPRÜFT
+
+- 30 Syntax-/Strukturprüfungen: bestanden.
+- 20 fokussierte Backend-Assertions mit künstlichen Daten: bestanden.
+- 8 fokussierte Frontend-Logiktests: bestanden.
+- Insgesamt 58 lokale Prüfungen/Assertions in diesem Durchlauf.
+
+GEPRÜFTE KERNFÄLLE
+
+1. Echte faire Rotation
+- Mehr Namen als Plätze werden vom Backend akzeptiert.
+- 5 Helfis / 2 Plätze erzeugen einen 5-Wochen-Zyklus A+B, C+D, E+A, B+C, D+E.
+- Über den vollständigen Zyklus ist jede Person gleich oft eingeplant.
+- 5 Helfis / 3 Plätze werden ebenfalls gleichmäßig verteilt.
+- Alte v1.13-Pläne mit nur `members` bleiben lesbar und werden als Pool übernommen.
+
+2. Einzelne Abmeldungen und Vertretungen
+- Der Wochenrhythmus wird nicht durch eine einzelne Absage verändert.
+- Bereits zugesagte Vertretungen in späteren Wochen werden bei Planänderungen berücksichtigt.
+- Eine Planänderung wird blockiert, wenn das Ziel einer bestehenden Vertretung in der betreffenden Woche nicht mehr eingeplant wäre.
+- Überbelegungen durch bestehende Einzelbuchungen bleiben blockiert.
+
+3. Mitarbeitende sind keine Helfis
+- Aktive Namen aus den persönlichen Pferdeteam-Zugängen werden serverseitig als Team/Mitarbeitende erkannt.
+- Solche Namen können nicht in einen Helfi-Grundplan aufgenommen werden.
+- Moritz bleibt zusätzlich als Altbestandsschutz ausgeschlossen; alte Moritz-Helfi-Einträge werden nicht mitgezählt.
+
+4. Ferien, Feiertage und Terminänderungen
+- statische BaWü-Schulferienbasis bis einschließlich Sommerferien 2027 wird erkannt.
+- `customFerienWeeks` wird berücksichtigt.
+- abgesagte Ponygruppen (`ponygroup:schedule:...`) werden als inaktiv behandelt.
+- verschobene Ponygruppen werden mit dem neuen Datum aktiv angezeigt.
+- gesetzliche Feiertage in Baden-Württemberg werden über feste und Oster-abhängige Feiertage erkannt.
+- für inaktive Termine sind keine Helfi-Mutationen vorgesehen.
+
+5. Startwoche
+- Samstag 26.09.2026 öffnet in der Helfi-Plan-Verwaltung automatisch die Woche ab 28.09.2026.
+- Mittwoch bleibt die laufende Woche voreingestellt.
+- ab Donnerstag wird die kommende Woche voreingestellt.
+
+6. Schneller und rollengetrennter Offline-Start
+- vorhandene rollenbezogene Offline-Kopie kann vor dem Google-Abruf angezeigt werden.
+- `ponygroup:`-Daten werden im Ehrenamt-Scope nicht aus einer Team-Offline-Kopie wiederhergestellt.
+- teamgeschützte ausstehende Änderungen werden mit Ehrenamt-Zugang nicht synchronisiert.
+- gemeinsame freigegebene Daten bleiben für den Ehrenamt-Scope nutzbar.
+
+7. Einladungslink
+- `helfi.html` enthält kein Passwort-/Code-Eingabefeld.
+- der geheime Einladungswert ist nicht statisch in `helfi.html` hinterlegt.
+- die Helfi-Seite enthält kein OneSignal und keine Navigation in die Stall-App.
+- Link-Erneuerung und Trennung vom Ehrenamt-/Pferdeteam-Zugang bleiben im Backend erhalten.
+
+8. Ponygruppenlisten / Datenminimierung
+- das Feld heißt jetzt „Unterstützungsbedarf / organisatorischer Hinweis“.
+- die Oberfläche weist ausdrücklich auf notwendige, handlungsbezogene Angaben hin.
+- Diagnosen, Medikamente und ausführliche Krankheitsgeschichten werden für dieses allgemeine Listenfeld nicht empfohlen.
+- Ponygruppen-Daten bleiben serverseitig Pferdeteam-geschützt.
+
+SYNTAX
+
+Geprüft wurden:
+- 5 Apps-Script-Dateien (`.gs`)
+- `sw.js`
+- das Inline-JavaScript in `index.html`
+- das Inline-JavaScript in `helfi.html`
+
+Alle Syntaxprüfungen bestanden.
+
+WICHTIGE GRENZEN
+
+Die Tests verwenden ausschließlich künstliche lokale Daten. Es wurden keine echten Google-Tabellen verändert, keine Pushs versendet und nichts online bereitgestellt.
+
+Der gemeinsame Helfi-Einladungslink bleibt bewusst ein Gruppenzugang und kein persönlicher Identitätsnachweis. Wer den Link kennt, kann die sichtbare Helfi-Belegung sehen und einen Namen eingeben. Für einen echten personenbezogenen Nachweis wären persönliche Einladungen oder Konten nötig.
+
+Vor dem Regelbetrieb weiterhin einmal mit der echten Apps-Script-Bereitstellung und mehreren getrennten Browsern testen. Die statische Schulferienbasis muss wie bisher jährlich aktualisiert werden. Datenschutzrechtliche Rechtsgrundlagen, Verträge und konkrete Löschfristen sind organisatorisch zu prüfen.
