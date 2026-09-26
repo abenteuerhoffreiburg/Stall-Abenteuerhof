@@ -1,4 +1,5 @@
 const CACHE_NAME = 'stall-abenteuerhof-shell-v1140-20260926';
+
 const SHELL = [
   './',
   './index.html',
@@ -21,7 +22,10 @@ self.addEventListener('activate', event => {
     caches.keys()
       .then(keys => Promise.all(
         keys
-          .filter(key => key.startsWith('stall-abenteuerhof-shell-') && key !== CACHE_NAME)
+          .filter(key =>
+            key.startsWith('stall-abenteuerhof-shell-') &&
+            key !== CACHE_NAME
+          )
           .map(key => caches.delete(key))
       ))
       .then(() => self.clients.claim())
@@ -36,38 +40,53 @@ self.addEventListener('message', event => {
 
 self.addEventListener('fetch', event => {
   const request = event.request;
+
   if (request.method !== 'GET') return;
 
   const url = new URL(request.url);
 
-  // OneSignal hat einen eigenen Worker/Scope und soll nicht durch den App-Cache laufen.
+  // OneSignal nicht über den App-Cache laufen lassen.
   if (url.pathname.includes('/onesignal/')) return;
 
-  // version.json immer frisch aus dem Netz prüfen.
-  if (url.origin === self.location.origin && url.pathname.endsWith('/version.json')) {
-    event.respondWith(fetch(request, { cache:'no-store' }));
+  // version.json immer frisch laden.
+  if (
+    url.origin === self.location.origin &&
+    url.pathname.endsWith('/version.json')
+  ) {
+    event.respondWith(
+      fetch(request, { cache: 'no-store' })
+    );
     return;
   }
 
-  // Navigation / HTML: network-first. So sehen Nutzer:innen neue GitHub-Versionen
-  // schnell, haben bei schlechtem Netz aber weiterhin die letzte funktionierende App.
+  // HTML / Navigation: zuerst Netzwerk, bei Fehler aus Cache.
   if (request.mode === 'navigate') {
-    const pageKey = url.pathname.endsWith('/helfi.html') ? './helfi.html' : './index.html';
+    const pageKey = url.pathname.endsWith('/helfi.html')
+      ? './helfi.html'
+      : './index.html';
+
     event.respondWith(
       fetch(request)
         .then(response => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => response.ok && cache.put(pageKey, copy));
+
+          caches.open(CACHE_NAME).then(cache => {
+            if (response.ok) {
+              cache.put(pageKey, copy);
+            }
+          });
+
           return response;
         })
         .catch(async () => {
           return (await caches.match(pageKey)) || Response.error();
         })
     );
+
     return;
   }
 
-  // Nur eigene statische Dateien cachen; externe APIs/Fonts bleiben browserverwaltet.
+  // Eigene statische Dateien: Cache verwenden und im Hintergrund aktualisieren.
   if (url.origin === self.location.origin) {
     event.respondWith(
       caches.match(request).then(cached => {
@@ -75,8 +94,12 @@ self.addEventListener('fetch', event => {
           .then(response => {
             if (response && response.ok) {
               const copy = response.clone();
-              caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+
+              caches.open(CACHE_NAME).then(cache => {
+                cache.put(request, copy);
+              });
             }
+
             return response;
           })
           .catch(() => cached);
