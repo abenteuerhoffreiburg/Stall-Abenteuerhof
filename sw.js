@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stall-abenteuerhof-shell-v1142-20260927';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v1213-20261013';
 const SHELL = [
   './',
   './index.html',
