@@ -1,7 +1,7 @@
 /* Pony-Pass 1: lokal erzeugte, bearbeitbare Vorschläge. Kein externer KI-Dienst. */
 (function (global) {
   'use strict';
-  const VERSION = '1.24.2';
+  const VERSION = '1.24.3';
   const goals = [
     ['stall-rules','Im Stall',2,'Die wichtigsten Stallregeln kennen.'],
     ['stall-clothes','Im Stall',2,'Schützende Kleidung und Schuhe kennen.'],
@@ -91,7 +91,7 @@
       if(!session || session._archived || session.groupId!==groupId || !dateValid(session.date) || session.date>=validDates[0])continue;
       for(const id of cleanIds(session.learningGoalIds))counts.set(id,(counts.get(id)||0)+1);
     }
-    for(const plan of existing)if(plan&&plan.groupId===groupId)topicCounts.set(plan.topicId,(topicCounts.get(plan.topicId)||0)+1);
+    for(const plan of existing)if(plan&&!plan._archived&&plan.groupId===groupId)topicCounts.set(plan.topicId,(topicCounts.get(plan.topicId)||0)+1);
     const recent=history.filter(session=>session&&!session._archived&&session.groupId===groupId&&dateValid(session.date)&&session.date<validDates[0]&&String(session.wishes||'').trim()).slice().sort((a,b)=>b.date.localeCompare(a.date))[0];
     const wishes=String(ownIdeas||recent?.wishes||'').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
     const result=[];let wishIndex=0;
@@ -105,8 +105,9 @@
       const eligible=anchor?topics.filter(topic=>topic.tags.includes('Reiten')===riding):topics;
       const matchingEligible=matching.filter(topic=>eligible.includes(topic));
       let candidates=requested&&eligible.includes(requested)?[requested]:matchingEligible.length?matchingEligible:eligible;
-      const score=topic=>topic.ids.reduce((sum,id)=>sum+(counts.get(id)||0),0)/Math.max(1,topic.ids.length)+5*(topicCounts.get(topic.id)||0);
-      candidates=candidates.slice().sort((a,b)=>score(a)-score(b)||topics.indexOf(a)-topics.indexOf(b));
+      // Tatsächlich dokumentierte Übung hat Vorrang. Ein Plan zählt nie als geübt.
+      const practiced=topic=>topic.ids.reduce((sum,id)=>sum+(counts.get(id)||0),0)/Math.max(1,topic.ids.length);
+      candidates=candidates.slice().sort((a,b)=>practiced(a)-practiced(b)||(topicCounts.get(a.id)||0)-(topicCounts.get(b.id)||0)||topics.indexOf(a)-topics.indexOf(b));
       const topic=candidates[0];
       const plan=planFromTopic(topic,groupId,date,wish);
       if(wish){plan.tags=['Sonstiges'];if(!matching.length&&!requested)plan.goalIds=[];}
@@ -206,7 +207,7 @@
     const dates=visibleDates(g,d,8),entries=[];
     for(const day of dates){const draft=readDraft(g,day),saved=storedPlan(g,day);if(draft?.plan||saved)entries.push({plan:draft?.plan||saved,base:draft?draft.base:cache[keyFor(g,day)]??null,draft:!!draft});}
     if(request!==sequence||currentOwner!==owner())return;
-    container.innerHTML=`<div class="planner-intro"><h2>Heutigen Schwerpunkt planen</h2><p>Für 8–14-Jährige</p><p>Vorschläge aus dem Pony-Pass 1. Geübte Lernziele aus früheren Stunden und eure eigenen Ideen fließen ein.</p></div>
+    container.innerHTML=`<div class="planner-intro"><h2>Heutigen Schwerpunkt planen</h2><p>Für 8–14-Jährige</p><p>Vorschläge aus dem Pony-Pass 1. Selten als geübt dokumentierte Lernziele haben Vorrang und können wiederkehren. Ein geplanter Schwerpunkt zählt noch nicht als geübt. Eure eigenen Ideen fließen ebenfalls ein.</p></div>
       <div class="planner-controls"><label>Vorschläge für<select id="ponyPlannerCount"><option value="1">Den gewählten Termin</option><option value="4">Die nächsten 4 Termine</option><option value="8">Die nächsten 8 Termine</option></select></label>
       <label>Schwerpunkt<select id="ponyPlannerFocus"><option value="auto">Passend zu bisherigen Lernzielen</option>${topics.map(t=>`<option value="${t.id}">${esc(t.title)}</option>`).join('')}</select></label>
       <label>Erster Reittermin dieser Gruppe<input type="date" id="ponyPlannerRidingStart" required ${permitted(g,d,true)?'':'disabled'}></label><p class="detail-sub">Ab diesem Termin ist alle 14 Tage Reiten vorgesehen. Dazwischen werden andere Schwerpunkte vorgeschlagen. Ferien und Absagen verschieben den Rhythmus nicht. Der Start wird mit den neuen Plänen fürs Team gespeichert; vorhandene Pläne bleiben erhalten.</p>
@@ -293,7 +294,7 @@
       const plan=readDraft(g,date)?.plan||storedPlan(g,date),featured=new Set([...(plan?.goalIds||[]),...selected]);
       if(!box){box=document.createElement('details');box.dataset.ponyPractice='';box.className='planner-practice';place.appendChild(box);}
       const item=goal=>`<label><input type="checkbox" data-practiced-goal="${goal.id}" ${selected.includes(goal.id)?'checked':''} ${permitted(g,date,true)?'':'disabled'}><span>${esc(goal.text)}</span></label>`;
-      box.innerHTML='<summary>Pony-Pass: Was habt ihr tatsächlich geübt?</summary><p>Nur durchgeführte Ziele markieren. Das hilft bei den nächsten Vorschlägen; es ist keine automatische Bewertung einzelner Kinder.</p>'+goals.filter(goal=>featured.has(goal.id)).map(item).join('')+'<details><summary>Weitere Lernziele auswählen</summary>'+goals.filter(goal=>!featured.has(goal.id)).map(item).join('')+'</details>';
+      box.innerHTML='<summary>Pony-Pass: Was habt ihr tatsächlich geübt?</summary><p>Nur durchgeführte Ziele markieren. Selten markierte Lernziele werden bei den nächsten Vorschlägen bevorzugt wiederholt; es ist keine automatische Bewertung einzelner Kinder.</p>'+goals.filter(goal=>featured.has(goal.id)).map(item).join('')+'<details><summary>Weitere Lernziele auswählen</summary>'+goals.filter(goal=>!featured.has(goal.id)).map(item).join('')+'</details>';
       box.querySelectorAll('[data-practiced-goal]').forEach(input=>input.onchange=()=>wrapper.querySelector('.pony-group-content-textarea').dispatchEvent(new Event('input',{bubbles:true})));
     });
   }

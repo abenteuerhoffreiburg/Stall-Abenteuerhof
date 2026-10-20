@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stall-abenteuerhof-shell-v1242-20261020';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v1243-20261020';
 const SHELL = [
   './',
   './index.html',
@@ -6,12 +6,12 @@ const SHELL = [
   './manifest.webmanifest',
   './access-v122.js',
   './access-v122.css',
-  './access-v122.js?v=1242',
-  './access-v122.css?v=1242',
+  './access-v122.js?v=1243',
+  './access-v122.css?v=1243',
   './pony-planner.js',
   './pony-planner.css',
-  './pony-planner.js?v=1242',
-  './pony-planner.css?v=1242',
+  './pony-planner.js?v=1243',
+  './pony-planner.css?v=1243',
   './icon-192.png',
   './icon-512.png'
 ];

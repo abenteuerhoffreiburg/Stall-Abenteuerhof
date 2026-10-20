@@ -1,4 +1,4 @@
-/* Stall Abenteuerhof · individuelle Zugriffe · v1.24.2
+/* Stall Abenteuerhof · individuelle Zugriffe · v1.24.3
    ----------------------------------------------------
    Dieses Modul erweitert die bestehende App um personenspezifische Zugriffe.
    Es ist rückwärtskompatibel: bestehende Pferdeteam-Accounts ohne Profil
@@ -1244,7 +1244,7 @@
   }
 
   window.StallAccessV122 = {
-    version:'1.24.2',
+    version:'1.24.3',
     canArea,
     canPonyGroup,
     canActivityContext,
