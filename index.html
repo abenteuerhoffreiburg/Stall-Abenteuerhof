@@ -11336,7 +11336,8 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
     .action-toast { bottom:calc(72px + env(safe-area-inset-bottom,0px)); }
   }
 </style>
-  <link rel="stylesheet" href="./access-v122.css?v=1230">
+  <link rel="stylesheet" href="./access-v122.css?v=1242">
+  <link rel="stylesheet" href="./pony-planner.css?v=1242">
 </head>
 <body>
 <div id="actionToast" class="action-toast" role="status" aria-live="polite" aria-atomic="true" hidden><span id="actionToastText"></span><button type="button" id="actionToastUndo">Rückgängig</button></div>
@@ -11900,10 +11901,13 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
     <div class="pony-group-detail-tabs" role="tablist" aria-label="Ponygruppe Rubrik">
       <button type="button" class="pony-group-detail-tab selected" id="ponyGroupTabToday" data-pony-group-view="attendance" role="tab" aria-selected="true">Anwesenheit</button>
       <button type="button" class="pony-group-detail-tab" id="ponyGroupTabDocumentation" data-pony-group-view="content" role="tab" aria-selected="false">Inhalte &amp; Ponys</button>
+      <button type="button" class="pony-group-detail-tab" id="ponyGroupTabPlanning" data-pony-group-view="planning" role="tab" aria-selected="false">Planung</button>
       <button type="button" class="pony-group-detail-tab" id="ponyGroupTabOverview" data-pony-group-view="overview" role="tab" aria-selected="false">Wochen<wbr>übersicht</button>
     </div>
 
     <p id="ponyGroupViewHint" class="pony-group-view-hint">Wer ist da? Die Auswahl wird direkt gespeichert und in „Inhalte &amp; Ponys“ übernommen.</p>
+
+    <div id="ponyGroupPlanningView" hidden></div>
 
     <div id="ponyGroupDocumentationView">
       <div id="ponyGroupAppointments" class="pony-group-appointments"></div>
@@ -12212,7 +12216,7 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
     <button class="settings-switch-btn" id="switchRoleBtn" type="button">Person / Bereich wechseln</button>
     <div class="settings-version-row">
       <span>Stall Abenteuerhof</span>
-      <span id="appVersionLabel">Version 1.23.0 · 16.10.2026</span>
+      <span id="appVersionLabel">Version 1.23.1 · 16.10.2026</span>
     </div>
   </div>
 </div>
@@ -12287,10 +12291,10 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
 <div id="changelogScreen" style="display:none;">
   <button class="back-link" id="changelogBackBtn">Einstellungen</button>
   <div class="detail-header">Was ist neu?</div>
-  <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.23.0 · 16.10.2026</div>
+  <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.23.1 · 16.10.2026</div>
 
   <div class="card changelog-card">
-    <div class="changelog-version">Version 1.23.0</div><p>Sicherheits- und Berechtigungs-Härtung: Anhänge werden privat ausgeliefert, neue Konten starten nach dem Least-Privilege-Prinzip, Ponygruppen-Freigaben können unabhängig voneinander befristet werden und Berechtigungsänderungen werden nachvollziehbar protokolliert.</p><ul><li>Neue Team-Zugänge erhalten zunächst keine sensiblen Bereiche; Admins geben nur die tatsächlich benötigten Rechte frei.</li><li>Mehrere Ponygruppen-Freigaben pro Person sind möglich, jeweils dauerhaft oder mit eigenem Zeitraum.</li><li>Zugriffsprofile besitzen stabile interne IDs und Änderungen landen in einem unveränderlichen Access-Audit.</li><li>Loginversuche werden gegen wiederholtes PIN-Raten begrenzt.</li><li>Neue Anhänge bleiben in Google Drive privat und werden nur über einen authentifizierten Medien-Endpunkt geladen.</li><li>Offline-Snapshots werden zusätzlich an die konkrete Person und den Berechtigungsstand gebunden.</li><li>Externe Google Fonts wurden entfernt.</li></ul><div class="changelog-version">Version 1.22.2</div><p>Individuelle Zugriffe fertiggestellt: Team-Login und Berechtigungen sind getrennt; einzelne Ehrenamtliche können einen persönlichen Zusatz-Zugang für bestimmte Ponygruppen erhalten.</p><ul><li>Ponygruppen-Freigaben können jetzt optional einen Zeitraum „von/bis“ haben; für eine einzelne Vertretung wird dasselbe Datum zweimal gewählt.</li><li>Bestehende Team-Zugänge ohne eigenes Profil behalten zunächst den bisherigen Vollzugriff.</li><li>Persönliche Ehrenamt-Zugänge für punktuelle Ponygruppen-Freigaben sind vorbereitet und werden bei aktivem AccessControl-Backend verfügbar.</li><li>Navigation, Suche, Aktivitäten, Aufgaben und Ponygruppen reagieren auf den persönlichen Zugriff.</li><li>Versionserkennung vergleicht Versionsnummern korrekt und meldet keine ältere veröffentlichte Version mehr als Update.</li></ul><div class="changelog-version">Version 1.21.3</div><p>Untere Navigation vereinfacht: Heute, Ponys, Stall, Aufgaben und Mehr sind im Pferdeteam fest. Nur Ponygruppen kann pro Person zusätzlich unten eingeblendet werden.</p><ul><li>Keine frei wählbaren Direktbereiche mehr.</li><li>Ponygruppen bleibt beim Pferdeteam unter „Mehr“ erreichbar, wenn der zusätzliche Tab ausgeschaltet ist.</li><li>Ehrenamt sieht Ponygruppen weiterhin nirgends; Aufgaben bleiben entsprechend der bisherigen Berechtigung ein Pferdeteam-Bereich.</li><li>Die persönliche Einstellung besteht nur noch aus einem verständlichen Ponygruppen-Schalter.</li></ul><div class="changelog-version">Version 1.21.2</div><p>Navigation finalisiert: Stall ist für alle fest in der unteren Hauptnavigation. Nur ein zusätzlicher Bereich ist persönlich wählbar.</p><ul><li>Die feste Leiste lautet jetzt: Heute · Ponys · Stall · zusätzlicher Bereich · Mehr.</li><li>Aufgaben sind beim Pferdeteam als zusätzlicher Bereich wählbar und bleiben sonst unter „Mehr“ erreichbar.</li><li>Ponygruppen sind nur beim Pferdeteam als zusätzlicher Bereich verfügbar; Ehrenamt sieht sie weiterhin nirgends.</li><li>Stall kann nicht mehr versehentlich als persönlicher Shortcut gewählt oder doppelt unter „Mehr“ angezeigt werden.</li></ul><div class="changelog-version">Version 1.21.1</div><p>Hotfix der 1.21-Navigation: Die Regeln für „Heute“ und die vereinfachten Einstellungen werden jetzt tatsächlich in der App angewendet statt versehentlich nur in einer Druckvorlage.</p><ul><li>Die alten Bereichskacheln sind auf „Heute“ wirklich ausgeblendet.</li><li>Die alte Startseiten-Sortierung ist aus der normalen Oberfläche entfernt.</li><li>Die Ponygruppen-Vollständigkeitsampel bleibt ausgeblendet.</li></ul><div class="changelog-version">Version 1.21.0</div><p>Logik- und Alltags-Politur: „Heute“ ist jetzt wirklich ein Dashboard, Ponygruppen erzeugen keine künstlichen Dokumentationspflichten mehr und persönliche Direktbereiche bleiben klar von Berechtigungen getrennt.</p><ul><li>Die alten Bereichskacheln auf „Heute“ und die detaillierte Startseiten-Sortierung sind aus der normalen Oberfläche entfernt.</li><li>Ponygruppen erscheinen nicht mehr auf „Heute“; sie sind – je nach Berechtigung – über den persönlichen Direktbereich unten oder unter „Mehr“ erreichbar.</li><li>Die Ponygruppen-Termine zeigen weiterhin Anwesenheit und vorhandene Inhalte, aber keinen erzwungenen Vollständigkeitsstatus.</li><li>Der persönliche Direktbereich wird pro Person lokal gespeichert und zusätzlich über die vorhandene App-Speicherung synchronisiert.</li><li>Qualitäts-/Testwerkzeuge, Ponyverwaltung und Farbanpassungen sind auf Admins begrenzt.</li><li>Kalendertexte und Fallback-Hilfe wurden vereinfacht.</li></ul><div class="changelog-version">Version 1.20.1</div><p>Kalender-Hotfix: Die eingebettete Kalenderansicht verwendet jetzt ausschließlich den freigegebenen Ansicht-Link; der Administrator-Link wurde aus dem Frontend entfernt.</p><ul><li>Kalender.digital blockiert Administrator-Links in iFrames aus Sicherheitsgründen.</li><li>Der Kalender kann wieder innerhalb der App geladen werden.</li><li>„Im Browser öffnen“ verwendet ebenfalls den sicheren Ansicht-Link.</li></ul><div class="changelog-version">Version 1.20.0</div><p>Navigation vereinfacht: Heute ist nur noch Tagesübersicht, die untere Leiste ist die Hauptnavigation und „Mehr“ enthält alle übrigen erlaubten Bereiche.</p><ul><li>Die persönliche Einstellung steuert nur noch einen Direktbereich unten; sie verändert weder Berechtigungen noch Suche oder „Mehr“.</li><li>Ponygruppen sind für das Pferdeteam verfügbar und für Ehrenamt konsequent verborgen.</li><li>Der bisherige Schalter zum vollständigen Ausblenden von Ponygruppen wurde entfernt.</li><li>Stall erscheint unter „Mehr“, wenn er nicht bereits als Direktbereich unten gewählt ist.</li><li>Qualität/Testmodus wird nur noch Admins angezeigt.</li></ul>    <div class="changelog-version">Version 1.19.0</div><p>Robustheitsrunde: Formulare sichern Entwürfe lokal, Browser-Popups wurden durch ein einheitliches App-Dialogsystem ersetzt, persönliche Einstellungen verwenden stabile Personen-IDs und die Ponygruppen-Leitung ist administrativ konfigurierbar.</p><ul><li>Ungespeicherte Entwürfe in Gesundheit, Aktivitäten, Aufgaben und Schwarzem Brett bleiben auf dem Gerät erhalten und können beim Wiederöffnen fortgesetzt oder verworfen werden.</li><li>Bestätigungen, Hinweise und Texteingaben erscheinen im einheitlichen App-Design statt als Browser-Popups.</li><li>Persönliche Einstellungen und neue Gesehen-Bestätigungen verwenden eine stabile interne Personen-ID; ältere namensbasierte Daten bleiben lesbar.</li><li>Ponygruppen-Leitung ist keine fest eingebaute Person mehr, sondern kann von Admins pro Pferdeteam-Mitglied ein- oder ausgeschaltet werden.</li></ul><div class="changelog-version">Version 1.18.0</div><p>Persönliche Bereiche wurden für den Stallalltag vereinfacht. Pferdeteam-Mitglieder können Ponygruppen für ihre eigene Ansicht ausblenden, ohne Daten zu löschen oder den Zugang zu verändern.</p><ul><li>„Meine App“ fragt nur noch verständlich, was angezeigt werden soll und welcher Bereich unten direkt erreichbar sein soll.</li><li>Ausgeblendete Ponygruppen verschwinden konsequent aus Heute, Navigation, Mehr, Suche, Datenqualitäts-Hinweisen und Startseite.</li><li>Die Einstellung wird pro Person gespeichert und nach Möglichkeit zwischen Geräten synchronisiert; offline bleibt eine lokale Kopie verfügbar.</li><li>Der Ponygruppen-Helfi-Zugang bleibt unverändert, weil Ponygruppen dort der eigentliche Arbeitsbereich sind.</li><li>Die detaillierte Startseiten-Sortierung bleibt erhalten, ist aber als optionale „Weitere Anpassung“ eingeklappt.</li></ul>    <div class="changelog-version">Version 1.17.0</div><p>Professionalisierungsrunde: Suche, Tageshinweise, Datenqualität, Testmodus, Konfliktwarnungen und Barrierefreiheit wurden auf der bestehenden Datenstruktur ergänzt.</p><ul><li>Die globale Suche findet jetzt auch konkrete Gesundheitsmeldungen, Hinweise vom Schwarzen Brett und Stallchecks.</li><li>„Heute“ weist zusätzlich auf ungesehene wichtige Gesundheitsmeldungen, überfällige Aufgaben und unvollständige Ponygruppen-Dokumentation der letzten Tage hin.</li><li>Die Übergabe orientiert sich automatisch am letzten App-Besuch und kann weiterhin bewusst als gelesen markiert werden.</li><li>Ein Datenqualitäts-Check zeigt offene Dokumentation und überfällige Punkte, ohne selbst Daten zu verändern.</li><li>Der sessionbasierte Testmodus trennt Probeänderungen von den echten Stalldaten.</li><li>Bei parallel geänderten Einträgen warnt die App vor dem Überschreiben, sobald ein neuerer Stand synchronisiert wurde.</li><li>Fokuszustände, Touch-Ziele und reduzierte Animationen wurden für mobile Nutzung und Barrierefreiheit verbessert.</li></ul>    <div class="changelog-version">Version 1.16.0</div><p>Der Stallalltag wird jetzt als zusammenhängender Workflow dargestellt: Heute bündelt operative Punkte und eine automatische Übergabe; Ponygruppen zeigen ihren Dokumentationsfortschritt; Ponyakten enthalten zusätzlich den aktuellen Standort; schnelle Änderungen erhalten ein professionelles Rückgängig-Feedback.</p><ul><li>Heute im Stall zeigt heutige Ponygruppen mit Dokumentationsstatus, fällige Stallchecks und noch offene Pony-Aktivitätsdokumentation.</li><li>Die automatische Übergabe fasst relevante Änderungen seit dem letzten bestätigten Lesen zusammen, ohne zusätzliche Eingabe.</li><li>Ponygruppen prüfen Anwesenheit, Ponyeinteilung, Gruppeninhalt und Aktivitätsdokumentation als vier sichtbare Arbeitsschritte; „Alle Kinder da“ beschleunigt die Anwesenheit.</li><li>Ponyakten zeigen den aktuellen Standort direkt neben Aktivität und Gesundheit.</li><li>Ein systemweites Aktionsfeedback mit Rückgängig-Funktion steht für schnelle Ponygruppen-Änderungen bereit.</li></ul><div class="changelog-version">Version 1.15.1</div><p>Die Anwesenheit in Ponygruppen ist jetzt deutlich schneller erfassbar und auf einen Blick lesbar.</p><ul><li>Jede Person zeigt ihren Status direkt an der Namenszeile; die gesamte Zeile wird passend zu Da, Entschuldigt, Fehlt oder Noch offen hervorgehoben.</li><li>Oben zeigt eine Fortschrittsanzeige, wie viele Personen bereits erfasst sind und welche Namen noch offen sind.</li><li>Ausgewählte Statusbuttons bleiben trotz globalem Design-System eindeutig farbig und erhalten eine klare Auswahlmarkierung.</li><li>Bestehende Anwesenheitswerte und Speicherung bleiben unverändert kompatibel.</li></ul><div class="changelog-version" style="margin-top:18px;">Version 1.15.0</div><p>Alltagsstruktur, Ponygruppen und Gesundheitskommunikation wurden zusammengeführt: Stall ist der Standard-Direktbereich, Ponyakten zeigen die aktuelle Wochenleistung, Ponygruppen haben Heute/Verlauf/Übersicht mit Export, und wichtige Gesundheitsmeldungen können automatisch am Schwarzen Brett erscheinen.</p><ul><li>Aktivitäten lassen sich direkt aus der Ponyakte öffnen; die Wochenleistung wird ohne Doppelerfassung aus denselben Bewegungsdaten dargestellt.</li><li>Ponygruppen: Heute, Verlauf und Übersicht; Filter für vier Wochen, aktuelles Halbjahr und eigenen Zeitraum sowie PDF-/CSV-Export im Pferdeteam.</li><li>Gesundheit: Sichtbarkeitskreis, persönliche Gesehen-Bestätigungen mit Zeitpunkt und optionales Spiegeln wichtiger Meldungen ans Schwarze Brett.</li><li>Aufgaben haben deutlich mehr Innenabstand und bleiben funktional unverändert.</li></ul><div class="changelog-version" style="margin-top:18px;">Version 1.14.2</div><p>Helfis verwenden jetzt einen gemeinsamen dauerhaften Einladungslink. Der Link wird einmal erzeugt, bleibt unverändert und ist unabhängig vom Ehrenamt-Code der Stall-App. Der Button zum Erneuern wurde entfernt.</p><div class="changelog-version" style="margin-top:18px;">Version 1.14.1</div><p>Hotfix: Frontend und Helfi-Kalender verwenden jetzt die aktuell bereitgestellte Google-Apps-Script-Web-App. Cache- und Versionskennung wurden gemeinsam angehoben, damit die neue Datei zuverlässig geladen wird.</p><div class="changelog-version" style="margin-top:18px;">Version 1.14.0</div><p>Der Helfi-Plan verteilt jetzt mehr Helfis als vorhandene Plätze automatisch fair über einen Wochenrhythmus. Ferien, Feiertage sowie abgesagte und verschobene Ponygruppen werden im Helfi-Kalender berücksichtigt. Die App startet bei vorhandener rollengetrennter Offline-Kopie sofort und aktualisiert Google-Daten im Hintergrund. Mitarbeitende mit Pferdeteam-Zugang werden nicht als Helfis geführt.</p><div class="changelog-version" style="margin-top:18px;">Version 1.13.0</div><p>Helfis öffnen ihren Kalender direkt über einen geschützten Einladungslink ohne Code-Eingabe. Moritz wird als Mitarbeiter nicht mehr im Helfi-Plan geführt. Planänderungen werden gegen bereits zugesagte Vertretungen und Einzelbuchungen in allen betroffenen Folgewochen geprüft.</p>
+    <div class="changelog-version">Version 1.23.1</div><p>Sicherheits- und Berechtigungs-Härtung: Anhänge werden privat ausgeliefert, neue Konten starten nach dem Least-Privilege-Prinzip, Ponygruppen-Freigaben können unabhängig voneinander befristet werden und Berechtigungsänderungen werden nachvollziehbar protokolliert.</p><ul><li>Neue Team-Zugänge erhalten zunächst keine sensiblen Bereiche; Admins geben nur die tatsächlich benötigten Rechte frei.</li><li>Mehrere Ponygruppen-Freigaben pro Person sind möglich, jeweils dauerhaft oder mit eigenem Zeitraum.</li><li>Zugriffsprofile besitzen stabile interne IDs und Änderungen landen in einem unveränderlichen Access-Audit.</li><li>Loginversuche werden gegen wiederholtes PIN-Raten begrenzt.</li><li>Neue Anhänge bleiben in Google Drive privat und werden nur über einen authentifizierten Medien-Endpunkt geladen.</li><li>Offline-Snapshots werden zusätzlich an die konkrete Person und den Berechtigungsstand gebunden.</li><li>Externe Google Fonts wurden entfernt.</li></ul><div class="changelog-version">Version 1.22.2</div><p>Individuelle Zugriffe fertiggestellt: Team-Login und Berechtigungen sind getrennt; einzelne Ehrenamtliche können einen persönlichen Zusatz-Zugang für bestimmte Ponygruppen erhalten.</p><ul><li>Ponygruppen-Freigaben können jetzt optional einen Zeitraum „von/bis“ haben; für eine einzelne Vertretung wird dasselbe Datum zweimal gewählt.</li><li>Bestehende Team-Zugänge ohne eigenes Profil behalten zunächst den bisherigen Vollzugriff.</li><li>Persönliche Ehrenamt-Zugänge für punktuelle Ponygruppen-Freigaben sind vorbereitet und werden bei aktivem AccessControl-Backend verfügbar.</li><li>Navigation, Suche, Aktivitäten, Aufgaben und Ponygruppen reagieren auf den persönlichen Zugriff.</li><li>Versionserkennung vergleicht Versionsnummern korrekt und meldet keine ältere veröffentlichte Version mehr als Update.</li></ul><div class="changelog-version">Version 1.21.3</div><p>Untere Navigation vereinfacht: Heute, Ponys, Stall, Aufgaben und Mehr sind im Pferdeteam fest. Nur Ponygruppen kann pro Person zusätzlich unten eingeblendet werden.</p><ul><li>Keine frei wählbaren Direktbereiche mehr.</li><li>Ponygruppen bleibt beim Pferdeteam unter „Mehr“ erreichbar, wenn der zusätzliche Tab ausgeschaltet ist.</li><li>Ehrenamt sieht Ponygruppen weiterhin nirgends; Aufgaben bleiben entsprechend der bisherigen Berechtigung ein Pferdeteam-Bereich.</li><li>Die persönliche Einstellung besteht nur noch aus einem verständlichen Ponygruppen-Schalter.</li></ul><div class="changelog-version">Version 1.21.2</div><p>Navigation finalisiert: Stall ist für alle fest in der unteren Hauptnavigation. Nur ein zusätzlicher Bereich ist persönlich wählbar.</p><ul><li>Die feste Leiste lautet jetzt: Heute · Ponys · Stall · zusätzlicher Bereich · Mehr.</li><li>Aufgaben sind beim Pferdeteam als zusätzlicher Bereich wählbar und bleiben sonst unter „Mehr“ erreichbar.</li><li>Ponygruppen sind nur beim Pferdeteam als zusätzlicher Bereich verfügbar; Ehrenamt sieht sie weiterhin nirgends.</li><li>Stall kann nicht mehr versehentlich als persönlicher Shortcut gewählt oder doppelt unter „Mehr“ angezeigt werden.</li></ul><div class="changelog-version">Version 1.21.1</div><p>Hotfix der 1.21-Navigation: Die Regeln für „Heute“ und die vereinfachten Einstellungen werden jetzt tatsächlich in der App angewendet statt versehentlich nur in einer Druckvorlage.</p><ul><li>Die alten Bereichskacheln sind auf „Heute“ wirklich ausgeblendet.</li><li>Die alte Startseiten-Sortierung ist aus der normalen Oberfläche entfernt.</li><li>Die Ponygruppen-Vollständigkeitsampel bleibt ausgeblendet.</li></ul><div class="changelog-version">Version 1.21.0</div><p>Logik- und Alltags-Politur: „Heute“ ist jetzt wirklich ein Dashboard, Ponygruppen erzeugen keine künstlichen Dokumentationspflichten mehr und persönliche Direktbereiche bleiben klar von Berechtigungen getrennt.</p><ul><li>Die alten Bereichskacheln auf „Heute“ und die detaillierte Startseiten-Sortierung sind aus der normalen Oberfläche entfernt.</li><li>Ponygruppen erscheinen nicht mehr auf „Heute“; sie sind – je nach Berechtigung – über den persönlichen Direktbereich unten oder unter „Mehr“ erreichbar.</li><li>Die Ponygruppen-Termine zeigen weiterhin Anwesenheit und vorhandene Inhalte, aber keinen erzwungenen Vollständigkeitsstatus.</li><li>Der persönliche Direktbereich wird pro Person lokal gespeichert und zusätzlich über die vorhandene App-Speicherung synchronisiert.</li><li>Qualitäts-/Testwerkzeuge, Ponyverwaltung und Farbanpassungen sind auf Admins begrenzt.</li><li>Kalendertexte und Fallback-Hilfe wurden vereinfacht.</li></ul><div class="changelog-version">Version 1.20.1</div><p>Kalender-Hotfix: Die eingebettete Kalenderansicht verwendet jetzt ausschließlich den freigegebenen Ansicht-Link; der Administrator-Link wurde aus dem Frontend entfernt.</p><ul><li>Kalender.digital blockiert Administrator-Links in iFrames aus Sicherheitsgründen.</li><li>Der Kalender kann wieder innerhalb der App geladen werden.</li><li>„Im Browser öffnen“ verwendet ebenfalls den sicheren Ansicht-Link.</li></ul><div class="changelog-version">Version 1.20.0</div><p>Navigation vereinfacht: Heute ist nur noch Tagesübersicht, die untere Leiste ist die Hauptnavigation und „Mehr“ enthält alle übrigen erlaubten Bereiche.</p><ul><li>Die persönliche Einstellung steuert nur noch einen Direktbereich unten; sie verändert weder Berechtigungen noch Suche oder „Mehr“.</li><li>Ponygruppen sind für das Pferdeteam verfügbar und für Ehrenamt konsequent verborgen.</li><li>Der bisherige Schalter zum vollständigen Ausblenden von Ponygruppen wurde entfernt.</li><li>Stall erscheint unter „Mehr“, wenn er nicht bereits als Direktbereich unten gewählt ist.</li><li>Qualität/Testmodus wird nur noch Admins angezeigt.</li></ul>    <div class="changelog-version">Version 1.19.0</div><p>Robustheitsrunde: Formulare sichern Entwürfe lokal, Browser-Popups wurden durch ein einheitliches App-Dialogsystem ersetzt, persönliche Einstellungen verwenden stabile Personen-IDs und die Ponygruppen-Leitung ist administrativ konfigurierbar.</p><ul><li>Ungespeicherte Entwürfe in Gesundheit, Aktivitäten, Aufgaben und Schwarzem Brett bleiben auf dem Gerät erhalten und können beim Wiederöffnen fortgesetzt oder verworfen werden.</li><li>Bestätigungen, Hinweise und Texteingaben erscheinen im einheitlichen App-Design statt als Browser-Popups.</li><li>Persönliche Einstellungen und neue Gesehen-Bestätigungen verwenden eine stabile interne Personen-ID; ältere namensbasierte Daten bleiben lesbar.</li><li>Ponygruppen-Leitung ist keine fest eingebaute Person mehr, sondern kann von Admins pro Pferdeteam-Mitglied ein- oder ausgeschaltet werden.</li></ul><div class="changelog-version">Version 1.18.0</div><p>Persönliche Bereiche wurden für den Stallalltag vereinfacht. Pferdeteam-Mitglieder können Ponygruppen für ihre eigene Ansicht ausblenden, ohne Daten zu löschen oder den Zugang zu verändern.</p><ul><li>„Meine App“ fragt nur noch verständlich, was angezeigt werden soll und welcher Bereich unten direkt erreichbar sein soll.</li><li>Ausgeblendete Ponygruppen verschwinden konsequent aus Heute, Navigation, Mehr, Suche, Datenqualitäts-Hinweisen und Startseite.</li><li>Die Einstellung wird pro Person gespeichert und nach Möglichkeit zwischen Geräten synchronisiert; offline bleibt eine lokale Kopie verfügbar.</li><li>Der Ponygruppen-Helfi-Zugang bleibt unverändert, weil Ponygruppen dort der eigentliche Arbeitsbereich sind.</li><li>Die detaillierte Startseiten-Sortierung bleibt erhalten, ist aber als optionale „Weitere Anpassung“ eingeklappt.</li></ul>    <div class="changelog-version">Version 1.17.0</div><p>Professionalisierungsrunde: Suche, Tageshinweise, Datenqualität, Testmodus, Konfliktwarnungen und Barrierefreiheit wurden auf der bestehenden Datenstruktur ergänzt.</p><ul><li>Die globale Suche findet jetzt auch konkrete Gesundheitsmeldungen, Hinweise vom Schwarzen Brett und Stallchecks.</li><li>„Heute“ weist zusätzlich auf ungesehene wichtige Gesundheitsmeldungen, überfällige Aufgaben und unvollständige Ponygruppen-Dokumentation der letzten Tage hin.</li><li>Die Übergabe orientiert sich automatisch am letzten App-Besuch und kann weiterhin bewusst als gelesen markiert werden.</li><li>Ein Datenqualitäts-Check zeigt offene Dokumentation und überfällige Punkte, ohne selbst Daten zu verändern.</li><li>Der sessionbasierte Testmodus trennt Probeänderungen von den echten Stalldaten.</li><li>Bei parallel geänderten Einträgen warnt die App vor dem Überschreiben, sobald ein neuerer Stand synchronisiert wurde.</li><li>Fokuszustände, Touch-Ziele und reduzierte Animationen wurden für mobile Nutzung und Barrierefreiheit verbessert.</li></ul>    <div class="changelog-version">Version 1.16.0</div><p>Der Stallalltag wird jetzt als zusammenhängender Workflow dargestellt: Heute bündelt operative Punkte und eine automatische Übergabe; Ponygruppen zeigen ihren Dokumentationsfortschritt; Ponyakten enthalten zusätzlich den aktuellen Standort; schnelle Änderungen erhalten ein professionelles Rückgängig-Feedback.</p><ul><li>Heute im Stall zeigt heutige Ponygruppen mit Dokumentationsstatus, fällige Stallchecks und noch offene Pony-Aktivitätsdokumentation.</li><li>Die automatische Übergabe fasst relevante Änderungen seit dem letzten bestätigten Lesen zusammen, ohne zusätzliche Eingabe.</li><li>Ponygruppen prüfen Anwesenheit, Ponyeinteilung, Gruppeninhalt und Aktivitätsdokumentation als vier sichtbare Arbeitsschritte; „Alle Kinder da“ beschleunigt die Anwesenheit.</li><li>Ponyakten zeigen den aktuellen Standort direkt neben Aktivität und Gesundheit.</li><li>Ein systemweites Aktionsfeedback mit Rückgängig-Funktion steht für schnelle Ponygruppen-Änderungen bereit.</li></ul><div class="changelog-version">Version 1.15.1</div><p>Die Anwesenheit in Ponygruppen ist jetzt deutlich schneller erfassbar und auf einen Blick lesbar.</p><ul><li>Jede Person zeigt ihren Status direkt an der Namenszeile; die gesamte Zeile wird passend zu Da, Entschuldigt, Fehlt oder Noch offen hervorgehoben.</li><li>Oben zeigt eine Fortschrittsanzeige, wie viele Personen bereits erfasst sind und welche Namen noch offen sind.</li><li>Ausgewählte Statusbuttons bleiben trotz globalem Design-System eindeutig farbig und erhalten eine klare Auswahlmarkierung.</li><li>Bestehende Anwesenheitswerte und Speicherung bleiben unverändert kompatibel.</li></ul><div class="changelog-version" style="margin-top:18px;">Version 1.15.0</div><p>Alltagsstruktur, Ponygruppen und Gesundheitskommunikation wurden zusammengeführt: Stall ist der Standard-Direktbereich, Ponyakten zeigen die aktuelle Wochenleistung, Ponygruppen haben Heute/Verlauf/Übersicht mit Export, und wichtige Gesundheitsmeldungen können automatisch am Schwarzen Brett erscheinen.</p><ul><li>Aktivitäten lassen sich direkt aus der Ponyakte öffnen; die Wochenleistung wird ohne Doppelerfassung aus denselben Bewegungsdaten dargestellt.</li><li>Ponygruppen: Heute, Verlauf und Übersicht; Filter für vier Wochen, aktuelles Halbjahr und eigenen Zeitraum sowie PDF-/CSV-Export im Pferdeteam.</li><li>Gesundheit: Sichtbarkeitskreis, persönliche Gesehen-Bestätigungen mit Zeitpunkt und optionales Spiegeln wichtiger Meldungen ans Schwarze Brett.</li><li>Aufgaben haben deutlich mehr Innenabstand und bleiben funktional unverändert.</li></ul><div class="changelog-version" style="margin-top:18px;">Version 1.14.2</div><p>Helfis verwenden jetzt einen gemeinsamen dauerhaften Einladungslink. Der Link wird einmal erzeugt, bleibt unverändert und ist unabhängig vom Ehrenamt-Code der Stall-App. Der Button zum Erneuern wurde entfernt.</p><div class="changelog-version" style="margin-top:18px;">Version 1.14.1</div><p>Hotfix: Frontend und Helfi-Kalender verwenden jetzt die aktuell bereitgestellte Google-Apps-Script-Web-App. Cache- und Versionskennung wurden gemeinsam angehoben, damit die neue Datei zuverlässig geladen wird.</p><div class="changelog-version" style="margin-top:18px;">Version 1.14.0</div><p>Der Helfi-Plan verteilt jetzt mehr Helfis als vorhandene Plätze automatisch fair über einen Wochenrhythmus. Ferien, Feiertage sowie abgesagte und verschobene Ponygruppen werden im Helfi-Kalender berücksichtigt. Die App startet bei vorhandener rollengetrennter Offline-Kopie sofort und aktualisiert Google-Daten im Hintergrund. Mitarbeitende mit Pferdeteam-Zugang werden nicht als Helfis geführt.</p><div class="changelog-version" style="margin-top:18px;">Version 1.13.0</div><p>Helfis öffnen ihren Kalender direkt über einen geschützten Einladungslink ohne Code-Eingabe. Moritz wird als Mitarbeiter nicht mehr im Helfi-Plan geführt. Planänderungen werden gegen bereits zugesagte Vertretungen und Einzelbuchungen in allen betroffenen Folgewochen geprüft.</p>
     <ul>
       <li>Keine zusätzliche „Helfi-Plan“-Freigabe mehr nötig.</li>
       <li>Der geschützte Einladungslink öffnet weiterhin ausschließlich den Helfi-Kalender.</li>
@@ -14625,8 +14629,139 @@ async function storageSetPonyGroupAtomic_(entries, context = {}) {
   primary.ponyGroupDate = context.dateStr;
   primary.groupDate = context.dateStr;
   primary.entryCreate = true;
+  primary.entryMutationOwner = pushNotificationOwner_();
   primary.queuePredecessorValues = predecessors;
   return await storageSetAtomicMany_(writes);
+}
+
+const ponyGroupSaveChains_ = new Map();
+async function serializePonyGroupSave_(groupId, dateStr, task) {
+  const key = groupId + ':' + dateStr;
+  const previous = ponyGroupSaveChains_.get(key) || Promise.resolve();
+  const next = previous.catch(() => {}).then(task);
+  ponyGroupSaveChains_.set(key, next);
+  try { return await next; }
+  finally { if (ponyGroupSaveChains_.get(key) === next) ponyGroupSaveChains_.delete(key); }
+}
+function ponyGroupSyncContext_(op) {
+  const match = /^ponygroup:(?:attendance:)?([^:]+):(\d{4}-\d{2}-\d{2})$/.exec(String(op?.key || ''));
+  return match ? { groupId: match[1], dateStr: match[2] } : null;
+}
+function ponyGroupRawValue_(key, source = cache) {
+  return Object.prototype.hasOwnProperty.call(source, key) ? source[key] : null;
+}
+function ponyGroupEditBases_(wrapper) {
+  const result = {};
+  for (const field of ['baseContent', 'baseAttendance']) {
+    try {
+      const value = JSON.parse(wrapper.dataset[field]);
+      if (value === null || typeof value === 'string') result[field] = value;
+    } catch (e) { /* Ältere Entwürfe erhalten beim nächsten Speichern einen Vergleichsstand. */ }
+  }
+  return result;
+}
+function ponyGroupWriteOptionsForKey_(key, options = {}) {
+  const context = ponyGroupSyncContext_({key});
+  if (!context) return options;
+  return {
+    expectedKey: key, expectedValue: ponyGroupRawValue_(key), entryCreate: true,
+    ponyGroupWrite: true, ponyGroupId: context.groupId, ponyGroupDate: context.dateStr,
+    entryMutationOwner: pushNotificationOwner_(), ...options
+  };
+}
+function ponyGroupSyncWrites_(op) {
+  return (Array.isArray(op.atomicWrites) ? op.atomicWrites : [op]).map(write => {
+    const options = {...(write.writeOptions || {})};
+    if (write.key === op.key && Object.prototype.hasOwnProperty.call(op, 'expectedValue')) {
+      options.expectedKey = op.expectedKey || op.key;
+      options.expectedValue = op.expectedValue;
+    }
+    return {key: write.key, value: write.value, type: write.type || op.type || 'set', ...options};
+  });
+}
+function ponyGroupConflictError_() {
+  const error = new Error('Diese Ponygruppe wurde inzwischen geändert. Deine Eingaben bleiben erhalten. Bitte die Stände vergleichen.');
+  error.permanent = true; error.code = 'conflict'; error.ponyGroupConflict = true;
+  return error;
+}
+async function beforePonyGroupOpSync_(op) {
+  const writes = ponyGroupSyncWrites_(op);
+  // Alte ungeschützte Offline-Aufträge werden erst nach einem bewussten Vergleich übernommen.
+  if (writes.some(write => !Object.prototype.hasOwnProperty.call(write, 'expectedValue'))) throw ponyGroupConflictError_();
+  const data = await readServerDataForEdit_();
+  const checked = [];
+  for (const write of writes) {
+    const key = write.expectedKey || write.key;
+    const raw = ponyGroupRawValue_(key, data);
+    const alreadyApplied = key === write.key && (write.type === 'delete' ? raw === null : raw === write.value);
+    const ownPredecessor = raw !== null && !recordUnavailableForEdit_(raw) && (op.queuePredecessorValues?.[key] || []).includes(raw);
+    if (raw !== write.expectedValue && !alreadyApplied && !ownPredecessor) throw ponyGroupConflictError_();
+    checked.push([key, raw]);
+  }
+  // Alle Teil-Datensätze müssen passen, bevor irgendein Vergleichsstand geändert wird.
+  for (const [key, raw] of checked) {
+    if ((op.expectedKey || op.key) === key) { op.expectedKey = key; op.expectedValue = raw; }
+    for (const write of op.atomicWrites || []) {
+      const options = write.writeOptions || {};
+      if ((options.expectedKey || write.key) === key) write.writeOptions = {...options, expectedKey: key, expectedValue: raw};
+    }
+  }
+  return true;
+}
+async function ponyGroupReviewText_(writes, data, context) {
+  let roster = [];
+  try { roster = await getPonyGroupRoster(context.groupId); } catch (e) {}
+  const names = new Map(roster.map(person => [String(person.id), person.name || String(person.id)]));
+  const ponyNames = new Map((Array.isArray(ponies) ? ponies : []).map(pony => [String(pony.id), pony.name || String(pony.id)]));
+  const statuses = {present:'da', excused:'entschuldigt', absent:'fehlt'};
+  return writes.map(write => {
+    const raw = data ? ponyGroupRawValue_(write.key, data) : write.type === 'delete' ? null : write.value;
+    const title = write.key.startsWith('ponygroup:attendance:') ? 'Anwesenheit' : 'Inhalte';
+    if (raw === null) return title + ': kein Eintrag';
+    let entry;
+    try { entry = JSON.parse(raw); } catch (e) { return title + ': ' + String(raw); }
+    if (!entry || typeof entry !== 'object') return title + ': kein Eintrag';
+    if (title === 'Anwesenheit') {
+      const people = Object.entries(entry.statusById || {}).map(([id, state]) => {
+        const ids = entry.ponyById?.[id];
+        const ponyText = Array.isArray(ids) && ids.length ? ' · ' + ids.map(pony => ponyNames.get(String(pony)) || pony).join(', ') : '';
+        return (names.get(id) || id) + ': ' + (statuses[state] || 'offen') + ponyText;
+      });
+      return title + ':\n' + (people.join('\n') || 'Alle noch offen') + (entry.note ? '\nBesonderheit: ' + entry.note : '');
+    }
+    return title + (entry._archived ? ' (archiviert)' : '') + ':\n' +
+      (Array.isArray(entry.tags) ? entry.tags.join(' · ') : '') +
+      (entry.text ? '\n' + entry.text : '') + (entry.wishes ? '\nNächstes Mal: ' + entry.wishes : '') +
+      (Array.isArray(entry.ponyIds) && entry.ponyIds.length ? '\nPonys: ' + entry.ponyIds.map(id => ponyNames.get(String(id)) || id).join(', ') : '');
+  }).join('\n\n');
+}
+async function resolvePonyGroupConflict_(opId) {
+  const original = getPendingOps().find(op => op.opId === opId && pendingOpAllowedForCurrentRole_(op));
+  const context = ponyGroupSyncContext_(original);
+  if (!original || !context) return false;
+  if (!navigator.onLine) {showActionToast('Für den Vergleich bitte eine Internetverbindung herstellen. Deine Eingaben bleiben erhalten.'); return false;}
+  try {
+    const data = await readServerDataForEdit_();
+    const writes = ponyGroupSyncWrites_(original);
+    const serverText = await ponyGroupReviewText_(writes, data, context);
+    const localText = await ponyGroupReviewText_(writes, null, context);
+    const approved = await appConfirm('Aktueller Stand im Stall:\n' + serverText + '\n\nDein vorgemerkter Stand:\n' + localText + '\n\nDeinen Stand übernehmen? Bei Abbrechen bleiben beide Stände erhalten.', {
+      title: 'Gruppenänderungen vergleichen', confirmText: 'Meinen Stand übernehmen', cancelText: 'Entwurf behalten'
+    });
+    if (!approved) return false;
+    if (!getPendingOps().some(op => op.opId === opId && pendingOpAllowedForCurrentRole_(op))) {
+      showActionToast('Du hast inzwischen weitergearbeitet. Bitte die aktuellen Änderungen erneut vergleichen.'); return false;
+    }
+    let ok;
+    if (original.type === 'delete') {
+      ok = await storageDelete(original.key, {...original, expectedKey: original.key, expectedValue: ponyGroupRawValue_(original.key, data), syncError: undefined, ponyGroupConflict: false, nextRetryAt: undefined});
+    } else {
+      ok = await storageSetPonyGroupAtomic_(writes.map(write => ({key: write.key, type:'set', value: write.value,
+        expectedKey: write.key, expectedValue: ponyGroupRawValue_(write.key, data)})), {...context, reviewed:true});
+    }
+    if (ok) showActionToast('Der gewählte Stand ist zur Synchronisierung vorgemerkt.');
+    return ok;
+  } catch (e) {showActionToast('Der Vergleich ist gerade nicht möglich. Deine Eingaben bleiben erhalten.'); return false;}
 }
 
 async function readServerDataForEdit_() {
@@ -14654,6 +14789,7 @@ function recordUnavailableForEdit_(raw) {
   catch(e) {return true;}
 }
 async function beforePendingOpSync_(op) {
+  if(ponyGroupSyncContext_(op))return beforePonyGroupOpSync_(op);
   if(Array.isArray(op.entryMutations) && op.entryMutations.length)return true;
   if (!Object.prototype.hasOwnProperty.call(op,'expectedValue')) return true;
   // The server checks these writes under its lock; a committed private note is no longer readable by its volunteer sender.
@@ -14900,6 +15036,14 @@ function updateConnectionBanner() {
   if (warning) {
     el.className = 'connection-banner visible offline';
     el.textContent = warning;
+    const conflict = getPendingOps().find(op => op.ponyGroupConflict && pendingOpAllowedForCurrentRole_(op));
+    if (conflict) {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'secondary-btn pony-group-conflict-review';
+      button.textContent = 'Gruppenänderungen vergleichen';
+      button.onclick = () => resolvePonyGroupConflict_(conflict.opId);
+      el.appendChild(button);
+    }
     renderSettingsSyncSummary();
     return;
   }
@@ -15011,6 +15155,7 @@ async function serverSetDirect(key,value,op={}) {
   const needsNoticeProtection=noticeWrites.some(item=>noticeParentKey_(item.key) && (noticeRawIsTeamOnly_(item.value) || noticeRawIsTeamOnly_(item.writeOptions?.expectedValue))) || (noticeParentKey_(op.expectedKey || key) && noticeRawIsTeamOnly_(op.expectedValue));
   if(Object.prototype.hasOwnProperty.call(op,'expectedValue') || atomic || actions || newEntryPush || needsNoticeProtection) {
     const capabilities=await requireBackendWriteCapabilities_();
+    if(op.ponyGroupPlanner && !capabilities.ponyGroupPlanning){const error=new Error('Bitte auch das Backend für die Pony-Pass-Planung aktualisieren. Dein Plan bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
     if(actions && !capabilities.entryMutations){const error=new Error('Bitte das korrigierte Backend für Kommentare und Reaktionen veröffentlichen. Die Änderung bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
     if(newEntryPush && !capabilities.durableEntryPush){const error=new Error('Bitte das korrigierte Backend für Offline-Mitteilungen veröffentlichen. Der Eintrag bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
     if(needsNoticeProtection && !capabilities.noticeAudience){const error=new Error('Bitte das korrigierte Backend für die Sichtbarkeit der Hinweise veröffentlichen. Der Hinweis bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
@@ -15029,12 +15174,17 @@ async function serverSetDirect(key,value,op={}) {
   let result;
   try {result=await deliver();}
   catch(error) {
+    if(ponyGroupSyncContext_(op) && error.code==='conflict') {
+      await beforePonyGroupOpSync_(op);
+      result=await deliver();
+    } else {
     if(!actions || op.entryMutationOnly===true || error.code!=='conflict')throw error;
     const data=await readServerDataForEdit_(),parent=op.expectedKey || key;
     const raw=Object.prototype.hasOwnProperty.call(data,parent)?data[parent]:null;
     if(recordUnavailableForEdit_(raw) || !(op.queuePredecessorValues?.[parent] || []).includes(raw))throw error;
     queueSelectExpectedValue_(op,parent,raw);
     result=await deliver();
+    }
   }
   if((Object.prototype.hasOwnProperty.call(op,'expectedValue') && !result?.conditionalChecked) || (atomic && !result?.atomicBatch) || (newEntryPush && !result?.durableEntryPush) || (actions && !result?.entryMutations)) {
     backendWriteCapabilities_=null;const error=new Error('Die Serverbestätigung für diese Änderung ist unvollständig. Bitte das Backend prüfen.');error.permanent=true;throw error;
@@ -15042,15 +15192,17 @@ async function serverSetDirect(key,value,op={}) {
   rememberEntryWriteResult_(op,result);
 }
 
-async function serverDeleteDirect(key) {
+async function serverDeleteDirect(key, op = {}) {
+  const writeOptions = Object.prototype.hasOwnProperty.call(op, 'expectedValue') ? {expectedKey:op.expectedKey || key, expectedValue:op.expectedValue} : {};
+  if (Object.prototype.hasOwnProperty.call(op, 'expectedValue')) await requireBackendWriteCapabilities_();
   if (RUNNING_IN_GAS) {
-    const result = await gasCall('serverAccessDeleteV122', key, getDataAccessToken());
+    const result = await gasCall('serverAccessDeleteV122', key, getDataAccessToken(), writeOptions);
     assertBackendOk(result, 'Löschen');
   } else {
     const res = await fetch(GAS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'delete', key, teamToken: getDataAccessToken() })
+      body: JSON.stringify({ action: 'delete', key, teamToken: getDataAccessToken(), writeOptions })
     });
     await parseBackendResponse(res, 'Löschen');
   }
@@ -15094,7 +15246,7 @@ async function flushPendingOps() {
       }
       try {
         if (typeof beforePendingOpSync_ === 'function' && await beforePendingOpSync_(op) === false) throw new Error('Übertragung noch nicht bestätigt.');
-        if (op.type === 'delete') await serverDeleteDirect(op.key);
+        if (op.type === 'delete') await serverDeleteDirect(op.key, op);
         else {
           if (!validQueuedValue_(op)) { const error=new Error('Dieser Eintrag ist zu groß und muss verkleinert werden.'); error.permanent=true; throw error; }
           await serverSetDirect(op.key, op.value, op);
@@ -15116,6 +15268,7 @@ async function flushPendingOps() {
         const stored = current.find(item => item.opId === op.opId);
         if (stored) {
           stored.syncError = String((e && e.message) || 'Übertragung fehlgeschlagen.');
+          if (ponyGroupSyncContext_(op) && (e?.code === 'conflict' || e?.ponyGroupConflict)) stored.ponyGroupConflict = true;
           stored.nextRetryAt = Date.now() + retryDelay;
           setPendingOps(current);
         }
@@ -15172,6 +15325,7 @@ async function storageGet(key) {
   return Object.prototype.hasOwnProperty.call(cache, key) ? cache[key] : null;
 }
 async function storageSet(key, value, options = {}) {
+  options = ponyGroupWriteOptionsForKey_(key, options);
   // Sofort lokal übernehmen: Die App reagiert ohne auf Google warten zu müssen.
   // Erst dauerhaft vormerken, dann den sichtbaren Stand ändern.
 
@@ -15191,6 +15345,7 @@ async function storageSet(key, value, options = {}) {
 // Persist a related group of local edits with one durable queue update.
 // The existing synchronization worker still sends each changed key as before.
 async function storageSetMany(entries) {
+  entries = entries.map(entry => ({...ponyGroupWriteOptionsForKey_(entry.key), ...entry}));
   if (!entries.length) return true;
   if (!queuePendingBatch_(entries)) return false;
   for (const entry of entries) {
@@ -15210,9 +15365,10 @@ async function stageLegacyMigration_(sourceKey, entries) {
   return storageSetMany([...copies, {type:'delete', key:sourceKey, migrationSource:true, deferCacheDelete:true, dependsOnKeys:dependencyKeys}]);
 }
 
-async function storageDelete(key) {
+async function storageDelete(key, options = {}) {
+  options = ponyGroupWriteOptionsForKey_(key, options);
   // Auch Löschen reagiert sofort lokal und wird zuverlässig nachgelagert synchronisiert.
-  if (!queuePendingOp({ type: 'delete', key })) return false;
+  if (!queuePendingOp({ ...options, type: 'delete', key })) return false;
   delete cache[key];
   persistOfflineSnapshot();
 
@@ -15234,6 +15390,21 @@ function showSaveStatus(el, state, message) {
 // vielen Fotos über Jahre hinweg. Im Sheet steht nur die kurze Drive-Datei-ID.
 const SECURE_MEDIA_PLACEHOLDER_ = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 const secureMediaUrlCache_ = new Map();
+let secureMediaCacheOwner_ = '';
+function secureMediaOwner_() {
+  const owner = typeof currentAccessOwnerKeyV123_ === 'function' ? currentAccessOwnerKeyV123_() : (typeof getRole === 'function' ? getRole() : '');
+  return owner + ':' + String(getDataAccessToken() || '');
+}
+function clearSecureMediaUrls_() {
+  for (const url of secureMediaUrlCache_.values()) {
+    if (typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url);
+  }
+  secureMediaUrlCache_.clear();
+}
+async function secureMediaPreviewUrl_(fileId) {
+  try { return await secureMediaUrl_(fileId); }
+  catch (error) { return null; }
+}
 
 function driveThumbUrl(fileId) {
   // Seit v1.23 keine öffentlichen Drive-URLs mehr. Direkte Alt-Aufrufe erhalten nur einen Platzhalter.
@@ -15243,6 +15414,11 @@ function driveThumbUrl(fileId) {
 async function secureMediaUrl_(fileId) {
   fileId = String(fileId || '');
   if (!fileId) return null;
+  const owner = secureMediaOwner_();
+  if (secureMediaCacheOwner_ !== owner) {
+    clearSecureMediaUrls_();
+    secureMediaCacheOwner_ = owner;
+  }
   if (secureMediaUrlCache_.has(fileId)) return secureMediaUrlCache_.get(fileId);
   let data;
   if (RUNNING_IN_GAS) {
@@ -15259,6 +15435,7 @@ async function secureMediaUrl_(fileId) {
   const binary = atob(data.base64);
   const bytes = new Uint8Array(binary.length);
   for (let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
+  if (secureMediaOwner_() !== owner) throw new Error('media_identity_changed');
   const url = URL.createObjectURL(new Blob([bytes], {type:data.mimeType || 'application/octet-stream'}));
   secureMediaUrlCache_.set(fileId,url);
   return url;
@@ -15336,7 +15513,7 @@ async function deletePhotoFromDrive(fileId, sourceKey = '') {
 
 async function getGesPhoto(entryId) {
   const fileId = await storageGet(`gesphoto:${entryId}`);
-  return await secureMediaUrl_(fileId);
+  return await secureMediaPreviewUrl_(fileId);
 }
 async function saveGesPhoto(entryId, dataUrl) {
   const upload = await uploadPhotoToDrive(dataUrl);
@@ -15544,7 +15721,7 @@ async function deleteHealthEntryPermanently(ponyId, entryId) {
 
 async function getPhoto(ponyId) {
   const fileId = await storageGet(`photo:${ponyId}`);
-  return fileId ? await secureMediaUrl_(fileId) : null;
+  return fileId ? await secureMediaPreviewUrl_(fileId) : null;
 }
 async function savePhoto(ponyId, dataUrl) {
   const oldFileId = await storageGet(`photo:${ponyId}`);
@@ -15657,6 +15834,14 @@ function closeMediaViewer_() {
   mediaViewerZoom_ = 1;
 }
 async function openMediaViewer_({ fileId = '', mimeType = 'image/jpeg', name = '', localUrl = '' } = {}) {
+  let mediaUrl = localUrl;
+  try {
+    if (!mediaUrl) mediaUrl = await secureMediaUrl_(fileId);
+    if (!mediaUrl) throw new Error('media_unavailable');
+  } catch (error) {
+    showActionToast('Der Anhang ist gerade nicht verfügbar. Die übrigen Einträge bleiben sichtbar.');
+    return false;
+  }
   const viewer = document.getElementById('mediaViewer');
   const stage = document.getElementById('mediaViewerStage');
   const zoom = document.getElementById('mediaViewerZoom');
@@ -15671,13 +15856,13 @@ async function openMediaViewer_({ fileId = '', mimeType = 'image/jpeg', name = '
     } else {
       const video = document.createElement('video');
       video.className = 'media-viewer-video'; video.controls = true; video.playsInline = true;
-      video.src = await secureMediaUrl_(fileId);
+      video.src = mediaUrl;
       stage.appendChild(video);
     }
     zoom.style.display = 'none';
   } else {
     const img = document.createElement('img');
-    img.className = 'media-viewer-image'; img.alt = name || 'Foto'; img.src = localUrl || await secureMediaUrl_(fileId);
+    img.className = 'media-viewer-image'; img.alt = name || 'Foto'; img.src = mediaUrl;
     img.ondblclick = () => setMediaViewerZoom_(mediaViewerZoom_ > 1 ? 1 : 2);
     stage.appendChild(img);
     zoom.style.display = 'flex';
@@ -16215,8 +16400,8 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.23.0';
-const STALL_APP_VERSION_DATE = '16.10.2026';
+const STALL_APP_VERSION = '1.24.2';
+const STALL_APP_VERSION_DATE = '20.10.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
   const settingsLabel = document.getElementById('appVersionLabel');
@@ -23692,20 +23877,17 @@ function normalizePonyGroupAttendancePayload_(statusById = {}, note = '', ponyBy
   };
 }
 
-async function savePonyGroupAttendance(groupId, dateStr, statusById = {}, note = '', ponyById = {}) {
-  const by = currentUserName || getRememberedUserName() || promptUserName() || '';
-  const payload = normalizePonyGroupAttendancePayload_(statusById, note, ponyById, by);
-
-  // Wenn alles wieder auf "offen" steht und nichts weiter hinterlegt ist,
-  // gibt es für den Termin bewusst noch keine Anwesenheits-Dokumentation.
-  if (!Object.keys(payload.statusById).length && !payload.note && !Object.keys(payload.ponyById).length) {
-    return await storageDelete(ponyGroupAttendanceKey(groupId, dateStr));
-  }
-
-  return await storageSet(
-    ponyGroupAttendanceKey(groupId, dateStr),
-    JSON.stringify(payload)
-  );
+async function savePonyGroupAttendance(groupId, dateStr, statusById = {}, note = '', ponyById = {}, bases = {}) {
+  return serializePonyGroupSave_(groupId, dateStr, async () => {
+    const by = currentUserName || getRememberedUserName() || promptUserName() || '';
+    const key = ponyGroupAttendanceKey(groupId, dateStr);
+    const payload = normalizePonyGroupAttendancePayload_(statusById, note, ponyById, by);
+    const expected = Object.prototype.hasOwnProperty.call(bases, 'baseAttendance') ? bases.baseAttendance : await storageGet(key);
+    const context = {groupId, dateStr};
+    const ok = await storageSetPonyGroupAtomic_([{type:'set', key, value:JSON.stringify(payload), expectedKey:key, expectedValue:expected}], context);
+    if (!ok && context.reason) showActionToast('Nicht gespeichert: Eine ältere Gruppenänderung wartet noch. Bitte zuerst die Stände im Verbindungshinweis vergleichen.');
+    return ok;
+  });
 }
 
 async function movePonyGroupAttendanceToDate(groupId, oldDateStr, newDateStr) {
@@ -23720,13 +23902,12 @@ async function movePonyGroupAttendanceToDate(groupId, oldDateStr, newDateStr) {
     return false;
   }
 
-  const saved = await storageSet(
-    ponyGroupAttendanceKey(groupId, newDateStr),
-    oldRaw
-  );
-  if (!saved) return false;
-
-  return await storageDelete(ponyGroupAttendanceKey(groupId, oldDateStr));
+  const targetKey = ponyGroupAttendanceKey(groupId, newDateStr);
+  const sourceKey = ponyGroupAttendanceKey(groupId, oldDateStr);
+  return await storageSetMany([
+    {type:'set', key:targetKey, value:oldRaw, expectedKey:targetKey, expectedValue:null, entryCreate:true},
+    {type:'delete', key:sourceKey, expectedKey:sourceKey, expectedValue:oldRaw, deferCacheDelete:true, dependsOnKeys:[targetKey]}
+  ]);
 }
 
 function ponyGroupAttendanceHtml(roster, attendance) {
@@ -23980,7 +24161,9 @@ function ponyGroupRecentContentHtml(groupId, beforeDateStr) {
     </div>`;
 }
 
-async function savePonyGroupSession_(groupId, dateStr, text, tags = [], wishes = '', statusById = {}, note = '', ponyById = {}) {
+async function savePonyGroupSession_(groupId, dateStr, text, tags = [], wishes = '', statusById = {}, note = '', ponyById = {}, bases = {}) {
+  const practiced = typeof window !== 'undefined' && window.StallPonyPlanner ? window.StallPonyPlanner.practicedGoals(groupId, dateStr) : null;
+  return serializePonyGroupSave_(groupId, dateStr, async () => {
   const by = currentUserName || getRememberedUserName() || promptUserName() || '';
   const at = Date.now();
   const contentKey = ponyGroupStorageKey(groupId, dateStr);
@@ -24011,16 +24194,22 @@ async function savePonyGroupSession_(groupId, dateStr, text, tags = [], wishes =
     updated: at,
     by
   };
+  if (Array.isArray(practiced)) entry.learningGoalIds = practiced;
   delete entry._archived;
   delete entry.archivedAt;
   delete entry.archivedBy;
 
   // Erst beide Datensätze dauerhaft vormerken; bei einem Speicherfehler bleibt
   // der bisherige Stand von Anwesenheit und Inhalten vollständig erhalten.
-  return await storageSetAtomicMany_([
-    { type: 'set', key: ponyGroupAttendanceKey(groupId, dateStr), value: JSON.stringify(attendance) },
-    { type: 'set', key: contentKey, value: JSON.stringify(entry) }
-  ]);
+  const attendanceKey = ponyGroupAttendanceKey(groupId, dateStr);
+  const context = {groupId, dateStr};
+  const ok = await storageSetPonyGroupAtomic_([
+    {type:'set', key:contentKey, value:JSON.stringify(entry), expectedKey:contentKey, expectedValue:Object.prototype.hasOwnProperty.call(bases,'baseContent') ? bases.baseContent : raw},
+    {type:'set', key:attendanceKey, value:JSON.stringify(attendance), expectedKey:attendanceKey, expectedValue:Object.prototype.hasOwnProperty.call(bases,'baseAttendance') ? bases.baseAttendance : await storageGet(attendanceKey)}
+  ], context);
+  if (!ok && context.reason) showActionToast('Nicht gespeichert: Eine ältere Gruppenänderung wartet noch. Bitte zuerst die Stände im Verbindungshinweis vergleichen.');
+  return ok;
+  });
 }
 
 async function savePonyGroupEntry(groupId, dateStr, text, tags = [], wishes = '') {
@@ -24029,7 +24218,7 @@ async function savePonyGroupEntry(groupId, dateStr, text, tags = [], wishes = ''
     attendance.statusById, attendance.note, attendance.ponyById);
 }
 
-async function deletePonyGroupEntry(groupId, dateStr) {
+async function deletePonyGroupEntry(groupId, dateStr, bases = {}) {
   const key = ponyGroupStorageKey(groupId, dateStr);
   const raw = await storageGet(key);
   if (!raw) return true;
@@ -24039,7 +24228,7 @@ async function deletePonyGroupEntry(groupId, dateStr) {
     entry._archived = true;
     entry.archivedAt = Date.now();
     entry.archivedBy = currentUserName || getRememberedUserName() || '';
-    return await storageSet(key, JSON.stringify(entry));
+    return await storageSet(key, JSON.stringify(entry), {expectedKey:key, expectedValue:Object.prototype.hasOwnProperty.call(bases, 'baseContent') ? bases.baseContent : raw});
   } catch(e) {
     return false;
   }
@@ -24093,9 +24282,11 @@ function ponyGroupDateFromStr(dateStr) {
 async function movePonyGroupContentToDate(groupId, oldDateStr, newDateStr) {
   if (oldDateStr === newDateStr) return true;
 
+  const oldRaw = await storageGet(ponyGroupStorageKey(groupId, oldDateStr));
   const oldEntry = await getPonyGroupEntry(groupId, oldDateStr);
   if (!oldEntry) return true;
 
+  const targetRaw = await storageGet(ponyGroupStorageKey(groupId, newDateStr));
   const existingTarget = await getPonyGroupEntry(groupId, newDateStr);
   if (existingTarget) {
     appAlert('Am neuen Datum gibt es für diese Ponygruppe bereits einen Inhalts-Eintrag. Bitte diesen zuerst prüfen.');
@@ -24109,13 +24300,12 @@ async function movePonyGroupContentToDate(groupId, oldDateStr, newDateStr) {
     by: currentUserName || getRememberedUserName() || oldEntry.by || ''
   };
 
-  const saved = await storageSet(
-    ponyGroupStorageKey(groupId, newDateStr),
-    JSON.stringify(moved)
-  );
-  if (!saved) return false;
-
-  return await storageDelete(ponyGroupStorageKey(groupId, oldDateStr));
+  const targetKey = ponyGroupStorageKey(groupId, newDateStr);
+  const sourceKey = ponyGroupStorageKey(groupId, oldDateStr);
+  return await storageSetMany([
+    {type:'set', key:targetKey, value:JSON.stringify(moved), expectedKey:targetKey, expectedValue:targetRaw, entryCreate:true},
+    {type:'delete', key:sourceKey, expectedKey:sourceKey, expectedValue:oldRaw, deferCacheDelete:true, dependsOnKeys:[targetKey]}
+  ]);
 }
 
 async function movePonyGroupMovementsToDate(group, oldDateStr, newDateStr, movements = null) {
@@ -24483,7 +24673,8 @@ function rememberPonyGroupEditorDraft_(wrapper, groupId) {
     text: wrapper.querySelector('.pony-group-content-textarea')?.value || '',
     wishes: wrapper.querySelector('.pony-group-wishes-textarea')?.value || '',
     tags: [...wrapper.querySelectorAll('.pony-group-content-tag.selected')].map(chip => chip.dataset.tag),
-    ponyById
+    ponyById,
+    learningGoalIds: wrapper.querySelector('[data-pony-practice]') ? [...wrapper.querySelectorAll('[data-practiced-goal]:checked')].map(el => el.dataset.practicedGoal) : (getPonyGroupEditorDraft_(groupId || list.dataset.groupId, wrapper.dataset.date)?.learningGoalIds || [])
   };
   if (attendanceUnsaved) {
     const statusById = {};
@@ -25031,34 +25222,44 @@ function applyPonyGroupAppointmentViewMode() {
 }
 
 async function setPonyGroupDetailView(view) {
-  activePonyGroupDetailView = view === 'overview' ? 'overview' : (view === 'content' || view === 'history' ? 'content' : 'attendance');
+  activePonyGroupDetailView = view === 'planning' ? 'planning' : view === 'overview' ? 'overview' : (view === 'content' || view === 'history' ? 'content' : 'attendance');
   const documentation = document.getElementById('ponyGroupDocumentationView');
   const overview = document.getElementById('ponyGroupOverviewView');
   const todayTab = document.getElementById('ponyGroupTabToday');
   const historyTab = document.getElementById('ponyGroupTabDocumentation');
   const overviewTab = document.getElementById('ponyGroupTabOverview');
   const isOverview = activePonyGroupDetailView === 'overview';
+  const isPlanning = activePonyGroupDetailView === 'planning';
+  const planning = document.getElementById('ponyGroupPlanningView');
+  const planningTab = document.getElementById('ponyGroupTabPlanning');
+  if (planning) planning.hidden = !isPlanning;
 
   const hint = document.getElementById('ponyGroupViewHint');
-  if (hint) hint.textContent = isOverview
+  if (hint) hint.textContent = isPlanning
+    ? 'Heutigen Schwerpunkt vorschlagen lassen, anpassen und speichern.'
+    : isOverview
     ? 'Was wurde in den letzten Wochen gemacht? Der neueste Termin steht oben. Über das Datum öffnest du den Termin.'
     : activePonyGroupDetailView === 'content'
       ? 'Ponys zuordnen, Inhalte auswählen, einmal speichern. Die Aktivitäten erscheinen automatisch beim jeweiligen Pony.'
       : 'Wer ist da? Die Auswahl wird direkt gespeichert und in „Inhalte & Ponys“ übernommen.';
 
-  if (documentation) documentation.hidden = isOverview;
+  if (documentation) documentation.hidden = isOverview || isPlanning;
   if (overview) overview.hidden = !isOverview;
   [
     [todayTab, activePonyGroupDetailView === 'attendance'],
     [historyTab, activePonyGroupDetailView === 'content'],
-    [overviewTab, isOverview]
+    [overviewTab, isOverview],
+    [planningTab, isPlanning]
   ].forEach(([tab, selected]) => {
     if (!tab) return;
     tab.classList.toggle('selected', !!selected);
     tab.setAttribute('aria-selected', selected ? 'true' : 'false');
   });
 
-  if (isOverview) {
+  if (isPlanning) {
+    applyPonyGroupAppointmentViewMode();
+    if (window.StallPonyPlanner) await window.StallPonyPlanner.render();
+  } else if (isOverview) {
     applyPonyGroupAppointmentViewMode();
     await renderPonyGroupOverview();
   } else {
@@ -25901,6 +26102,8 @@ async function renderPonyGroupAppointments() {
     wrapper.dataset.date = actualDateStr;
     wrapper.dataset.slotDate = slotDateStr;
     wrapper.dataset.draftOwner = ponyGroupEditorOwner_();
+    wrapper.dataset.baseContent = JSON.stringify(await storageGet(ponyGroupStorageKey(group.id, actualDateStr)));
+    wrapper.dataset.baseAttendance = JSON.stringify(await storageGet(ponyGroupAttendanceKey(group.id, actualDateStr)));
 
     wrapper.innerHTML = `
       <button type="button" class="pony-group-appointment-head" aria-expanded="false">
@@ -26092,6 +26295,7 @@ async function renderPonyGroupAppointments() {
       const contentTagButtons = [...wrapper.querySelectorAll('.pony-group-content-tag')];
       const assignmentStatus = wrapper.querySelector('.pony-group-assignment-status');
       const markContentDirty = () => {
+        wrapper.dataset.editRevision = String((Number(wrapper.dataset.editRevision) || 0) + 1);
         wrapper.dataset.contentDirty = 'true';
         showSaveStatus(status, 'pending', 'Noch nicht übernommen. Mit „Inhalte & Ponys speichern“ sichern.');
         rememberPonyGroupEditorDraft_(wrapper, group.id);
@@ -26100,6 +26304,7 @@ async function renderPonyGroupAppointments() {
       wishesTextarea.oninput = markContentDirty;
       const attendanceNote = wrapper.querySelector('.pony-group-attendance-note');
       if (attendanceNote) attendanceNote.oninput = () => {
+        attendanceRevision++;
         wrapper.dataset.attendanceUnsaved = 'true';
         rememberPonyGroupEditorDraft_(wrapper, group.id);
         showSaveStatus(attendanceStatus, 'pending', 'Besonderheit noch nicht gespeichert.');
@@ -26252,11 +26457,12 @@ async function renderPonyGroupAppointments() {
       const restoreAttendanceSnapshot = async snapshot => {
         if (!snapshot) return;
         rememberPonyGroupEditorDrafts_();
-        const ok = await savePonyGroupAttendance(group.id, actualDateStr, snapshot.statusById, snapshot.note, snapshot.ponyById);
+        const ok = await savePonyGroupAttendance(group.id, actualDateStr, snapshot.statusById, snapshot.note, snapshot.ponyById, ponyGroupEditBases_(wrapper));
         if (!ok) { showActionToast('Anwesenheit konnte noch nicht wiederhergestellt werden.'); return; }
         const draft = getPonyGroupEditorDraft_(group.id, actualDateStr);
         if (draft) {
           draft.ponyById = snapshot.ponyById;
+          draft.baseAttendance = ponyGroupRawValue_(ponyGroupAttendanceKey(group.id, actualDateStr));
           delete draft.attendanceUnsaved;
           delete draft.statusById;
           delete draft.note;
@@ -26267,7 +26473,9 @@ async function renderPonyGroupAppointments() {
         await renderPonyGroupAppointments();
       };
 
+      let attendanceRevision = 0;
       const saveAttendanceFromDom = async (successText = 'Gespeichert', statusTarget = attendanceStatus, undoSnapshot = null) => {
+        const revision = ++attendanceRevision;
         const noteEl = wrapper.querySelector('.pony-group-attendance-note');
         const state = getAttendanceStateFromDom();
         const assignments = getPonyAssignmentStateFromDom();
@@ -26280,7 +26488,7 @@ async function renderPonyGroupAppointments() {
           actualDateStr,
           state,
           noteEl ? noteEl.value.trim() : '',
-          assignments
+          assignments, ponyGroupEditBases_(wrapper)
         );
 
         if (!ok) {
@@ -26288,6 +26496,8 @@ async function renderPonyGroupAppointments() {
           return false;
         }
 
+        wrapper.dataset.baseAttendance = JSON.stringify(ponyGroupRawValue_(ponyGroupAttendanceKey(group.id, actualDateStr)));
+        if (revision !== attendanceRevision) return true;
         wrapper.dataset.attendanceUnsaved = 'false';
         if (wrapper.dataset.contentDirty === 'true') rememberPonyGroupEditorDraft_(wrapper, group.id);
         else removePonyGroupEditorDraft_(group.id, actualDateStr);
@@ -26400,11 +26610,13 @@ async function renderPonyGroupAppointments() {
           return;
         }
 
+        const revision = wrapper.dataset.editRevision;
+        const attendanceAtSave = attendanceRevision;
         const btn = wrapper.querySelector('.pony-group-save');
         btn.disabled = true;
         showSaveStatus(status, 'saving', 'Speichert …');
         const ok = await savePonyGroupSession_(group.id, actualDateStr, text, tags, wishes,
-          getAttendanceStateFromDom(), wrapper.querySelector('.pony-group-attendance-note')?.value || '', getPonyAssignmentStateFromDom());
+          getAttendanceStateFromDom(), wrapper.querySelector('.pony-group-attendance-note')?.value || '', getPonyAssignmentStateFromDom(), ponyGroupEditBases_(wrapper));
         btn.disabled = false;
 
         if (!ok) {
@@ -26412,6 +26624,13 @@ async function renderPonyGroupAppointments() {
           return;
         }
 
+        wrapper.dataset.baseContent = JSON.stringify(ponyGroupRawValue_(ponyGroupStorageKey(group.id, actualDateStr)));
+        wrapper.dataset.baseAttendance = JSON.stringify(ponyGroupRawValue_(ponyGroupAttendanceKey(group.id, actualDateStr)));
+        if (wrapper.dataset.editRevision !== revision || attendanceRevision !== attendanceAtSave) {
+          rememberPonyGroupEditorDraft_(wrapper, group.id);
+          showSaveStatus(status, 'ok', 'Stand gesichert · neuere Eingaben bleiben im Entwurf.');
+          return;
+        }
         showSaveStatus(status, 'ok', ' Gespeichert');
         wrapper.dataset.contentDirty = 'false';
         wrapper.dataset.attendanceUnsaved = 'false';
@@ -26427,7 +26646,7 @@ async function renderPonyGroupAppointments() {
       if (deleteBtn) {
         deleteBtn.onclick = async () => {
           if (!await appConfirm('Diesen Inhalte-Eintrag archivieren? Er kann später wiederhergestellt werden.')) return;
-          const ok = await deletePonyGroupEntry(group.id, actualDateStr);
+          const ok = await deletePonyGroupEntry(group.id, actualDateStr, ponyGroupEditBases_(wrapper));
           if (!ok) {
             showSaveStatus(status, 'error', 'Archivieren wartet noch auf Synchronisierung.');
             return;
@@ -26471,6 +26690,10 @@ async function renderPonyGroupAppointments() {
   }
 
   applyPonyGroupAppointmentViewMode();
+  if (window.StallPonyPlanner) {
+    window.StallPonyPlanner.installGoalControls();
+    if (activePonyGroupDetailView === 'planning') await window.StallPonyPlanner.render();
+  }
 }
 
 async function openPonyGroup(groupId, rangeOffset = 0, focusDateStr = '') {
@@ -26560,6 +26783,7 @@ document.getElementById('ponyGroupDateSelect').onchange = event => {
   if (!selected) return;
   ponyGroupFocusDate_ = selected.dataset.date;
   applyPonyGroupAppointmentViewMode();
+  if (activePonyGroupDetailView === 'planning' && window.StallPonyPlanner) window.StallPonyPlanner.render();
 };
 
 
@@ -31379,10 +31603,10 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(draftTimer_);saveVisibleDraft_();}});
   function restoreExpiryDraft_(prefix,d){const mode=d.visibilityMode||(d.expiresOn?'until':'permanent');document.querySelectorAll(`#${prefix}VisibilityMode .chip`).forEach(c=>c.classList.toggle('selected',c.dataset.val===mode));document.getElementById(`${prefix}ExpiresOn`).value=d.expiresOn||'';document.getElementById(`${prefix}ExpiresOnWrap`).style.display=mode==='until'?'block':'none';}
   async function restoreHealthDraft_(d){
-    if(d.editId&&d.base)await fillGesForm(d.base,d.oldPhotoFileId?await secureMediaUrl_(d.oldPhotoFileId):null);
+    if(d.editId&&d.base)await fillGesForm(d.base,d.oldPhotoFileId?await secureMediaPreviewUrl_(d.oldPhotoFileId):null);
     editingGesId=d.editId||null;editingGesCreated=d.created||d.base?.created||null;editingGesAckFields=draftClone_(d.ackFields||null);editingGesOldPhotoFileId=d.oldPhotoFileId||null;gesRolleVal=d.rolle||gesRolleVal;
     document.getElementById('gesDate').value=d.date||todayStr();document.getElementById('gesEntryType').value=d.entryType||'observation';document.getElementById('gesProfessional').value=d.professional||'';document.getElementById('gesNote').value=d.note||'';document.getElementById('gesAuthor').value=d.author||document.getElementById('gesAuthor').value;document.getElementById('gesImportant').checked=!!d.important;document.getElementById('gesAccessAudience').value=d.audience||'all';restoreExpiryDraft_('ges',d);document.getElementById('gesNotifyOthers').checked=d.notify!==false;document.getElementById('gesPushAudience').value=d.pushAudience||'team';
-    gesPhotoDataUrl=d.photoDataUrl||null;gesPhotoRemoved=!!d.photoRemoved;const photoUrl=gesPhotoDataUrl||(!gesPhotoRemoved&&editingGesOldPhotoFileId?await secureMediaUrl_(editingGesOldPhotoFileId):null);const preview=document.getElementById('gesPhotoPreview');preview.src=photoUrl||'';preview.style.display=photoUrl?'block':'none';document.getElementById('gesPhotoRemove').style.display=photoUrl?'inline-block':'none';document.getElementById('gesMoreDetails').open=!!(photoUrl||d.professional||d.expiresOn);applyGesundheitRoleCopy();applyGesundheitTypeCopy();
+    gesPhotoDataUrl=d.photoDataUrl||null;gesPhotoRemoved=!!d.photoRemoved;const photoUrl=gesPhotoDataUrl||(!gesPhotoRemoved&&editingGesOldPhotoFileId?await secureMediaPreviewUrl_(editingGesOldPhotoFileId):null);const preview=document.getElementById('gesPhotoPreview');preview.src=photoUrl||'';preview.style.display=photoUrl?'block':'none';document.getElementById('gesPhotoRemove').style.display=photoUrl?'inline-block':'none';document.getElementById('gesMoreDetails').open=!!(photoUrl||d.professional||d.expiresOn);applyGesundheitRoleCopy();applyGesundheitTypeCopy();
   }
   function restoreMovementDraft_(d){
     if(d.editId&&d.base)fillBelForm(d.base);
@@ -32210,6 +32434,11 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
 }
 </style>
 
+<style id="group-conflict-mobile-v1231">
+  .connection-banner .pony-group-conflict-review { display:block; margin:10px auto 0; min-height:44px; max-width:100%; white-space:normal; }
+  .app-dialog { max-height:90dvh; overflow-y:auto; }
+  .app-dialog-message { overflow-wrap:anywhere; }
+</style>
 <style id="ponygroup-mobile-controls-v1">
 @media screen {
   #ponyGroupDetail .pony-group-attendance-open-details { margin-top: 6px; }
@@ -32261,6 +32490,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
 }
 </style>
 
-  <script src="./access-v122.js?v=1230"></script>
+  <script src="./access-v122.js?v=1242"></script>
+  <script src="./pony-planner.js?v=1242"></script>
 </body>
 </html>
