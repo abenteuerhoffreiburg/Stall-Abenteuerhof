@@ -1,7 +1,7 @@
 /* Pony-Pass 1: lokal erzeugte, bearbeitbare Vorschläge. Kein externer KI-Dienst. */
 (function (global) {
   'use strict';
-  const VERSION = '1.24.3';
+  const VERSION = '1.24.4';
   const goals = [
     ['stall-rules','Im Stall',2,'Die wichtigsten Stallregeln kennen.'],
     ['stall-clothes','Im Stall',2,'Schützende Kleidung und Schuhe kennen.'],
@@ -41,7 +41,7 @@
     ['move-reactions','Unterwegs mit dem Pony',8,'Beim Führen und Reiten auf die Reaktionen des Ponys achten.']
   ].map(([id,area,page,text]) => ({id,area,page,text}));
   const goalMap = new Map(goals.map(item => [item.id,item]));
-  const topics = [
+  const legacyTopics = [
     {id:'welcome',title:'Sicher ankommen und den Hof kennenlernen',ids:['stall-rules','stall-clothes','stall-equipment','pony-rules'],tags:['Spiel / Theorie','Stallarbeit'],keywords:['stall','regeln','hof','sicherheit'],task:'Hof-Rundgang in Kleingruppen: Kleidung, Wege und Materialplätze entdecken. Die Kinder erklären sich gegenseitig eine Stallregel.',easy:'Jüngere oder neue Kinder suchen mit Bildkarten und einer Begleitperson.',more:'Erfahrenere Kinder begründen Regeln und unterstützen beim Rundgang.',kit:'Pony-Pass, Stifte, Bild- oder Suchkarten'},
     {id:'observe',title:'Pony-Check: Wie geht es dem Pony heute?',ids:['pony-greet','check-observe','check-communicate','check-distance','know-relaxed','know-space'],tags:['Spiel / Theorie','Putzen / Pflege','Stallarbeit'],keywords:['beobacht','körpersprache','ohren','pause','abstand','begrüß'],task:'Zuerst aus Abstand beobachten: Ohren, Augen, Haltung und Bewegung beschreiben. Anschließend unter Anleitung Kontakt aufnehmen; Rückzug und Pausen des Ponys berücksichtigen.',easy:'Zu zweit zwei sichtbare Beobachtungen sammeln, ohne sie sofort zu bewerten.',more:'Beobachtung und Deutung unterscheiden und passende Handlungen begründen.',kit:'Pony-Pass Seite 5, Stifte, Beobachtungskarten'},
     {id:'care',title:'Putzzeug kennen und sorgfältig pflegen',ids:['pony-brushes','pony-groom','stall-tidy'],tags:['Putzen / Pflege','Stallarbeit'],keywords:['putz','pflege','bürst','striegel'],task:'Putzsachen benennen und ihrer Aufgabe zuordnen. Unter Anleitung in kleinen Teams putzen, die Reaktionen des Ponys beobachten und den Platz gemeinsam aufräumen.',easy:'Wenige Putzsachen auswählen und eine Aufgabe mit Begleitung übernehmen.',more:'Eine kleine Pflegestation erklären und auf Reihenfolge und Rücksicht achten.',kit:'Passendes Putzzeug, Pony-Pass, Materialkörbe'},
@@ -55,6 +55,407 @@
     {id:'touch',title:'Ruhige Berührung und Ponyreaktionen',ids:['pony-ttouch','pony-greet','know-space','know-relaxed'],tags:['Putzen / Pflege','Stallarbeit'],keywords:['ttouch','berühr','entspann','tellington'],task:'Die Leitung zeigt die drei im Pony-Pass vorgesehenen TTouches. Unter Anleitung behutsam üben und Reaktionen beobachten. Bei Abstandssignalen innehalten und dem Pony eine Pause ermöglichen.',easy:'Zunächst beobachten und eine gezeigte Berührung begleitet ausprobieren.',more:'Unterschiedliche Reaktionen beschreiben, ohne Wohlbefinden automatisch anzunehmen.',kit:'Pony-Pass, ruhiger geeigneter Platz'},
     {id:'review',title:'Unser Pony-Pass: Wiederholen und zurückblicken',ids:['stall-care','know-needs','move-reactions'],tags:['Spiel / Theorie','Putzen / Pflege','Stallarbeit'],keywords:['wiederhol','rückblick','ponyjahr','abschluss','steckbrief'],task:'Gemeinsam bekannte Stationen auswählen und unter Anleitung wiederholen. Zum Abschluss festhalten: Darauf bin ich stolz, mein schönster Pony-Moment und das möchte ich weiter üben.',easy:'Mit Bildern oder einem kurzen Satz zurückblicken.',more:'Eigene Lernschritte und einen konkreten nächsten Wunsch formulieren.',kit:'Pony-Pass Seite 15, Stifte, Material der gewählten Stationen'}
   ];
+  const conceptTopics = [
+  {
+    "id": "concept-halter",
+    "title": "Aufhalftern und Ponyreaktionen beachten",
+    "ids": [
+      "pony-greet",
+      "pony-halter",
+      "pony-rules"
+    ],
+    "tags": [
+      "Bodenarbeit",
+      "Putzen / Pflege"
+    ],
+    "keywords": [
+      "halfter",
+      "aufhalfter",
+      "annäher"
+    ],
+    "task": "Am Halfter oder Modell erkunden, wie es angelegt wird. Nach einer kurzen gemeinsamen Demonstration nacheinander am geeigneten Pony begrüßen, seine Reaktion abwarten und mit unmittelbarer fachkundiger Begleitung auf- und abhalftern. Die übrigen Kinder üben am Modell oder beobachten nach einem konkreten Auftrag.",
+    "easy": "Beobachten, Halfterteile zeigen oder einen einzelnen Schritt mit Begleitung ausprobieren; selbstständiges Aufhalftern ist keine Voraussetzung für die Teilnahme.",
+    "more": "Den Ablauf erklären und die Reaktion des Ponys beschreiben. Andere am Modell unterstützen; die Aufsicht am Pony bleibt bei einer fachkundigen Person.",
+    "kit": "Passende Halfter, Halftermodell oder Stoffpony, Pony-Pass",
+    "transfer": "Begrüßen und Halfterhandhabung bei späteren Pflegesituationen erneut aufgreifen."
+  },
+  {
+    "id": "concept-ride-arrive",
+    "title": "Reiten: Auf dem Pony ankommen",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "aufsteigen",
+      "absteigen",
+      "aufstiegshilfe",
+      "ankommen"
+    ],
+    "task": "Nach dem Pony-Check gemeinsam zeigen lassen, wie ponyfreundliches Auf- und Absteigen mit Aufstiegshilfe gelingt. Nacheinander auf sicher geführten Ponys eine ruhige Sitzposition finden und die Bewegung im Schritt wahrnehmen. Eine kleine Frage begleitet alle: Wie fühlt sich das Sitzen auf dem Pony an?",
+    "easy": "Aufstieg kleinschrittig begleiten oder bewusst am Boden beobachten. Reiten bleibt freiwillig; eine passende Beobachtungsaufgabe gehört zum selben Schwerpunkt.",
+    "more": "Veränderungen zwischen Stand und Schritt in eigenen Worten beschreiben und eine bekannte ruhige Sitzaufgabe auswählen.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe",
+    "transfer": "Ponyreaktionen sowie begleitetes Auf- und Absteigen vor jeder späteren Reitstunde wiederholen."
+  },
+  {
+    "id": "concept-knot",
+    "title": "Anbinden und sicher lösen",
+    "ids": [
+      "pony-knot",
+      "pony-rules",
+      "know-space"
+    ],
+    "tags": [
+      "Bodenarbeit",
+      "Spiel / Theorie"
+    ],
+    "keywords": [
+      "knoten",
+      "anbinden",
+      "lösen"
+    ],
+    "task": "Gemeinsam einen geeigneten Anbindeplatz ansehen und Abstände besprechen. Den Pferdeknoten zunächst ohne Pony am Übungsplatz zeigen lassen und selbst erproben. Eine Anbindesituation am Pony nur mit unmittelbarer fachkundiger Begleitung beobachten oder üben.",
+    "easy": "Am Übungsstrick einen Teilschritt zeigen, wiederholen oder beschreiben; niemand muss schon allein einen Knoten binden.",
+    "more": "Reihenfolge und sichere Abstände erklären und Unterschiede zwischen Übungssituation und Pony benennen.",
+    "kit": "Übungsstricke, geeigneter Übungsplatz, passende Halfter",
+    "transfer": "Knoten und sichere Abstände in späteren Pflegesituationen erneut gemeinsam besprechen."
+  },
+  {
+    "id": "concept-ride-balance",
+    "title": "Reiten: Balance entdecken",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "balance",
+      "sitz",
+      "aufrichten"
+    ],
+    "task": "Mit sicher geführten Ponys im Schritt eine einzige ruhige Balancefrage erproben: Wie kann ich aufrecht und entspannt mitsitzen? Die Leitung bietet zwei passende kleine Varianten an, aus denen die Kinder wählen. Keine überraschenden Bewegungen und kein Wettbewerb.",
+    "easy": "Eine vertraute Sitzposition mit enger Begleitung erleben oder Körperhaltung am Boden beobachten und beschreiben.",
+    "more": "Eine kleine, vorher abgesprochene Veränderung der Armhaltung ausprobieren, sofern die Leitung dies für Pony und Kind passend findet.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe",
+    "transfer": "Vertraute Sitzaufgaben wiederholen, ohne ruhiges Sitzen als Leistungstest zu bewerten."
+  },
+  {
+    "id": "concept-groom",
+    "title": "Putzzeug verstehen und sorgfältig putzen",
+    "ids": [
+      "pony-brushes",
+      "pony-groom",
+      "stall-tidy"
+    ],
+    "tags": [
+      "Putzen / Pflege"
+    ],
+    "keywords": [
+      "putz",
+      "striegel",
+      "bürst",
+      "pflege"
+    ],
+    "task": "Striegel und Bürsten kurz vergleichen und empfindliche Körperstellen besprechen. Danach nacheinander oder in überschaubaren, fachkundig betreuten Teilgruppen eine gemeinsame Putzaufgabe ausprobieren. Ponyreaktionen beobachten und Material anschließend ordentlich zurücklegen.",
+    "easy": "Eine Bürste zuordnen, eine kleine Aufgabe mit Begleitung übernehmen oder eine konkrete Ponyreaktion beobachten.",
+    "more": "Wahl und Reihenfolge der Putzsachen begründen und Rücksicht auf empfindliche Stellen erklären.",
+    "kit": "Passendes Putzzeug, Materialkörbe, Pony-Pass",
+    "transfer": "Bekannte Pflegeschritte bei späteren Vorbereitungen erneut anwenden und einzelnen Kindern weitere Übungsgelegenheiten geben."
+  },
+  {
+    "id": "concept-ride-motion",
+    "title": "Reiten: Bewegung zwischen Stand und Schritt spüren",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "bewegung",
+      "stand",
+      "halt",
+      "mitschw"
+    ],
+    "task": "Unter sicherer fachkundiger Führung Stand, Losgehen im Schritt und Anhalten erleben. Alle beschäftigen sich mit derselben Frage: Was verändert sich dabei in meinem Körper? Nur eine kleine Wahrnehmungsaufgabe gleichzeitig anbieten; ruhige Durchgänge und Pausen wechseln.",
+    "easy": "Eine Veränderung zeigen oder benennen; bei Bedarf denselben Bewegungswechsel zunächst am Boden erleben.",
+    "more": "Stand, Schritt und Halt bewusst vergleichen und beschreiben, wie ruhiges Mitsitzen gelingt.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe, übersichtlicher Weg",
+    "transfer": "Bekannte Balanceaufgaben aufgreifen und Körperwahrnehmung ohne zusätzliche schwierige Aufgaben vertiefen."
+  },
+  {
+    "id": "concept-hooves",
+    "title": "Hufe kennenlernen und begleitet pflegen",
+    "ids": [
+      "pony-hooves",
+      "know-body",
+      "pony-rules"
+    ],
+    "tags": [
+      "Putzen / Pflege"
+    ],
+    "keywords": [
+      "huf",
+      "hufe",
+      "auskratz",
+      "hufpflege"
+    ],
+    "task": "Hufmodell und Hufkratzer gemeinsam erkunden. Eine fachkundige Person zeigt die Hufpflege an einem geeigneten, ruhigen Pony. Anschließend nacheinander einzelne Schritte unmittelbar begleitet üben. Andere Kinder arbeiten am Modell oder beobachten mit einem konkreten Auftrag. Die Fachkraft übernimmt bei Unsicherheit von Pony oder Kind.",
+    "easy": "Hufteile am Modell zeigen oder die Demonstration beobachten. Niemand muss einen Huf selbst aufnehmen oder halten.",
+    "more": "Die Reihenfolge erklären und einen vereinbarten Teilschritt mit unmittelbarer fachkundiger Unterstützung erproben.",
+    "kit": "Hufmodell oder Bild, Hufkratzer, geeigneter sicherer Übungsplatz",
+    "transfer": "Die Einführung schafft noch keine selbstständige Fähigkeit. In späteren Pflegesituationen weitere begleitete Einzelübungen ermöglichen."
+  },
+  {
+    "id": "concept-ride-skill",
+    "title": "Reiten: Kleine Aufgaben im geführten Schritt",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "geschick",
+      "bewegungsaufgabe",
+      "spiel"
+    ],
+    "task": "Zwei oder drei ruhige, bekannte Körperaufgaben zur Auswahl vorstellen. Auf sicher geführten Ponys jeweils nur eine passende kleine Aufgabe im Schritt ausprobieren. Die Kinder dürfen beobachten, eine Variante wählen oder pausieren. Keine Schnelligkeit, Punkte oder riskanten Sitzverlagerungen.",
+    "easy": "Eine vertraute Aufgabe mit enger Begleitung wiederholen oder das Mitsitzen aus sicherer Entfernung beobachten.",
+    "more": "Eine passende Variante bewusst wählen und anschließend beschreiben, was dem eigenen ruhigen Sitz geholfen hat.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe",
+    "transfer": "Balance und freiwillige Aufgabenwahl aus den vorigen Reitstunden wieder aufgreifen."
+  },
+  {
+    "id": "concept-leading",
+    "title": "Führen mit Start Halt und weiten Wendungen",
+    "ids": [
+      "pony-lead",
+      "move-stop",
+      "move-hold",
+      "move-reactions"
+    ],
+    "tags": [
+      "Bodenarbeit"
+    ],
+    "keywords": [
+      "führen",
+      "führposition",
+      "losgehen",
+      "anhalten",
+      "wend"
+    ],
+    "task": "Führposition und Strickhaltung zuerst ohne Pony zeigen lassen. Danach in fachkundig betreuten Teilgruppen mit geeigneten Ponys kurze Wege, Losgehen, Halt und weite Wendungen erproben. Immer nur so viele Pony-Arbeitsplätze nutzen, wie sicher begleitet werden können.",
+    "easy": "Eine kurze gerade Strecke oder einen einzelnen Übergang mit enger Begleitung ausprobieren; alternativ Führposition am Modell zeigen.",
+    "more": "Tempo und Wege ruhig abstimmen und Ponyreaktionen beobachten. Gegenseitige Hilfe ersetzt keine fachkundige Aufsicht.",
+    "kit": "Passende Halfter und Führstricke, übersichtlicher Weg, Start- und Haltemarkierungen",
+    "transfer": "Die Grundlagen bei späteren gemeinsamen Wegen wiederholen; Nicht-Reitwochen bleiben auch für Pflege und Ponywissen offen."
+  },
+  {
+    "id": "concept-ride-paths",
+    "title": "Reiten: Gemeinsam geführte Wege entdecken",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "wege",
+      "haltepunkt",
+      "gemeinsam unterwegs"
+    ],
+    "task": "Einen vertrauten geführten Weg mit wenigen Haltepunkten gemeinsam ansehen. Im Dreierteam nacheinander reiten, von sicherer Position beobachten und eine vereinbarte passende Unterstützungsaufgabe übernehmen. Kein Kind trägt allein die Verantwortung für das Führen.",
+    "easy": "Den Weg zunächst am Boden kennenlernen, einen Haltepunkt beobachten oder einen kurzen geführten Abschnitt wählen.",
+    "more": "Ponyreaktionen, ruhiges Mitsitzen und respektvolle Rollenwechsel im Team bewusst beschreiben.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe, Haltemarkierungen",
+    "transfer": "Auf- und Absteigen, Balance und beobachtende Teamrollen aus den ersten Reitstunden festigen."
+  },
+  {
+    "id": "concept-pony-check",
+    "title": "Pony-Check und tägliche Bedürfnisse",
+    "ids": [
+      "check-observe",
+      "check-communicate",
+      "check-distance",
+      "know-needs",
+      "know-friends",
+      "know-feed",
+      "know-space"
+    ],
+    "tags": [
+      "Spiel / Theorie",
+      "Putzen / Pflege"
+    ],
+    "keywords": [
+      "pony-check",
+      "körpersprache",
+      "bedürfn",
+      "ohren",
+      "wasser",
+      "futter"
+    ],
+    "task": "Ohren, Haltung und Bewegung aus sicherem Abstand beobachten: Was sehen wir wirklich und was vermuten wir? Anschließend Wasser, Futter, Ruhe und Ponyfreunde als Bedürfnisse am Hof erkunden. Nähe, Abstand und Pausen des Ponys gelten als Ausgangspunkt für den Umgang.",
+    "easy": "Eine sichtbare Beobachtung sammeln oder ein Bedürfnis zeigen und mit einem Bild verbinden.",
+    "more": "Beobachtung und Deutung unterscheiden und erklären, welche Handlung zum beobachteten Pony passt.",
+    "kit": "Pony-Pass, Beobachtungsbilder, Stifte, vorbereitete Material- oder Futterbeispiele",
+    "transfer": "Einen kurzen Pony-Check vor späteren Kontakten aufgreifen; Füttern nur nach Absprache."
+  },
+  {
+    "id": "concept-ride-curves",
+    "title": "Reiten: Balance in großen Bögen",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "kurven",
+      "bögen",
+      "richtung"
+    ],
+    "task": "Auf sicher geführten Ponys im Schritt große Bögen und ruhige Richtungswechsel erleben. Alle beobachten dieselbe Frage: Wie verändert sich mein Körpergefühl in einer Kurve? Die Leitung wählt weite, übersichtliche Wege und bekannte Sitzaufgaben.",
+    "easy": "Einen kurzen großen Bogen eng begleitet erleben oder die Wege am Boden mitgehen und beobachten.",
+    "more": "Den Unterschied zwischen geradem Weg und Bogen beschreiben und eine vertraute Balanceaufgabe bewusst wiederholen.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe, freie übersichtliche Fläche",
+    "transfer": "Auf bereits vertraute Sitz- und Wahrnehmungsaufgaben zurückgreifen, statt mehrere neue Anforderungen zu verbinden."
+  },
+  {
+    "id": "concept-equipment",
+    "title": "Ausrüstungswerkstatt für Pad Sattel und Gurt",
+    "ids": [
+      "stall-equipment",
+      "pony-rules",
+      "move-reactions"
+    ],
+    "tags": [
+      "Spiel / Theorie"
+    ],
+    "keywords": [
+      "ausrüstung",
+      "pad",
+      "sattel",
+      "gurt",
+      "werkstatt"
+    ],
+    "task": "Pad, Sattel und Gurt gemeinsam anschauen und ihre Aufgaben erkunden. Eine fachkundige Person erklärt grundlegende Merkmale geeigneter, sauberer Ausrüstung und führt die sichere Vorbereitung vor. Kinder können benennen, sortieren und unmittelbar angeleitet mithelfen; die Beurteilung der Passform bleibt bei der Fachkraft.",
+    "easy": "Ein Ausrüstungsteil finden, zeigen oder am Modell zuordnen; praktische Mithilfe nur passend begleitet.",
+    "more": "Den Zweck der Teile erklären und Fragen an die fachkundige Vorbereitung formulieren, ohne die Passform selbst verantworten zu müssen.",
+    "kit": "Saubere geeignete Ausrüstung, Modell oder Ablage, Bildkarten",
+    "transfer": "Vor späterem Reiten gemeinsam auf geeignete und saubere Ausrüstung achten. Dies ist eine thematische Ergänzung des Konzepts, keine neue Pony-Pass-Prüfung."
+  },
+  {
+    "id": "concept-ride-team",
+    "title": "Reiten: Eine vertraute Aufgabe als Pony-Team",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "pony-team",
+      "teamaufgabe",
+      "rollen"
+    ],
+    "task": "Die Kinder wählen gemeinsam eine kurze bekannte Reitaufgabe. Im sicheren Rahmen erlebt jedes Team die Rollen Reiten, Beobachten und passende Unterstützung. Zuhören, ruhige Absprachen und Ponyreaktionen stehen im Mittelpunkt; fachkundige Führung und Aufsicht bleiben verantwortlich.",
+    "easy": "Eine erreichbare Rolle wählen und sie bei Bedarf verändern; Beobachten oder eine Pause schließt niemanden aus.",
+    "more": "Eine vertraute Aufgabe mitplanen und die Teamabsprachen reflektieren. Mitführen nur ausreichend angeleitet und unter unmittelbarer Aufsicht.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe, Material der bekannten Aufgabe",
+    "transfer": "Balance, Ponyreaktionen und kooperative Rollenwechsel aus früheren Stunden verbinden."
+  },
+  {
+    "id": "concept-workshop",
+    "title": "Pony-Pass-Werkstatt zum Vertiefen",
+    "ids": [
+      "pony-halter",
+      "pony-groom",
+      "pony-hooves",
+      "move-hold",
+      "know-needs"
+    ],
+    "tags": [
+      "Spiel / Theorie",
+      "Putzen / Pflege"
+    ],
+    "keywords": [
+      "wiederhol",
+      "pony-pass",
+      "vertief",
+      "wunsch"
+    ],
+    "task": "Gemeinsam einen bekannten Schwerpunkt zum Vertiefen wählen: zum Beispiel Halfter, Putzen, Hufpflege am Modell oder begleitet am Pony, Führgrundlagen oder Ponywissen. Mit überschaubaren Aufgaben am gewählten Thema üben und zum Schluss Wünsche für weitere Übungsgelegenheiten festhalten. Keine Prüfung und keine aufwendigen parallelen Stationen.",
+    "easy": "Eine erreichbare Teilaufgabe wählen oder mit Bild, Modell und Beobachtungsauftrag am selben Thema teilnehmen.",
+    "more": "Einen eigenen nächsten Lernschritt formulieren und bekannte Handlungen mit der jeweils nötigen Begleitung wiederholen.",
+    "kit": "Pony-Pass, Stifte, Material des gemeinsam gewählten Schwerpunkts",
+    "transfer": "Nur tatsächlich erprobte Lernziele dokumentieren. Die Wünsche fließen in weitere Vorschläge ein."
+  },
+  {
+    "id": "concept-ride-adventure",
+    "title": "Reiten: Unser Pony-Abenteuer und Rückblick",
+    "ids": [
+      "move-mount-block",
+      "move-mount",
+      "move-balance",
+      "move-reactions"
+    ],
+    "tags": [
+      "Reiten"
+    ],
+    "keywords": [
+      "lieblingsspiel",
+      "pony-abenteuer",
+      "abschluss",
+      "rückblick"
+    ],
+    "task": "Gemeinsam ein ruhiges, bekanntes Lieblingsspiel oder eine vertraute kurze Reitaufgabe auswählen und sicher geführt im Schritt erleben. Anschließend Erfahrungen und Ponybedürfnisse besprechen: Darauf bin ich stolz und das möchte ich weiter üben. Kein Leistungsvergleich und kein neues riskantes Spiel zum Abschluss.",
+    "easy": "Eine vertraute Aufgabe oder eine gleichwertige Beobachtungsrolle wählen und mit Bild oder kurzem Satz zurückblicken.",
+    "more": "Eigene Lernschritte benennen, Ponyreaktionen einbeziehen und einen konkreten Wunsch für die nächste Zeit formulieren.",
+    "kit": "Geeignete Ponys und passende Ausrüstung, Reithelme, Aufstiegshilfe, Pony-Pass, Stifte",
+    "transfer": "Bekanntes festigen und den persönlichen Rückblick im Pony-Pass ermöglichen; kein Abschluss als Prüfung."
+  }
+];
+  const topics = [...legacyTopics,...conceptTopics];
+  const REGULAR_GROUPS = ['di-1','di-2','mi-1','mi-2','do-1','do-2'];
+  function planningBasisFor(group,value) {
+    if(!REGULAR_GROUPS.includes(group))return 'pony-pass';
+    return value==='pony-pass'?'pony-pass':'regular-concept';
+  }
+  function sharedBasisFrom(plans) {
+    return plans.filter(p=>p&&!p._archived&&['regular-concept','pony-pass'].includes(p.planningBasis)).slice()
+      .sort((a,b)=>(Number(b.updated)||0)-(Number(a.updated)||0)||String(b.date||'').localeCompare(String(a.date||'')))[0]?.planningBasis || '';
+  }
+  function organisationFor(topic) {
+    return topic.tags.includes('Reiten')
+      ? 'Orientierung für bis zu zwölf Kinder: Bei bis zu vier geeigneten Ponys möglichst feste Dreierteams bilden. Eine Person reitet; die anderen beobachten oder übernehmen eine passende Aufgabe außerhalb des Gefahrenbereichs. Rollen ruhig wechseln. Nur so viele Ponys gleichzeitig einsetzen, wie fachkundige Führung und Gesamtaufsicht sicher tragen. Bei weniger Ponys oder Personal nacheinander arbeiten und die Aufgabe verkürzen. Reiten bleibt freiwillig; gleichwertige Beobachtungs- und Bodenaufgaben ermöglichen. Die Leitung prüft Eignung, Tagesform, Ausrüstung und Boden und entscheidet über Pausen oder eine Anpassung.'
+      : 'Ein gemeinsamer Schwerpunkt für die Gruppe. Nach einer kurzen Demonstration in überschaubaren Teilgruppen oder nacheinander üben. Nur so viele Pony-Arbeitsplätze anbieten, wie fachkundig begleitet werden können. Am Modell üben und gezielt beobachten sind gleichwertige Beteiligungsmöglichkeiten. Keine Wettbewerbe oder Leistungsprüfungen. Bei Anbinden, Hufpflege sowie Auf- und Absteigen arbeitet eine fachkundige Person unmittelbar mit. Ponyreaktionen, Tagesform und Pausen bestimmen die tatsächliche Durchführung.';
+  }
   const normalizeText = value => String(value || '').toLocaleLowerCase('de').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss');
   const dateValid = value => /^\d{4}-\d{2}-\d{2}$/.test(String(value || '')) && !isNaN(new Date(value+'T12:00:00Z').getTime()) && new Date(value+'T12:00:00Z').toISOString().slice(0,10)===value;
   const cleanIds = value => [...new Set((Array.isArray(value)?value:[]).filter(id=>goalMap.has(id)))];
@@ -67,8 +468,9 @@
     if(legacy.length&&rest.topicId!=='needs'&&Array.isArray(rest.tags))rest.tags=rest.tags.filter(tag=>tag!=='Stallarbeit');
     return {...rest, version:2, focusText:typeof rest.focusText === 'string' ? rest.focusText : String(phase?.text || ''), materials};
   }
-  function planFromTopic(topic, group, date, custom='') {
-    return {version:2,source:'pony-pass-1',groupId:group,date,ageMin:8,ageMax:14,topicId:topic.id,
+  function planFromTopic(topic, group, date, custom='',basis='pony-pass') {
+    return {version:2,source:conceptTopics.includes(topic)?'ponygruppen-konzept-2026-10-20':'pony-pass-1',planningBasis:basis,groupId:group,date,ageMin:8,ageMax:14,topicId:topic.id,
+      organisation:basis==='regular-concept'?organisationFor(topic):'',nextPractice:topic.transfer||'',
       title:custom || topic.title,goalIds:topic.ids.slice(),tags:topic.tags.filter(tag=>tag!=='Stallarbeit'||topic.id==='needs'),materials:topic.kit,
       younger:topic.easy,older:topic.more,ownIdeas:custom,
       focusText:custom ? custom+'\nGemeinsam mit der Leitung eine passende praktische oder theoretische Aufgabe auswählen, in kleinen Teams erproben und anschließend besprechen.' : topic.task};
@@ -83,9 +485,12 @@
     return plans.filter(p=>p&&!p._archived&&dateValid(p.ridingAnchor)).slice()
       .sort((a,b)=>(Number(b.updated)||0)-(Number(a.updated)||0)||String(b.date||'').localeCompare(String(a.date||'')))[0]?.ridingAnchor || '';
   }
-  function buildPlans({groupId,dates=[],history=[],existing=[],focus='auto',ownIdeas='',ridingAnchor=''}) {
+  function buildPlans({groupId,dates=[],history=[],existing=[],focus='auto',ownIdeas='',ridingAnchor='',planningBasis}) {
     const validDates=[...new Set(dates.filter(dateValid))].sort();
-    const occupied=new Set(existing.filter(p=>p&&p.groupId===groupId).map(p=>p.date));
+    const basis=planningBasisFor(groupId,planningBasis||sharedBasisFrom(existing.filter(p=>p?.groupId===groupId)));
+    const defaults=basis==='regular-concept'?conceptTopics:legacyTopics;
+    const scope=basis==='regular-concept'?[...conceptTopics,...legacyTopics]:legacyTopics;
+    const occupied=new Set(existing.filter(p=>p&&!p._archived&&p.groupId===groupId).map(p=>p.date));
     const counts=new Map(),topicCounts=new Map();
     for(const session of history) {
       if(!session || session._archived || session.groupId!==groupId || !dateValid(session.date) || session.date>=validDates[0])continue;
@@ -100,16 +505,17 @@
       if(occupied.has(date))continue;
       const riding=!!anchor&&isRidingDate(date,anchor);
       const wish=riding?'':wishes[wishIndex++] || '';
-      const matching=topics.filter(topic=>topic.keywords.some(word=>normalizeText(wish).includes(normalizeText(word))));
-      const requested=topics.find(topic=>topic.id===focus);
-      const eligible=anchor?topics.filter(topic=>topic.tags.includes('Reiten')===riding):topics;
-      const matchingEligible=matching.filter(topic=>eligible.includes(topic));
-      let candidates=requested&&eligible.includes(requested)?[requested]:matchingEligible.length?matchingEligible:eligible;
+      const matching=scope.filter(topic=>topic.keywords.some(word=>normalizeText(wish).includes(normalizeText(word))));
+      const requested=scope.find(topic=>topic.id===focus);
+      const fits=topic=>!anchor||topic.tags.includes('Reiten')===riding;
+      const eligible=defaults.filter(fits);
+      const matchingEligible=matching.filter(fits);
+      let candidates=requested&&fits(requested)?[requested]:matchingEligible.length?matchingEligible:eligible;
       // Tatsächlich dokumentierte Übung hat Vorrang. Ein Plan zählt nie als geübt.
       const practiced=topic=>topic.ids.reduce((sum,id)=>sum+(counts.get(id)||0),0)/Math.max(1,topic.ids.length);
-      candidates=candidates.slice().sort((a,b)=>practiced(a)-practiced(b)||(topicCounts.get(a.id)||0)-(topicCounts.get(b.id)||0)||topics.indexOf(a)-topics.indexOf(b));
+      candidates=candidates.slice().sort((a,b)=>practiced(a)-practiced(b)||(topicCounts.get(a.id)||0)-(topicCounts.get(b.id)||0)||scope.indexOf(a)-scope.indexOf(b));
       const topic=candidates[0];
-      const plan=planFromTopic(topic,groupId,date,wish);
+      const plan=planFromTopic(topic,groupId,date,wish,basis);
       if(wish){plan.tags=['Sonstiges'];if(!matching.length&&!requested)plan.goalIds=[];}
       if(anchor)plan.ridingAnchor=anchor;
       plan.ownIdeas=wish;result.push(plan);
@@ -122,7 +528,7 @@
     const plan=focusPlan(value),title=String(plan.title||'').trim();
     if(!title)throw Error('Bitte den heutigen Schwerpunkt eintragen.');
     return {...plan,title,ageMin:8,ageMax:14,goalIds:cleanIds(plan.goalIds),focusText:String(plan.focusText||''),
-      younger:String(plan.younger||''),older:String(plan.older||''),ownIdeas:String(plan.ownIdeas||'')};
+      younger:String(plan.younger||''),older:String(plan.older||''),ownIdeas:String(plan.ownIdeas||''),organisation:String(plan.organisation||''),nextPractice:String(plan.nextPractice||'')};
   }
   const memory=new Map();let sequence=0;const PREFIX='stallPonyPlannerDraftV1:';
   const owner=()=>typeof global.currentAccessOwnerKeyV123_==='function'?global.currentAccessOwnerKeyV123_():JSON.stringify(pushNotificationOwner_());
@@ -168,6 +574,7 @@
       <details class="planner-goals"><summary>Lernziele aus dem Pony-Pass</summary><div>${goals.map(goal=>`<label><input type="checkbox" data-plan-goal="${esc(goal.id)}" ${plan.goalIds.includes(goal.id)?'checked':''} ${write?'':'disabled'}><span>${esc(goal.text)} <small>Seite ${goal.page}</small></span></label>`).join('')}</div></details>
       <label>Ideen zur Umsetzung<textarea data-plan-field="focusText" ${write?'':'disabled'}>${esc(plan.focusText)}</textarea></label>
       <label>Material<textarea data-plan-field="materials" ${write?'':'disabled'}>${esc(plan.materials)}</textarea></label>
+      ${plan.planningBasis==='regular-concept'?`<details><summary>Organisation und Wiederaufgreifen</summary><label>Organisation und Beteiligung<textarea data-plan-field="organisation" ${write?'':'disabled'}>${esc(plan.organisation||'')}</textarea></label><label>Wiederaufgreifen und nächster Schritt<textarea data-plan-field="nextPractice" ${write?'':'disabled'}>${esc(plan.nextPractice||'')}</textarea></label></details>`:''}
       <details><summary>An unterschiedliche Erfahrung anpassen</summary><label>Für jüngere oder neue Kinder<textarea data-plan-field="younger" ${write?'':'disabled'}>${esc(plan.younger)}</textarea></label><label>Für erfahrenere Kinder<textarea data-plan-field="older" ${write?'':'disabled'}>${esc(plan.older)}</textarea></label></details>
       <div class="planner-actions"><button type="button" class="submit-btn" data-plan-save ${write?'':'disabled'}>Plan speichern</button><button type="button" class="secondary-btn" data-plan-document ${write?'':'disabled'}>Inhalte vorbereiten</button><button type="button" class="secondary-btn" data-plan-new ${write?'':'disabled'}>Neuer Vorschlag</button><button type="button" class="secondary-btn" data-plan-reset ${write?'':'disabled'}>Gespeicherten Stand laden</button></div>
       <p class="save-status" data-plan-status role="status">${isDraft?'Entwurf auf diesem Gerät. Noch nicht für das Team gespeichert.':'Nach der Stunde in „Inhalte & Ponys“ dokumentieren, was tatsächlich stattgefunden hat.'}</p></details>
@@ -207,21 +614,31 @@
     const dates=visibleDates(g,d,8),entries=[];
     for(const day of dates){const draft=readDraft(g,day),saved=storedPlan(g,day);if(draft?.plan||saved)entries.push({plan:draft?.plan||saved,base:draft?draft.base:cache[keyFor(g,day)]??null,draft:!!draft});}
     if(request!==sequence||currentOwner!==owner())return;
-    container.innerHTML=`<div class="planner-intro"><h2>Heutigen Schwerpunkt planen</h2><p>Für 8–14-Jährige</p><p>Vorschläge aus dem Pony-Pass 1. Selten als geübt dokumentierte Lernziele haben Vorrang und können wiederkehren. Ein geplanter Schwerpunkt zählt noch nicht als geübt. Eure eigenen Ideen fließen ebenfalls ein.</p></div>
-      <div class="planner-controls"><label>Vorschläge für<select id="ponyPlannerCount"><option value="1">Den gewählten Termin</option><option value="4">Die nächsten 4 Termine</option><option value="8">Die nächsten 8 Termine</option></select></label>
+    container.innerHTML=`<div class="planner-intro"><h2>Heutigen Schwerpunkt planen</h2><p>Für 8–14-Jährige</p><p>Vorschläge aus dem Pony-Pass und für reguläre Gruppen aus eurem Konzeptentwurf. Selten als geübt dokumentierte Lernziele haben Vorrang und können wiederkehren. Ein geplanter Schwerpunkt zählt noch nicht als geübt. Eure eigenen Ideen fließen ebenfalls ein.</p></div>
+      <div class="planner-controls"><label>Planungsgrundlage<select id="ponyPlannerBasis" ${permitted(g,d,true)?'':'disabled'}>${REGULAR_GROUPS.includes(g)?'<option value="regular-concept">Reguläre Ponygruppe · Konzeptentwurf</option>':''}<option value="pony-pass">Freie Pony-Pass-Planung</option></select></label><p class="detail-sub" id="ponyPlannerBasisHint"></p><label>Vorschläge für<select id="ponyPlannerCount"><option value="1">Den gewählten Termin</option><option value="4">Die nächsten 4 Termine</option><option value="8">Die nächsten 8 Termine</option></select></label>
       <label>Schwerpunkt<select id="ponyPlannerFocus"><option value="auto">Passend zu bisherigen Lernzielen</option>${topics.map(t=>`<option value="${t.id}">${esc(t.title)}</option>`).join('')}</select></label>
       <label>Erster Reittermin dieser Gruppe<input type="date" id="ponyPlannerRidingStart" required ${permitted(g,d,true)?'':'disabled'}></label><p class="detail-sub">Ab diesem Termin ist alle 14 Tage Reiten vorgesehen. Dazwischen werden andere Schwerpunkte vorgeschlagen. Ferien und Absagen verschieben den Rhythmus nicht. Der Start wird mit den neuen Plänen fürs Team gespeichert; vorhandene Pläne bleiben erhalten.</p>
       <label class="planner-wide">Eigene Inhalte / Wünsche<textarea id="ponyPlannerIdeas" placeholder="Eine Idee pro Zeile, zum Beispiel: Hufe kennenlernen oder Slalom wiederholen"></textarea></label>
       <button type="button" class="submit-btn" id="ponyPlannerGenerate" ${permitted(g,d,true)?'':'disabled'}>Vorschläge erstellen</button><p class="detail-sub">Es werden die geladenen, nicht abgesagten Termine ab dem gewählten Datum verwendet. Vorhandene Pläne bleiben erhalten. Vorschläge könnt ihr vor dem Speichern anpassen.</p></div>
       <p role="status" id="ponyPlannerMessage"></p><div id="ponyPlannerCards">${entries.length?entries.map(item=>renderCard(item.plan,item.base,item.draft,permitted(g,item.plan.date,true))).join(''):'<p class="planner-empty">Für diesen Zeitraum gibt es noch keinen Plan. Erstelle einen Vorschlag für den gewählten Termin oder eine Stundenreihe.</p>'}</div>`;
     container.dataset.owner=currentOwner;container.dataset.groupId=g;
-    const options=readOptions(g);
+    const options=readOptions(g),savedBasis=sharedBasisFrom(savedPlansFor(g));
+    const basisInput=document.getElementById('ponyPlannerBasis');
+    basisInput.value=planningBasisFor(g,options.planningBasis&&(!savedBasis||options.planningBasis===savedBasis||options.sharedBasis===savedBasis)?options.planningBasis:savedBasis);
     const countInput=document.getElementById('ponyPlannerCount'),focusInput=document.getElementById('ponyPlannerFocus'),ideasInput=document.getElementById('ponyPlannerIdeas'),ridingInput=document.getElementById('ponyPlannerRidingStart');
     const sharedAnchor=ridingAnchorFrom(savedPlansFor(g));
     ridingInput.value=dateValid(options.ridingAnchor)&&(!sharedAnchor||options.ridingAnchor===sharedAnchor||options.sharedAnchor===sharedAnchor)?options.ridingAnchor:sharedAnchor||d;
     countInput.value=['1','4','8'].includes(String(options.count))?String(options.count):'1';
     focusInput.value=topics.some(topic=>topic.id===options.focus)?options.focus:'auto';ideasInput.value=String(options.ownIdeas||'');
-    const keep=()=>{if(container.dataset.owner===owner()&&activePonyGroupId===g)keepOptions(g,{count:countInput.value,focus:focusInput.value,ownIdeas:ideasInput.value,ridingAnchor:ridingInput.value,sharedAnchor:ridingAnchorFrom(savedPlansFor(g))});};
+    const keep=()=>{if(container.dataset.owner===owner()&&activePonyGroupId===g)keepOptions(g,{count:countInput.value,focus:focusInput.value,ownIdeas:ideasInput.value,ridingAnchor:ridingInput.value,sharedAnchor:ridingAnchorFrom(savedPlansFor(g)),planningBasis:basisInput.value,sharedBasis:sharedBasisFrom(savedPlansFor(g))});};
+    const updateBasis=()=>{
+      const previous=focusInput.value;
+      const available=basisInput.value==='regular-concept'?topics:legacyTopics;
+      focusInput.innerHTML='<option value="auto">Passend zu bisherigen Lernzielen</option>'+available.map(topic=>`<option value="${topic.id}">${esc(topic.title)}</option>`).join('');
+      focusInput.value=available.some(topic=>topic.id===previous)?previous:'auto';
+      document.getElementById('ponyPlannerBasisHint').textContent=basisInput.value==='regular-concept'?'16 Schwerpunkte als flexible Lernfolge: acht Boden-, Pflege- und Wissensthemen und acht geführte Reitstunden. Wiederholungen richten sich nach dokumentierter Übung. Für Ponybande oder Fortgeschrittenengruppen die freie Planung wählen; dieses Konzept wird dort nicht automatisch angewendet. Die Auswahl wird mit neuen Plänen fürs Team gespeichert.':'Freie Auswahl aus dem Pony-Pass. Die 16 Themen des Konzepts für reguläre Gruppen werden hier nicht automatisch verwendet. Dies ist kein eigener Lehrplan für Fortgeschrittene.';
+    };
+    updateBasis();basisInput.addEventListener('change',()=>{updateBasis();keep();});
     for(const input of [countInput,focusInput,ideasInput,ridingInput]){input.addEventListener('input',keep);input.addEventListener('change',keep);}
     document.getElementById('ponyPlannerGenerate').onclick=async()=>{
       if(container.dataset.owner!==owner()||activePonyGroupId!==g)return;
@@ -231,7 +648,7 @@
       const selected=visibleDates(g,d,count).filter(day=>permitted(g,day,true));
       const selectedPlans=selected.map(day=>readDraft(g,day)?.plan||storedPlan(g,day)).filter(Boolean);
       const existing=[...savedPlansFor(g).filter(plan=>!selectedPlans.some(p=>p.date===plan.date)),...selectedPlans];
-      const made=buildPlans({groupId:g,dates:selected,history:historyFor(g),existing,focus,ownIdeas:ideas,ridingAnchor:ridingInput.value});
+      const made=buildPlans({groupId:g,dates:selected,history:historyFor(g),existing,focus,ownIdeas:ideas,ridingAnchor:ridingInput.value,planningBasis:basisInput.value});
       for(const plan of made)keepDraft(g,plan.date,plan,cache[keyFor(g,plan.date)]??null);
       await render();
       const msg=document.getElementById('ponyPlannerMessage');if(msg)msg.textContent=made.length?`${made.length} Vorschlag${made.length===1?'':'e'} als Entwurf erstellt. Vor dem Speichern gemeinsam prüfen und anpassen.`:'Für die gewählten Termine sind bereits Pläne vorhanden. Du kannst sie unten bearbeiten oder einen späteren Termin wählen.';
@@ -262,7 +679,7 @@
         const focus=document.getElementById('ponyPlannerFocus').value,ownIdeas=document.getElementById('ponyPlannerIdeas').value;
         if(!dateValid(ridingInput.value)){document.getElementById('ponyPlannerMessage').textContent='Bitte den ersten Reittermin dieser Gruppe wählen.';return;}
         const others=Object.entries(cache).filter(([key])=>key.startsWith(`ponygroup:plan:${g}:`)&&key!==keyFor(g,card.dataset.planDate)).map(([,raw])=>parse(raw)).filter(Boolean);
-        const plan=buildPlans({groupId:g,dates:[card.dataset.planDate],history:historyFor(g),existing:others,focus,ownIdeas,ridingAnchor:ridingInput.value})[0];
+        const plan=buildPlans({groupId:g,dates:[card.dataset.planDate],history:historyFor(g),existing:others,focus,ownIdeas,ridingAnchor:ridingInput.value,planningBasis:basisInput.value})[0];
         if(plan){keepDraft(g,plan.date,plan,JSON.parse(card.dataset.planBase));await render();}
       };
       card.querySelector('[data-plan-reset]').onclick=async()=>{const previousOwner=owner();if(!validOwner()||!await appConfirm('Den Entwurf verwerfen und den zuletzt gespeicherten beziehungsweise vorgemerkten Stand laden?')||previousOwner!==owner()||!validOwner())return;dropDraft(g,card.dataset.planDate);await render();};
@@ -311,14 +728,14 @@
     try {
       const data=await readServerDataForEdit_(),writes=op.atomicWrites||[op];
       if(resolvingOwner!==owner())return;
-      const text=raw=>{const original=parse(raw),p=original?focusPlan(original):null;return p?[p.title,'Lernziele: '+cleanIds(p.goalIds).map(id=>goalMap.get(id).text).join('; '),p.focusText,'Material: '+(p.materials||''),'Jüngere / neue Kinder: '+(p.younger||''),'Erfahrenere Kinder: '+(p.older||'')].join('\n\n'):'Kein gespeicherter Plan';};
+      const text=raw=>{const original=parse(raw),p=original?focusPlan(original):null;return p?[p.title,'Planungsgrundlage: '+(p.planningBasis==='regular-concept'?'Reguläre Ponygruppe · Konzeptentwurf':'Freie Pony-Pass-Planung'),'Erster Reittermin: '+(p.ridingAnchor||'nicht festgelegt'),'Lernziele: '+cleanIds(p.goalIds).map(id=>goalMap.get(id).text).join('; '),p.focusText,'Organisation: '+(p.organisation||''),'Wiederaufgreifen: '+(p.nextPractice||''),'Material: '+(p.materials||''),'Jüngere / neue Kinder: '+(p.younger||''),'Erfahrenere Kinder: '+(p.older||'')].join('\n\n'):'Kein gespeicherter Plan';};
       const approved=await appConfirm(writes.map(w=>'Aktueller Stand:\n'+text(data[w.key])+'\n\nDein Stand:\n'+text(w.value)).join('\n\n'),{title:'Planänderungen vergleichen',confirmText:'Meinen Stand übernehmen',cancelText:'Entwurf behalten'});
       if(!approved||resolvingOwner!==owner()||!getPendingOps().some(item=>item.opId===opId&&pendingOpAllowedForCurrentRole_(item)))return;
       const ok=await queuePlans(writes.map(w=>({key:w.key,value:w.value,expectedKey:w.key,expectedValue:data[w.key]??null,entryCreate:data[w.key]==null,ponyGroupPlanner:true,entryMutationOwner:pushNotificationOwner_()})),true);
       if(ok)showActionToast('Der gewählte Planstand ist zur Synchronisierung vorgemerkt.');
     } catch(e){showActionToast('Der Vergleich ist gerade nicht möglich. Dein Plan bleibt erhalten.');}
   }
-  global.StallPonyPlanner={version:VERSION,goals,topics,isRidingDate,ridingAnchorFrom,buildPlans,normalizePlan,focusPlan,keyFor,dateValid,queuePlans,render,installGoalControls,practicedGoals,resolve};
+  global.StallPonyPlanner={version:VERSION,goals,topics,legacyTopics,conceptTopics,planningBasisFor,sharedBasisFrom,isRidingDate,ridingAnchorFrom,buildPlans,normalizePlan,focusPlan,keyFor,dateValid,queuePlans,render,installGoalControls,practicedGoals,resolve};
   if(typeof updateConnectionBanner==='function') {
     const previous=updateConnectionBanner;
     updateConnectionBanner=function(){previous();const el=document.getElementById('connectionBanner'),op=getPendingOps().find(item=>item.ponyGroupPlanner&&item.syncError&&pendingOpAllowedForCurrentRole_(item));if(!el||!op)return;
