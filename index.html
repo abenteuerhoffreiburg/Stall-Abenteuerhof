@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.42. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.43. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.42">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.42">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.42">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.43">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.43">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.43">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11737,7 +11737,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.42" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.43" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12713,6 +12713,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
+    <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
     <div class="changelog-version">Version 1.25.42</div><p>Die Namensauswahl startet jetzt ohne ein zweites, veraltetes Logo.</p><ul><li>Über „Wer bist du?“ steht kein zusätzliches Bild mehr.</li><li>Das aktuelle Abenteuerhof-Icon bleibt ausschließlich in der Kopfleiste sichtbar.</li><li>Die reduzierte Karte lenkt direkt auf Name und Zugangsart.</li></ul>
     <div class="changelog-version">Version 1.25.41</div><p>Das ausgewählte grüne Abenteuerhof-Icon ist jetzt aktiv.</p><ul><li>Der grüne Markenkreis und das sandfarbene Tipi orientieren sich am bestehenden Kinderabenteuerhof-Auftritt.</li><li>Das kleine freie Pony kennzeichnet den Stallbereich, ohne das Logo wie einen Reitstall wirken zu lassen.</li><li>Browser, Startbildschirm und Kopfleiste laden die neue Grafik über eine frische Cache-Version.</li></ul>
     <div class="changelog-version">Version 1.25.40</div><p>Das neue Abenteuerhof-Icon ist jetzt überall aktiv.</p><ul><li>Waldgrün, Lehm und Creme ersetzen das bisherige Pferdekopf-Logo.</li><li>Neue Versionsadressen umgehen alte Browser- und App-Caches.</li><li>App-Manifest, Browser-Icon, Startbildschirm und Kopfleiste verwenden dieselbe Grafik.</li></ul>
@@ -17030,7 +17031,7 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.42';
+const STALL_APP_VERSION = '1.25.43';
 const STALL_APP_VERSION_DATE = '01.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
@@ -37473,6 +37474,7 @@ body { background:var(--bg) !important; color:var(--text) !important; }
 }
 @media(max-width:759px) {
  body:has(#todoScreen[style*="display: block"]) .topbar { margin-bottom:0 !important; }
+ body:has(#todoScreen[style*="display: block"]) .shell { padding-bottom:0 !important; }
  #todoScreen { padding-top:4px !important; }
 }
 </style>
