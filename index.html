@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.43. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.44. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.43">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.43">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.43">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.44">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.44">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.44">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11737,7 +11737,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.43" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.44" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -11837,8 +11837,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
       </button>
       <button type="button" class="today-primary-action health" id="todayReportHealthBtn">
         <span>
-          <strong>Gesundheit melden</strong>
-          <small>Beobachtung oder Behandlung</small>
+          <strong id="todayReportHealthTitle">Gesundheit melden</strong>
+          <small id="todayReportHealthSub">Beobachtung oder Behandlung</small>
         </span>
         <span aria-hidden="true">›</span>
       </button>
@@ -11920,7 +11920,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
         <svg viewBox="0 0 24 24"><path d="M20.5 5.8a5 5 0 0 0-7.1 0L12 7.2l-1.4-1.4a5 5 0 0 0-7.1 7.1L12 20.4l8.5-7.5a5 5 0 0 0 0-7.1z"/><path d="M12 10v5M9.5 12.5h5"/></svg>
       </div>
       <div class="folder-body">
-        <div class="folder-title">Gesundheit</div>
+        <div class="folder-title" id="gesundheitFolderTitle">Gesundheit</div>
         <div class="folder-sub" id="gesundheitSummary">…</div>
         <div class="folder-names" id="gesundheitNames"></div>
       </div>
@@ -12041,7 +12041,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
       </button>
       <button type="button" class="nav-overview-btn pony-hub-action-health" id="ponysHubHealthBtn">
         <span class="pony-hub-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 5.6a5 5 0 0 0-7.1 0L12 7l-1.5-1.4a5 5 0 1 0-7.1 7.1L12 20l8.6-7.3a5 5 0 0 0 0-7.1Z"/><path d="M12 10v5m-2.5-2.5h5"/></svg></span>
-        <span class="pony-hub-action-copy"><strong>Gesundheit melden</strong><small>Eintragen und Verlauf ansehen</small></span>
+        <span class="pony-hub-action-copy"><strong id="ponysHubHealthTitle">Gesundheit melden</strong><small id="ponysHubHealthSub">Eintragen und Verlauf ansehen</small></span>
         <span class="pony-hub-action-arrow" aria-hidden="true">↗</span>
       </button>
     </div>
@@ -12713,6 +12713,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
+    <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
     <div class="changelog-version">Version 1.25.42</div><p>Die Namensauswahl startet jetzt ohne ein zweites, veraltetes Logo.</p><ul><li>Über „Wer bist du?“ steht kein zusätzliches Bild mehr.</li><li>Das aktuelle Abenteuerhof-Icon bleibt ausschließlich in der Kopfleiste sichtbar.</li><li>Die reduzierte Karte lenkt direkt auf Name und Zugangsart.</li></ul>
     <div class="changelog-version">Version 1.25.41</div><p>Das ausgewählte grüne Abenteuerhof-Icon ist jetzt aktiv.</p><ul><li>Der grüne Markenkreis und das sandfarbene Tipi orientieren sich am bestehenden Kinderabenteuerhof-Auftritt.</li><li>Das kleine freie Pony kennzeichnet den Stallbereich, ohne das Logo wie einen Reitstall wirken zu lassen.</li><li>Browser, Startbildschirm und Kopfleiste laden die neue Grafik über eine frische Cache-Version.</li></ul>
@@ -13011,11 +13012,11 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="gesDetailSub">Gesundheitseintrag erstellen oder Verlauf ansehen</div>
 
   <div class="card">
-    <div class="section-label" style="margin-top:0;">Neuen Gesundheitseintrag erstellen</div>
-    <label>Datum</label>
+    <div class="section-label" id="gesFormTitle" style="margin-top:0;">Neuen Gesundheitseintrag erstellen</div>
+    <label id="gesDateLabel">Datum</label>
     <input type="date" id="gesDate">
 
-    <label>Art des Eintrags</label>
+    <label id="gesEntryTypeLabel">Art des Eintrags</label>
     <select id="gesEntryType">
       <option value="observation">Beobachtung / Auffälligkeit</option>
       <option value="vet">Tierarzt</option>
@@ -13089,7 +13090,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <button class="toggle-details" id="gesCancelEdit" style="display:none; text-align:center; width:100%;">Bearbeiten abbrechen</button>
     <div class="save-status" id="gesSaveStatus"></div>
   </div>
-  <div class="section-label">Verlauf</div>
+  <div class="section-label" id="gesTimelineTitle">Verlauf</div>
   <div class="entry-list" id="gesList"></div>
 </div>
 
@@ -14869,15 +14870,24 @@ function healthAckTimeText(at) {
 }
 
 function healthVisibilityAudience(entry) {
+  if (entry && (entry.visibilityAudience === 'amira' || isVolunteerObservationEntry_(entry))) return 'amira';
   return entry && entry.visibilityAudience === 'team' ? 'team' : 'all';
 }
 
 function healthVisibilityLabel(entry) {
-  return healthVisibilityAudience(entry) === 'team' ? 'Nur Pferdeteam' : 'Alle mit Stall-Zugang';
+  const audience = healthVisibilityAudience(entry);
+  if (audience === 'amira') return 'Nur Amira und die meldende Person';
+  return audience === 'team' ? 'Nur Pferdeteam' : 'Alle mit Stall-Zugang';
 }
 
 function canViewHealthEntry(entry) {
-  if (healthVisibilityAudience(entry) === 'all') return true;
+  const audience = healthVisibilityAudience(entry);
+  if (audience === 'amira') {
+    if (canManageVolunteerObservationStatus_()) return true;
+    return getRole() === 'ehrenamt'
+      && normalizedPersonKey(entry?.author) === normalizedPersonKey(currentUserName || getRememberedUserName());
+  }
+  if (audience === 'all') return true;
   return getRole() === 'pferdeteam' && !!getTeamToken();
 }
 
@@ -15477,11 +15487,17 @@ function keyVisibleInCurrentScope_(key,value=cache?.[key],source=cache) {
     if(noticeRawIsTeamOnly_(raw) && !(getRole()==='pferdeteam' && getTeamToken()))return false;
     if(String(key).startsWith('infoaudio:') && !raw)return false;
   }
+  if(String(key).startsWith('gesundheit:')) {
+    try {
+      const healthEntry=JSON.parse(String(value || 'null'));
+      if(healthEntry && !Array.isArray(healthEntry) && !canViewHealthEntry(healthEntry))return false;
+    } catch(e) { return false; }
+  }
   return getRole()==='pferdeteam'||!String(key||'').startsWith('ponygroup:')&&!String(key||'').startsWith('todo:')&&key!=='settings:todo-assignees'&&key!=='settings:foej-plan'&&key!=='settings:ponygroup-leads-v1'&&!String(key||'').startsWith('healthack:');
 }
 function pruneNoticeCacheForCurrentRole_() {
   const original={...cache};
-  for(const [key,value] of Object.entries(original))if(noticeParentKey_(key) && !keyVisibleInCurrentScope_(key,value,original))delete cache[key];
+  for(const [key,value] of Object.entries(original))if((noticeParentKey_(key) || String(key).startsWith('gesundheit:')) && !keyVisibleInCurrentScope_(key,value,original))delete cache[key];
 }
 function pendingOpAllowedForCurrentRole_(op) {
   if(op?.entryMutationOwner && !entryMutationOwnerMatches_(op.entryMutationOwner))return false;
@@ -17031,8 +17047,8 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.43';
-const STALL_APP_VERSION_DATE = '01.11.2026';
+const STALL_APP_VERSION = '1.25.44';
+const STALL_APP_VERSION_DATE = '03.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
   const settingsLabel = document.getElementById('appVersionLabel');
@@ -19628,7 +19644,7 @@ async function getFreshActivitySince(sinceTs = Date.now() - 24*60*60*1000) {
   const items = [];
 
   for (const p of ponies) {
-    const health = await getEntries('gesundheit', p.id);
+    const health = (await getEntries('gesundheit', p.id)).filter(canViewHealthEntry);
     health.forEach(e => {
       if (isEntryExpired_(e)) return;
       const ts = freshActivityTimestamp(e);
@@ -20140,15 +20156,27 @@ async function renderList(kind) {
   const fragment = document.createDocumentFragment();
   const today = todayStr();
 
-  document.getElementById('listHeader').textContent = kind === 'bewegung' ? 'Aktivität & Pflege' : 'Gesundheit';
+  const isVolunteerHealthList = kind === 'gesundheit' && getRole() === 'ehrenamt';
+  const isAmiraHealthList = kind === 'gesundheit' && canManageVolunteerObservationStatus_();
+  document.getElementById('listHeader').textContent = kind === 'bewegung'
+    ? 'Aktivität & Pflege'
+    : (isVolunteerHealthList ? 'Beobachtung melden' : (isAmiraHealthList ? 'Beobachtungen' : 'Gesundheit'));
   document.getElementById('listScreen').dataset.recordArea = kind === 'bewegung' ? 'movement' : 'health';
   document.getElementById('listSub').textContent = kind === 'bewegung'
     ? 'Wähle das Pony, für das du etwas dokumentieren möchtest.'
-    : 'Wähle das Pony, zu dem du einen Eintrag erstellen oder den Verlauf ansehen möchtest.';
+    : (isVolunteerHealthList
+      ? 'Bei welchem Pony ist dir etwas aufgefallen?'
+      : (isAmiraHealthList
+        ? 'Neue Meldungen aus dem Ehrenamt prüfen und den Status setzen.'
+        : 'Wähle das Pony, zu dem du einen Eintrag erstellen oder den Verlauf ansehen möchtest.'));
   const accessScope = document.getElementById('listAccessScope');
   if (accessScope) {
     accessScope.innerHTML = kind === 'gesundheit'
-      ? '<span class="access-scope-pill sensitive">Geschützt</span><span>Beobachtungen, Behandlungen und Fachtermine stehen gemeinsam in der Gesundheitsakte.</span>'
+      ? (isVolunteerHealthList
+        ? '<span class="access-scope-pill shared">Direkt an Amira</span><span>Kurz melden, was dir aufgefallen ist.</span>'
+        : (isAmiraHealthList
+          ? '<span class="access-scope-pill sensitive">Ehrenamt</span><span>Gelesen · Wird geklärt · Erledigt</span>'
+          : '<span class="access-scope-pill sensitive">Geschützt</span><span>Beobachtungen, Behandlungen und Fachtermine stehen gemeinsam in der Gesundheitsakte.</span>'))
       : '<span class="access-scope-pill shared">Für alle</span><span>Hier kannst du Bewegung und Pflege dokumentieren.</span>';
   }
   document.getElementById('openWeekTable').style.display = kind === 'bewegung' ? 'block' : 'none';
@@ -20196,24 +20224,35 @@ async function renderList(kind) {
       const gesEntries = (await getEntries('gesundheit', p.id)).filter(canViewHealthEntry);
       gesEntries.sort((a,b) => b.date.localeCompare(a.date) || b.created - a.created);
       const activeGesEntries = gesEntries.filter(e => !isEntryExpired_(e));
-      const latestGes = activeGesEntries[0];
-      const statusText = latestGes
-        ? `${healthEntryTypeLabel(latestGes.entryType || 'observation')} · ${daysAgo(latestGes.date)}: ${latestGes.note}`
-        : (gesEntries.length ? 'Keine aktuellen Hinweise · Verlauf vorhanden' : 'Noch keine Einträge');
+      const volunteerEntries = activeGesEntries.filter(isVolunteerObservationEntry_);
+      const workflowEntry = isAmiraHealthList
+        ? (volunteerEntries.find(entry => entry.workflowStatus !== 'erledigt') || volunteerEntries[0])
+        : null;
+      const latestGes = workflowEntry || activeGesEntries[0];
+      const workflowLabel = workflowEntry ? volunteerObservationStatusLabel_(workflowEntry.workflowStatus) : '';
+      const statusText = workflowEntry
+        ? `${workflowLabel || 'Neue Beobachtung'} · ${daysAgo(workflowEntry.date)}: ${workflowEntry.note}`
+        : (latestGes
+          ? `${healthEntryTypeLabel(latestGes.entryType || 'observation')} · ${daysAgo(latestGes.date)}: ${latestGes.note}`
+          : (gesEntries.length ? 'Keine aktuellen Hinweise · Verlauf vorhanden' : (isVolunteerHealthList ? 'Noch keine Meldung' : 'Noch keine Einträge')));
       const listTeamViewer = getRole() === 'pferdeteam' && !!getTeamToken();
-      const statusClass = latestGes && listTeamViewer && !healthAckState(p.id, latestGes).currentSeen ? 'pony-status missing' : 'pony-status';
+      const statusClass = workflowEntry && !workflowEntry.workflowStatus
+        ? 'pony-status missing'
+        : (latestGes && listTeamViewer && !isVolunteerObservationEntry_(latestGes) && !healthAckState(p.id, latestGes).currentSeen ? 'pony-status missing' : 'pony-status');
       row.innerHTML = `
         ${avatarHtml}
         <div class="pony-main">
           <div class="pony-name">${escapeHtml(p.name)}</div>
           <div class="${statusClass}">${escapeHtml(statusText)}</div>
         </div>
-        <div class="pony-row-action">Öffnen ›</div>`;
+        <div class="pony-row-action">${workflowEntry ? 'Status ›' : (isVolunteerHealthList ? 'Melden ›' : 'Öffnen ›')}</div>`;
       row.onclick = () => openGesundheitDetail(p.id);
     }
     row.setAttribute('role', 'button');
     row.tabIndex = 0;
-    row.setAttribute('aria-label', kind === 'bewegung' ? `Aktivität für ${p.name} eintragen` : `Gesundheitsakte von ${p.name} öffnen`);
+    row.setAttribute('aria-label', kind === 'bewegung'
+      ? `Aktivität für ${p.name} eintragen`
+      : (isVolunteerHealthList ? `Beobachtung zu ${p.name} melden` : `Gesundheit und Beobachtungen von ${p.name} öffnen`));
     row.onkeydown = event => {
       if (event.key !== 'Enter' && event.key !== ' ') return;
       event.preventDefault();
@@ -21491,8 +21530,60 @@ function healthEntryTypeNeedsProfessional(type) {
   return ['vet','farrier','osteopathy'].includes(String(type || ''));
 }
 
+const VOLUNTEER_OBSERVATION_STATUSES = Object.freeze({
+  gelesen: 'Gelesen',
+  klaerung: 'Wird geklärt',
+  erledigt: 'Erledigt'
+});
+
+function volunteerObservationStatusLabel_(status) {
+  return VOLUNTEER_OBSERVATION_STATUSES[String(status || '')] || '';
+}
+
+function isVolunteerObservationEntry_(entry) {
+  return !!entry
+    && entry.rolle === 'Ehrenamt'
+    && String(entry.entryType || 'observation') === 'observation';
+}
+
+function canManageVolunteerObservationStatus_() {
+  const personKey = normalizedPersonKey(currentUserName || getRememberedUserName());
+  return getRole() === 'pferdeteam'
+    && !!getTeamToken()
+    && (personKey === 'amira' || personKey.startsWith('amira-'));
+}
+
+function canEditHealthEntry_(entry) {
+  if (getRole() === 'pferdeteam' && !!getTeamToken()) return true;
+  if (getRole() !== 'ehrenamt' || entry?.rolle !== 'Ehrenamt') return false;
+  return normalizedPersonKey(entry.author) === normalizedPersonKey(currentUserName || getRememberedUserName());
+}
+
+function applyVolunteerObservationUi_() {
+  const isVolunteer = getRole() === 'ehrenamt';
+  const copy = {
+    todayTitle: isVolunteer ? 'Beobachtung melden' : 'Gesundheit melden',
+    todaySub: isVolunteer ? 'Was ist dir aufgefallen?' : 'Beobachtung oder Behandlung',
+    hubTitle: isVolunteer ? 'Beobachtung melden' : 'Gesundheit melden',
+    hubSub: isVolunteer ? 'Pony auswählen und kurz beschreiben' : 'Eintragen und Verlauf ansehen',
+    folderTitle: isVolunteer ? 'Beobachtungen' : 'Gesundheit'
+  };
+  const values = [
+    ['todayReportHealthTitle', copy.todayTitle],
+    ['todayReportHealthSub', copy.todaySub],
+    ['ponysHubHealthTitle', copy.hubTitle],
+    ['ponysHubHealthSub', copy.hubSub],
+    ['gesundheitFolderTitle', copy.folderTitle]
+  ];
+  values.forEach(([id, value]) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  });
+}
+
 function applyGesundheitTypeCopy() {
   const type = String(document.getElementById('gesEntryType')?.value || 'observation');
+  const isVolunteerViewer = getRole() === 'ehrenamt';
   const professionalWrap = document.getElementById('gesProfessionalWrap');
   const professionalLabel = document.getElementById('gesProfessionalLabel');
   const professional = document.getElementById('gesProfessional');
@@ -21500,7 +21591,7 @@ function applyGesundheitTypeCopy() {
   const note = document.getElementById('gesNote');
 
   if (professionalWrap) {
-    professionalWrap.style.display = healthEntryTypeNeedsProfessional(type) ? 'block' : 'none';
+    professionalWrap.style.display = !isVolunteerViewer && healthEntryTypeNeedsProfessional(type) ? 'block' : 'none';
   }
 
   if (professionalLabel) {
@@ -21520,7 +21611,7 @@ function applyGesundheitTypeCopy() {
   }
 
   if (label) {
-    label.textContent =
+    label.textContent = isVolunteerViewer ? 'Was ist dir aufgefallen?' :
       type === 'observation' ? 'Beobachtung / was ist aufgefallen?' :
       type === 'vet' ? 'Was war? Befund / Empfehlung / Behandlung' :
       type === 'farrier' ? 'Was wurde gemacht / festgestellt?' :
@@ -21530,7 +21621,7 @@ function applyGesundheitTypeCopy() {
   }
 
   if (note) {
-    note.placeholder =
+    note.placeholder = isVolunteerViewer ? 'Kurz beschreiben, was du gesehen hast …' :
       type === 'observation' ? 'z. B. läuft anders, wirkt müde, kleine Schramme, frisst weniger …' :
       type === 'vet' ? 'z. B. Untersuchung wegen Lahmheit; Befund …; Empfehlung …' :
       type === 'farrier' ? 'z. B. Hufe bearbeitet; vorne rechts empfindlich; nächste Kontrolle …' :
@@ -21549,12 +21640,13 @@ function normalizeHealthPushAudience(value) {
 function applyGesundheitPushAudience() {
   const isVolunteerEntry = gesRolleVal === 'Ehrenamt';
   const isNewVolunteerEntry = isVolunteerEntry && !editingGesId;
+  const isVolunteerViewer = getRole() === 'ehrenamt';
   const notify = document.getElementById('gesNotifyOthers');
   const wrap = document.getElementById('gesPushAudienceWrap');
   const audience = document.getElementById('gesPushAudience');
   const help = document.getElementById('gesNotifyOthersHelp');
 
-  if (wrap) wrap.style.display = isNewVolunteerEntry ? 'block' : 'none';
+  if (wrap) wrap.style.display = isNewVolunteerEntry && !isVolunteerViewer ? 'block' : 'none';
   if (audience) audience.disabled = !isNewVolunteerEntry || !notify?.checked;
   if (!isVolunteerEntry || !help) return;
 
@@ -21571,12 +21663,35 @@ function applyGesundheitPushAudience() {
 
 function applyGesundheitRoleCopy() {
   const isTeamEntry = gesRolleVal === 'Pferdeteam';
+  const isVolunteerViewer = getRole() === 'ehrenamt';
+  const isPrivateVolunteerEntry = !isTeamEntry
+    && String(document.getElementById('gesEntryType')?.value || 'observation') === 'observation';
 
   const hint = document.getElementById('gesAutoRoleHint');
   const help = document.getElementById('gesRoleHelp');
   const notifyHelp = document.getElementById('gesNotifyOthersHelp');
+  const entryTypeLabel = document.getElementById('gesEntryTypeLabel');
+  const entryType = document.getElementById('gesEntryType');
+  const visibility = document.getElementById('gesVisibilitySection');
+  const priorityAccess = document.getElementById('gesPriorityAccess');
+  const formTitle = document.getElementById('gesFormTitle');
+  const timelineTitle = document.getElementById('gesTimelineTitle');
+  const submit = document.getElementById('gesSubmit');
+  const moreDetails = document.getElementById('gesMoreDetails');
 
-  if (isTeamEntry) {
+  if (entryTypeLabel) entryTypeLabel.style.display = isVolunteerViewer ? 'none' : '';
+  if (entryType) entryType.style.display = isVolunteerViewer ? 'none' : '';
+  if (visibility) visibility.style.display = (isVolunteerViewer || isPrivateVolunteerEntry) ? 'none' : '';
+  if (priorityAccess) priorityAccess.style.display = isPrivateVolunteerEntry ? 'none' : '';
+  if (formTitle) formTitle.textContent = isVolunteerViewer ? 'Beobachtung melden' : 'Neuen Gesundheitseintrag erstellen';
+  if (timelineTitle) timelineTitle.textContent = isVolunteerViewer ? 'Bisherige Meldungen' : 'Verlauf';
+  if (submit && !editingGesId) submit.textContent = isVolunteerViewer ? 'An Amira schicken' : 'Eintrag speichern';
+  if (moreDetails) {
+    const summary = moreDetails.querySelector('summary');
+    if (summary) summary.textContent = isVolunteerViewer ? 'Foto hinzufügen (optional)' : 'Details hinzufügen';
+  }
+
+  if (!isVolunteerViewer && isTeamEntry) {
     if (hint) hint.textContent = 'Wird mit deinem Pferdeteam-Zugang gespeichert.';
     if (help) {
       help.style.display = 'block';
@@ -21587,12 +21702,20 @@ function applyGesundheitRoleCopy() {
       notifyHelp.textContent = 'Kurze Vorschau senden; Antippen öffnet den Eintrag.';
     }
   } else {
-    if (hint) hint.textContent = 'Wird als Eintrag aus dem Ehrenamt gekennzeichnet.';
+    if (hint) hint.textContent = 'Die Meldung geht direkt an Amira.';
     if (help) {
       help.style.display = 'block';
-      help.textContent = 'Wenn dir etwas auffällt, kannst du es hier eintragen. Bei einem neuen Eintrag wählst du, ob die Benachrichtigung nur ans Pferdeteam oder an alle mit aktiviertem Gesundheits-Push geht.';
+      help.textContent = 'Kurz schreiben, was dir aufgefallen ist. Amira kümmert sich darum.';
       help.classList.remove('team');
     }
+  }
+
+  if (isVolunteerViewer) {
+    if (!editingGesId) entryType.value = 'observation';
+    const notifyRow = document.getElementById('gesNotifyOthersRow');
+    const pushAudienceWrap = document.getElementById('gesPushAudienceWrap');
+    if (notifyRow) notifyRow.style.display = 'none';
+    if (pushAudienceWrap) pushAudienceWrap.style.display = 'none';
   }
 
   applyGesundheitPushAudience();
@@ -21646,7 +21769,10 @@ async function fillGesForm(e, existingPhotoUrl) {
     acknowledgedBy: e.acknowledgedBy,
     acknowledgedAt: e.acknowledgedAt,
     reactions: e.reactions,
-    comments: e.comments
+    comments: e.comments,
+    workflowStatus: e.workflowStatus,
+    workflowUpdatedAt: e.workflowUpdatedAt,
+    workflowUpdatedBy: e.workflowUpdatedBy
   };
   editingGesOldPhotoFileId = e.hasPhoto ? await storageGet(`gesphoto:${e.id}`) : null;
   gesPhotoDataUrl = null;
@@ -21697,14 +21823,17 @@ async function openGesundheitDetail(ponyId, returnContext = null) {
   healthDetailReturnContext = returnContext;
   activePonyId = ponyId;
   const pony = ponies.find(p => p.id === ponyId);
+  const isVolunteerViewer = getRole() === 'ehrenamt';
   document.getElementById('gesDetailBackBtn').textContent = returnContext === 'stall-notices'
     ? 'Schwarzes Brett'
-    : (ponyOverviewReturnId && pony ? pony.name : 'Gesundheit');
+    : (ponyOverviewReturnId && pony ? pony.name : (isVolunteerViewer ? 'Beobachtungen' : 'Gesundheit'));
   document.getElementById('gesDetailHeader').textContent = pony.name;
-  document.getElementById('gesDetailSub').textContent = `Gesundheitseintrag für ${pony.name} erstellen oder Verlauf ansehen`;
+  document.getElementById('gesDetailSub').textContent = isVolunteerViewer
+    ? `Was ist dir bei ${pony.name} aufgefallen?`
+    : `Gesundheitseintrag für ${pony.name} erstellen oder Verlauf ansehen`;
   renderDetailAvatar('gesDetailAvatar', ponyId, pony.name);
   resetGesForm();
-  document.getElementById('gesList').innerHTML = '<div class="empty-state">Gesundheitsverlauf wird geladen …</div>';
+  document.getElementById('gesList').innerHTML = `<div class="empty-state">${isVolunteerViewer ? 'Meldungen' : 'Gesundheitsverlauf'} werden geladen …</div>`;
   showScreen('gesundheitDetailScreen');
   window.scrollTo({ top:0, behavior:'auto' });
   await renderGesundheitList();
@@ -21717,7 +21846,7 @@ async function renderGesundheitList() {
   entries.sort((a,b) => b.date.localeCompare(a.date) || b.created - a.created);
 
   if (entries.length === 0) {
-    list.innerHTML = '<div class="empty-state">Noch keine Gesundheitseinträge für dieses Pony.</div>';
+    list.innerHTML = `<div class="empty-state">${getRole() === 'ehrenamt' ? 'Noch keine Meldungen für dieses Pony.' : 'Noch keine Gesundheitseinträge für dieses Pony.'}</div>`;
     return;
   }
 
@@ -21740,9 +21869,13 @@ async function renderGesundheitList() {
     const typeBadge = `<span class="health-type-badge ${escapeHtml(entryType)}">${escapeHtml(typeLabel)}</span>`;
 
     const isTeamViewer = getRole() === 'pferdeteam' && !!getTeamToken();
+    const isVolunteerObservation = isVolunteerObservationEntry_(e);
+    const workflowStatusLabel = volunteerObservationStatusLabel_(e.workflowStatus);
+    const canManageWorkflow = isVolunteerObservation && canManageVolunteerObservationStatus_();
+    const canEditEntry = canEditHealthEntry_(e);
     const ackState = isTeamViewer ? healthAckState(activePonyId, e) : null;
 
-    const ackHtml = isTeamViewer && !expiryStatus.expired
+    const ackHtml = isTeamViewer && !expiryStatus.expired && !isVolunteerObservation
       ? `${healthAckProgressHtml(ackState)}${ackState.currentSeen
           ? ''
           : `<button class="ack-item-btn" style="margin-top:8px; padding:6px 11px; font-size:11.5px;" data-id="${e.id}">Als gesehen markieren</button>`}`
@@ -21750,6 +21883,16 @@ async function renderGesundheitList() {
     const importantBadge = e.important ? '<span class="health-important-badge">Wichtig</span>' : '';
     const visibilityHtml = isTeamViewer
       ? `<div class="health-access-line"><strong>Sichtbar für:</strong> ${escapeHtml(healthVisibilityLabel(e))}</div>`
+      : '';
+    const workflowStatusHtml = isVolunteerObservation && workflowStatusLabel && !canManageWorkflow
+      ? `<div class="volunteer-observation-current-status status-${escapeHtml(e.workflowStatus)}">${escapeHtml(workflowStatusLabel)}</div>`
+      : '';
+    const workflowButtonsHtml = canManageWorkflow
+      ? `<div class="volunteer-observation-workflow" role="group" aria-label="Status der Meldung">
+          ${Object.entries(VOLUNTEER_OBSERVATION_STATUSES).map(([value, label]) => `
+            <button type="button" class="volunteer-observation-status-btn${e.workflowStatus === value ? ' selected' : ''}" data-status="${value}" aria-pressed="${e.workflowStatus === value ? 'true' : 'false'}">${escapeHtml(label)}</button>
+          `).join('')}
+        </div>`
       : '';
 
     div.innerHTML = `
@@ -21762,11 +21905,13 @@ async function renderGesundheitList() {
       <div class="entry-note">${escapeHtml(e.note)}</div>
       <div class="health-expiry-status ${expiryStatus.expired ? 'past' : 'current'}">${escapeHtml(expiryStatus.label)}</div>
       ${photoUrl ? `<img class="entry-photo" src="${photoUrl}">` : ''}
+      ${workflowStatusHtml}
+      ${workflowButtonsHtml}
       ${ackHtml}
       ${reactionBarHtml(e)}
       ${commentsHtml(e)}
       <div class="entry-meta"><span>von ${escapeHtml(e.author || 'unbekannt')}</span>
-        ${(getRole() === 'pferdeteam' && !!getTeamToken()) || e.rolle !== 'Pferdeteam'
+        ${canEditEntry
           ? `<span class="entry-actions">
               <button class="edit-btn" data-id="${e.id}">bearbeiten</button>
               <button class="delete-btn" data-id="${e.id}">archivieren</button>
@@ -21780,6 +21925,39 @@ async function renderGesundheitList() {
     wireComments(div, e, (entry, options) => addEntry('gesundheit', ponyId, entry, options), renderGesundheitList);
 
     wireReactions(div, e, (entry, options) => addEntry('gesundheit', ponyId, entry, options), renderGesundheitList);
+
+    div.querySelectorAll('.volunteer-observation-status-btn').forEach(statusBtn => {
+      statusBtn.onclick = async () => {
+        if (!canManageVolunteerObservationStatus_()) return;
+        const status = statusBtn.dataset.status;
+        const label = volunteerObservationStatusLabel_(status);
+        if (!label) return;
+        div.querySelectorAll('.volunteer-observation-status-btn').forEach(button => { button.disabled = true; });
+        const now = Date.now();
+        const by = currentUserName || getRememberedUserName() || 'Amira';
+        const updatedEntry = {
+          ...e,
+          visibilityAudience: 'amira',
+          recipient: 'amira',
+          notifyOthers: false,
+          pushAudience: undefined,
+          workflowStatus: status,
+          workflowUpdatedAt: now,
+          workflowUpdatedBy: by,
+          updated: now,
+          updatedBy: by
+        };
+        const ok = await addEntry('gesundheit', ponyId, updatedEntry);
+        if (!ok) {
+          showActionToast('Status konnte nicht gespeichert werden.');
+          div.querySelectorAll('.volunteer-observation-status-btn').forEach(button => { button.disabled = false; });
+          return;
+        }
+        showActionToast(label);
+        await renderGesundheitList();
+        await renderHome();
+      };
+    });
 
     if (isTeamViewer) {
       const ackBtn = div.querySelector('.ack-item-btn');
@@ -31234,13 +31412,15 @@ document.getElementById('gesSubmit').onclick = async () => {
   const gesVisibilityMode = document.querySelector('#gesVisibilityMode .chip.selected')?.dataset.val || 'permanent';
   const gesExpiresOn = gesVisibilityMode === 'until' ? document.getElementById('gesExpiresOn').value : '';
   const important = !!document.getElementById('gesImportant')?.checked;
-  const visibilityAudience = (getRole() === 'pferdeteam' && !!getTeamToken())
-    ? (document.getElementById('gesAccessAudience')?.value === 'team' ? 'team' : 'all')
-    : 'all';
-
   if (!saveEditingGesId) {
     saveGesRolleVal = (getRole() === 'pferdeteam' && !!getTeamToken()) ? 'Pferdeteam' : 'Ehrenamt';
   }
+  const isSavingVolunteerObservation = saveGesRolleVal === 'Ehrenamt' && entryType === 'observation';
+  const visibilityAudience = isSavingVolunteerObservation
+    ? 'amira'
+    : (getRole() === 'pferdeteam' && !!getTeamToken())
+    ? (document.getElementById('gesAccessAudience')?.value === 'team' ? 'team' : 'all')
+    : 'all';
 
   if (!note) {
     appAlert('Bitte kurz eintragen, was beobachtet, festgestellt oder gemacht wurde.');
@@ -31274,7 +31454,9 @@ document.getElementById('gesSubmit').onclick = async () => {
     hasPhoto=false;
   }
 
-  const notifyOthers = saveNotifyOthers;
+  // Ehrenamts-Beobachtungen landen ausschließlich in Amiras persönlicher Liste.
+  // Der bisherige Team-Push wird deshalb bewusst nicht ausgelöst.
+  const notifyOthers = isSavingVolunteerObservation ? false : saveNotifyOthers;
 
   const entry = {
     id: entryId,
@@ -31287,11 +31469,10 @@ document.getElementById('gesSubmit').onclick = async () => {
     rolle: saveGesRolleVal,
     important,
     visibilityAudience,
+    recipient: isSavingVolunteerObservation ? 'amira' : undefined,
     notifyOthers,
     expiresOn: gesExpiresOn || undefined,
-    pushAudience: saveGesRolleVal === 'Ehrenamt'
-      ? savePushAudience
-      : undefined,
+    pushAudience: isSavingVolunteerObservation ? undefined : (saveGesRolleVal === 'Ehrenamt' ? savePushAudience : undefined),
     visibleDays: undefined,
     created: saveEditingGesId ? saveEditingGesCreated : Date.now(),
     updated: saveEditingGesId ? Date.now() : undefined,
@@ -31300,7 +31481,10 @@ document.getElementById('gesSubmit').onclick = async () => {
     acknowledgedBy: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.acknowledgedBy : undefined,
     acknowledgedAt: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.acknowledgedAt : undefined,
     reactions: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.reactions : undefined,
-    comments: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.comments : undefined
+    comments: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.comments : undefined,
+    workflowStatus: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.workflowStatus : undefined,
+    workflowUpdatedAt: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.workflowUpdatedAt : undefined,
+    workflowUpdatedBy: saveEditingGesId && saveEditingGesAckFields ? saveEditingGesAckFields.workflowUpdatedBy : undefined
   };
 
   const recordKey=`gesundheit:${savePonyId}:${entryId}`;
@@ -31324,7 +31508,11 @@ document.getElementById('gesSubmit').onclick = async () => {
       'ok',
       !photoOk
         ? ' Gespeichert (Foto konnte nicht mitgespeichert werden)'
-        : (saveEditingGesId ? ' Aktualisiert' : ' Gespeichert')
+        : (saveEditingGesId
+          ? ' Aktualisiert'
+          : (saveGesRolleVal === 'Ehrenamt'
+            ? 'Danke! Deine Nachricht ist jetzt bei Amira.'
+            : ' Gespeichert'))
     );
 
     if(activePonyId===savePonyId && editingGesId===saveEditingGesId && document.getElementById('gesNote').value.trim()===note && gesPhotoDataUrl===saveGesPhotoDataUrl && gesPhotoRemoved===saveGesPhotoRemoved)resetGesForm();
@@ -31470,6 +31658,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
 
           document.body.classList.toggle('role-ehrenamt-mode', !isTeam);
           document.body.classList.remove('role-ponygroup-helper-mode');
+          applyVolunteerObservationUi_();
           applyMovementRoleMode();
 
           const todayTodoBtn = document.getElementById('todayTodoBtn');
@@ -38222,6 +38411,51 @@ body { background:var(--bg) !important; color:var(--text) !important; }
   .draft-restore-actions {flex-wrap:wrap}
   .planner-settings-grid {grid-template-columns:1fr}
   #ponyGroupDetail .pony-group-detail-tab {font-size:10px;padding-inline:5px}
+}
+</style>
+<style id="volunteer-observation-workflow-v12544">
+/* Ehrenamt meldet Beobachtungen kurz; Amira übernimmt den sichtbaren Status. */
+body.role-ehrenamt-mode #gesundheitDetailScreen .card {
+  border-color:#D9E5DC;
+}
+body.role-ehrenamt-mode #gesundheitDetailScreen #gesNote {
+  min-height:118px;
+}
+body.role-ehrenamt-mode #gesundheitDetailScreen #gesSubmit {
+  background:#3F6F57;
+}
+body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
+  margin-top:12px;
+}
+.volunteer-observation-current-status {
+  display:inline-flex;align-items:center;width:max-content;min-height:30px;
+  margin-top:12px;padding:6px 11px;border-radius:999px;
+  font:800 11px/1.2 var(--font-display);letter-spacing:.01em;
+  color:#3D5F4A;background:#ECF3EE;border:1px solid #C8D9CD;
+}
+.volunteer-observation-current-status.status-klaerung {
+  color:#76551F;background:#FAF1DD;border-color:#E7D3A6;
+}
+.volunteer-observation-current-status.status-erledigt {
+  color:#315F43;background:#E2F0E7;border-color:#ACCEB7;
+}
+.volunteer-observation-workflow {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;
+  margin-top:13px;padding-top:13px;border-top:1px solid var(--border);
+}
+.volunteer-observation-status-btn {
+  min-height:40px;padding:8px 6px;border:1px solid #C9D8CE;border-radius:10px;
+  background:#F8FAF8;color:#486354;font:750 11px/1.25 var(--font-display);
+  cursor:pointer;
+}
+.volunteer-observation-status-btn.selected {
+  background:#3F6F57;border-color:#3F6F57;color:#fff;
+  box-shadow:0 4px 12px rgba(38,83,59,.16);
+}
+.volunteer-observation-status-btn:disabled {opacity:.62;cursor:wait}
+@media(max-width:390px) {
+  .volunteer-observation-workflow {gap:5px}
+  .volunteer-observation-status-btn {padding-inline:4px;font-size:10.2px}
 }
 </style>
 </body>
