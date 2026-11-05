@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.44. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.45. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.44">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.44">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.44">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.45">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.45">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.45">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11737,7 +11737,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.44" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.45" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12713,6 +12713,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
+    <div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
     <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
     <div class="changelog-version">Version 1.25.42</div><p>Die Namensauswahl startet jetzt ohne ein zweites, veraltetes Logo.</p><ul><li>Über „Wer bist du?“ steht kein zusätzliches Bild mehr.</li><li>Das aktuelle Abenteuerhof-Icon bleibt ausschließlich in der Kopfleiste sichtbar.</li><li>Die reduzierte Karte lenkt direkt auf Name und Zugangsart.</li></ul>
@@ -12937,6 +12938,21 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
         <input type="hidden" id="belDurationGefuehrt">
         <input type="hidden" id="belDurationGeritten">
         <div id="belDurationTotal"></div>
+      </div>
+
+      <div class="bel-time-field" id="belWhenField">
+        <label>Wann war es? <span id="belWhenOptional">kurz auswählen</span></label>
+        <div class="bel-period-choice-row" id="belPeriodChoices" role="group" aria-label="Tageszeit auswählen">
+          <button type="button" class="chip" data-period="morning" aria-pressed="false">Vormittag</button>
+          <button type="button" class="chip" data-period="afternoon" aria-pressed="false">Nachmittag</button>
+        </div>
+        <input type="hidden" id="belPeriod">
+        <label for="belTime" class="bel-exact-time-label">Genaue Uhrzeit <span>optional</span></label>
+        <div class="bel-time-input-row">
+          <input type="time" id="belTime" step="300">
+          <button type="button" class="secondary-btn" id="belTimeNow">Jetzt</button>
+        </div>
+        <small id="belTimeHint">Vormittag oder Nachmittag reicht. Die genaue Uhrzeit ist freiwillig.</small>
       </div>
 
       <details id="belOptionalActions" class="bel-optional-actions">
@@ -13535,7 +13551,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
 
     <div class="permanent-field">
-      <div class="permanent-field-label">Zuständige Personen</div>
+      <div class="permanent-field-label">Ehrenamtliche Personen</div>
       <div class="permanent-field-value empty" id="ponyInfoEhrenamtTeamView">Noch niemand eingetragen.</div>
     </div>
 
@@ -13572,7 +13588,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
       <label class="pony-leather-item-option"><input type="checkbox" id="ponyLeatherHasSidepull" checked><span>Sidepull</span></label>
     </div>
 
-    <label>Zuständige Personen</label>
+    <label>Ehrenamtliche Personen</label>
     <input type="text" id="ponyInfoEhrenamtTeam" placeholder="z. B. Sanne, Leonie">
     <div class="field-help">Namen mit Komma trennen.</div>
 
@@ -17047,8 +17063,8 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.44';
-const STALL_APP_VERSION_DATE = '03.11.2026';
+const STALL_APP_VERSION = '1.25.45';
+const STALL_APP_VERSION_DATE = '05.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
   const settingsLabel = document.getElementById('appVersionLabel');
@@ -19983,9 +19999,11 @@ function movementTimetableEntryHtml_(entry, date, ponyId) {
   const chips = types.map(item => `<span class="stall-timetable-activity" data-activity-tone="${escapeHtml(item.tone)}"><span class="stall-timetable-activity-dot" aria-hidden="true"></span>${escapeHtml(item.label)}</span>`).join('');
   const context = entry.gruppe || movementContextLabel_(entry.kontext) || '';
   const details = [context, entry.ort].filter(Boolean).join(' · ');
+  const schedule = movementScheduleMeta_(entry);
   const dayLabel = new Date(date + 'T12:00:00').toLocaleDateString('de-DE', {weekday:'long',day:'numeric',month:'long'});
-  const alt = `${dayLabel}, ${types.map(item=>item.label).join(', ')}${minutes ? `, ${minutes} Minuten` : ''}${details ? ', '+details : ''}. Eintrag öffnen.`;
+  const alt = `${dayLabel}${schedule.timeLabel ? `, ${schedule.timeLabel}` : ''}, ${types.map(item=>item.label).join(', ')}${minutes ? `, ${minutes} Minuten` : ''}${details ? ', '+details : ''}. Eintrag öffnen.`;
   return `<button type="button" class="stall-timetable-entry" data-week-entry-id="${escapeHtml(String(entry.id))}" data-week-date="${escapeHtml(date)}" data-pony-id="${escapeHtml(ponyId)}" aria-label="${escapeHtml(alt)}" title="${escapeHtml(details || 'Eintrag öffnen')}">
+     ${schedule.timeLabel ? `<span class="stall-timetable-time">${escapeHtml(schedule.timeLabel)}</span>` : ''}
      <span class="stall-timetable-activities">${chips}</span>
      ${minutes ? `<span class="stall-timetable-duration">${minutes} Min.</span>` : ''}
    </button>`;
@@ -20009,7 +20027,15 @@ function automaticFreeDayCount_(weekDates, entries) {
 function movementTimetableCellHtml_(entries, date, ponyId) {
   const documented = documentedDayEntries_(entries);
   if (documented.length) {
-    return documented.map(e => movementTimetableEntryHtml_(e, date, ponyId)).join('');
+    const order = ['morning','afternoon','unspecified'];
+    const groups = new Map(order.map(key=>[key,[]]));
+    documented.forEach(entry => groups.get(movementScheduleMeta_(entry).period).push(entry));
+    return order.map(period => {
+      const periodEntries = groups.get(period).sort((a,b)=>movementScheduleMeta_(a).sort-movementScheduleMeta_(b).sort || (a.created||0)-(b.created||0));
+      if (!periodEntries.length) return '';
+      const label = movementScheduleMeta_(periodEntries[0]).periodLabel;
+      return `<div class="stall-timetable-period period-${period}"><span class="stall-timetable-period-label">${escapeHtml(label)}</span>${periodEntries.map(e => movementTimetableEntryHtml_(e,date,ponyId)).join('')}</div>`;
+    }).join('');
   }
   const explicitFree = entries.find(isFreeDayStatusEntry);
   if (explicitFree) return movementTimetableEntryHtml_(explicitFree, date, ponyId);
@@ -20480,6 +20506,81 @@ function movementContextLabel_(value) {
   if (v === 'Frei') return 'Ohne feste Gruppe';
   if (v === 'Offenes / Ferienprogramm') return 'Offenes Programm / Ferienprogramm';
   return v;
+}
+
+function normalizeMovementTime_(value) {
+  const match = String(value || '').match(/^(\d{1,2}):(\d{2})/);
+  if (!match) return '';
+  const hour = Number(match[1]);
+  const minute = Number(match[2]);
+  if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return '';
+  return `${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}`;
+}
+
+/* Zeitliche Einordnung für Verlauf und Wochenmatrix.
+   Die festen Gruppenzeiten werden nicht von einer manuellen Uhrzeit überschrieben. */
+function movementScheduleMeta_(entry) {
+  const context = normalizeMovementContext_(entry?.kontext);
+  const group = String(entry?.gruppe || '').trim();
+  if (context === 'Ponygruppen' && /^Gruppe\s*1$/i.test(group)) {
+    return {period:'afternoon',periodLabel:'Nachmittag',timeLabel:'14:30–16:00',sort:870};
+  }
+  if (context === 'Ponygruppen' && /^Gruppe\s*2$/i.test(group)) {
+    return {period:'afternoon',periodLabel:'Nachmittag',timeLabel:'16:00–17:30',sort:960};
+  }
+  if (context === 'Bildungsprojekt') {
+    return {period:'morning',periodLabel:'Vormittag',timeLabel:'Vormittag',sort:540};
+  }
+  const time = normalizeMovementTime_(entry?.activityTime);
+  if (time) {
+    const [hour,minute] = time.split(':').map(Number);
+    const total = hour * 60 + minute;
+    return {
+      period: total < 720 ? 'morning' : 'afternoon',
+      periodLabel: total < 720 ? 'Vormittag' : 'Nachmittag',
+      timeLabel: `${time} Uhr`,
+      sort:total
+    };
+  }
+  const savedPeriod = String(entry?.activityPeriod || '');
+  if (savedPeriod === 'morning' || savedPeriod === 'afternoon') {
+    return {
+      period:savedPeriod,
+      periodLabel:savedPeriod === 'morning' ? 'Vormittag' : 'Nachmittag',
+      timeLabel:'',
+      sort:savedPeriod === 'morning' ? 600 : 900
+    };
+  }
+  return {period:'unspecified',periodLabel:'Ohne Uhrzeit',timeLabel:'',sort:2000};
+}
+
+function syncMovementTimeField_() {
+  const input = document.getElementById('belTime');
+  const nowButton = document.getElementById('belTimeNow');
+  const hint = document.getElementById('belTimeHint');
+  const choices = document.getElementById('belPeriodChoices');
+  const optional = document.getElementById('belWhenOptional');
+  const field = document.getElementById('belWhenField');
+  if (!input || !hint) return;
+  let automatic = '';
+  if (belKontextVal === 'Ponygruppen' && /^Gruppe\s*1$/i.test(String(belGruppeVal || ''))) automatic = 'Gruppe 1: automatisch 14:30–16:00';
+  else if (belKontextVal === 'Ponygruppen' && /^Gruppe\s*2$/i.test(String(belGruppeVal || ''))) automatic = 'Gruppe 2: automatisch 16:00–17:30';
+  else if (belKontextVal === 'Bildungsprojekt') automatic = 'Bildungsprojekte werden automatisch als Vormittag eingeordnet.';
+  input.disabled = !!automatic;
+  field?.classList.toggle('is-automatic',!!automatic);
+  if (nowButton) nowButton.disabled = !!automatic;
+  if (choices) choices.style.display = automatic ? 'none' : 'grid';
+  if (optional) optional.textContent = automatic ? 'automatisch' : 'kurz auswählen';
+  if (automatic) {
+    input.value = '';
+    const periodInput = document.getElementById('belPeriod');
+    if (periodInput) periodInput.value = '';
+    choices?.querySelectorAll('[data-period]').forEach(button=>{
+      button.classList.remove('selected');
+      button.setAttribute('aria-pressed','false');
+    });
+  }
+  hint.textContent = automatic || 'Vormittag oder Nachmittag reicht. Die genaue Uhrzeit ist freiwillig.';
 }
 
 function isFreeDayStatusEntry(entry) {
@@ -20980,6 +21081,7 @@ function updateMovementFormVisibility_() {
       : `${entryLabel} für ${activePonyName} eintragen`;
   }
   syncSmartMovementContext_();
+  syncMovementTimeField_();
   const submitLabel=document.getElementById('belSubmit');
   if(submitLabel && !editingBelId) submitLabel.textContent = movement ? 'Aktivität speichern' : (noMovement ? 'Pflege speichern' : 'Eintrag speichern');
 }
@@ -21052,6 +21154,12 @@ function resetQuickForm() {
 
   document.getElementById('belNote').value = '';
   document.getElementById('belDate').value = todayStr();
+  document.getElementById('belTime').value = '';
+  document.getElementById('belPeriod').value = '';
+  document.getElementById('belPeriodChoices').querySelectorAll('[data-period]').forEach(button=>{
+    button.classList.remove('selected');
+    button.setAttribute('aria-pressed','false');
+  });
   document.getElementById('belAuthor').value = currentUserName || getRememberedUserName() || '';
   document.getElementById('extraFields').classList.remove('open');
   document.getElementById('toggleExtra').setAttribute('aria-expanded','false');
@@ -21118,8 +21226,16 @@ function fillBelForm(e) {
 
   document.getElementById('belNote').value = e.note || '';
   document.getElementById('belDate').value = e.date || todayStr();
+  document.getElementById('belTime').value = normalizeMovementTime_(e.activityTime);
+  document.getElementById('belPeriod').value = ['morning','afternoon'].includes(e.activityPeriod) ? e.activityPeriod : '';
+  document.getElementById('belPeriodChoices').querySelectorAll('[data-period]').forEach(button=>{
+    const selected = button.dataset.period === document.getElementById('belPeriod').value;
+    button.classList.toggle('selected',selected);
+    button.setAttribute('aria-pressed',String(selected));
+  });
   document.getElementById('belAuthor').value = e.author || '';
-  const hasExtras = !!(e.note || belScaleVal || (e.date && e.date !== todayStr()));
+  syncMovementTimeField_();
+  const hasExtras = !!(e.note || belScaleVal || e.activityTime || e.activityPeriod || (e.date && e.date !== todayStr()));
   document.getElementById('extraFields').classList.toggle('open',hasExtras);
   document.getElementById('toggleExtra').setAttribute('aria-expanded',String(hasExtras));
   document.getElementById('toggleExtra').textContent = hasExtras ? 'Weniger Angaben' : 'Weitere Angaben (optional)';
@@ -21298,7 +21414,11 @@ function renderWeekOverview(entries) {
     button.onclick = () => {
       const section = [...document.querySelectorAll('#belList .movement-day-group')]
         .find(node => node.dataset.date === button.dataset.weekDate);
-      if (!section) return;
+      if (!section) {
+        const entry = entries.find(item=>String(item.id)===String(button.dataset.weekEntryId));
+        if (entry && getRole()==='pferdeteam' && getTeamToken()) fillBelForm(entry);
+        return;
+      }
       const row = [...section.querySelectorAll('details.movement-entry-row')]
         .find(node => node.dataset.entryId === button.dataset.weekEntryId);
       if (row) row.open = true;
@@ -21401,68 +21521,63 @@ async function renderBelastungList() {
   const chronological = [...entries].filter(e => !isFreeDayStatusEntry(e))
     .sort((a,b) => a.date.localeCompare(b.date) || a.created - b.created);
   renderChart(chronological);
-  entries.sort((a,b) => b.date.localeCompare(a.date) || (b.created || 0) - (a.created || 0));
+  const currentWeek = new Set(getWeekDates(0));
+  const recentCutoffDate = new Date(`${todayStr()}T12:00:00`);
+  recentCutoffDate.setDate(recentCutoffDate.getDate() - 28);
+  const recentCutoff = toLocalDateStr(recentCutoffDate);
+  const retentionDate = new Date(`${todayStr()}T12:00:00`);
+  retentionDate.setMonth(retentionDate.getMonth() - 3);
+  const retentionCutoff = toLocalDateStr(retentionDate);
+  const historyEntries = entries
+    .filter(e => !isFreeDayStatusEntry(e) && e.date && !currentWeek.has(e.date) && e.date >= retentionCutoff)
+    .sort((a,b) => b.date.localeCompare(a.date) || movementScheduleMeta_(a).sort-movementScheduleMeta_(b).sort || (b.created || 0) - (a.created || 0));
 
-  if (!entries.length) {
-    list.innerHTML = '<div class="movement-timeline-empty">Noch keine Einträge für dieses Pony.</div>';
+  list.innerHTML = '';
+  if (!historyEntries.length) {
+    list.innerHTML = `<div class="movement-timeline-empty">${entries.some(e=>currentWeek.has(e.date)) ? 'Die Einträge dieser Woche stehen direkt oben in der Wochenübersicht.' : 'Noch keine bisherigen Einträge für dieses Pony.'}</div>`;
     return;
   }
 
-  list.innerHTML = '';
   const isTeam = getRole() === 'pferdeteam' && !!getTeamToken();
-  const grouped = new Map();
-  entries.forEach(e => {
-    if (!grouped.has(e.date)) grouped.set(e.date, []);
-    grouped.get(e.date).push(e);
-  });
-
-  for (const [date, dayEntries] of grouped.entries()) {
+  const renderDay = (container,date,dayEntries) => {
     const day = document.createElement('section');
     day.className = 'movement-day-group';
     day.dataset.date = date;
     day.setAttribute('aria-label', `Einträge vom ${fmtDate(date)}`);
+    const d = new Date(`${date}T12:00:00`);
+    const dateHeading = document.createElement('div');
+    dateHeading.className = 'movement-day-heading';
+    dateHeading.textContent = Number.isNaN(d.getTime())
+      ? fmtDate(date)
+      : d.toLocaleDateString('de-DE',{weekday:'long',day:'2-digit',month:'2-digit',year:date.slice(0,4)===String(new Date().getFullYear())?undefined:'numeric'});
+    day.appendChild(dateHeading);
 
-    for (const e of dayEntries) {
+    const periodOrder = ['morning','afternoon','unspecified'];
+    for (const period of periodOrder) {
+      const periodEntries = dayEntries.filter(e=>movementScheduleMeta_(e).period===period);
+      if (!periodEntries.length) continue;
+      const periodGroup = document.createElement('div');
+      periodGroup.className = `movement-period-group period-${period}`;
+      const periodLabel = document.createElement('div');
+      periodLabel.className = 'movement-period-label';
+      periodLabel.textContent = movementScheduleMeta_(periodEntries[0]).periodLabel;
+      periodGroup.appendChild(periodLabel);
+
+      for (const e of periodEntries) {
       const row = document.createElement('details');
       row.className = 'movement-entry-row';
       row.dataset.entryId = e.id;
-      const d = new Date(`${date}T12:00:00`);
       const weekday = Number.isNaN(d.getTime()) ? '' : ['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()] + ', ';
       const dateText = `${weekday}${fmtDate(date)}`;
-      const shortDate = `${weekday.replace(', ', ' ')}${date.slice(8,10)}.${date.slice(5,7)}.${date.slice(0,4) !== String(new Date().getFullYear()) ? ` ${date.slice(0,4)}` : ''}`;
       const author = e.author || 'Nicht angegeben';
-
-      if (isFreeDayStatusEntry(e)) {
-        row.classList.add('movement-free-status-row');
-        row.innerHTML = `
-          <summary class="movement-history-row">
-            <span class="movement-history-date" title="${escapeHtml(dateText)}">${escapeHtml(shortDate)}</span>
-            <span class="movement-history-activity">${movementActivityChips_([{label:'Frei',tone:'rest'}])}</span>
-            <span class="movement-history-duration">Frei</span>
-            <span class="movement-history-chevron" aria-hidden="true">⌄</span>
-          </summary>
-          <div class="movement-history-expanded">
-            <span class="movement-history-meta">Eingetragen von ${escapeHtml(author)}</span>
-            ${isTeam ? `<button type="button" class="delete-btn" data-id="${escapeHtml(e.id)}">Alten Frei-Eintrag entfernen</button>` : ''}
-          </div>`;
-        const removeBtn = row.querySelector('.delete-btn');
-        if (removeBtn) removeBtn.onclick = async () => {
-          if (!await appConfirm('Diesen alten Frei-Eintrag wirklich entfernen?')) return;
-          await deleteEntry('belastung', activePonyId, e.id);
-          await renderBelastungList();
-          await renderHome();
-        };
-        day.appendChild(row);
-        continue;
-      }
-
       const activityVisuals = movementActivityVisuals_(e);
-      const activityChips = movementActivityChips_(activityVisuals) ||
-        '<span class="movement-activity-chip" data-activity-tone="other">Aktivität</span>';
+      const activityTitle = activityVisuals.map(v=>v.label).join(' · ') || 'Aktivität';
       const location = String(e.ort || '');
       const context = e._ponyGroupDerived ? `${e.ponyGroupDay} · ${e.gruppe}` :
         (e.gruppe || movementContextLabel_(e.kontext) || '');
       const duration = Number(e.durationMin) > 0 ? `${e.durationMin} Min.` : '–';
+      const schedule = movementScheduleMeta_(e);
+      const rowTime = schedule.timeLabel && schedule.timeLabel !== schedule.periodLabel ? schedule.timeLabel : '';
       const hasSplitDuration = Number(e.durationGefuehrtMin) > 0 && Number(e.durationGerittenMin) > 0;
       const splitText = hasSplitDuration ?
         `${e.durationGefuehrtMin} Min. geführt · ${e.durationGerittenMin} Min. geritten` : '';
@@ -21471,8 +21586,9 @@ async function renderBelastungList() {
 
       row.innerHTML = `
         <summary class="movement-history-row" aria-label="${escapeHtml(`${dateText}: ${activityVisuals.map(v=>v.label).join(', ')}, ${duration}. Details anzeigen`)}">
-          <span class="movement-history-date" title="${escapeHtml(dateText)}">${escapeHtml(shortDate)}</span>
-          <span class="movement-history-activity">${activityChips}
+          <span class="movement-history-activity">
+            ${rowTime ? `<span class="movement-history-time">${escapeHtml(rowTime)}</span>` : ''}
+            <strong class="movement-history-title">${escapeHtml(activityTitle)}</strong>
             ${placeAndContext ? `<small>${escapeHtml(placeAndContext)}</small>` : ''}
           </span>
           <span class="movement-history-duration">${escapeHtml(duration)}</span>
@@ -21507,9 +21623,31 @@ async function renderBelastungList() {
         await renderBelastungList();
         await renderHome();
       };
-      day.appendChild(row);
+      periodGroup.appendChild(row);
+      }
+      day.appendChild(periodGroup);
     }
-    list.appendChild(day);
+    container.appendChild(day);
+  };
+
+  const renderGrouped = (container,items) => {
+    const grouped = new Map();
+    items.forEach(e => {
+      if (!grouped.has(e.date)) grouped.set(e.date, []);
+      grouped.get(e.date).push(e);
+    });
+    grouped.forEach((dayEntries,date)=>renderDay(container,date,dayEntries));
+  };
+
+  const recentEntries = historyEntries.filter(e=>e.date>=recentCutoff);
+  const olderEntries = historyEntries.filter(e=>e.date<recentCutoff);
+  if (recentEntries.length) renderGrouped(list,recentEntries);
+  if (olderEntries.length) {
+    const older = document.createElement('details');
+    older.className = 'movement-older-history';
+    older.innerHTML = `<summary>Ältere Einträge anzeigen <span>${olderEntries.length}</span></summary><div class="movement-older-history-list"></div>`;
+    renderGrouped(older.querySelector('.movement-older-history-list'),olderEntries);
+    list.appendChild(older);
   }
 }
 /* ---------- Gesundheit Detail ---------- */
@@ -30682,6 +30820,7 @@ document.getElementById('belKontextSelect').addEventListener('change', event => 
     belPonyGroupId = null;
     document.getElementById('belGruppeChips').querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
   }
+  syncMovementTimeField_();
 });
 
 document.getElementById('belKontext').querySelectorAll('.chip').forEach(chip => {
@@ -30704,6 +30843,7 @@ document.getElementById('belKontext').querySelectorAll('.chip').forEach(chip => 
       belPonyGroupId = null;
       document.getElementById('belGruppeChips').querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
     }
+    syncMovementTimeField_();
   };
 });
 
@@ -30714,6 +30854,7 @@ document.getElementById('belGruppeChips').querySelectorAll('.chip').forEach(chip
     document.getElementById('belGruppeChips').querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.classList.contains('selected'))));
     belGruppeVal = chip.dataset.val;
     if (PONY_GROUPS[belPonyGroupId]?.title !== belGruppeVal) belPonyGroupId = null;
+    syncMovementTimeField_();
   };
 });
 
@@ -30730,7 +30871,36 @@ document.getElementById('belDurationChips').querySelectorAll('.chip').forEach(ch
   };
 });
 
-document.getElementById('belDate').addEventListener('change',()=>{autoSelectMondayPonyGroup_();syncSmartMovementContext_();});
+document.getElementById('belDate').addEventListener('change',()=>{autoSelectMondayPonyGroup_();syncSmartMovementContext_();syncMovementTimeField_();});
+document.getElementById('belPeriodChoices').querySelectorAll('[data-period]').forEach(button=>{
+  button.onclick=()=>{
+    document.getElementById('belPeriod').value=button.dataset.period;
+    document.getElementById('belPeriodChoices').querySelectorAll('[data-period]').forEach(choice=>{
+      const selected=choice===button;
+      choice.classList.toggle('selected',selected);
+      choice.setAttribute('aria-pressed',String(selected));
+    });
+  };
+});
+document.getElementById('belTime').addEventListener('input',event=>{
+  const time=normalizeMovementTime_(event.target.value);
+  if(!time)return;
+  const period=Number(time.slice(0,2))<12?'morning':'afternoon';
+  document.getElementById('belPeriod').value=period;
+  document.getElementById('belPeriodChoices').querySelectorAll('[data-period]').forEach(choice=>{
+    const selected=choice.dataset.period===period;
+    choice.classList.toggle('selected',selected);
+    choice.setAttribute('aria-pressed',String(selected));
+  });
+});
+document.getElementById('belTimeNow').onclick = () => {
+  const now = new Date();
+  const minutes = Math.round(now.getMinutes() / 5) * 5;
+  if (minutes === 60) now.setHours(now.getHours() + 1, 0, 0, 0);
+  else now.setMinutes(minutes, 0, 0);
+  document.getElementById('belTime').value = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  document.getElementById('belTime').dispatchEvent(new Event('input',{bubbles:true}));
+};
 document.getElementById('belDurationCustom').addEventListener('input', () => {
   belDurationVal = null;
   setDurationChipSelection('belDurationChips', null);
@@ -31208,6 +31378,8 @@ document.getElementById('belSubmit').onclick = async () => {
   if (btn.disabled) return;
 
   const date = document.getElementById('belDate').value || todayStr();
+  const activityTime = normalizeMovementTime_(document.getElementById('belTime').value);
+  const selectedPeriod = document.getElementById('belPeriod').value;
   const gruppe = belKontextVal === 'Ponygruppen' ? (belGruppeVal || '') : '';
   const note = document.getElementById('belNote').value.trim();
   const author = document.getElementById('belAuthor').value.trim() || promptUserName() || '';
@@ -31219,6 +31391,10 @@ document.getElementById('belSubmit').onclick = async () => {
   const isTeam = getRole() === 'pferdeteam' && !!getTeamToken();
   const kontext = isTeam ? (hasMovement ? belKontextVal : (belKontextVal || '')) : 'Ehrenamt';
   const ponyGroupId = ponyGroupMovementFormGroupId_(kontext, gruppe, date, belPonyGroupId);
+  const automaticSchedule = kontext === 'Bildungsprojekt' || (kontext === 'Ponygruppen' && /^Gruppe\s*[12]$/i.test(gruppe));
+  const activityPeriod = activityTime
+    ? (Number(activityTime.slice(0,2)) < 12 ? 'morning' : 'afternoon')
+    : (['morning','afternoon'].includes(selectedPeriod) ? selectedPeriod : '');
 
   if (!belActivityMode) {
     movementMissingField_('belPrimaryActions','Bitte Bewegung oder Pflege wählen.');
@@ -31230,6 +31406,10 @@ document.getElementById('belSubmit').onclick = async () => {
   }
   if (isTeam && belKontextVal === 'Ponygruppen' && !belGruppeVal) {
     movementMissingField_('belGruppeSection','Bitte Gruppe 1 oder 2 antippen.');
+    return;
+  }
+  if (!automaticSchedule && !activityPeriod) {
+    movementMissingField_('belPeriodChoices','Bitte kurz Vormittag oder Nachmittag auswählen.');
     return;
   }
   if (hasMovement && !belOrtVal) {
@@ -31276,6 +31456,8 @@ document.getElementById('belSubmit').onclick = async () => {
       const repeated = currentEntries.some(e => !isFreeDayStatusEntry(e) && !e._ponyGroupDerived &&
         e.date === date && movementModeForEntry_(e) === belActivityMode &&
         normalizeMovementContext_(e.kontext) === normalizeMovementContext_(kontext) &&
+        normalizeMovementTime_(e.activityTime) === activityTime &&
+        String(e.activityPeriod || '') === activityPeriod &&
         (e.ort || null) === (hasMovement ? belOrtVal : null) &&
         Number(e.durationMin || 0) === Number(minutesForPony || 0) &&
         sortKey(movementModeForEntry_(e) === 'movement' ? movementTopActivities_(e) : movementNoMovementTypes_(e)) === sortKey(chosenActivities) &&
@@ -31299,7 +31481,7 @@ document.getElementById('belSubmit').onclick = async () => {
   if (editingBelId) {
     const entry = {
       id: editingBelId,
-      date, gruppe, note, author,
+      date, activityTime, activityPeriod, gruppe, note, author,
       kontext,
       ponyGroupId,
       activityMode: belActivityMode,
@@ -31323,7 +31505,7 @@ document.getElementById('belSubmit').onclick = async () => {
       if (!belPendingBatchSave.ids[ponyId]) belPendingBatchSave.ids[ponyId]='e'+belPendingBatchSave.created+'-'+i+'-'+Math.random().toString(36).slice(2,7);
       const entry = {
         id: belPendingBatchSave.ids[ponyId],
-        date, gruppe, note, author,
+        date, activityTime, activityPeriod, gruppe, note, author,
         kontext,
         ponyGroupId,
         activityMode: belActivityMode,
@@ -38456,6 +38638,86 @@ body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
 @media(max-width:390px) {
   .volunteer-observation-workflow {gap:5px}
   .volunteer-observation-status-btn {padding-inline:4px;font-size:10.2px}
+}
+</style>
+<style id="activity-time-structure-v12545">
+/* Freiwillige Uhrzeit; feste Angebote ordnet die App automatisch ein. */
+#bewegungDetailScreen .bel-time-field {margin-top:12px}
+#bewegungDetailScreen .bel-time-field > label {display:block;margin:0 0 6px}
+#bewegungDetailScreen .bel-time-field > label span {font-weight:550;color:var(--text-tertiary)}
+#bewegungDetailScreen .bel-period-choice-row {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:11px}
+#bewegungDetailScreen .bel-period-choice-row .chip {min-height:43px;margin:0;border:1px solid #C8D8CD;background:#F7FAF8;color:#3F6250;font:750 12px var(--font-display)}
+#bewegungDetailScreen .bel-period-choice-row .chip.selected {background:#466F59;border-color:#466F59;color:#fff;box-shadow:0 0 0 2px #fff inset}
+#bewegungDetailScreen .bel-exact-time-label {font-size:11px !important;color:#627268 !important}
+#bewegungDetailScreen .bel-time-input-row {display:grid;grid-template-columns:minmax(0,180px) auto;gap:8px;align-items:center}
+#bewegungDetailScreen .bel-time-input-row input {margin:0}
+#bewegungDetailScreen .bel-time-input-row button {min-height:44px;margin:0;padding:8px 14px}
+#bewegungDetailScreen .bel-time-field small {display:block;margin-top:6px;color:#78867C;font:550 10.5px/1.4 var(--font-display)}
+#bewegungDetailScreen .bel-time-input-row :disabled {opacity:.58;cursor:not-allowed}
+#bewegungDetailScreen .bel-time-field.is-automatic {padding:10px 12px;border:1px solid #DCE6DE;border-radius:10px;background:#F7FAF8}
+#bewegungDetailScreen .bel-time-field.is-automatic > label:first-child {margin:0 0 3px}
+#bewegungDetailScreen .bel-time-field.is-automatic .bel-exact-time-label,
+#bewegungDetailScreen .bel-time-field.is-automatic .bel-time-input-row {display:none}
+#bewegungDetailScreen .bel-time-field.is-automatic small {margin-top:0}
+
+/* In jeder Tabellenzelle ist zuerst die Tageshälfte, dann die konkrete Tätigkeit erkennbar. */
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable-period,
+#bewegungDetailScreen #belWeekCard .stall-timetable-period {padding-left:5px;border-left:3px solid #DCE4DE}
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable-period + .stall-timetable-period,
+#bewegungDetailScreen #belWeekCard .stall-timetable-period + .stall-timetable-period {margin-top:8px;padding-top:7px;border-top:1px solid #E7ECE8}
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable-period.period-morning,
+#bewegungDetailScreen #belWeekCard .stall-timetable-period.period-morning {border-left-color:#CDAE70}
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable-period.period-afternoon,
+#bewegungDetailScreen #belWeekCard .stall-timetable-period.period-afternoon {border-left-color:#759B83}
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable-period.period-unspecified,
+#bewegungDetailScreen #belWeekCard .stall-timetable-period.period-unspecified {border-left-color:#B7BFBA}
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable-period-label,
+#bewegungDetailScreen #belWeekCard .stall-timetable-period-label {
+  display:block;margin:0 0 3px;color:#718078;font:800 8px/1.2 var(--font-display);
+  letter-spacing:.055em;text-transform:uppercase;white-space:normal;
+}
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable-time,
+#bewegungDetailScreen #belWeekCard .stall-timetable-time {color:#596D61;font:750 9px/1.25 var(--font-display)}
+:is(#weekTableScreen,#ponyInfoScreen) .stall-timetable tbody td,
+#bewegungDetailScreen #belWeekCard .stall-timetable tbody td {height:82px}
+
+/* Verlauf: Datum einmal, darunter klar getrennte Tageshälften. */
+#bewegungDetailScreen #belList .movement-day-heading {
+  padding:12px 14px 9px;background:#F7F9F7;color:#334E3E;
+  font:800 12px/1.3 var(--font-display);text-transform:capitalize;
+  border-bottom:1px solid #E4EAE5;
+}
+#bewegungDetailScreen #belList .movement-period-group {position:relative;padding-left:7px;border-left:4px solid #D5DDD7}
+#bewegungDetailScreen #belList .movement-period-group.period-morning {border-left-color:#CDAE70;background:#FFFCF6}
+#bewegungDetailScreen #belList .movement-period-group.period-afternoon {border-left-color:#759B83;background:#F8FBF9}
+#bewegungDetailScreen #belList .movement-period-group.period-unspecified {border-left-color:#B7BFBA;background:#FBFCFB}
+#bewegungDetailScreen #belList .movement-period-group + .movement-period-group {border-top:1px solid #E4EAE5}
+#bewegungDetailScreen #belList .movement-period-label {
+  padding:9px 11px 5px;color:#6F7D74;font:800 9px/1.2 var(--font-display);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+#bewegungDetailScreen #belList .movement-history-row {
+  grid-template-columns:minmax(0,1fr) auto 13px !important;
+  gap:10px !important;padding:8px 12px 11px !important;background:transparent;
+}
+#bewegungDetailScreen #belList .movement-period-group .movement-entry-row + .movement-entry-row {border-top:1px solid #E9EDE9 !important}
+#bewegungDetailScreen #belList .movement-history-activity {gap:2px !important}
+#bewegungDetailScreen #belList .movement-history-time {color:#6A796F;font:750 10px/1.25 var(--font-display)}
+#bewegungDetailScreen #belList .movement-history-title {color:#294737;font:800 12.5px/1.3 var(--font-display)}
+#bewegungDetailScreen #belList .movement-history-activity small {font-size:10.5px !important}
+#bewegungDetailScreen #belList .movement-history-expanded {padding:11px 14px 14px !important}
+#bewegungDetailScreen #belList .movement-older-history {border-top:1px solid #DDE6DF;background:#F8FAF8}
+#bewegungDetailScreen #belList .movement-older-history > summary {
+  display:flex;justify-content:space-between;align-items:center;padding:13px 14px;cursor:pointer;
+  color:#466151;font:750 11.5px/1.3 var(--font-display);list-style:none;
+}
+#bewegungDetailScreen #belList .movement-older-history > summary::-webkit-details-marker {display:none}
+#bewegungDetailScreen #belList .movement-older-history > summary span {min-width:25px;padding:3px 7px;border-radius:999px;text-align:center;background:#E6EEE8;color:#45604F}
+#bewegungDetailScreen #belList .movement-older-history-list {border-top:1px solid #E1E8E2}
+@media(max-width:480px) {
+  #bewegungDetailScreen .bel-time-input-row {grid-template-columns:minmax(0,1fr) auto}
+  #bewegungDetailScreen #belList .movement-history-row {grid-template-columns:minmax(0,1fr) auto 10px !important;padding-inline:9px !important}
+  #bewegungDetailScreen #belList .movement-history-title {font-size:12px}
 }
 </style>
 </body>
