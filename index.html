@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.45. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.47. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.45">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.45">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.45">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.47">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.47">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.47">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11730,6 +11730,131 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 .planner-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.planner-actions button{min-height:44px;white-space:normal}.planner-empty{padding:18px 0;color:var(--text-secondary);line-height:1.6}.planner-practice{margin:20px 0;border-top:1px solid var(--border);padding-top:10px}.planner-practice p{font-size:13px;color:var(--text-secondary);line-height:1.5}
 
 </style>
+
+<style id="pony-group-journal-mobile-v3">
+/* Ein Ponygruppen-Termin ist ein simples Gruppenbuch – keine vierstufige Maske. */
+#ponyGroupDetail .pony-group-detail-tabs.pg-journal-tabs{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;margin:12px 0!important}
+#ponyGroupDetail .pg-journal-tabs .pony-group-detail-tab{min-height:50px!important;font-size:16px!important;line-height:1.2!important;font-weight:750!important;padding:12px!important}
+#ponyGroupDetail .pony-group-view-hint{display:none!important}
+#ponyGroupDetail .pg-journal-extra-nav{margin:0 0 12px;border:0;background:transparent}
+#ponyGroupDetail .pg-journal-extra-nav>summary{cursor:pointer;list-style:none;font-size:12px;font-weight:650;color:#718079;padding:8px 0}
+#ponyGroupDetail .pg-journal-extra-nav>summary::after{content:' ›'}
+#ponyGroupDetail .pg-journal-extra-nav-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px}
+#ponyGroupDetail .pg-journal-extra-nav-actions button{min-height:42px;font-size:13px!important;padding:9px!important}
+#ponyGroupDetail .pony-group-appointment-head:has(+ .pony-group-appointment-editor .pg-journal){display:none!important}
+#ponyGroupDetail .pony-group-appointment.focus-appointment{padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
+#ponyGroupDetail .pony-group-appointment-editor:has(.pg-journal){padding:0!important;margin:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+#ponyGroupDetail .pony-group-content-area:has(.pg-journal){padding:0!important;border:0!important}
+#ponyGroupDetail .pony-group-content-area:has(.pg-journal)>section[data-pony-group-rubric="content"]{display:none!important}
+#ponyGroupDetail .pg-journal{display:flex;flex-direction:column;gap:14px;padding:2px 0 24px;color:var(--text)}
+#ponyGroupDetail .pg-last,#ponyGroupDetail .pg-journal-section,#ponyGroupDetail .pg-extra-details{border:1px solid #DDE5DD;border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(36,60,39,.035);overflow:hidden}
+#ponyGroupDetail .pg-last{background:#F8FAF7}
+#ponyGroupDetail .pg-section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 12px}
+#ponyGroupDetail .pg-section-title strong{font-size:18px!important;line-height:1.3;font-weight:800}
+#ponyGroupDetail .pg-section-title>span{font-size:12px;color:#627468;text-align:right;line-height:1.4}
+#ponyGroupDetail .pg-muted{color:#79877B;font-size:13px!important}
+#ponyGroupDetail .pg-last>.pg-muted{margin:0 16px 15px}
+#ponyGroupDetail .pg-last-entry{padding:11px 16px;border-top:1px solid #E5EAE3}
+#ponyGroupDetail .pg-last-entry.latest{background:#EFF5EC;padding:13px 16px}
+#ponyGroupDetail .pg-last-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:5px}
+#ponyGroupDetail .pg-last-top strong{font-size:15px}
+#ponyGroupDetail .pg-last-top small{font-size:12px;color:#62776A}
+#ponyGroupDetail .pg-last-content{font-size:15px;line-height:1.48;overflow-wrap:anywhere}
+#ponyGroupDetail .pg-last-ponies,#ponyGroupDetail .pg-last-next{font-size:13px;line-height:1.4;color:#4B6A52;margin-top:5px}
+#ponyGroupDetail .pg-last-next{font-weight:650}
+#ponyGroupDetail .pg-last-assignments{margin-top:8px}
+#ponyGroupDetail .pg-last-assignments summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-size:12.5px;color:#48634C;font-weight:700}
+#ponyGroupDetail .pg-last-assignments>div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-top:1px solid #E0E7DF;font-size:13px}
+#ponyGroupDetail .pg-last-assignments>div strong{text-align:right}
+#ponyGroupDetail .pg-list{border-top:1px solid #EDF0EC}
+#ponyGroupDetail .pg-person-row{display:grid;grid-template-columns:minmax(0,1fr) 118px minmax(125px,1fr);gap:10px;align-items:center;min-height:70px;padding:10px 16px;border-top:1px solid #ECEFEC}
+#ponyGroupDetail .pg-person-row:first-child{border-top:0}
+#ponyGroupDetail .pg-person-row[data-state="present"]{background:#FBFDFB}
+#ponyGroupDetail .pg-person-name{min-width:0;display:flex;flex-direction:column;gap:3px}
+#ponyGroupDetail .pg-person-name>strong{font-size:16px;overflow-wrap:anywhere}
+#ponyGroupDetail .pg-person-note{font-size:12px;color:#68796E}
+#ponyGroupDetail .pg-person-note summary{cursor:pointer}
+#ponyGroupDetail .pg-person-note span{display:block;margin:6px 0;line-height:1.4}
+#ponyGroupDetail .pg-person-status{display:flex;align-items:center;gap:5px}
+#ponyGroupDetail .pg-presence-btn{min-height:44px;width:83px;padding:8px 6px;border:1px solid #D8E2D9;border-radius:11px;background:#F5F7F4;color:#677469;font-size:13.5px;font-weight:750;cursor:pointer}
+#ponyGroupDetail .pg-person-row[data-state="present"] .pg-presence-btn{border-color:#A6CCAD;background:#E2F2E6;color:#245637}
+#ponyGroupDetail .pg-person-row[data-state="absent"] .pg-presence-btn{border-color:#E5C6C0;background:#FFF3F0;color:#9A4E3D}
+#ponyGroupDetail .pg-person-row[data-state="excused"] .pg-presence-btn{border-color:#E1DBB8;background:#FBF8EA;color:#756A31}
+#ponyGroupDetail .pg-status-menu{position:relative;z-index:2}
+#ponyGroupDetail .pg-status-menu>summary{display:grid;place-items:center;min-width:30px;min-height:44px;cursor:pointer;font-weight:800;font-size:19px;color:#7D8C80;list-style:none}
+#ponyGroupDetail .pg-status-menu>summary::-webkit-details-marker{display:none}
+#ponyGroupDetail .pg-status-menu-choices{position:absolute;z-index:5;top:100%;right:0;min-width:170px;padding:6px;border:1px solid #CFDCD1;border-radius:12px;box-shadow:0 12px 20px rgba(40,60,40,.15);background:#fff;display:grid;gap:3px}
+#ponyGroupDetail .pg-status-menu-choices button{cursor:pointer;border:0;border-radius:9px;padding:11px 12px;text-align:left;background:#fff;color:#354B3C;font-size:14px;min-height:42px}
+#ponyGroupDetail .pg-status-menu-choices button:hover{background:#F2F6F2}
+#ponyGroupDetail .pg-pony-picker{min-width:0;border:1px solid #DDE6DD;border-radius:11px;background:#F8FAF7;position:relative}
+#ponyGroupDetail .pg-pony-picker.has-pony{border-color:#B2CBB5;background:#F0F7EF}
+#ponyGroupDetail .pg-pony-picker.not-present{opacity:.55}
+#ponyGroupDetail .pg-pony-picker>summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;list-style:none;min-height:44px;padding:9px 11px;color:#43634A;font-size:14px;font-weight:700}
+#ponyGroupDetail .pg-pony-picker>summary::-webkit-details-marker{display:none}
+#ponyGroupDetail .pg-pony-picker>summary .pg-pony-summary-text{overflow-wrap:anywhere}
+#ponyGroupDetail .pg-pony-options{border-top:1px solid #E3E9E3;display:flex;flex-wrap:wrap;gap:7px;padding:10px}
+#ponyGroupDetail .pg-pony-choice{font-size:14px;min-height:43px;padding:9px 11px;border:1px solid #C6D5C9;background:#fff;border-radius:10px;color:#35503C;font-weight:650;cursor:pointer}
+#ponyGroupDetail .pg-pony-choice.selected{background:#DCEEDD;border-color:#85B18C;color:#215531}
+#ponyGroupDetail .pg-pony-choice:disabled{opacity:.42;cursor:default}
+#ponyGroupDetail .pg-pony-picker>small{display:block;padding:0 10px 10px;font-size:12px;color:#67796D;line-height:1.3}
+#ponyGroupDetail .pg-helper-note{font-size:12px;color:#8B978B}
+#ponyGroupDetail .pg-list-separator{background:#F7F9F7;font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:750;color:#7B8B7D;padding:10px 16px;border-top:1px solid #E9EEE8}
+#ponyGroupDetail .pg-footer{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid #E9EEE8}
+#ponyGroupDetail .pg-all-present{cursor:pointer;background:#F2F6F1;border:1px solid #D4E2D4;border-radius:10px;padding:9px 13px;min-height:42px;color:#3D6246;font-size:13px;font-weight:700}
+#ponyGroupDetail .pg-savefeedback{flex:1;min-width:140px;text-align:right;font-size:12px;color:#697A6F}
+#ponyGroupDetail .pg-activity-fields{padding:0 16px 16px}
+#ponyGroupDetail .pg-activity .pony-group-content-workflow{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
+#ponyGroupDetail .pg-activity .pony-group-workflow-head{display:none!important}
+#ponyGroupDetail .pg-activity .pony-group-content-tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+#ponyGroupDetail .pg-activity .pony-group-content-tag{font-size:14px!important;padding:10px 12px!important;min-height:44px!important;border-radius:10px!important}
+#ponyGroupDetail .pg-activity .pony-group-content-note-details{border:0!important;padding:0!important;background:transparent!important}
+#ponyGroupDetail .pg-activity .pony-group-content-note-details>summary{font-size:13px!important;color:#596E5D!important;font-weight:650!important;min-height:32px}
+#ponyGroupDetail .pg-activity .pony-group-content-textarea{min-height:74px!important;font-size:16px!important;line-height:1.45!important;box-sizing:border-box!important;width:100%!important;padding:13px!important;border-radius:12px!important}
+#ponyGroupDetail .pg-activity .pony-group-entry-actions{margin:12px 0 0!important;display:block!important}
+#ponyGroupDetail .pg-activity .pony-group-save{width:100%!important;min-height:50px!important;font-size:16px!important;font-weight:750!important}
+#ponyGroupDetail .pg-activity .pony-group-entry-meta{font-size:11px!important;text-align:center;margin-top:7px!important;color:#899489}
+#ponyGroupDetail .pg-activity .pony-group-save-status{margin-top:8px}
+#ponyGroupDetail .pg-rare-types{margin:0 0 12px}
+#ponyGroupDetail .pg-rare-types>summary{font-size:13px;color:#758376;cursor:pointer;padding:9px 0}
+#ponyGroupDetail .pg-rare-options{display:flex;gap:7px;flex-wrap:wrap;padding:7px 0}
+#ponyGroupDetail .pg-extra-details>summary{list-style:none;cursor:pointer;padding:16px;min-height:51px;font-size:14px;font-weight:750;color:#657767}
+#ponyGroupDetail .pg-extra-details>summary::-webkit-details-marker{display:none}
+#ponyGroupDetail .pg-extra-details>summary::after{content:' ›';float:right;font-size:19px}
+#ponyGroupDetail .pg-extra-details[open]>summary::after{transform:rotate(90deg)}
+#ponyGroupDetail .pg-extra-body{padding:0 16px 15px;border-top:1px solid #E8EEE9}
+#ponyGroupDetail .pg-extra-body>*{margin:12px 0!important}
+#ponyGroupDetail .pg-extra-body .pony-group-free-row{display:block!important}
+#ponyGroupDetail .pg-extra-body .pony-group-next-workflow{padding:12px!important}
+#ponyGroupDetail .pg-extra-body .pony-group-schedule-box{padding:10px!important}
+#ponyGroupDetail .pg-extra-body .pony-group-attendance-note-wrap textarea{font-size:16px!important;width:100%}
+#ponyGroupDetail .pg-journal .planner-practice{display:none!important}
+#ponyGroupDetail .pg-hidden-controls{display:none!important}
+#ponyGroupDetail .pg-hidden-controls *{pointer-events:none}
+@media(max-width:600px){
+ #ponyGroupDetail .pony-group-detail-title{font-size:22px!important}
+ #ponyGroupDetail .pony-group-detail-day{font-size:12px!important}
+ #ponyGroupDetail .pony-group-detail-time{font-size:14px!important}
+ #ponyGroupDetail .pony-group-date-picker select{font-size:16px!important;min-height:46px!important}
+ #ponyGroupDetail .pony-group-range-nav{gap:8px!important}
+ #ponyGroupDetail .pony-group-range-title{display:none!important}
+ #ponyGroupDetail .pg-person-row{grid-template-columns:minmax(0,1fr) auto;gap:8px 10px;padding:11px 14px}
+ #ponyGroupDetail .pg-person-name{grid-column:1;grid-row:1}
+ #ponyGroupDetail .pg-person-status{grid-column:2;grid-row:1}
+ #ponyGroupDetail .pg-pony-picker,#ponyGroupDetail .pg-helper-note{grid-column:1/-1;grid-row:2}
+ #ponyGroupDetail .pg-pony-picker{margin-top:0}
+ #ponyGroupDetail .pg-person-row{min-height:85px}
+ #ponyGroupDetail .pg-person-row.is-helper{min-height:52px}
+ #ponyGroupDetail .pg-person-row.is-helper .pg-helper-note{display:none}
+ #ponyGroupDetail .pg-section-title{padding:14px 14px 11px}
+ #ponyGroupDetail .pg-section-title strong{font-size:17px!important}
+ #ponyGroupDetail .pg-section-title>span{font-size:12px}
+ #ponyGroupDetail .pg-last-entry{padding:10px 14px}
+ #ponyGroupDetail .pg-last-entry.latest{padding:12px 14px}
+ #ponyGroupDetail .pg-last-content{font-size:14px}
+ #ponyGroupDetail .pg-activity-fields{padding:0 14px 14px}
+ #ponyGroupDetail .pg-presence-btn{min-height:43px}
+}
+</style>
 </head>
 <body>
 <div id="actionToast" class="action-toast" role="status" aria-live="polite" aria-atomic="true" hidden><span id="actionToastText"></span><button type="button" id="actionToastUndo">Rückgängig</button></div>
@@ -11737,7 +11862,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.45" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.47" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -11846,7 +11971,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 
     <section class="home-notice-board" aria-labelledby="homeNoticeBoardTitle">
       <div class="home-notice-heading">
-        <div><div class="home-notice-eyebrow">AUS DEM TEAM</div><h2 id="homeNoticeBoardTitle">Schwarzes Brett</h2></div>
+        <div><div class="home-notice-eyebrow">AKTUELLES IM STALL</div><h2 id="homeNoticeBoardTitle">Schwarzes Brett</h2></div>
         <button class="home-notice-all" type="button" id="homeNoticeAll">Alle Hinweise <span aria-hidden="true">›</span></button>
       </div>
       <div class="home-notice-feed" id="homeNoticeFeed" aria-live="polite"><p class="home-notice-empty">Hinweise werden geladen …</p></div>
@@ -12092,10 +12217,10 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div id="ponyGroupsScreen" style="display:none;">
   <button class="back-link" id="ponyGroupsBackBtn">Startseite</button>
   <div class="detail-header">Ponygruppen</div>
-  <div class="detail-sub">Anwesenheit · Ponyeinteilung · Inhalte</div>
+  <div class="detail-sub">Euer digitales Gruppenbuch</div>
   <div class="access-scope-line" id="ponyGroupAccessScope">
     <span class="access-scope-pill team">Pferdeteam</span>
-    <span>Interne Dokumentation · Anwesenheit · Namenslisten</span>
+    <span>Nur für das Pferdeteam</span>
   </div>
 
   <div class="section-label pony-group-section-label">Gruppen</div>
@@ -12148,12 +12273,12 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
   </div>
 
-  <div class="section-label pony-group-section-label pony-group-organisation-label">Organisation</div>
+  <div class="section-label pony-group-section-label pony-group-organisation-label">Gruppen verwalten</div>
   <div class="pony-group-roster-inline-entry" id="ponyGroupRosterInlineEntry">
     <button type="button" class="pony-group-roster-open-btn" id="ponyGroupRosterOpenBtn">
       <span>
-        <strong>Namenslisten</strong>
-        <small>Kinder · Helfer:innen · 1./2. Jahr · Unterstützungsbedarf</small>
+        <strong>Kinder &amp; Helfis</strong>
+        <small>Wer gehört zu welcher Gruppe?</small>
       </span>
       <span class="pony-group-row-chevron">›</span>
     </button>
@@ -12163,8 +12288,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="helfi-plan-inline-entry" id="helfiPlanInlineEntry" style="display:none;">
     <button type="button" class="helfi-plan-open-btn" id="helfiPlanManageBtn">
       <span>
-        <strong>Helfi-Plan</strong>
-        <small>Wechselrhythmus · einzelne Abmeldungen · Vertretungen</small>
+        <strong>Helfis einteilen</strong>
+        <small>Wer hilft regelmäßig in welcher Gruppe?</small>
       </span>
       <span class="pony-group-row-chevron">›</span>
     </button>
@@ -12173,8 +12298,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="pony-group-lead-inline-entry" id="ponyGroupLeadInlineEntry" style="display:none;">
     <button type="button" class="pony-group-lead-open-btn" id="ponyGroupLeadOpenBtn">
       <span>
-        <strong>Leitungsnotizen</strong>
-        <small>Interne Liste der Ponygruppen-Leitung</small>
+        <strong>Notizen der Leitung</strong>
+        <small>Offene Punkte, die nur die Leitung sieht</small>
       </span>
       <span class="pony-group-row-chevron">›</span>
     </button>
@@ -12182,8 +12307,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 
   <div id="ponyGroupLeadPanel" style="display:none;">
     <button type="button" class="back-link" id="ponyGroupLeadBackBtn">Ponygruppen</button>
-    <div class="detail-header">Leitungsnotizen</div>
-    <div class="detail-sub">Interne Merkliste der Ponygruppen-Leitung</div>
+    <div class="detail-header">Notizen der Leitung</div>
+    <div class="detail-sub">Offene Punkte, die nur die Leitung sieht</div>
 
     <div class="card pony-group-lead-add-card">
       <label for="ponyGroupLeadTodoText">Neue Aufgabe</label>
@@ -12224,9 +12349,9 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 
   <div id="helfiPlanPanel" style="display:none;">
     <button type="button" class="back-link" id="helfiPlanBack">Ponygruppen</button>
-    <div class="detail-header">Helfi-Plan</div>
-    <div class="detail-sub">Fairer Wechselrhythmus mit festen Helfi-Plätzen</div>
-    <div class="helfi-plan-intro"><strong>So funktioniert es:</strong> Hier trägst du alle Helfis ein, die zu einer Gruppe gehören. Sind mehr Helfis eingetragen als Plätze vorhanden, verteilt der Kalender sie automatisch gleichmäßig auf die Wochen. Wenn jemand an einem einzelnen Termin nicht kann, wird nur dieser Termin für eine Vertretung frei; der normale Wechselrhythmus bleibt bestehen.</div>
+    <div class="detail-header">Helfis einteilen</div>
+    <div class="detail-sub">Wer hilft regelmäßig in welcher Gruppe?</div>
+    <div class="helfi-plan-intro"><strong>Einmal eintragen, danach läuft die Einteilung automatisch:</strong> Wähle eine Startwoche, trage die Helfis bei ihrer Gruppe ein und speichere. Wenn mehr Helfis als Plätze da sind, wechseln sie sich automatisch ab.</div>
     <div class="card">
       <h3>Einladungslink für Helfis</h3>
       <p class="detail-sub">Helfis brauchen keinen Code. Schick allen Helfis denselben geschützten Einladungslink. Der Link bleibt dauerhaft gleich und kann immer wieder verwendet werden.</p>
@@ -12238,16 +12363,16 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
     <div class="card">
       <div class="helfi-plan-toolbar">
-        <label for="helfiPlanWeek">Einteilung gilt ab Woche
+        <label for="helfiPlanWeek">Ab welcher Woche gilt die Einteilung?
           <input type="date" id="helfiPlanWeek">
         </label>
-        <button type="button" class="secondary-btn" id="helfiPlanLoad">Plan laden</button>
+        <button type="button" class="secondary-btn" id="helfiPlanLoad">Diese Woche öffnen</button>
       </div>
       <div class="save-status" id="helfiPlanStatus"></div>
     </div>
     <div id="helfiPlanFields"></div>
     <div class="helfi-plan-actions">
-      <button type="button" class="submit-btn" id="helfiPlanSave" disabled>Einteilung speichern</button>
+      <button type="button" class="submit-btn" id="helfiPlanSave" disabled>Helfis speichern</button>
     </div>
     <div class="helfi-plan-access-note">Dieser Verwaltungsbereich gehört zu den Ponygruppen und ist für alle angemeldeten Personen im Pferdeteam zugänglich. Der Einladungslink öffnet ausschließlich den Helfi-Kalender und gibt keinen Zugriff auf die Stall-App.</div>
   </div>
@@ -12255,14 +12380,14 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div id="ponyGroupRosterPanel" style="display:none;">
     <button type="button" class="back-link" id="ponyGroupRosterBackBtn">Ponygruppen</button>
     <div class="pony-group-roster-panel-head">
-      <div class="detail-header">Namenslisten</div>
-      <div class="detail-sub">Kinder und Helfer:innen, Jahr innerhalb der Ponygruppe und wichtige Hinweise</div>
+    <div class="detail-header">Kinder &amp; Helfis</div>
+      <div class="detail-sub">Wer gehört zu welcher Gruppe?</div>
     </div>
 
     <div id="ponyGroupRosterOverview" class="pony-group-roster-overview"></div>
 
     <div id="ponyGroupRosterEditor" style="display:none;">
-      <button type="button" class="back-link" id="ponyGroupRosterEditorBackBtn">Namenslisten</button>
+      <button type="button" class="back-link" id="ponyGroupRosterEditorBackBtn">Kinder &amp; Helfis</button>
       <div class="pony-group-roster-editor-head">
         <div>
           <div class="pony-group-roster-editor-day" id="ponyGroupRosterEditorDay"></div>
@@ -12304,7 +12429,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
         <div class="save-status" id="ponyGroupRosterAddStatus"></div>
       </div>
 
-      <div class="section-label">Namensliste &amp; Helfer:innen</div>
+      <div class="section-label">Personen in dieser Gruppe</div>
       <div id="ponyGroupRosterList" class="pony-group-roster-list"></div>
       <div class="save-status" id="ponyGroupRosterSaveStatus"></div>
     </div>
@@ -12322,21 +12447,24 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 
     <div class="pony-group-range-nav" id="ponyGroupDocumentationRangeNav">
       <button type="button" class="week-nav-btn" id="ponyGroupRangePrev" aria-label="Frühere Termine laden">‹</button>
-      <label class="pony-group-date-picker" for="ponyGroupDateSelect">Termin
+      <label class="pony-group-date-picker" for="ponyGroupDateSelect">Datum
         <select id="ponyGroupDateSelect" aria-label="Termin für Anwesenheit und Inhalte"></select>
         <span class="pony-group-range-title" id="ponyGroupRangeTitle"></span>
       </label>
       <button type="button" class="week-nav-btn" id="ponyGroupRangeNext" aria-label="Spätere Termine laden">›</button>
     </div>
 
-    <div class="pony-group-detail-tabs" role="tablist" aria-label="Ponygruppe Rubrik">
-      <button type="button" class="pony-group-detail-tab selected" id="ponyGroupTabToday" data-pony-group-view="attendance" role="tab" aria-selected="true">Anwesenheit</button>
-      <button type="button" class="pony-group-detail-tab" id="ponyGroupTabDocumentation" data-pony-group-view="content" role="tab" aria-selected="false">Ponys &amp; Aktivität</button>
-      <button type="button" class="pony-group-detail-tab" id="ponyGroupTabPlanning" data-pony-group-view="planning" role="tab" aria-selected="false">Planung</button>
-      <button type="button" class="pony-group-detail-tab" id="ponyGroupTabOverview" data-pony-group-view="overview" role="tab" aria-selected="false">Wochenübersicht</button>
+    <div class="pony-group-detail-tabs pg-journal-tabs" role="tablist" aria-label="Ponygruppen-Ansichten">
+      <button type="button" class="pony-group-detail-tab selected" id="ponyGroupTabToday" data-pony-group-view="attendance" role="tab" aria-selected="true">Gruppe</button>
+      <button type="button" class="pony-group-detail-tab" id="ponyGroupTabOverview" data-pony-group-view="overview" role="tab" aria-selected="false">Verlauf</button>
     </div>
-
-    <p id="ponyGroupViewHint" class="pony-group-view-hint">Wer ist da? Die Auswahl wird direkt gespeichert und anschließend für die Ponyeinteilung übernommen.</p>
+    <details class="pg-journal-extra-nav" id="ponyGroupExtraNav">
+      <summary>Weitere Funktionen</summary>
+      <div class="pg-journal-extra-nav-actions">
+        <button type="button" class="pony-group-detail-tab" id="ponyGroupTabPlanning" data-pony-group-view="planning" role="tab" aria-selected="false">Vorbereitung</button>
+      </div>
+    </details>
+    <p id="ponyGroupViewHint" class="pony-group-view-hint">Wer war da, welches Pony war dabei, und was wurde gemacht?</p>
 
     <div id="ponyGroupPlanningView" hidden></div>
 
@@ -12713,7 +12841,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
-    <div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
+    <div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
+    <div class="changelog-version">Version 1.25.46</div><p>Die Vorbereitung der Ponygruppen ist jetzt auch ohne App-Erfahrung verständlich.</p><ul><li>Statt automatischer Mehrwochen- und Konzeptplanung wird nur noch der ausgewählte Termin vorbereitet.</li><li>Es gibt drei klare Angaben: Was machen wir, was muss bereitliegen und welcher Hinweis ist fürs Team wichtig.</li><li>Nach dem Speichern erscheint ein deutliches grünes „Gespeichert“; jede weitere Änderung wird sofort als „Noch nicht gespeichert“ markiert.</li><li>Angefangene Formulare sprechen nicht mehr technisch von alten Entwürfen, sondern fragen verständlich nach „Weitermachen“ oder „Neu beginnen“.</li><li>Bestehende ausführliche Planungen bleiben erhalten und können bei Bedarf aufgeklappt werden.</li></ul><div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
     <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
     <div class="changelog-version">Version 1.25.42</div><p>Die Namensauswahl startet jetzt ohne ein zweites, veraltetes Logo.</p><ul><li>Über „Wer bist du?“ steht kein zusätzliches Bild mehr.</li><li>Das aktuelle Abenteuerhof-Icon bleibt ausschließlich in der Kopfleiste sichtbar.</li><li>Die reduzierte Karte lenkt direkt auf Name und Zugangsart.</li></ul>
@@ -13840,7 +13969,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="2.4"/><path d="m7.5 9 1.5 1.5 2.7-3M13.5 9H17M7.5 15l1.5 1.5 2.7-3M13.5 15H17"/></svg><span>Aufgaben</span>
   </button>
   <button type="button" class="main-tabbar-btn" id="mainNavPonygroups" data-main-nav="ponygroups" aria-label="Ponygruppen" hidden>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="2.2"/><circle cx="16" cy="8" r="2.2"/><path d="M4.5 19c.3-3 1.8-4.8 3.5-4.8s3.2 1.8 3.5 4.8M12.5 19c.3-3 1.8-4.8 3.5-4.8s3.2 1.8 3.5 4.8"/></svg><span>Ponygruppen</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="2.2"/><circle cx="16" cy="8" r="2.2"/><path d="M4.5 19c.3-3 1.8-4.8 3.5-4.8s3.2 1.8 3.5 4.8M12.5 19c.3-3 1.8-4.8 3.5-4.8s3.2 1.8 3.5 4.8"/></svg><span>Gruppen</span>
   </button>
   <button type="button" class="main-tabbar-btn" id="mainNavMore" data-main-nav="more" aria-label="Mehr">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg><span>Mehr</span>
@@ -16045,7 +16174,9 @@ async function storageDelete(key, options = {}) {
 function showSaveStatus(el, state, message) {
   if (!el) return;
   el.className = 'save-status' + (state ? ' ' + state : '');
-  el.textContent = message || '';
+  const text = String(message || '').trim();
+  el.textContent = state === 'ok' && text && !/^✓/.test(text) ? `✓ ${text}` : text;
+  el.setAttribute('aria-live', 'polite');
 }
 
 // Fotos liegen als echte Dateien in Google Drive, nicht als Text im Sheet — praktisch
@@ -17063,7 +17194,7 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.45';
+const STALL_APP_VERSION = '1.25.47';
 const STALL_APP_VERSION_DATE = '05.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
@@ -19843,7 +19974,8 @@ async function renderHomeNoticePreview_() {
           const isNew = isFresh24h(Number(health.updated || health.created || entry.created || 0));
           const text = shortText(health.note || '', 195);
           return `<button class="home-notice-item home-notice-health" type="button" data-notice-id="${escapeHtml(String(entry.id))}" aria-label="Wichtige Gesundheitsmeldung zu ${escapeHtml(entry.ponyName || 'Pony')} öffnen: ${escapeHtml(text)}">
-            <span class="home-notice-meta"><span>${escapeHtml(entry.ponyName || 'Pony')} · ${escapeHtml(fmtDate(health.date || entry.date || todayStr()))}</span><span class="home-notice-new">Wichtig${isNew ? ' · Neu' : ''}</span></span>
+            <span class="home-notice-meta"><span>Gesundheitsmeldung · ${escapeHtml(fmtDate(health.date || entry.date || todayStr()))}</span><span class="home-notice-new">Wichtig${isNew ? ' · Neu' : ''}</span></span>
+            <span class="home-notice-subject">${escapeHtml(entry.ponyName || 'Pony')}</span>
             <span class="home-notice-text">${escapeHtml(text)}</span>
             <span class="home-notice-footer">Gesundheitsmeldung öffnen <span aria-hidden="true">›</span></span>
           </button>`;
@@ -19852,7 +19984,7 @@ async function renderHomeNoticePreview_() {
         const commentCount = Array.isArray(entry.comments) ? entry.comments.length : 0;
         const text = shortText(entry.text || '', 195);
         return `<button class="home-notice-item" type="button" data-notice-id="${escapeHtml(String(entry.id))}" aria-label="Hinweis lesen und kommentieren: ${escapeHtml(text)}">
-          <span class="home-notice-meta"><span>${escapeHtml(entry.author || 'Team')} · ${escapeHtml(fmtDate(entry.date || todayStr()))}</span>${isNew ? '<span class="home-notice-new">Neu</span>' : ''}</span>
+          <span class="home-notice-meta"><span>Von ${escapeHtml(entry.author || 'Team')} · ${escapeHtml(fmtDate(entry.date || todayStr()))}</span>${isNew ? '<span class="home-notice-new">Neu</span>' : ''}</span>
           <span class="home-notice-text">${escapeHtml(text)}</span>
           <span class="home-notice-footer">${commentCount ? `${commentCount} Kommentar${commentCount===1?'':'e'}` : 'Lesen und kommentieren'} <span aria-hidden="true">›</span></span>
         </button>`;
@@ -23053,11 +23185,12 @@ async function makeImportantHealthBoardCard(item) {
     <div class="notice-compact-top">
       <div class="notice-compact-meta">
         <span>${fmtDate(entry.date)} ${freshBadgeHtml(entry.created)}</span>
-        <span>${escapeHtml(item.ponyName)} · ${escapeHtml(typeLabel)}</span>
+        <span>${escapeHtml(typeLabel)}</span>
       </div>
       <span class="health-important-badge">Gesundheit · wichtig</span>
     </div>
     ${teamViewer ? `<div class="health-access-line"><strong>Sichtbar für:</strong> ${escapeHtml(healthVisibilityLabel(entry))}</div>` : ''}
+    <div class="notice-health-pony-subject">Pony: <strong>${escapeHtml(item.ponyName)}</strong></div>
     <div class="notice-compact-text">${escapeHtml(entry.note)}</div>
     <div class="health-expiry-status current">${escapeHtml(healthExpiryLabel_(entry))}</div>
     ${teamViewer ? healthAckProgressHtml(ackState) : ''}
@@ -26046,7 +26179,7 @@ function ponyGroupAttendanceHtml(roster, attendance) {
           <span class="pony-group-workflow-step">1</span>
           <div><strong>Anwesenheit</strong><small>Beim Ankommen einmal antippen</small></div>
         </div>
-        <div class="pony-group-attendance-empty">Noch keine Namensliste hinterlegt. Unter Ponygruppen → Namenslisten kannst du Kinder und Helfer:innen eintragen.</div>
+        <div class="pony-group-attendance-empty">In dieser Gruppe sind noch keine Personen eingetragen. Gehe zurück zu „Kinder &amp; Helfis“.</div>
       </div>`;
   }
 
@@ -26180,10 +26313,9 @@ function ponyGroupAssignmentHtml(roster, attendance, groupId, dateStr) {
         </div>
       </div>
 
-      <div class="pony-group-free-row" aria-label="In dieser Gruppe frei">
-        <div class="pony-group-free-summary"><strong>In dieser Gruppe frei</strong><span data-group-free-summary>Steht nach der Einteilung fest.</span></div>
-        <small>Ein Pony ohne Einsatz in dieser Gruppe kann in anderen Angeboten trotzdem mitmachen.</small>
-        <details class="pony-group-free-manual"><summary>Pony gezielt für diese Gruppe freistellen</summary>
+      <div class="pony-group-free-row" aria-label="Ponys ohne Einsatz in dieser Gruppe"${presentCount ? '' : ' hidden'}>
+        <div class="pony-group-free-summary"><strong>Ponys ohne Einsatz</strong><span data-group-free-summary>Ergibt sich aus der Einteilung.</span></div>
+        <details class="pony-group-free-manual"><summary>Pony bewusst nicht einteilen</summary>
           <div class="pony-group-free-chips" role="group" aria-label="Ponys für diese Gruppe freistellen">${ponies.map(pony => `<button type="button" class="pony-group-free-chip${freePonyIds.has(String(pony.id)) ? ' selected' : ''}" data-free-pony-id="${escapeHtml(String(pony.id))}" aria-pressed="${freePonyIds.has(String(pony.id))}">${escapeHtml(pony.name)}${freePonyIds.has(String(pony.id)) ? ' · Frei' : ''}</button>`).join('')}</div>
         </details>
       </div>
@@ -26244,10 +26376,8 @@ const PONY_GROUP_CONTENT_TAGS = [
 ];
 
 function ponyGroupContentTagsFor_(group) {
-  if (!group) return PONY_GROUP_CONTENT_TAGS;
-  if (group.weekday === 4) return ['Reiten','Bodenarbeit','Spaziergang / Führen','Putzen / Pflege'];
-  if ([1,2,3].includes(group.weekday)) return ['Reiten','Spaziergang / Führen','Putzen / Pflege'];
-  return PONY_GROUP_CONTENT_TAGS;
+  // Alle Gruppen können diese Aktivitäten nutzen – die Auswahl ist nur ein Kurzprotokoll.
+  return ['Reiten','Bodenarbeit','Spaziergang / Führen','Putzen / Pflege','Spiel / Theorie'];
 }
 
 const PONY_GROUP_CONTENT_TAG_ALIASES = {
@@ -27131,7 +27261,7 @@ function ponyGroupOverviewChildRecords(data, child) {
 }
 
 function ponyGroupOverviewChildrenHtml(data) {
-  if (!data.children.length) return '<div class="pony-group-overview-empty">In dieser Gruppe sind noch keine Kinder in der Namensliste hinterlegt.</div>';
+  if (!data.children.length) return '<div class="pony-group-overview-empty">In dieser Gruppe sind noch keine Kinder eingetragen.</div>';
 
   return `<div class="pony-group-overview-child-list">${data.children.map(child => {
     const records = ponyGroupOverviewChildRecords(data, child);
@@ -27348,7 +27478,7 @@ function applyPonyGroupAppointmentViewMode() {
   const list = document.getElementById('ponyGroupAppointments');
   const rangeNav = document.getElementById('ponyGroupDocumentationRangeNav');
   if (!list) return;
-  const contentMode = activePonyGroupDetailView === 'content';
+  const contentMode = false;
   if (rangeNav) rangeNav.hidden = activePonyGroupDetailView === 'overview';
 
   const appointments = [...list.querySelectorAll('.pony-group-appointment')];
@@ -27368,7 +27498,7 @@ function applyPonyGroupAppointmentViewMode() {
 }
 
 async function setPonyGroupDetailView(view) {
-  activePonyGroupDetailView = view === 'planning' ? 'planning' : view === 'overview' ? 'overview' : (view === 'content' || view === 'history' ? 'content' : 'attendance');
+  activePonyGroupDetailView = view === 'planning' ? 'planning' : view === 'overview' ? 'overview' : 'attendance';
   const documentation = document.getElementById('ponyGroupDocumentationView');
   const overview = document.getElementById('ponyGroupOverviewView');
   const todayTab = document.getElementById('ponyGroupTabToday');
@@ -27379,15 +27509,15 @@ async function setPonyGroupDetailView(view) {
   const planning = document.getElementById('ponyGroupPlanningView');
   const planningTab = document.getElementById('ponyGroupTabPlanning');
   if (planning) planning.hidden = !isPlanning;
+  const moreNav = document.getElementById('ponyGroupExtraNav');
+  if (moreNav && isPlanning) moreNav.open = true;
 
   const hint = document.getElementById('ponyGroupViewHint');
   if (hint) hint.textContent = isPlanning
-    ? 'Vorschlag erstellen, anpassen und für das Team speichern.'
+    ? 'Kurz festhalten, was ihr bei diesem Termin machen möchtet.'
     : isOverview
     ? 'Was wurde in den letzten Wochen gemacht? Der neueste Termin steht oben. Über das Datum öffnest du den Termin.'
-    : activePonyGroupDetailView === 'content'
-      ? 'Ponys zuordnen, Aktivität auswählen und einmal speichern. Der Eintrag erscheint automatisch beim jeweiligen Pony.'
-      : 'Wer ist da? Die Auswahl wird direkt gespeichert und anschließend für die Ponyeinteilung übernommen.';
+    : 'Wer war da, welches Pony war dabei, und was wurde gemacht?';
 
   if (documentation) documentation.hidden = isOverview || isPlanning;
   if (overview) overview.hidden = !isOverview;
@@ -28184,6 +28314,215 @@ async function returnToPonyGroupSource(openTarget = true) {
   }
 }
 
+// ===== Ponygruppen: bewusst einfaches digitales Gruppenbuch =====
+function ponyGroupJournalHistory_(groupId, dateStr, roster) {
+  const nextDate = ponyGroupDateFromStr(dateStr);
+  nextDate.setDate(nextDate.getDate() + 1);
+  const logs = ponyGroupRecentContentEntries(groupId, toLocalDateStr(nextDate), 8);
+  const attendance = getPonyGroupAttendanceHistory(groupId)
+    .filter(item => item.date <= dateStr && (item.updated || Object.keys(item.statusById || {}).length || item.note));
+  const dates = [...new Set([...logs.map(e => e.date), ...attendance.map(e => e.date)])]
+    .sort((a,b) => b.localeCompare(a)).slice(0, 3);
+  if (!dates.length) return '';
+  const lookup = new Map(roster.map(r => [String(r.id), r.name]));
+  return `<section class="pg-last"><div class="pg-section-title"><strong>Zuletzt in dieser Gruppe</strong><span>für Vertretungen</span></div>
+    ${dates.map((date,index) => {
+      const log = logs.find(e => e.date === date);
+      const att = attendance.find(e => e.date === date);
+      const tags = log ? normalizePonyGroupContentTags(log.tags) : [];
+      const note = String(log?.text || '').trim();
+      const content = [...tags, note].filter(Boolean).join(' · ');
+      const presentIds = Array.isArray(att?.presentIds) ? att.presentIds : [];
+      const assigned = presentIds.map(id => ({id, name:lookup.get(String(id)) || 'Ehemaliges Gruppenmitglied', ponyIds:(att?.ponyById || {})[String(id)] || []}));
+      const paired = assigned.filter(item => item.ponyIds.length);
+      const ponySet = [...new Set(paired.flatMap(item => item.ponyIds))];
+      const presentLabel = att ? `${presentIds.length} anwesend` : 'Anwesenheit nicht dokumentiert';
+      return `<div class="pg-last-entry${index === 0 ? ' latest' : ''}">
+        <div class="pg-last-top"><strong>${escapeHtml(ponyGroupAttendanceDateLabel(date))}</strong><small>${escapeHtml(presentLabel)}</small></div>
+        <div class="pg-last-content">${content ? escapeHtml(content) : '<span class="pg-muted">Keine Aktivität eingetragen</span>'}</div>
+        ${ponySet.length ? `<div class="pg-last-ponies">Ponys: ${escapeHtml(ponyGroupPonyNames(ponySet).join(', '))}</div>` : ''}
+        ${log?.wishes && index === 0 ? `<div class="pg-last-next">Für nächstes Mal: ${escapeHtml(log.wishes)}</div>` : ''}
+        ${att && assigned.length ? `<details class="pg-last-assignments"><summary>Kinder & Ponyzuordnung anzeigen</summary>
+          ${assigned.map(item=>`<div><span>${escapeHtml(item.name)}</span><strong>${escapeHtml(ponyGroupPonyNames(item.ponyIds).join(' + ') || '–')}</strong></div>`).join('')}
+        </details>` : ''}
+      </div>`;
+    }).join('')}
+  </section>`;
+}
+
+function ponyGroupJournalSync_(wrapper) {
+  const view = wrapper.querySelector('.pg-journal');
+  if (!view) return;
+  let present = 0, all = 0, open = 0;
+  view.querySelectorAll('.pg-person-row').forEach(row => {
+    const id = row.dataset.childId;
+    const orig = [...wrapper.querySelectorAll('.pony-group-attendance-row')].find(x => x.dataset.childId === id);
+    const selected = orig?.querySelector('.pony-group-attendance-status-btn.selected');
+    const state = selected?.dataset.status || 'open';
+    if (row.dataset.personType !== 'helper') { all++; if (state === 'present') present++; if (state === 'open') open++; }
+    row.dataset.state = state;
+    const btn = row.querySelector('.pg-presence-btn');
+    if (btn) {
+      btn.textContent = state === 'present' ? '✓ Da' : state === 'excused' ? 'Entsch.' : state === 'absent' ? 'Fehlt' : '○ Offen';
+      btn.setAttribute('aria-pressed', state === 'present' ? 'true' : 'false');
+      btn.setAttribute('aria-label', `${row.dataset.personName}: ${state === 'present' ? 'anwesend' : state === 'excused' ? 'entschuldigt' : state === 'absent' ? 'fehlt' : 'noch offen'}`);
+    }
+    const assigned = [...(wrapper.querySelectorAll('.pony-group-assignment-row'))]
+      .find(x => x.dataset.childId === id);
+    const selectedPonyIds = assigned ? [...assigned.querySelectorAll('.pony-group-assignment-chip.selected')].map(x => String(x.dataset.ponyId)) : [];
+    const pony = row.querySelector('.pg-pony-picker');
+    if (pony) {
+      pony.classList.toggle('has-pony',selectedPonyIds.length > 0);
+      pony.classList.toggle('not-present',state !== 'present');
+      const label = pony.querySelector('.pg-pony-summary-text');
+      if (label) label.textContent = state !== 'present' ? 'Kein Pony' : selectedPonyIds.length ? ponyGroupPonyNames(selectedPonyIds).join(' + ') : '+ Pony';
+      pony.querySelectorAll('.pg-pony-choice').forEach(choice => {
+        const current = selectedPonyIds.includes(String(choice.dataset.ponyId));
+        choice.classList.toggle('selected',current);
+        choice.setAttribute('aria-pressed',current ? 'true' : 'false');
+        const origChoice = [...(assigned?.querySelectorAll('.pony-group-assignment-chip') || [])].find(el => el.dataset.ponyId === choice.dataset.ponyId);
+        choice.disabled = state !== 'present' || !!origChoice?.disabled;
+      });
+      if (state !== 'present') pony.open = false;
+    }
+  });
+  const count = view.querySelector('.pg-count');
+  if (count) count.textContent = all ? `${present} von ${all} Kindern da${open ? ` · ${open} offen` : ''}` : 'Keine Kinder';
+}
+
+function ponyGroupBuildJournal_(wrapper, roster, group, dateStr) {
+  const attendanceSection = wrapper.querySelector('[data-pony-group-rubric="attendance"]');
+  const extraSection = wrapper.querySelector('[data-pony-group-rubric="content"]');
+  const attendanceBox = attendanceSection?.querySelector('.pony-group-attendance-box');
+  const ponyBox = extraSection?.querySelector('.pony-group-assignment-box');
+  const activityBox = extraSection?.querySelector('.pony-group-content-workflow');
+  if (!attendanceSection || !extraSection || !attendanceBox || !ponyBox || !activityBox) return;
+
+  const people = [...roster.filter(p=>p.type === 'child'), ...roster.filter(p=>p.type === 'helper')];
+  const journal = document.createElement('div');
+  journal.className = 'pg-journal';
+  journal.innerHTML = `${ponyGroupJournalHistory_(group.id,dateStr,roster)}
+    <section class="pg-journal-section pg-people">
+      <div class="pg-section-title"><strong>Wer war da?</strong><span class="pg-count">–</span></div>
+      <div class="pg-list">
+      ${people.length ? people.map((p,index)=>{
+        const childId=escapeHtml(String(p.id));
+        const isHelper=p.type === 'helper';
+        const last=!isHelper ? ponyGroupLastPonyAssignment(group.id, String(p.id), dateStr) : null;
+        return `${isHelper && (index === 0 || people[index-1].type !== 'helper') ? '<div class="pg-list-separator">Helfer:innen</div>' : ''}
+          <div class="pg-person-row${isHelper?' is-helper':''}" data-child-id="${childId}" data-person-type="${isHelper?'helper':'child'}" data-person-name="${escapeHtml(p.name)}">
+            <div class="pg-person-name"><strong>${escapeHtml(p.name)}</strong>${p.needs?`<details class="pg-person-note"><summary>Hinweis</summary><span>${escapeHtml(p.needs)}</span></details>`:''}</div>
+            <div class="pg-person-status"><button type="button" class="pg-presence-btn">○ Offen</button><details class="pg-status-menu"><summary aria-label="Weitere Anwesenheitsstatus für ${escapeHtml(p.name)}">···</summary><div class="pg-status-menu-choices"><button type="button" data-state="excused">Entschuldigt</button><button type="button" data-state="absent">Fehlt</button><button type="button" data-state="open">Zurück auf offen</button></div></details></div>
+            ${!isHelper ? `<details class="pg-pony-picker"><summary><span class="pg-pony-summary-text">+ Pony</span><span aria-hidden="true">⌄</span></summary><div class="pg-pony-options">${ponies.map(pony=>`<button type="button" class="pg-pony-choice" data-pony-id="${escapeHtml(String(pony.id))}" aria-pressed="false">${escapeHtml(pony.name)}</button>`).join('')}</div>${last?`<small>Letztes Mal: ${escapeHtml(ponyGroupPonyNames(last.ponyIds).join(' + '))}</small>`:''}</details>` : `<span class="pg-helper-note">Helfer:in</span>`}
+          </div>`;
+      }).join('') : '<p class="pg-muted">Noch keine Kinder eingetragen. Über „Kinder & Helfis“ kannst du die Gruppe anlegen.</p>'}
+      </div>
+      <div class="pg-footer">${roster.some(p=>p.type === 'child') ? '<button type="button" class="pg-all-present">Alle Kinder da</button>' : ''}<div class="pg-savefeedback" aria-live="polite"></div></div>
+    </section>
+    <section class="pg-journal-section pg-activity">
+      <div class="pg-section-title"><strong>Was haben wir gemacht?</strong><span>kurz eintragen</span></div>
+      <div class="pg-activity-fields"></div>
+    </section>
+    <details class="pg-extra-details"><summary>Mehr zum Termin</summary><div class="pg-extra-body"></div></details>
+    <div class="pg-hidden-controls" hidden></div>`;
+  attendanceSection.prepend(journal);
+  const hidden = journal.querySelector('.pg-hidden-controls');
+  hidden.appendChild(attendanceBox);
+  hidden.appendChild(ponyBox);
+
+  const fields = journal.querySelector('.pg-activity-fields');
+  fields.appendChild(activityBox);
+  const activityHead = activityBox.querySelector('.pony-group-workflow-head strong');
+  if (activityHead) activityHead.textContent = 'Aktivität';
+  const oldRecent = activityBox.querySelector('.pony-group-previous-content');
+  if (oldRecent) oldRecent.remove();
+  const noteDetails = activityBox.querySelector('.pony-group-content-note-details');
+  if (noteDetails) {
+    noteDetails.open = true;
+    const summary = noteDetails.querySelector('summary');
+    if (summary) summary.textContent = 'Kurze Beschreibung (optional)';
+  }
+  const tags = activityBox.querySelector('.pony-group-content-tags');
+  if (tags) {
+    const rare = [...tags.querySelectorAll('.pg-rare-tag')];
+    if (rare.length) {
+      const details = document.createElement('details');
+      details.className='pg-rare-types';
+      details.innerHTML='<summary>Weitere Aktivitäten</summary><div class="pg-rare-options"></div>';
+      tags.parentNode.insertBefore(details, tags.nextSibling);
+      const options = details.querySelector('.pg-rare-options');
+      rare.forEach(btn=>options.appendChild(btn));
+      details.open=rare.some(btn=>btn.classList.contains('selected'));
+    }
+  }
+  const entryActions = extraSection.querySelector('.pony-group-entry-actions');
+  if (entryActions) {
+    const deleteButton = entryActions.querySelector('.pony-group-delete');
+    if (deleteButton) journal.querySelector('.pg-extra-body').appendChild(deleteButton);
+    fields.appendChild(entryActions);
+    const save = entryActions.querySelector('.pony-group-save');
+    if (save) save.textContent='Eintrag speichern';
+  }
+  const saved = extraSection.querySelector('.pony-group-save-status');
+  if (saved) fields.appendChild(saved);
+  const meta = extraSection.querySelector('.pony-group-entry-meta');
+  if (meta) fields.appendChild(meta);
+  const more = journal.querySelector('.pg-extra-body');
+  const note = attendanceBox.querySelector('.pony-group-attendance-note-wrap');
+  if (note) more.appendChild(note);
+  const free = ponyBox.querySelector('.pony-group-free-row');
+  if (free) more.appendChild(free);
+  for (const sel of ['.pony-group-next-workflow','.pony-group-extra-activities']) {
+    const part = extraSection.querySelector(sel);
+    if (part) more.appendChild(part);
+  }
+  const schedule = wrapper.querySelector('.pony-group-schedule-box');
+  if (schedule) more.appendChild(schedule);
+  const attendanceFeedback = attendanceBox.querySelector('.pony-group-attendance-status');
+  const assignmentFeedback = ponyBox.querySelector('.pony-group-assignment-status');
+  if (attendanceFeedback) journal.querySelector('.pg-savefeedback').appendChild(attendanceFeedback);
+  if (assignmentFeedback) journal.querySelector('.pg-savefeedback').appendChild(assignmentFeedback);
+
+  const originRow = id => [...wrapper.querySelectorAll('.pony-group-attendance-row')].find(el=>el.dataset.childId===id);
+  const originAssignment = id => [...wrapper.querySelectorAll('.pony-group-assignment-row')].find(el=>el.dataset.childId===id);
+  journal.querySelectorAll('.pg-person-row').forEach(row => {
+    const id = row.dataset.childId;
+    row.querySelector('.pg-presence-btn').onclick = () => {
+      const source=originRow(id);
+      const currentlyPresent=!!source?.querySelector('.pony-group-attendance-status-btn.present.selected');
+      const sourceButton=source?.querySelector('.pony-group-attendance-status-btn.present');
+      if (sourceButton) sourceButton.click();
+      ponyGroupJournalSync_(wrapper);
+    };
+    row.querySelectorAll('.pg-status-menu button').forEach(button=>{
+      button.onclick=()=>{
+        const source=originRow(id);
+        const desired=button.dataset.state;
+        const selected=source?.querySelector('.pony-group-attendance-status-btn.selected')?.dataset.status || 'open';
+        if (desired !== selected) {
+          const control = source?.querySelector(`.pony-group-attendance-status-btn[data-status="${desired}"]`);
+          if (control) control.click();
+          else if (desired === 'open') source?.querySelector('.pony-group-attendance-status-btn.selected')?.click();
+        }
+        row.querySelector('.pg-status-menu').open=false;
+        ponyGroupJournalSync_(wrapper);
+      };
+    });
+    row.querySelectorAll('.pg-pony-choice').forEach(button=>{
+      button.onclick=()=>{
+        const choice=[...originAssignment(id)?.querySelectorAll('.pony-group-assignment-chip')||[]]
+          .find(el=>el.dataset.ponyId===button.dataset.ponyId);
+        if (choice && !choice.disabled) choice.click();
+        ponyGroupJournalSync_(wrapper);
+      };
+    });
+  });
+  const all=journal.querySelector('.pg-all-present');
+  const origAll=attendanceBox.querySelector('.pony-group-attendance-mark-all');
+  if (origAll && all) all.onclick=()=>origAll.click();
+  ponyGroupJournalSync_(wrapper);
+}
+
 async function renderPonyGroupAppointments() {
   const group = PONY_GROUPS[activePonyGroupId];
   const list = document.getElementById('ponyGroupAppointments');
@@ -28387,7 +28726,7 @@ async function renderPonyGroupAppointments() {
         <div class="pony-group-content-area" style="${cancelled ? 'display:none;' : ''}">
           <section data-pony-group-rubric="attendance">
             ${ponyGroupAttendanceHtml(roster, attendance)}
-            <button type="button" class="secondary-btn pony-group-to-content">Weiter zu Ponys &amp; Aktivität →</button>
+
           </section>
           <section data-pony-group-rubric="content" hidden>
           <div class="pony-group-present-summary" aria-live="polite"></div>
@@ -28403,7 +28742,7 @@ async function renderPonyGroupAppointments() {
 
             <div class="pony-group-content-tags primary">
               ${ponyGroupContentTagsFor_(group).map(tag => `<button type="button" class="pony-group-content-tag${contentTags.includes(tag) ? ' selected' : ''}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
-              ${contentTags.filter(tag => !ponyGroupContentTagsFor_(group).includes(tag)).map(tag => `<button type="button" class="pony-group-content-tag selected" data-tag="${escapeHtml(tag)}" hidden>${escapeHtml(tag)}</button>`).join('')}
+              ${PONY_GROUP_CONTENT_TAGS.filter(tag => !ponyGroupContentTagsFor_(group).includes(tag)).map(tag => `<button type="button" class="pony-group-content-tag${contentTags.includes(tag) ? ' selected' : ''} pg-rare-tag" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
             </div>
 
             <details class="pony-group-content-note-details"${entry && entry.text ? ' open' : ''}>
@@ -28435,6 +28774,7 @@ async function renderPonyGroupAppointments() {
       </div>
     `;
 
+    if (!cancelled) ponyGroupBuildJournal_(wrapper, roster, group, actualDateStr);
     wirePonyGroupWorkflowNavigation_(wrapper);
     const continueButton = wrapper.querySelector('.pony-group-to-content');
     if (continueButton) continueButton.onclick = () => setPonyGroupDetailView('content');
@@ -28534,7 +28874,7 @@ async function renderPonyGroupAppointments() {
       const markContentDirty = () => {
         wrapper.dataset.editRevision = String((Number(wrapper.dataset.editRevision) || 0) + 1);
         wrapper.dataset.contentDirty = 'true';
-        showSaveStatus(status, 'pending', 'Noch nicht übernommen. Mit „Ponys & Aktivität speichern“ sichern.');
+        showSaveStatus(status, 'pending', 'Noch nicht gespeichert.');
         rememberPonyGroupEditorDraft_(wrapper, group.id);
       };
       textarea.oninput = markContentDirty;
@@ -28573,6 +28913,7 @@ async function renderPonyGroupAppointments() {
       };
 
       const updateAttendanceSummary = () => {
+        ponyGroupJournalSync_(wrapper);
         const state = getAttendanceStateFromDom();
         const values = roster.map(person => state[String(person.id)] || 'open');
         const childValues = childRoster.map(person => state[String(person.id)] || 'open');
@@ -28842,10 +29183,11 @@ async function renderPonyGroupAppointments() {
       });
 
       wrapper.querySelectorAll('.pony-group-assignment-chip').forEach(chip => {
-        chip.onclick = () => {
+        chip.onclick = async () => {
+          const undoSnapshot = captureAttendanceSnapshot();
           chip.classList.toggle('selected');
           updateAttendanceSummary();
-          markContentDirty();
+          await saveAttendanceFromDom('Pony gespeichert', assignmentStatus, undoSnapshot);
         };
       });
 
@@ -28858,7 +29200,7 @@ async function renderPonyGroupAppointments() {
             chip.classList.toggle('selected', !chip.disabled && ids.has(String(chip.dataset.ponyId || '')));
           });
           updateAttendanceSummary();
-          markContentDirty();
+          await saveAttendanceFromDom('Ponyzuordnung übernommen', assignmentStatus);
         };
       });
 
@@ -28907,7 +29249,7 @@ async function renderPonyGroupAppointments() {
         wrapper.dataset.baseAttendance = JSON.stringify(ponyGroupRawValue_(ponyGroupAttendanceKey(group.id, actualDateStr)));
         if (wrapper.dataset.editRevision !== revision || attendanceRevision !== attendanceAtSave) {
           rememberPonyGroupEditorDraft_(wrapper, group.id);
-          showSaveStatus(status, 'ok', 'Stand gesichert · neuere Eingaben bleiben im Entwurf.');
+          showSaveStatus(status, 'pending', 'Ein Teil ist gespeichert. Die neuesten Änderungen noch speichern.');
           return;
         }
         showSaveStatus(status, 'ok', ' Gespeichert');
@@ -30285,7 +30627,7 @@ document.getElementById('manageBtn').onclick = () => {
 
 
 document.getElementById('helfiPlanManageBtn').onclick=async()=>{
-  if(getRole()!=='pferdeteam'||!getTeamToken()){appAlert('Der Helfi-Plan gehört zum Pferdeteam-Bereich Ponygruppen. Bitte melde dich als Pferdeteam an.');return;}
+  if(getRole()!=='pferdeteam'||!getTeamToken()){appAlert('Die Helfi-Einteilung ist nur für das Pferdeteam sichtbar.');return;}
   closePonyGroupDetail();closePonyGroupRosterPanel();closePonyGroupLeadPanel();
   document.getElementById('ponyGroupsOverview').style.display='none';
   document.getElementById('ponyGroupRosterInlineEntry').style.display='none';
@@ -30298,7 +30640,7 @@ document.getElementById('helfiPlanManageBtn').onclick=async()=>{
 };
 document.getElementById('helfiPlanBack').onclick=()=>closeHelfiPlanPanel();
 document.getElementById('helfiPlanLoad').onclick=()=>loadHelfiTeamPlan();
-document.getElementById('helfiPlanWeek').onchange=()=>{const field=document.getElementById('helfiPlanWeek');field.value=helfiPlanMonday(field.value)||field.value;document.getElementById('helfiPlanSave').disabled=true;document.getElementById('helfiPlanStatus').className='save-status';document.getElementById('helfiPlanStatus').textContent='Für diese Woche zuerst „Plan laden“ wählen.';};
+document.getElementById('helfiPlanWeek').onchange=()=>{const field=document.getElementById('helfiPlanWeek');field.value=helfiPlanMonday(field.value)||field.value;document.getElementById('helfiPlanSave').disabled=true;showSaveStatus(document.getElementById('helfiPlanStatus'),'pending','Bitte jetzt „Diese Woche öffnen“ wählen.');};
 document.getElementById('helfiPlanSave').onclick=async()=>{
   if(helfiPlanEditing||document.getElementById('helfiPlanSave').disabled)return;
   const week=document.getElementById('helfiPlanWeek').value;if(week!==helfiPlanLoadedWeek)return;
@@ -30380,7 +30722,7 @@ document.getElementById('ponyGroupLeadDoneToggle').onclick = async () => {
 
 document.getElementById('ponyGroupRosterOpenBtn').onclick = async () => {
   if (getRole() !== 'pferdeteam' || !getTeamToken()) {
-    appAlert('Für Namenslisten brauchst du einen Pferdeteam- oder Ponygruppen-Zugang.');
+    appAlert('„Kinder & Helfis“ ist nur mit einem Pferdeteam- oder Ponygruppen-Zugang sichtbar.');
     return;
   }
 
@@ -34321,8 +34663,8 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   function offerDraft_(screenName){
     if(draftRestoring_)return;
     document.querySelectorAll('.draft-restore-banner').forEach(el=>el.remove());const kind=draftKindForScreen_(screenName);if(!kind)return;const saved=getDraft_(kind);if(!saved||!meaningfulDraft_(kind,saved.data))return;const screen=document.getElementById(screenName);if(!screen||screen.style.display!=='block')return;
-    const key=draftKey_(kind);const draftDate=/^\d{4}-\d{2}-\d{2}$/.test(String(saved.data?.date||''))?saved.data.date:'';const isOlderFormDraft=(kind==='movement'||kind==='health')&&!saved.data?.editId&&draftDate&&draftDate!==todayStr();const savedLabel=new Date(saved.at).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});const banner=document.createElement('div');banner.className='draft-restore-banner';banner.innerHTML=`<div class="draft-restore-copy"><strong>${isOlderFormDraft?`Entwurf vom ${escapeHtml(fmtDate(draftDate))}`:'Nicht gespeicherter Entwurf'}</strong><small>${isOlderFormDraft?'Der Entwurf gehört nicht zu heute. Du kannst neu beginnen oder ihn bewusst öffnen.':`Von ${escapeHtml(savedLabel)}. Du kannst dort weiterarbeiten.`}</small></div><div class="draft-restore-actions">${isOlderFormDraft?'<button type="button" class="draft-restore-new">Für heute neu</button>':'<button type="button" class="draft-restore-discard">Verwerfen</button>'}<button type="button" class="draft-restore-continue">${isOlderFormDraft?'Alten Entwurf öffnen':'Weiterbearbeiten'}</button></div>`;const anchor=screen.querySelector('.detail-header,.primary-screen-header');if(anchor)anchor.insertAdjacentElement('beforebegin',banner);else screen.prepend(banner);
-    const discard=banner.querySelector('.draft-restore-discard,.draft-restore-new');if(discard)discard.onclick=()=>{clearDraftKey_(key);banner.remove();if(isOlderFormDraft)showActionToast('Neuer Eintrag für heute');};banner.querySelector('.draft-restore-continue').onclick=async()=>{clearTimeout(draftTimer_);draftRestoring_=true;try{if(kind==='health')await restoreHealthDraft_(saved.data);if(kind==='movement')restoreMovementDraft_(saved.data);if(kind==='todo')await restoreTodoDraft_(saved.data);if(kind==='notice')await restoreNoticeDraft_(saved.data);banner.remove();showActionToast('Entwurf wiederhergestellt');}catch(e){showActionToast('Entwurf konnte nicht vollständig geöffnet werden. Er bleibt auf diesem Gerät gesichert.');}finally{draftRestoring_=false;scheduleDraftSave_();}};
+    const key=draftKey_(kind);const draftDate=/^\d{4}-\d{2}-\d{2}$/.test(String(saved.data?.date||''))?saved.data.date:'';const isOlderFormDraft=(kind==='movement'||kind==='health')&&!saved.data?.editId&&draftDate&&draftDate!==todayStr();const savedLabel=new Date(saved.at).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});const banner=document.createElement('div');banner.className='draft-restore-banner';banner.innerHTML=`<div class="draft-restore-copy"><strong>${isOlderFormDraft?`Angefangener Eintrag vom ${escapeHtml(fmtDate(draftDate))}`:'Du hast hier noch etwas angefangen'}</strong><small>${isOlderFormDraft?'Möchtest du diesen älteren Eintrag öffnen oder für heute neu beginnen?':`Zuletzt bearbeitet am ${escapeHtml(savedLabel)}. Möchtest du weitermachen?`}</small></div><div class="draft-restore-actions">${isOlderFormDraft?'<button type="button" class="draft-restore-new">Für heute neu</button>':'<button type="button" class="draft-restore-discard">Neu beginnen</button>'}<button type="button" class="draft-restore-continue">${isOlderFormDraft?'Eintrag öffnen':'Weitermachen'}</button></div>`;const anchor=screen.querySelector('.detail-header,.primary-screen-header');if(anchor)anchor.insertAdjacentElement('beforebegin',banner);else screen.prepend(banner);
+    const discard=banner.querySelector('.draft-restore-discard,.draft-restore-new');if(discard)discard.onclick=()=>{clearDraftKey_(key);banner.remove();if(isOlderFormDraft)showActionToast('Neuer Eintrag für heute');};banner.querySelector('.draft-restore-continue').onclick=async()=>{clearTimeout(draftTimer_);draftRestoring_=true;try{if(kind==='health')await restoreHealthDraft_(saved.data);if(kind==='movement')restoreMovementDraft_(saved.data);if(kind==='todo')await restoreTodoDraft_(saved.data);if(kind==='notice')await restoreNoticeDraft_(saved.data);banner.remove();showActionToast('Eintrag wieder geöffnet');}catch(e){showActionToast('Der angefangene Eintrag konnte nicht vollständig geöffnet werden. Er bleibt auf diesem Gerät erhalten.');}finally{draftRestoring_=false;scheduleDraftSave_();}};
   }
   const baseShowScreen_=showScreen;
   showScreen=function(name){clearTimeout(draftTimer_);saveVisibleDraft_();baseShowScreen_(name);offerDraft_(name);};
@@ -37452,6 +37794,157 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   }
 })(window);
 
+/* ===== v1.25.46 · Ponygruppen-Vorbereitung bewusst einfach =====
+   Die frühere automatische Mehrwochen- und Konzeptplanung bleibt für alte
+   Datensätze lesbar, ist aber kein Arbeitsablauf mehr. Vorbereitet wird immer
+   nur der gerade ausgewählte Termin. */
+(function installSimplePonyGroupPreparation(global) {
+  const planner = global.StallPonyPlanner;
+  if (!planner) return;
+
+  const escapePreparationHtml_ = value => String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[char]));
+
+  const preparationDateLabel_ = dateStr => {
+    const date = new Date(String(dateStr || '') + 'T12:00:00');
+    if (Number.isNaN(date.getTime())) return String(dateStr || '');
+    return date.toLocaleDateString('de-DE', { weekday:'long', day:'2-digit', month:'2-digit', year:'numeric' });
+  };
+
+  const currentPreparationDate_ = () => String(
+    global.ponyGroupFocusDate_ ||
+    document.getElementById('ponyGroupDateSelect')?.selectedOptions?.[0]?.dataset.date ||
+    ''
+  );
+
+  const parsePreparationPlan_ = raw => {
+    try { return raw ? JSON.parse(raw) : null; } catch (error) { return null; }
+  };
+
+  planner.render = async function renderSimplePonyGroupPreparation_() {
+    const groupId = global.activePonyGroupId || activePonyGroupId;
+    const dateStr = currentPreparationDate_();
+    const container = document.getElementById('ponyGroupPlanningView');
+    if (!container || !groupId || !planner.dateValid(dateStr)) return;
+
+    const canRead = !!global.StallAccessV122?.canPonyGroup(groupId, dateStr, false);
+    const canWrite = !!global.StallAccessV122?.canPonyGroup(groupId, dateStr, true);
+    if (!canRead) {
+      container.innerHTML = '<p class="planner-empty">Für diesen Termin ist keine Vorbereitung freigegeben.</p>';
+      return;
+    }
+
+    const key = planner.keyFor(groupId, dateStr);
+    const baseRaw = Object.prototype.hasOwnProperty.call(cache, key) ? cache[key] : null;
+    const stored = parsePreparationPlan_(baseRaw);
+    const plan = stored && !stored._archived ? stored : {};
+    const title = String(plan.title || '');
+    const materials = String(plan.materials || '');
+    const teamNote = String(plan.simpleTeamNote || (plan.source === 'simple' ? plan.focusText : '') || '');
+    const hasLegacyDetails = !!(plan.source && plan.source !== 'simple' && (plan.focusText || plan.organisation || plan.younger || plan.older));
+
+    container.innerHTML = `
+      <section class="simple-preparation" data-preparation-group="${escapePreparationHtml_(groupId)}" data-preparation-date="${escapePreparationHtml_(dateStr)}">
+        <header class="simple-preparation-head">
+          <span>Für diesen Termin</span>
+          <h2>${escapePreparationHtml_(preparationDateLabel_(dateStr))}</h2>
+          <p>Nur das eintragen, was das Team vorher wissen muss.</p>
+        </header>
+
+        <div class="simple-preparation-form">
+          <label class="simple-preparation-main">
+            <span>Was möchtet ihr machen? <b aria-hidden="true">*</b></span>
+            <input id="simplePreparationTitle" type="text" value="${escapePreparationHtml_(title)}" placeholder="z. B. Reiten und anschließend putzen" ${canWrite ? '' : 'disabled'}>
+          </label>
+          <label>
+            <span>Was muss bereitliegen? <small>optional</small></span>
+            <textarea id="simplePreparationMaterials" placeholder="z. B. Helme, Putzzeug, drei Stangen" ${canWrite ? '' : 'disabled'}>${escapePreparationHtml_(materials)}</textarea>
+          </label>
+          <label>
+            <span>Hinweis fürs Team <small>optional</small></span>
+            <textarea id="simplePreparationNote" placeholder="z. B. Laski heute nur führen" ${canWrite ? '' : 'disabled'}>${escapePreparationHtml_(teamNote)}</textarea>
+          </label>
+        </div>
+
+        ${hasLegacyDetails ? `<details class="simple-preparation-legacy"><summary>Frühere ausführliche Planung ansehen</summary><div>${escapePreparationHtml_([plan.focusText, plan.organisation].filter(Boolean).join('\n\n'))}</div></details>` : ''}
+
+        <div class="simple-preparation-actions">
+          <button type="button" class="submit-btn" id="simplePreparationSave" ${canWrite ? '' : 'disabled'}>${stored ? 'Änderungen speichern' : 'Vorbereitung speichern'}</button>
+          ${stored ? '<button type="button" class="secondary-btn" id="simplePreparationDocument">Nach dem Termin dokumentieren</button>' : ''}
+        </div>
+        <p class="save-status${stored ? ' ok' : ''}" id="simplePreparationStatus" role="status">${stored ? '✓ Gespeichert – das Team sieht die Vorbereitung.' : 'Noch nichts vorbereitet.'}</p>
+      </section>`;
+
+    const titleInput = document.getElementById('simplePreparationTitle');
+    const materialsInput = document.getElementById('simplePreparationMaterials');
+    const noteInput = document.getElementById('simplePreparationNote');
+    const status = document.getElementById('simplePreparationStatus');
+    const saveButton = document.getElementById('simplePreparationSave');
+
+    [titleInput, materialsInput, noteInput].forEach(input => input?.addEventListener('input', () => {
+      if (status) showSaveStatus(status, 'pending', 'Noch nicht gespeichert');
+    }));
+
+    if (saveButton) saveButton.onclick = async () => {
+      const cleanTitle = String(titleInput?.value || '').trim();
+      if (!cleanTitle) {
+        titleInput?.focus();
+        showSaveStatus(status, 'error', 'Bitte kurz eintragen, was ihr machen möchtet.');
+        return;
+      }
+
+      const cleanMaterials = String(materialsInput?.value || '').trim();
+      const cleanNote = String(noteInput?.value || '').trim();
+      const nextPlan = {
+        ...plan,
+        version:2,
+        source:'simple',
+        planningBasis:'simple',
+        groupId,
+        date:dateStr,
+        ageMin:Number(plan.ageMin) || 8,
+        ageMax:Number(plan.ageMax) || 14,
+        topicId:String(plan.topicId || 'custom'),
+        title:cleanTitle,
+        materials:cleanMaterials,
+        simpleTeamNote:cleanNote,
+        focusText:cleanNote,
+        goalIds:Array.isArray(plan.goalIds) ? plan.goalIds : [],
+        tags:Array.isArray(plan.tags) ? plan.tags : [],
+        ownIdeas:String(plan.ownIdeas || ''),
+        organisation:String(plan.organisation || ''),
+        nextPractice:String(plan.nextPractice || ''),
+        younger:String(plan.younger || ''),
+        older:String(plan.older || ''),
+        updated:Date.now(),
+        by:global.currentUserName || getRememberedUserName() || ''
+      };
+      const value = JSON.stringify(nextPlan);
+      saveButton.disabled = true;
+      showSaveStatus(status, 'saving', 'Wird gespeichert …');
+      const ok = await planner.queuePlans([{
+        key,
+        value,
+        expectedKey:key,
+        expectedValue:baseRaw,
+        entryCreate:baseRaw === null,
+        ponyGroupPlanner:true,
+        entryMutationOwner:pushNotificationOwner_()
+      }]);
+      saveButton.disabled = false;
+      showSaveStatus(status, ok ? 'ok' : 'error', ok ? 'Gespeichert – das Team sieht die Vorbereitung.' : 'Noch nicht gespeichert. Bitte Verbindung prüfen und erneut versuchen.');
+      if (ok) showActionToast('Vorbereitung gespeichert.');
+    };
+
+    const documentButton = document.getElementById('simplePreparationDocument');
+    if (documentButton) documentButton.onclick = async () => {
+      await openPonyGroupAppointment_(groupId, dateStr);
+      await setPonyGroupDetailView('content');
+    };
+  };
+})(window);
+
 </script>
 <style id="stall-polish-v125">
 /* v1.25 – Calm, warm and deliberate design system. Semantic colours stay consistent. */
@@ -37505,6 +37998,10 @@ body { background:var(--bg) !important; color:var(--text) !important; }
 #homeScreen .home-notice-item { padding:14px 15px 13px; width:100%; border-radius:13px; border:1px solid #EAE5D9; background:#fff; display:flex; flex-direction:column; gap:8px; text-align:left; cursor:pointer; font-family:var(--font-display); color:var(--text); }
 #homeScreen .home-notice-item:hover { border-color:#CDBA98; background:#FFFDF9; }
 #homeScreen .home-notice-meta { display:flex; justify-content:space-between; align-items:center; gap:12px; color:#777B70; font-size:11px; line-height:1.3; }
+#homeScreen .home-notice-health { border-left:4px solid #C9A09B; padding-left:12px; }
+#homeScreen .home-notice-subject { display:block; color:#7D4D45; font-weight:780; font-size:17px; line-height:1.25; margin:1px 0 -4px; }
+#homeScreen .home-notice-health .home-notice-meta > span:first-child { color:#8B625D; font-weight:660; }
+.notice-health-pony-subject { color:#7D4D45; font-size:15px; font-weight:650; margin:8px 0 7px; }
 #homeScreen .home-notice-new { background:#EEDCA9; color:#735421; padding:3px 8px; border-radius:999px; font-weight:700; flex:0 0 auto; }
 #homeScreen .home-notice-text { font-size:13.5px; font-weight:570; line-height:1.5; overflow-wrap:anywhere; white-space:normal; }
 #homeScreen .home-notice-footer { color:#8C724D; font-size:11.5px; display:flex; justify-content:space-between; align-items:center; font-weight:640; }
@@ -38718,6 +39215,59 @@ body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
   #bewegungDetailScreen .bel-time-input-row {grid-template-columns:minmax(0,1fr) auto}
   #bewegungDetailScreen #belList .movement-history-row {grid-template-columns:minmax(0,1fr) auto 10px !important;padding-inline:9px !important}
   #bewegungDetailScreen #belList .movement-history-title {font-size:12px}
+}
+</style>
+<style id="simple-ponygroup-preparation-v12546">
+/* Eindeutiger Speicherzustand in allen Formularen. */
+.save-status:not(:empty) {
+  display:block;width:max-content;max-width:100%;margin:10px auto 0;padding:7px 11px;
+  border:1px solid transparent;border-radius:999px;text-align:center;
+  font:750 11px/1.35 var(--font-display);
+}
+.save-status.ok {color:#315F43;background:#E6F1E9;border-color:#B9D3C1}
+.save-status.pending {color:#76551F;background:#FAF1DD;border-color:#E7D3A6}
+.save-status.saving {color:#56635B;background:#F0F3F0;border-color:#D8DFD9}
+.save-status.error {color:#8B493E;background:#F8EAE7;border-color:#E5C2BB}
+
+/* Ein Termin, drei verständliche Angaben, ein klarer Speichern-Knopf. */
+#ponyGroupPlanningView .simple-preparation {max-width:720px;margin:0 auto}
+#ponyGroupPlanningView .simple-preparation-head {
+  margin:4px 0 14px;padding:18px 18px 16px;border:1px solid #D8E3DA;
+  border-radius:16px;background:#F5F8F5;
+}
+#ponyGroupPlanningView .simple-preparation-head > span {
+  display:block;margin-bottom:5px;color:#668072;font:800 10px/1.2 var(--font-display);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+#ponyGroupPlanningView .simple-preparation-head h2 {
+  margin:0;color:#2E4939;font:800 19px/1.25 var(--font-display);text-transform:capitalize;
+}
+#ponyGroupPlanningView .simple-preparation-head p {margin:6px 0 0;color:#6B786F;font:550 12px/1.45 var(--font-display)}
+#ponyGroupPlanningView .simple-preparation-form {
+  display:grid;gap:12px;padding:18px;border:1px solid #DDE5DE;border-radius:17px;background:#fff;
+  box-shadow:0 4px 16px rgba(42,64,49,.04);
+}
+#ponyGroupPlanningView .simple-preparation-form label {display:block;margin:0;color:#35493D;font:750 12px/1.35 var(--font-display)}
+#ponyGroupPlanningView .simple-preparation-form label > span {display:block;margin:0 0 7px}
+#ponyGroupPlanningView .simple-preparation-form label small {color:#7B867F;font-weight:600}
+#ponyGroupPlanningView .simple-preparation-form label b {color:#9C5E53}
+#ponyGroupPlanningView .simple-preparation-form input,
+#ponyGroupPlanningView .simple-preparation-form textarea {
+  width:100%;margin:0;border:1px solid #CAD6CD;border-radius:11px;background:#FBFCFB;
+  color:#27322D;font:600 13px/1.45 var(--font-display);
+}
+#ponyGroupPlanningView .simple-preparation-form input {min-height:48px;padding:11px 12px}
+#ponyGroupPlanningView .simple-preparation-form textarea {min-height:76px;padding:11px 12px;resize:vertical}
+#ponyGroupPlanningView .simple-preparation-main input {font-size:14px;font-weight:700}
+#ponyGroupPlanningView .simple-preparation-legacy {margin:12px 0 0;border:1px solid #E3E7E3;border-radius:12px;background:#FAFBFA}
+#ponyGroupPlanningView .simple-preparation-legacy summary {padding:12px 14px;color:#68756D;font:700 11px/1.35 var(--font-display);cursor:pointer}
+#ponyGroupPlanningView .simple-preparation-legacy div {padding:0 14px 14px;white-space:pre-wrap;color:#68756D;font:500 11px/1.5 var(--font-display)}
+#ponyGroupPlanningView .simple-preparation-actions {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;margin-top:14px}
+#ponyGroupPlanningView .simple-preparation-actions button {margin:0;min-height:48px}
+@media(max-width:560px) {
+  #ponyGroupPlanningView .simple-preparation-head,
+  #ponyGroupPlanningView .simple-preparation-form {padding:15px}
+  #ponyGroupPlanningView .simple-preparation-actions {grid-template-columns:1fr}
 }
 </style>
 </body>
