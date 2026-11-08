@@ -1,9 +1,9 @@
-const CACHE_NAME = 'stall-abenteuerhof-shell-v12547-20261105';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v12548-20261107';
 const SHELL = [
   './',
   './index.html',
   './helfi.html',
-  './manifest.webmanifest?v=1.25.47',
+  './manifest.webmanifest?v=1.25.48',
   './access-v122.js',
   './access-v122.css',
   './access-v122.js?v=1244',
@@ -12,9 +12,9 @@ const SHELL = [
   './pony-planner.css',
   './pony-planner.js?v=1244',
   './pony-planner.css?v=1244',
-  './icon-192.png?v=1.25.47',
-  './icon-512.png?v=1.25.47',
-  './apple-touch-icon.png?v=1.25.47'
+  './icon-192.png?v=1.25.48',
+  './icon-512.png?v=1.25.48',
+  './apple-touch-icon.png?v=1.25.48'
 ];
 
 self.addEventListener('install', event => {
