@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.48. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.49. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.48">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.48">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.48">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.49">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.49">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.49">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11747,7 +11747,22 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 #ponyGroupDetail .pony-group-content-area:has(.pg-journal){padding:0!important;border:0!important}
 #ponyGroupDetail .pony-group-content-area:has(.pg-journal)>section[data-pony-group-rubric="content"]{display:none!important}
 #ponyGroupDetail .pg-journal{display:flex;flex-direction:column;gap:14px;padding:2px 0 24px;color:var(--text)}
-#ponyGroupDetail .pg-last,#ponyGroupDetail .pg-journal-section,#ponyGroupDetail .pg-extra-details{border:1px solid #DDE5DD;border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(36,60,39,.035);overflow:hidden}
+#ponyGroupDetail .pg-current-entry{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;border:1px solid #D6E2D7;border-radius:16px;background:#F7FAF6}
+#ponyGroupDetail .pg-current-entry-copy{min-width:0}
+#ponyGroupDetail .pg-current-entry-copy small{display:block;margin-bottom:3px;color:#718079;font-size:12px;font-weight:700}
+#ponyGroupDetail .pg-current-entry-copy strong{display:block;color:#294B35;font-size:17px;line-height:1.3;overflow-wrap:anywhere}
+#ponyGroupDetail .pg-current-state{flex:0 0 auto;padding:7px 10px;border:1px solid #D2DDD2;border-radius:999px;background:#fff;color:#66756A;font-size:12px;font-weight:750;white-space:nowrap}
+#ponyGroupDetail .pg-current-state.saved{border-color:#AFCAB3;background:#E7F2E8;color:#28583A}
+#ponyGroupDetail .pg-current-state.unsaved{border-color:#E1C894;background:#FFF8E6;color:#795B1E}
+#ponyGroupDetail .pg-current-state.saving{border-color:#BCD0D7;background:#EDF5F7;color:#416671}
+#ponyGroupDetail .pg-current-state.error{border-color:#E3BDB7;background:#FFF1EF;color:#914939}
+#ponyGroupDetail .pg-last,#ponyGroupDetail .pg-journal-section,#ponyGroupDetail .pg-attendance-optional,#ponyGroupDetail .pg-extra-details{border:1px solid #DDE5DD;border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(36,60,39,.035);overflow:hidden}
+#ponyGroupDetail .pg-attendance-optional>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:14px 16px;list-style:none;cursor:pointer;color:#405A47;font-size:15px;font-weight:780}
+#ponyGroupDetail .pg-attendance-optional>summary::-webkit-details-marker{display:none}
+#ponyGroupDetail .pg-attendance-optional>summary small{color:#7A887D;font-size:12px;font-weight:650}
+#ponyGroupDetail .pg-attendance-optional>summary::after{content:'›';color:#7A887D;font-size:21px;line-height:1;transition:transform .15s ease}
+#ponyGroupDetail .pg-attendance-optional[open]>summary::after{transform:rotate(90deg)}
+#ponyGroupDetail .pg-attendance-optional .pg-people{border:0;border-top:1px solid #E7ECE7;border-radius:0;box-shadow:none}
 #ponyGroupDetail .pg-last{background:#F8FAF7}
 #ponyGroupDetail .pg-section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 12px}
 #ponyGroupDetail .pg-section-title strong{font-size:18px!important;line-height:1.3;font-weight:800}
@@ -11861,6 +11876,9 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
  #ponyGroupDetail .pg-last-edit{min-height:42px}
  #ponyGroupDetail .pg-activity-fields{padding:0 14px 14px}
  #ponyGroupDetail .pg-presence-btn{min-height:43px}
+ #ponyGroupDetail .pg-current-entry{align-items:flex-start;padding:14px}
+ #ponyGroupDetail .pg-current-entry-copy strong{font-size:16px}
+ #ponyGroupDetail .pg-current-state{padding:6px 9px;font-size:11.5px}
 }
 </style>
 </head>
@@ -11870,7 +11888,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.48" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.49" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12285,8 +12303,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="pony-group-roster-inline-entry" id="ponyGroupRosterInlineEntry">
     <button type="button" class="pony-group-roster-open-btn" id="ponyGroupRosterOpenBtn">
       <span>
-        <strong>Kinder &amp; Helfis</strong>
-        <small>Wer gehört zu welcher Gruppe?</small>
+        <strong>Personenlisten</strong>
+        <small>Optional · nur verwenden, wenn intern geklärt</small>
       </span>
       <span class="pony-group-row-chevron">›</span>
     </button>
@@ -12388,14 +12406,14 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div id="ponyGroupRosterPanel" style="display:none;">
     <button type="button" class="back-link" id="ponyGroupRosterBackBtn">Ponygruppen</button>
     <div class="pony-group-roster-panel-head">
-    <div class="detail-header">Kinder &amp; Helfis</div>
-      <div class="detail-sub">Wer gehört zu welcher Gruppe?</div>
+    <div class="detail-header">Personenlisten</div>
+      <div class="detail-sub">Optional für Anwesenheit und Ponyzuordnung</div>
     </div>
 
     <div id="ponyGroupRosterOverview" class="pony-group-roster-overview"></div>
 
     <div id="ponyGroupRosterEditor" style="display:none;">
-      <button type="button" class="back-link" id="ponyGroupRosterEditorBackBtn">Kinder &amp; Helfis</button>
+      <button type="button" class="back-link" id="ponyGroupRosterEditorBackBtn">Personenlisten</button>
       <div class="pony-group-roster-editor-head">
         <div>
           <div class="pony-group-roster-editor-day" id="ponyGroupRosterEditorDay"></div>
@@ -12463,7 +12481,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
 
     <div class="pony-group-detail-tabs pg-journal-tabs" role="tablist" aria-label="Ponygruppen-Ansichten">
-      <button type="button" class="pony-group-detail-tab selected" id="ponyGroupTabToday" data-pony-group-view="attendance" role="tab" aria-selected="true">Gruppe</button>
+      <button type="button" class="pony-group-detail-tab selected" id="ponyGroupTabToday" data-pony-group-view="attendance" role="tab" aria-selected="true">Eintragen</button>
       <button type="button" class="pony-group-detail-tab" id="ponyGroupTabOverview" data-pony-group-view="overview" role="tab" aria-selected="false">Verlauf</button>
     </div>
     <details class="pg-journal-extra-nav" id="ponyGroupExtraNav">
@@ -12520,7 +12538,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="more-hub-list">
     <button type="button" class="more-hub-row more-team-only" data-more-target="ponygroups" hidden>
       <span class="hub-icon ponygroups" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="2.2"/><circle cx="16" cy="8" r="2.2"/><path d="M4.5 19c.3-3 1.8-4.8 3.5-4.8s3.2 1.8 3.5 4.8M12.5 19c.3-3 1.8-4.8 3.5-4.8s3.2 1.8 3.5 4.8"/></svg></span>
-      <span><strong>Ponygruppen</strong><small>Anwesenheit, Ponyeinteilung und Inhalte</small></span><span aria-hidden="true">›</span>
+      <span><strong>Ponygruppen</strong><small>Inhalte dokumentieren; Personen optional</small></span><span aria-hidden="true">›</span>
     </button>
     <button type="button" class="more-hub-row" data-more-target="calendar">
       <span class="hub-icon calendar" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2.4"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17"/></svg></span>
@@ -12849,7 +12867,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
-    <div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
+    <div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
     <div class="changelog-version">Version 1.25.46</div><p>Die Vorbereitung der Ponygruppen ist jetzt auch ohne App-Erfahrung verständlich.</p><ul><li>Statt automatischer Mehrwochen- und Konzeptplanung wird nur noch der ausgewählte Termin vorbereitet.</li><li>Es gibt drei klare Angaben: Was machen wir, was muss bereitliegen und welcher Hinweis ist fürs Team wichtig.</li><li>Nach dem Speichern erscheint ein deutliches grünes „Gespeichert“; jede weitere Änderung wird sofort als „Noch nicht gespeichert“ markiert.</li><li>Angefangene Formulare sprechen nicht mehr technisch von alten Entwürfen, sondern fragen verständlich nach „Weitermachen“ oder „Neu beginnen“.</li><li>Bestehende ausführliche Planungen bleiben erhalten und können bei Bedarf aufgeklappt werden.</li></ul><div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
     <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
@@ -17202,8 +17220,8 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.48';
-const STALL_APP_VERSION_DATE = '07.11.2026';
+const STALL_APP_VERSION = '1.25.49';
+const STALL_APP_VERSION_DATE = '09.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
   const settingsLabel = document.getElementById('appVersionLabel');
@@ -27325,9 +27343,10 @@ async function ponyGroupWeeksBuildData_(groupId, period = 'last4') {
     const date = new Date(value + 'T12:00:00');
     return !Number.isNaN(date.getTime()) && toLocalDateStr(date) === value;
   };
-  const dates = new Set(getPonyGroupAttendanceHistory(groupId).map(item => item.date).filter(validDate));
+  // Der Verlauf ist ein Inhaltsverlauf. Reine Anwesenheitsdaten erzeugen hier
+  // bewusst keinen Eintrag – entscheidend ist nur, was mit der Gruppe gemacht wurde.
+  const dates = new Set();
   const cancelled = new Set(getPonyGroupCancelledScheduleHistory(groupId).map(item => item.date).filter(validDate));
-  cancelled.forEach(date => dates.add(date));
   const contents = new Map();
   const prefix = `ponygroup:${groupId}:`;
   for (const [key, raw] of Object.entries(cache)) {
@@ -27407,6 +27426,32 @@ function ponyGroupWeeksTableHtml_(data, interactive = false) {
   return `<table class="pony-group-weeks-table"><caption>Was wurde in der Ponygruppe gemacht?</caption><colgroup><col class="pony-group-weeks-date"><col></colgroup><thead><tr><th scope="col">Datum</th><th scope="col">Was wurde gemacht?</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
+function ponyGroupHistoryListHtml_(data) {
+  if (!data.sessions.length) {
+    return '<div class="pony-group-overview-empty">Für diesen Zeitraum gibt es noch keine Einträge.</div>';
+  }
+  return `<section class="pg-history" aria-labelledby="ponyGroupHistoryTitle">
+    <div class="pg-history-heading">
+      <div><strong id="ponyGroupHistoryTitle">Bisherige Einträge</strong><span>Zum Ansehen oder Bearbeiten antippen</span></div>
+      <span>${data.sessions.length} ${data.sessions.length === 1 ? 'Eintrag' : 'Einträge'}</span>
+    </div>
+    <div class="pg-history-list">
+      ${data.sessions.map(session => {
+        const content = session.content || {};
+        const activities = Array.isArray(session.activities) ? session.activities.filter(Boolean) : [];
+        const title = session.cancelled ? 'Termin entfiel' : (activities.join(' · ') || 'Eintrag ansehen');
+        const detail = String(content.text || '').trim() || String(content.wishes || '').trim();
+        const shortDate = ponyGroupDateFromStr(session.date).toLocaleDateString('de-DE', { weekday:'short', day:'2-digit', month:'2-digit' });
+        return `<button type="button" class="pg-history-row${session.cancelled ? ' cancelled' : ''}" data-pony-group-date="${escapeHtml(session.date)}" aria-label="Eintrag vom ${escapeHtml(ponyGroupOverviewDateLabel(session.date))} öffnen">
+          <time datetime="${escapeHtml(session.date)}">${escapeHtml(shortDate)}</time>
+          <span class="pg-history-row-copy"><strong>${escapeHtml(title)}</strong>${detail ? `<small>${escapeHtml(shortText(detail, 92))}</small>` : ''}</span>
+          <span class="pg-history-chevron" aria-hidden="true">›</span>
+        </button>`;
+      }).join('')}
+    </div>
+  </section>`;
+}
+
 let ponyGroupWeeksRenderSequence_ = 0;
 async function renderPonyGroupOverview() {
   const groupId = activePonyGroupId;
@@ -27418,7 +27463,7 @@ async function renderPonyGroupOverview() {
   content.innerHTML = '<div class="pony-group-overview-empty">Wochenübersicht wird geladen …</div>';
   const data = await ponyGroupWeeksBuildData_(groupId, periodEl.value || 'last4');
   if (!data || request !== ponyGroupWeeksRenderSequence_ || activePonyGroupId !== groupId) return;
-  content.innerHTML = ponyGroupWeeksTableHtml_(data, true);
+  content.innerHTML = ponyGroupHistoryListHtml_(data);
   content.querySelectorAll('[data-pony-group-date]').forEach(button => {
     button.onclick = () => openPonyGroupAppointment_(groupId, button.dataset.ponyGroupDate);
   });
@@ -28323,38 +28368,11 @@ async function returnToPonyGroupSource(openTarget = true) {
 }
 
 // ===== Ponygruppen: bewusst einfaches digitales Gruppenbuch =====
-function ponyGroupJournalHistory_(groupId, dateStr, roster) {
-  const logs = ponyGroupRecentContentEntries(groupId, dateStr, 8)
-    .filter(item => item.date < dateStr);
-  const attendance = getPonyGroupAttendanceHistory(groupId)
-    .filter(item => item.date < dateStr && (item.updated || Object.keys(item.statusById || {}).length || item.note));
-  const dates = [...new Set([...logs.map(e => e.date), ...attendance.map(e => e.date)])]
-    .sort((a,b) => b.localeCompare(a)).slice(0, 3);
-  if (!dates.length) return '';
-  const lookup = new Map(roster.map(r => [String(r.id), r.name]));
-  return `<section class="pg-last"><div class="pg-section-title"><strong>Zuletzt in dieser Gruppe</strong><span>für Vertretungen</span></div>
-    ${dates.map((date,index) => {
-      const log = logs.find(e => e.date === date);
-      const att = attendance.find(e => e.date === date);
-      const tags = log ? normalizePonyGroupContentTags(log.tags) : [];
-      const note = String(log?.text || '').trim();
-      const content = [...tags, note].filter(Boolean).join(' · ');
-      const presentIds = Array.isArray(att?.presentIds) ? att.presentIds : [];
-      const assigned = presentIds.map(id => ({id, name:lookup.get(String(id)) || 'Ehemaliges Gruppenmitglied', ponyIds:(att?.ponyById || {})[String(id)] || []}));
-      const paired = assigned.filter(item => item.ponyIds.length);
-      const ponySet = [...new Set(paired.flatMap(item => item.ponyIds))];
-      const presentLabel = att ? `${presentIds.length} anwesend` : 'Anwesenheit nicht dokumentiert';
-      return `<div class="pg-last-entry${index === 0 ? ' latest' : ''}">
-        <div class="pg-last-top"><strong>${escapeHtml(ponyGroupAttendanceDateLabel(date))}</strong><span class="pg-last-top-actions"><small>${escapeHtml(presentLabel)}</small><button type="button" class="pg-last-edit" data-date="${escapeHtml(date)}" aria-label="Eintrag vom ${escapeHtml(ponyGroupAttendanceDateLabel(date))} bearbeiten">Bearbeiten</button></span></div>
-        <div class="pg-last-content">${content ? escapeHtml(content) : '<span class="pg-muted">Keine Aktivität eingetragen</span>'}</div>
-        ${ponySet.length ? `<div class="pg-last-ponies">Ponys: ${escapeHtml(ponyGroupPonyNames(ponySet).join(', '))}</div>` : ''}
-        ${log?.wishes && index === 0 ? `<div class="pg-last-next">Für nächstes Mal: ${escapeHtml(log.wishes)}</div>` : ''}
-        ${att && assigned.length ? `<details class="pg-last-assignments"><summary>Kinder & Ponyzuordnung anzeigen</summary>
-          ${assigned.map(item=>`<div><span>${escapeHtml(item.name)}</span><strong>${escapeHtml(ponyGroupPonyNames(item.ponyIds).join(' + ') || '–')}</strong></div>`).join('')}
-        </details>` : ''}
-      </div>`;
-    }).join('')}
-  </section>`;
+function setPonyGroupJournalState_(wrapper, state, text) {
+  const chip = wrapper?.querySelector('.pg-current-state');
+  if (!chip) return;
+  chip.className = `pg-current-state ${state || ''}`.trim();
+  chip.textContent = text || '';
 }
 
 function ponyGroupJournalSync_(wrapper) {
@@ -28397,7 +28415,7 @@ function ponyGroupJournalSync_(wrapper) {
   if (count) count.textContent = all ? `${present} von ${all} Kindern da${open ? ` · ${open} offen` : ''}` : 'Keine Kinder';
 }
 
-function ponyGroupBuildJournal_(wrapper, roster, group, dateStr, hasSavedContent = false) {
+function ponyGroupBuildJournal_(wrapper, roster, group, dateStr, hasSavedContent = false, hasSavedAppointment = false) {
   const attendanceSection = wrapper.querySelector('[data-pony-group-rubric="attendance"]');
   const extraSection = wrapper.querySelector('[data-pony-group-rubric="content"]');
   const attendanceBox = attendanceSection?.querySelector('.pony-group-attendance-box');
@@ -28408,45 +28426,39 @@ function ponyGroupBuildJournal_(wrapper, roster, group, dateStr, hasSavedContent
   const people = [...roster.filter(p=>p.type === 'child'), ...roster.filter(p=>p.type === 'helper')];
   const journal = document.createElement('div');
   journal.className = 'pg-journal';
-  journal.innerHTML = `${ponyGroupJournalHistory_(group.id,dateStr,roster)}
-    <section class="pg-journal-section pg-people">
-      <div class="pg-section-title"><strong>Wer war da?</strong><span class="pg-count">–</span></div>
-      <div class="pg-list">
-      ${people.length ? people.map((p,index)=>{
-        const childId=escapeHtml(String(p.id));
-        const isHelper=p.type === 'helper';
-        const last=!isHelper ? ponyGroupLastPonyAssignment(group.id, String(p.id), dateStr) : null;
-        return `${isHelper && (index === 0 || people[index-1].type !== 'helper') ? '<div class="pg-list-separator">Helfer:innen</div>' : ''}
-          <div class="pg-person-row${isHelper?' is-helper':''}" data-child-id="${childId}" data-person-type="${isHelper?'helper':'child'}" data-person-name="${escapeHtml(p.name)}">
-            <div class="pg-person-name"><strong>${escapeHtml(p.name)}</strong>${p.needs?`<details class="pg-person-note"><summary>Hinweis</summary><span>${escapeHtml(p.needs)}</span></details>`:''}</div>
-            <div class="pg-person-status"><button type="button" class="pg-presence-btn">○ Offen</button><details class="pg-status-menu"><summary aria-label="Weitere Anwesenheitsstatus für ${escapeHtml(p.name)}">···</summary><div class="pg-status-menu-choices"><button type="button" data-state="excused">Entschuldigt</button><button type="button" data-state="absent">Fehlt</button><button type="button" data-state="open">Zurück auf offen</button></div></details></div>
-            ${!isHelper ? `<details class="pg-pony-picker"><summary><span class="pg-pony-summary-text">+ Pony</span><span aria-hidden="true">⌄</span></summary><div class="pg-pony-options">${ponies.map(pony=>`<button type="button" class="pg-pony-choice" data-pony-id="${escapeHtml(String(pony.id))}" aria-pressed="false">${escapeHtml(pony.name)}</button>`).join('')}</div>${last?`<small>Letztes Mal: ${escapeHtml(ponyGroupPonyNames(last.ponyIds).join(' + '))}</small>`:''}</details>` : `<span class="pg-helper-note">Helfer:in</span>`}
-          </div>`;
-      }).join('') : '<p class="pg-muted">Noch keine Kinder eingetragen. Über „Kinder & Helfis“ kannst du die Gruppe anlegen.</p>'}
-      </div>
-      <div class="pg-footer">${roster.some(p=>p.type === 'child') ? '<button type="button" class="pg-all-present">Alle Kinder da</button>' : ''}<div class="pg-savefeedback" aria-live="polite"></div></div>
-    </section>
+  const journalDate = ponyGroupDateFromStr(dateStr);
+  const journalDateLabel = journalDate.toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  journal.innerHTML = `<div class="pg-current-entry">
+      <div class="pg-current-entry-copy"><small>${dateStr < todayStr() ? 'Eintrag bearbeiten' : 'Eintrag für'}</small><strong>${escapeHtml(journalDateLabel)}</strong></div>
+      <span class="pg-current-state ${hasSavedAppointment ? 'saved' : ''}" role="status" aria-live="polite">${hasSavedAppointment ? 'Gespeichert' : 'Noch nicht eingetragen'}</span>
+    </div>
     <section class="pg-journal-section pg-activity">
       <div class="pg-section-title"><strong>Was haben wir gemacht?</strong><span>kurz eintragen</span></div>
       <div class="pg-activity-fields"></div>
     </section>
+    <details class="pg-attendance-optional">
+      <summary><span>Anwesenheit &amp; Ponyzuordnung</span><small>optional</small></summary>
+      <section class="pg-journal-section pg-people">
+        <div class="pg-section-title"><strong>Personen</strong><span class="pg-count">–</span></div>
+        <div class="pg-list">
+        ${people.length ? people.map((p,index)=>{
+          const childId=escapeHtml(String(p.id));
+          const isHelper=p.type === 'helper';
+          const last=!isHelper ? ponyGroupLastPonyAssignment(group.id, String(p.id), dateStr) : null;
+          return `${isHelper && (index === 0 || people[index-1].type !== 'helper') ? '<div class="pg-list-separator">Helfer:innen</div>' : ''}
+            <div class="pg-person-row${isHelper?' is-helper':''}" data-child-id="${childId}" data-person-type="${isHelper?'helper':'child'}" data-person-name="${escapeHtml(p.name)}">
+              <div class="pg-person-name"><strong>${escapeHtml(p.name)}</strong>${p.needs?`<details class="pg-person-note"><summary>Hinweis</summary><span>${escapeHtml(p.needs)}</span></details>`:''}</div>
+              <div class="pg-person-status"><button type="button" class="pg-presence-btn">○ Offen</button><details class="pg-status-menu"><summary aria-label="Weitere Anwesenheitsstatus für ${escapeHtml(p.name)}">···</summary><div class="pg-status-menu-choices"><button type="button" data-state="excused">Entschuldigt</button><button type="button" data-state="absent">Fehlt</button><button type="button" data-state="open">Zurück auf offen</button></div></details></div>
+              ${!isHelper ? `<details class="pg-pony-picker"><summary><span class="pg-pony-summary-text">+ Pony</span><span aria-hidden="true">⌄</span></summary><div class="pg-pony-options">${ponies.map(pony=>`<button type="button" class="pg-pony-choice" data-pony-id="${escapeHtml(String(pony.id))}" aria-pressed="false">${escapeHtml(pony.name)}</button>`).join('')}</div>${last?`<small>Letztes Mal: ${escapeHtml(ponyGroupPonyNames(last.ponyIds).join(' + '))}</small>`:''}</details>` : `<span class="pg-helper-note">Helfer:in</span>`}
+            </div>`;
+        }).join('') : '<p class="pg-muted">Keine Personen hinterlegt. Das ist für den Inhaltseintrag nicht nötig.</p>'}
+        </div>
+        <div class="pg-footer">${roster.some(p=>p.type === 'child') ? '<button type="button" class="pg-all-present">Alle Kinder da</button>' : ''}<div class="pg-savefeedback" aria-live="polite"></div></div>
+      </section>
+    </details>
     <details class="pg-extra-details"><summary>Mehr zum Termin</summary><div class="pg-extra-body"></div></details>
     <div class="pg-hidden-controls" hidden></div>`;
   attendanceSection.prepend(journal);
-  journal.querySelectorAll('.pg-last-edit').forEach(button => {
-    button.onclick = async () => {
-      const oldText = button.textContent;
-      button.disabled = true;
-      button.textContent = 'Öffnet …';
-      try {
-        await openPonyGroupAppointment_(group.id, button.dataset.date, ponyGroupRangeOffset);
-      } catch (error) {
-        button.disabled = false;
-        button.textContent = oldText;
-        showActionToast('Der Eintrag konnte gerade nicht geöffnet werden.');
-      }
-    };
-  });
   const hidden = journal.querySelector('.pg-hidden-controls');
   hidden.appendChild(attendanceBox);
   hidden.appendChild(ponyBox);
@@ -28795,7 +28807,7 @@ async function renderPonyGroupAppointments() {
       </div>
     `;
 
-    if (!cancelled) ponyGroupBuildJournal_(wrapper, roster, group, actualDateStr, hasContent);
+    if (!cancelled) ponyGroupBuildJournal_(wrapper, roster, group, actualDateStr, hasContent, hasContent || movementEntries.length > 0 || attendanceRecorded);
     wirePonyGroupWorkflowNavigation_(wrapper);
     const continueButton = wrapper.querySelector('.pony-group-to-content');
     if (continueButton) continueButton.onclick = () => setPonyGroupDetailView('content');
@@ -28895,6 +28907,7 @@ async function renderPonyGroupAppointments() {
       const markContentDirty = () => {
         wrapper.dataset.editRevision = String((Number(wrapper.dataset.editRevision) || 0) + 1);
         wrapper.dataset.contentDirty = 'true';
+        setPonyGroupJournalState_(wrapper, 'unsaved', 'Nicht gespeichert');
         showSaveStatus(status, 'pending', 'Noch nicht gespeichert.');
         rememberPonyGroupEditorDraft_(wrapper, group.id);
       };
@@ -28904,6 +28917,7 @@ async function renderPonyGroupAppointments() {
       if (attendanceNote) attendanceNote.oninput = () => {
         attendanceRevision++;
         wrapper.dataset.attendanceUnsaved = 'true';
+        setPonyGroupJournalState_(wrapper, 'unsaved', 'Nicht gespeichert');
         rememberPonyGroupEditorDraft_(wrapper, group.id);
         showSaveStatus(attendanceStatus, 'pending', 'Besonderheit noch nicht gespeichert.');
       };
@@ -29100,6 +29114,7 @@ async function renderPonyGroupAppointments() {
         const state = getAttendanceStateFromDom();
         const assignments = getPonyAssignmentStateFromDom();
         showSaveStatus(statusTarget, 'saving', 'Speichert …');
+        setPonyGroupJournalState_(wrapper, 'saving', 'Speichert …');
         wrapper.dataset.attendanceUnsaved = 'true';
         rememberPonyGroupEditorDraft_(wrapper, group.id);
 
@@ -29112,6 +29127,7 @@ async function renderPonyGroupAppointments() {
         );
 
         if (!ok) {
+          setPonyGroupJournalState_(wrapper, 'error', 'Nicht gespeichert');
           showSaveStatus(statusTarget, 'error', 'Nicht gespeichert — Verbindung prüfen.');
           return false;
         }
@@ -29122,6 +29138,8 @@ async function renderPonyGroupAppointments() {
         if (wrapper.dataset.contentDirty === 'true') rememberPonyGroupEditorDraft_(wrapper, group.id);
         else removePonyGroupEditorDraft_(group.id, actualDateStr);
         updateAttendanceSummary();
+        if (wrapper.dataset.contentDirty === 'true') setPonyGroupJournalState_(wrapper, 'unsaved', 'Nicht gespeichert');
+        else setPonyGroupJournalState_(wrapper, 'saved', 'Gespeichert');
         showSaveStatus(statusTarget, 'ok', successText);
         showActionToast(successText, undoSnapshot ? (() => restoreAttendanceSnapshot(undoSnapshot)) : null);
         return true;
@@ -29159,7 +29177,6 @@ async function renderPonyGroupAppointments() {
           }
 
           updateAttendanceSummary();
-          markContentDirty();
           await saveAttendanceFromDom(nextStatus === 'present' ? 'Da gespeichert' : nextStatus === 'open' ? 'Wieder offen' : 'Status gespeichert', attendanceStatus, undoSnapshot);
         };
       });
@@ -29256,12 +29273,14 @@ async function renderPonyGroupAppointments() {
         const attendanceAtSave = attendanceRevision;
         const btn = wrapper.querySelector('.pony-group-save');
         btn.disabled = true;
+        setPonyGroupJournalState_(wrapper, 'saving', 'Speichert …');
         showSaveStatus(status, 'saving', 'Speichert …');
         const ok = await savePonyGroupSession_(group.id, actualDateStr, text, tags, wishes,
           getAttendanceStateFromDom(), wrapper.querySelector('.pony-group-attendance-note')?.value || '', getPonyAssignmentStateFromDom(), ponyGroupEditBases_(wrapper), getFreePonyIdsFromDom());
         btn.disabled = false;
 
         if (!ok) {
+          setPonyGroupJournalState_(wrapper, 'error', 'Nicht gespeichert');
           showSaveStatus(status, 'error', 'Nicht gespeichert — Verbindung prüfen.');
           return;
         }
@@ -29270,10 +29289,12 @@ async function renderPonyGroupAppointments() {
         wrapper.dataset.baseAttendance = JSON.stringify(ponyGroupRawValue_(ponyGroupAttendanceKey(group.id, actualDateStr)));
         if (wrapper.dataset.editRevision !== revision || attendanceRevision !== attendanceAtSave) {
           rememberPonyGroupEditorDraft_(wrapper, group.id);
+          setPonyGroupJournalState_(wrapper, 'unsaved', 'Nicht gespeichert');
           showSaveStatus(status, 'pending', 'Ein Teil ist gespeichert. Die neuesten Änderungen noch speichern.');
           return;
         }
         const successText = hasContent ? 'Änderungen gespeichert' : 'Gespeichert';
+        setPonyGroupJournalState_(wrapper, 'saved', 'Gespeichert');
         showSaveStatus(status, 'ok', successText);
         wrapper.dataset.contentDirty = 'false';
         wrapper.dataset.attendanceUnsaved = 'false';
@@ -30748,7 +30769,7 @@ document.getElementById('ponyGroupLeadDoneToggle').onclick = async () => {
 
 document.getElementById('ponyGroupRosterOpenBtn').onclick = async () => {
   if (getRole() !== 'pferdeteam' || !getTeamToken()) {
-    appAlert('„Kinder & Helfis“ ist nur mit einem Pferdeteam- oder Ponygruppen-Zugang sichtbar.');
+    appAlert('„Personenlisten“ ist nur mit einem Pferdeteam- oder Ponygruppen-Zugang sichtbar.');
     return;
   }
 
@@ -35384,6 +35405,67 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
 
 <style id="ponygroup-weeks-table-v1">
 @media screen {
+  #ponyGroupOverviewView .pg-history {
+    overflow:hidden;
+    border:1px solid var(--border-strong);
+    border-radius:16px;
+    background:var(--surface);
+  }
+  #ponyGroupOverviewView .pg-history-heading {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:14px;
+    padding:16px;
+    border-bottom:1px solid var(--border);
+    background:var(--surface-alt);
+  }
+  #ponyGroupOverviewView .pg-history-heading strong {
+    display:block;
+    color:var(--text);
+    font-size:17px;
+    line-height:1.3;
+  }
+  #ponyGroupOverviewView .pg-history-heading div span {
+    display:block;
+    margin-top:3px;
+    color:var(--text-secondary);
+    font-size:12px;
+    line-height:1.4;
+  }
+  #ponyGroupOverviewView .pg-history-heading > span {
+    flex:0 0 auto;
+    color:var(--text-tertiary);
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  #ponyGroupOverviewView .pg-history-list { display:grid; }
+  #ponyGroupOverviewView .pg-history-row {
+    width:100%;
+    min-height:68px;
+    display:grid;
+    grid-template-columns:118px minmax(0,1fr) 20px;
+    align-items:center;
+    gap:12px;
+    padding:12px 16px;
+    border:0;
+    border-bottom:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+  }
+  #ponyGroupOverviewView .pg-history-row:last-child { border-bottom:0; }
+  #ponyGroupOverviewView .pg-history-row:hover { background:var(--surface-alt); }
+  #ponyGroupOverviewView .pg-history-row:focus-visible { outline:3px solid rgba(45,106,69,.22); outline-offset:-3px; }
+  #ponyGroupOverviewView .pg-history-row.cancelled { opacity:.7; }
+  #ponyGroupOverviewView .pg-history-row time { color:var(--navy-hover); font-size:13px; font-weight:750; }
+  #ponyGroupOverviewView .pg-history-row-copy { min-width:0; }
+  #ponyGroupOverviewView .pg-history-row-copy strong { display:block; font-size:14px; line-height:1.35; overflow-wrap:anywhere; }
+  #ponyGroupOverviewView .pg-history-row-copy small { display:block; margin-top:3px; color:var(--text-secondary); font-size:12px; line-height:1.4; overflow-wrap:anywhere; }
+  #ponyGroupOverviewView .pg-history-chevron { color:var(--text-tertiary); font-size:23px; line-height:1; text-align:right; }
   #ponyGroupOverviewView .pony-group-weeks-table {
     width: 100%;
     max-width: 100%;
@@ -35446,6 +35528,9 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   #ponyGroupOverviewView .pony-group-weeks-export[open] > summary { margin-bottom: 6px; }
 }
 @media screen and (max-width: 480px) {
+  #ponyGroupOverviewView .pg-history-heading { padding:14px; }
+  #ponyGroupOverviewView .pg-history-row { grid-template-columns:86px minmax(0,1fr) 18px; gap:9px; padding:12px 14px; }
+  #ponyGroupOverviewView .pg-history-row time { font-size:12px; }
   #ponyGroupOverviewView .pony-group-weeks-date { width: 6rem; }
   #ponyGroupOverviewView .pony-group-weeks-table th,
   #ponyGroupOverviewView .pony-group-weeks-table td { padding: 12px 10px; }
