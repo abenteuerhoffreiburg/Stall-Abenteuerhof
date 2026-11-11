@@ -29862,7 +29862,8 @@ async function renderPonysHubList() {
     fragment.appendChild(row);
   });
   list.appendChild(fragment);
-  observePonyPhotos_(list);
+  // Versteckte <img>-Elemente schneiden den sichtbaren Bereich nicht: direkt laden.
+  list.querySelectorAll('[data-pony-photo-file-id]').forEach(queuePonyPhoto_);
 }
 
 function openPonysHome() {
