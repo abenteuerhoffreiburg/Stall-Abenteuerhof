@@ -21574,11 +21574,9 @@ function renderWeekOverview(entries) {
     button.onclick = () => {
       const section = [...document.querySelectorAll('#belList .movement-day-group')]
         .find(node => node.dataset.date === button.dataset.weekDate);
-      if (!section) {
-        const entry = entries.find(item=>String(item.id)===String(button.dataset.weekEntryId));
-        if (entry && getRole()==='pferdeteam' && getTeamToken()) fillBelForm(entry);
-        return;
-      }
+      if (!section) return;
+      const week = section.closest('details.movement-history-week');
+      if (week) week.open = true;
       const row = [...section.querySelectorAll('details.movement-entry-row')]
         .find(node => node.dataset.entryId === button.dataset.weekEntryId);
       if (row) row.open = true;
@@ -21681,20 +21679,16 @@ async function renderBelastungList() {
   const chronological = [...entries].filter(e => !isFreeDayStatusEntry(e))
     .sort((a,b) => a.date.localeCompare(b.date) || a.created - b.created);
   renderChart(chronological);
-  const currentWeek = new Set(getWeekDates(0));
-  const recentCutoffDate = new Date(`${todayStr()}T12:00:00`);
-  recentCutoffDate.setDate(recentCutoffDate.getDate() - 28);
-  const recentCutoff = toLocalDateStr(recentCutoffDate);
   const retentionDate = new Date(`${todayStr()}T12:00:00`);
   retentionDate.setMonth(retentionDate.getMonth() - 3);
   const retentionCutoff = toLocalDateStr(retentionDate);
   const historyEntries = entries
-    .filter(e => !isFreeDayStatusEntry(e) && e.date && !currentWeek.has(e.date) && e.date >= retentionCutoff)
+    .filter(e => !isFreeDayStatusEntry(e) && e.date && e.date >= retentionCutoff)
     .sort((a,b) => b.date.localeCompare(a.date) || movementScheduleMeta_(a).sort-movementScheduleMeta_(b).sort || (b.created || 0) - (a.created || 0));
 
   list.innerHTML = '';
   if (!historyEntries.length) {
-    list.innerHTML = `<div class="movement-timeline-empty">${entries.some(e=>currentWeek.has(e.date)) ? 'Die Einträge dieser Woche stehen direkt oben in der Wochenübersicht.' : 'Noch keine bisherigen Einträge für dieses Pony.'}</div>`;
+    list.innerHTML = '<div class="movement-timeline-empty">Noch keine bisherigen Einträge für dieses Pony.</div>';
     return;
   }
 
@@ -21712,18 +21706,9 @@ async function renderBelastungList() {
       : d.toLocaleDateString('de-DE',{weekday:'long',day:'2-digit',month:'2-digit',year:date.slice(0,4)===String(new Date().getFullYear())?undefined:'numeric'});
     day.appendChild(dateHeading);
 
-    const periodOrder = ['morning','afternoon','unspecified'];
-    for (const period of periodOrder) {
-      const periodEntries = dayEntries.filter(e=>movementScheduleMeta_(e).period===period);
-      if (!periodEntries.length) continue;
-      const periodGroup = document.createElement('div');
-      periodGroup.className = `movement-period-group period-${period}`;
-      const periodLabel = document.createElement('div');
-      periodLabel.className = 'movement-period-label';
-      periodLabel.textContent = movementScheduleMeta_(periodEntries[0]).periodLabel;
-      periodGroup.appendChild(periodLabel);
-
-      for (const e of periodEntries) {
+    const periodEntries = [...dayEntries].sort((a,b) =>
+      movementScheduleMeta_(a).sort-movementScheduleMeta_(b).sort || (a.created||0)-(b.created||0));
+    for (const e of periodEntries) {
       const row = document.createElement('details');
       row.className = 'movement-entry-row';
       row.dataset.entryId = e.id;
@@ -21783,32 +21768,50 @@ async function renderBelastungList() {
         await renderBelastungList();
         await renderHome();
       };
-      periodGroup.appendChild(row);
-      }
-      day.appendChild(periodGroup);
+      day.appendChild(row);
     }
     container.appendChild(day);
   };
 
-  const renderGrouped = (container,items) => {
-    const grouped = new Map();
-    items.forEach(e => {
-      if (!grouped.has(e.date)) grouped.set(e.date, []);
-      grouped.get(e.date).push(e);
+  // Nach Kalenderwochen bündeln. Die jüngste Woche ist direkt sichtbar.
+  const weeks = new Map();
+  historyEntries.forEach(entry => {
+    const date = new Date(entry.date + 'T12:00:00');
+    const weekday = (date.getDay() + 6) % 7;
+    date.setDate(date.getDate() - weekday);
+    const monday = toLocalDateStr(date);
+    if (!weeks.has(monday)) weeks.set(monday,[]);
+    weeks.get(monday).push(entry);
+  });
+  [...weeks.entries()].forEach(([monday,weekEntries],index) => {
+    const weekDates = [];
+    const weekStart = new Date(monday + 'T12:00:00');
+    for (let n=0;n<7;n++) {
+      const day = new Date(weekStart);
+      day.setDate(weekStart.getDate()+n);
+      weekDates.push(toLocalDateStr(day));
+    }
+    const week = document.createElement('details');
+    week.className = 'movement-history-week';
+    if (index===0) week.open=true;
+    const summary = document.createElement('summary');
+    const when = document.createElement('strong');
+    when.textContent = `${index===0 ? 'Letzte Woche mit Einträgen · ' : ''}${weekRangeLabel(weekDates,-1)}`;
+    const count = document.createElement('span');
+    count.textContent = `${weekEntries.length} ${weekEntries.length===1?'Eintrag':'Einträge'}`;
+    summary.append(when,count);
+    week.appendChild(summary);
+    const content = document.createElement('div');
+    content.className='movement-week-entries';
+    const days = new Map();
+    weekEntries.forEach(entry=>{
+      if (!days.has(entry.date)) days.set(entry.date,[]);
+      days.get(entry.date).push(entry);
     });
-    grouped.forEach((dayEntries,date)=>renderDay(container,date,dayEntries));
-  };
-
-  const recentEntries = historyEntries.filter(e=>e.date>=recentCutoff);
-  const olderEntries = historyEntries.filter(e=>e.date<recentCutoff);
-  if (recentEntries.length) renderGrouped(list,recentEntries);
-  if (olderEntries.length) {
-    const older = document.createElement('details');
-    older.className = 'movement-older-history';
-    older.innerHTML = `<summary>Ältere Einträge anzeigen <span>${olderEntries.length}</span></summary><div class="movement-older-history-list"></div>`;
-    renderGrouped(older.querySelector('.movement-older-history-list'),olderEntries);
-    list.appendChild(older);
-  }
+    days.forEach((items,date)=>renderDay(content,date,items));
+    week.appendChild(content);
+    list.appendChild(week);
+  });
 }
 /* ---------- Gesundheit Detail ---------- */
 
@@ -22653,6 +22656,36 @@ async function renderPonySnapshot() {
 
 }
 
+function showPonyInfoMovementEntry_(host,entry) {
+  let panel=host.querySelector('.pony-movement-inline-detail');
+  if(!panel){
+    panel=document.createElement('section');
+    panel.className='pony-movement-inline-detail';
+    panel.setAttribute('aria-live','polite');
+    host.appendChild(panel);
+  }
+  const activity=movementActivityVisuals_(entry).map(v=>v.label).join(' · ') || 'Aktivität';
+  const meta=movementScheduleMeta_(entry);
+  const details=[meta.timeLabel,entry.gruppe || movementContextLabel_(entry.kontext),entry.ort].filter(Boolean);
+  const duration=Number(entry.durationMin)>0 ? `${entry.durationMin} Min.` : '';
+  panel.innerHTML=`<div class="pony-movement-inline-heading">
+    <strong>${escapeHtml(fmtDate(entry.date))} · ${escapeHtml(activity)}</strong>
+    <button type="button" class="pony-movement-inline-close" aria-label="Details schließen">×</button>
+  </div>
+  <div class="pony-movement-inline-sub">${escapeHtml([duration,...details].filter(Boolean).join(' · '))}</div>
+  ${entry.note ? `<p>${escapeHtml(entry.note)}</p>` : ''}
+  <div class="pony-movement-inline-sub">Eingetragen von ${escapeHtml(entry.author||'Nicht angegeben')}</div>
+  ${getRole()==='pferdeteam'&&getTeamToken() ? '<button type="button" class="pony-movement-inline-more">Eintrag bearbeiten</button>' : ''}`;
+  panel.querySelector('.pony-movement-inline-close').onclick=()=>panel.remove();
+  const more=panel.querySelector('.pony-movement-inline-more');
+  if(more)more.onclick=async()=>{
+    ponyOverviewReturnId=activeInfoPonyId;
+    await openBewegungDetail(activeInfoPonyId);
+    fillBelForm(entry);
+  };
+  panel.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
+}
+
 let ponyInfoWeekOffset = 0;
 async function renderPonyInfoWeekTable() {
   const host = document.getElementById('ponyInfoWeekTable');
@@ -22692,19 +22725,9 @@ async function renderPonyInfoWeekTable() {
   const todayBtn=host.querySelector('#ponyInfoTodayWeek');
   if(todayBtn)todayBtn.onclick=()=>{ponyInfoWeekOffset=0;renderPonyInfoWeekTable();};
   host.querySelectorAll('.stall-timetable-entry').forEach(button=>{
-    button.onclick=async()=>{
-      const entryId=button.dataset.weekEntryId;
-      ponyOverviewReturnId=thisPonyId;
-      await openBewegungDetail(thisPonyId);
-      requestAnimationFrame(()=>{
-        const row=[...document.querySelectorAll('#belList details.movement-entry-row')]
-          .find(el=>el.dataset.entryId===entryId);
-        if(!row)return;
-        row.open=true;
-        row.scrollIntoView({behavior:'smooth',block:'center'});
-        row.classList.add('movement-entry-focus');
-        setTimeout(()=>row.classList.remove('movement-entry-focus'),2200);
-      });
+    button.onclick=()=>{
+      const entry=entries.find(item=>String(item.id)===button.dataset.weekEntryId);
+      if(entry) showPonyInfoMovementEntry_(host,entry);
     };
   });
 }
@@ -39441,6 +39464,39 @@ body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
 #gesundheitDetailScreen .health-compose-content { padding:18px 18px 20px !important; }
 @media(max-width:520px) {
   #gesundheitDetailScreen .health-compose-content { padding:13px 14px 15px !important; }
+}
+</style>
+<style id="movement-weekly-history-v2">
+/* Wochenweise, kompakter Verlauf ohne zusätzliche Tageshälften. */
+#bewegungDetailScreen #belList .movement-history-week {display:block;border:0;border-bottom:1px solid #E2E9E3;background:#fff}
+#bewegungDetailScreen #belList .movement-history-week:last-child {border-bottom:0}
+#bewegungDetailScreen #belList .movement-history-week>summary {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;
+  list-style:none;padding:14px 15px;background:#F5F8F5;color:#355342;
+}
+#bewegungDetailScreen #belList .movement-history-week>summary::-webkit-details-marker {display:none}
+#bewegungDetailScreen #belList .movement-history-week>summary strong {font:750 13px/1.4 var(--font-display)}
+#bewegungDetailScreen #belList .movement-history-week>summary span {font:600 11px/1.3 var(--font-display);color:#698073;white-space:nowrap}
+#bewegungDetailScreen #belList .movement-history-week>summary::after {content:'⌄';color:#84998A;font-size:18px}
+#bewegungDetailScreen #belList .movement-history-week[open]>summary::after {content:'⌃'}
+#bewegungDetailScreen #belList .movement-day-heading {padding:8px 14px 5px;background:#fff;border:0;color:#62786B;font:750 11px/1.3 var(--font-display)}
+#bewegungDetailScreen #belList .movement-day-group + .movement-day-group {border-top:1px solid #EBF0EC !important}
+#bewegungDetailScreen #belList .movement-history-row {padding:9px 14px 11px !important;grid-template-columns:minmax(0,1fr) auto 14px !important}
+#bewegungDetailScreen #belList .movement-history-time {font-size:10px}
+#bewegungDetailScreen #belList .movement-history-title {font-size:13px}
+#bewegungDetailScreen #belList .movement-history-activity small {color:#758579}
+#bewegungDetailScreen #belList .movement-entry-row + .movement-entry-row {border-top:1px solid #EEF1EF !important}
+#ponyInfoWeekTable .pony-movement-inline-detail {margin:12px 0 4px;padding:13px 15px;border-radius:13px;border:1px solid #C8DACD;background:#F7FAF8;color:#344B3C}
+#ponyInfoWeekTable .pony-movement-inline-heading {display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+#ponyInfoWeekTable .pony-movement-inline-heading strong {font:750 14px/1.4 var(--font-display)}
+#ponyInfoWeekTable .pony-movement-inline-close {border:0;background:transparent;font-size:23px;line-height:1;min-width:35px;cursor:pointer;color:#64776C}
+#ponyInfoWeekTable .pony-movement-inline-sub {margin-top:5px;color:#6A7E70;font:600 11px/1.5 var(--font-display)}
+#ponyInfoWeekTable .pony-movement-inline-detail p {margin:10px 0 5px;white-space:pre-wrap;font-size:12px;line-height:1.5}
+#ponyInfoWeekTable .pony-movement-inline-more {margin-top:12px;padding:8px 11px;border-radius:9px;border:1px solid #BAD1C0;background:#fff;color:#355B41;font:700 12px var(--font-display);cursor:pointer}
+@media(max-width:520px){
+  #bewegungDetailScreen #belList .movement-history-week>summary {padding:12px 11px}
+  #bewegungDetailScreen #belList .movement-history-week>summary strong {font-size:12px}
+  #bewegungDetailScreen #belList .movement-history-row {padding:9px 11px !important}
 }
 </style>
 </body>
