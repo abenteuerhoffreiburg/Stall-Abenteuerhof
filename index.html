@@ -12965,7 +12965,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-header" id="belDetailHeader"></div>
   <div class="detail-sub" id="belDetailSub">Tätigkeit, Dauer, Rahmen und Ort – fertig.</div>
 
-  <div class="card">
+  <button type="button" class="app-compose-toggle" id="belFormToggle" aria-expanded="false" aria-controls="belFormCard">Neuer Eintrag</button>
+  <div class="card" id="belFormCard" hidden>
     <div id="belTodayStatusSection" class="bel-today-status">
       <label class="bel-primary-label">Was möchtest du eintragen?</label>
       <div class="bel-primary-actions" id="belPrimaryActions">
@@ -13152,13 +13153,13 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
       <button class="submit-btn" id="belSubmit">Eintrag speichern</button>
       <button class="toggle-details" id="belCancelEdit" style="display:none; text-align:center; width:100%;">Bearbeiten abbrechen</button>
       <div class="save-status" id="belSaveStatus"></div>
-      <div id="belAfterSave" class="bel-after-save" style="display:none;" aria-live="polite">
-        <strong>Eintrag gespeichert</strong>
-        <span id="belAfterSaveText"></span>
-        <div class="bel-after-save-actions"><button type="button" id="belNextPonyBtn">Weiteres Pony</button><button type="button" id="belFinishBtn">Fertig</button></div>
-        <select id="belNextPonySelect" aria-label="Nächstes Pony auswählen" style="display:none;"><option value="">Pony auswählen …</option></select>
-      </div>
     </div>
+  </div>
+  <div id="belAfterSave" class="bel-after-save" style="display:none;" aria-live="polite">
+    <strong>Eintrag gespeichert</strong>
+    <span id="belAfterSaveText"></span>
+    <div class="bel-after-save-actions"><button type="button" id="belNextPonyBtn">Weiteres Pony</button><button type="button" id="belFinishBtn">Fertig</button></div>
+    <select id="belNextPonySelect" aria-label="Nächstes Pony auswählen" style="display:none;"><option value="">Pony auswählen …</option></select>
   </div>
 
   <div class="section-label">Diese Woche</div>
@@ -13322,10 +13323,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
           <div class="notice-board-sub">Wichtige Absprachen, Fragen und Hinweise für das Team</div>
         </div>
       </div>
-      <button type="button" class="notice-board-add" id="infoComposeToggle">+ Hinweis</button>
     </div>
-
-    <div class="entry-list notice-board-list" id="infoList"></div>
+    <button type="button" class="notice-board-add app-compose-toggle" id="infoComposeToggle" aria-expanded="false" aria-controls="infoComposeWrap">Neuer Hinweis</button>
 
     <div id="infoComposeWrap" class="info-compose-wrap" style="display:none;">
       <div class="info-compose-heading">
@@ -13385,6 +13384,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
         <div class="save-status" id="infoSaveStatus"></div>
       </div>
     </div>
+    <div class="entry-list notice-board-list" id="infoList"></div>
   </div>
   </div>
 
@@ -20002,7 +20002,7 @@ async function renderHomeNoticePreview_() {
           const isNew = isFresh24h(Number(health.updated || health.created || entry.created || 0));
           const text = shortText(health.note || '', 195);
           return `<button class="home-notice-item home-notice-health" type="button" data-notice-id="${escapeHtml(String(entry.id))}" aria-label="Wichtige Gesundheitsmeldung zu ${escapeHtml(entry.ponyName || 'Pony')} öffnen: ${escapeHtml(text)}">
-            <span class="home-notice-meta"><span>Gesundheitsmeldung · ${escapeHtml(fmtDate(health.date || entry.date || todayStr()))}</span><span class="home-notice-new">Wichtig${isNew ? ' · Neu' : ''}</span></span>
+            <span class="home-notice-meta"><span>Gesundheitsmeldung · ${escapeHtml(fmtDate(health.date || entry.date || todayStr()))}${health.author ? ` · von ${escapeHtml(health.author)}` : ''}</span><span class="home-notice-new">Wichtig${isNew ? ' · Neu' : ''}</span></span>
             <span class="home-notice-subject">${escapeHtml(entry.ponyName || 'Pony')}</span>
             <span class="home-notice-text">${escapeHtml(text)}</span>
             <span class="home-notice-footer">Gesundheitsmeldung öffnen <span aria-hidden="true">›</span></span>
@@ -21264,7 +21264,17 @@ function renderTodayFreeControls_(entries) {
   if (actions) actions.classList.add('two-options');
 }
 
+function setBelFormOpen_(open) {
+  const form = document.getElementById('belFormCard');
+  const button = document.getElementById('belFormToggle');
+  if (!form || !button) return;
+  form.hidden = !open;
+  button.setAttribute('aria-expanded', String(!!open));
+  button.textContent = editingBelId ? 'Eintrag bearbeiten' : 'Neuer Eintrag';
+}
+
 function resetQuickForm() {
+  setBelFormOpen_(false);
   document.querySelector('#bewegungDetailScreen > .card')?.classList.remove('bel-saved');
   hideMovementAfterSave_();
   belExtraActivitiesExpanded_=false;
@@ -21339,6 +21349,7 @@ function fillBelForm(e) {
   if (e && e._ponyGroupDerived) return openPonyGroupDerivedSource_(e);
   if (isFreeDayStatusEntry(e)) return;
   editingBelId = e.id;
+  setBelFormOpen_(true);
   editingBelCreated = e.created;
   belScaleVal = (e.value === null || e.value === undefined || e.value === '') ? null : String(e.value);
   belActivityMode = movementModeForEntry_(e);
@@ -24536,7 +24547,8 @@ function setInfoComposeOpen(open) {
   const toggle = document.getElementById('infoComposeToggle');
   if (!wrap || !toggle) return;
   wrap.style.display = open ? 'block' : 'none';
-  toggle.textContent = open ? '– Schließen' : '+ Hinweis';
+  toggle.setAttribute('aria-expanded', String(!!open));
+  toggle.textContent = editingInfoId ? 'Hinweis bearbeiten' : 'Neuer Hinweis';
 }
 
 function resetInfoForm() {
@@ -28341,6 +28353,7 @@ async function openMovementFromPonyGroup(groupId, dateStr) {
   // Das vorhandene Bewegungsformular weiterverwenden; erstes Pony dient nur
   // technisch als Einstieg. Für den Sammeleintrag starten wir bewusst ohne Auswahl.
   await openBewegungDetail(ponies[0].id);
+  setBelFormOpen_(true);
   ponyGroupMovementReturn = returnContext;
   const todayStatusSection = document.getElementById('belTodayStatusSection');
   const todayDivider = document.getElementById('belTodayDivider');
@@ -31202,13 +31215,21 @@ document.getElementById('belQuickTypes').querySelectorAll('[data-quick]').forEac
 document.getElementById('belMoreActivities').onclick = () => { belExtraActivitiesExpanded_=!belExtraActivitiesExpanded_; syncSmartMovementContext_(); };
 document.getElementById('belModeMovementBtn').onclick = () => setMovementPrimaryMode_('movement');
 document.getElementById('belModeNoMovementBtn').onclick = () => setMovementPrimaryMode_('no-movement');
+document.getElementById('belFormToggle').onclick = () => {
+  const opening = document.getElementById('belFormCard').hidden;
+  if (opening && document.getElementById('belAfterSave').style.display === 'block') resetQuickForm();
+  setBelFormOpen_(opening);
+};
 
 document.getElementById('belNextPonyBtn').onclick=()=>{
   const sel=document.getElementById('belNextPonySelect');
   if(sel) {sel.style.display='block';sel.focus();}
 };
 document.getElementById('belNextPonySelect').onchange=async e=>{
-  if(e.target.value && ponies.some(p=>p.id===e.target.value)) await openBewegungDetail(e.target.value);
+  if(e.target.value && ponies.some(p=>p.id===e.target.value)) {
+    await openBewegungDetail(e.target.value);
+    setBelFormOpen_(true);
+  }
 };
 document.getElementById('belFinishBtn').onclick=()=>document.getElementById('belDetailBackBtn').click();
 
@@ -34719,6 +34740,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
     gesPhotoDataUrl=d.photoDataUrl||null;gesPhotoRemoved=!!d.photoRemoved;const photoUrl=gesPhotoDataUrl||(!gesPhotoRemoved&&editingGesOldPhotoFileId?await secureMediaPreviewUrl_(editingGesOldPhotoFileId):null);const preview=document.getElementById('gesPhotoPreview');preview.src=photoUrl||'';preview.style.display=photoUrl?'block':'none';document.getElementById('gesPhotoRemove').style.display=photoUrl?'inline-block':'none';document.getElementById('gesMoreDetails').open=!!(photoUrl||d.professional);applyGesundheitRoleCopy();applyGesundheitTypeCopy();
   }
   function restoreMovementDraft_(d){
+    setBelFormOpen_(true);
     if(d.editId&&d.base)fillBelForm(d.base);
     editingBelId=d.editId||null;editingBelCreated=d.created||d.base?.created||null;belActivityMode=d.mode||'movement';belAktivitaetVal=new Set(d.activities||[]);belBodenarbeitVal=new Set(d.ground||[]);belNoMovementVal=new Set(d.noMovement||[]);belOrtVal=d.ort||null;belGruppeVal=d.gruppe||null;belKontextVal=d.kontext||null;belPonyGroupId=ponyGroupMovementFormGroupId_(belKontextVal,belGruppeVal,d.date,d.ponyGroupId||d.base?.ponyGroupId);belDurationVal=d.duration||null;belScaleVal=d.scale==null?null:String(d.scale);belBatchPonyIds=new Set((d.ponyIds||[activePonyId]).filter(id=>ponies.some(p=>p.id===id)));belIndividualDurations_=new Map(d.individualDurations||[]);belPendingBatchSave=draftClone_(d.pendingBatch||null);
     document.getElementById('belDate').value=d.date||todayStr();document.getElementById('belNote').value=d.note||'';document.getElementById('belAuthor').value=d.author||document.getElementById('belAuthor').value;
@@ -39497,6 +39519,73 @@ body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
   #bewegungDetailScreen #belList .movement-history-week>summary {padding:12px 11px}
   #bewegungDetailScreen #belList .movement-history-week>summary strong {font-size:12px}
   #bewegungDetailScreen #belList .movement-history-row {padding:9px 11px !important}
+}
+</style>
+
+<style id="unified-entry-composer-v1">
+/* Für Gesundheit, Aufgaben, Bewegung und Schwarzes Brett dieselbe Bedienung:
+   ruhiger, voller Balken; aufklappen für Eingabe. */
+#bewegungDetailScreen #belFormToggle,
+#infosScreen #infoComposeToggle {
+  position:relative;
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
+  width:100% !important;
+  min-height:50px !important;
+  margin:0 0 14px !important;
+  padding:13px 16px !important;
+  border:0 !important;
+  border-radius:13px !important;
+  background:#365E56 !important;
+  color:#fff !important;
+  font:700 14.5px/1.2 var(--font-display) !important;
+  text-align:left;
+  box-shadow:0 2px 8px rgba(30,64,47,.08) !important;
+  cursor:pointer;
+}
+#bewegungDetailScreen #belFormToggle::after,
+#infosScreen #infoComposeToggle::after {
+  content:'+';
+  color:#fff;
+  font:400 23px/1 var(--font-display);
+}
+#bewegungDetailScreen #belFormToggle[aria-expanded="true"]::after,
+#infosScreen #infoComposeToggle[aria-expanded="true"]::after { content:'−'; }
+#bewegungDetailScreen #belFormToggle:hover,
+#infosScreen #infoComposeToggle:hover { background:#2D534B !important; }
+#bewegungDetailScreen #belFormToggle:focus-visible,
+#infosScreen #infoComposeToggle:focus-visible {outline:3px solid #AAC6B0;outline-offset:3px}
+#bewegungDetailScreen #belFormCard[hidden] { display:none !important; }
+#bewegungDetailScreen #belFormCard {
+  margin:0 0 16px !important;
+  border:1px solid #CBDAD0 !important;
+  border-radius:15px !important;
+  background:#fff !important;
+  box-shadow:0 6px 24px rgba(34,56,44,.055) !important;
+}
+#bewegungDetailScreen #belAfterSave {
+  margin:0 0 16px !important;
+  padding:16px !important;
+  border:1px solid #C1DBCB !important;
+  border-radius:13px !important;
+  background:#EAF4EC !important;
+}
+#bewegungDetailScreen #belAfterSave[style*="display: block"] {display:block !important}
+#infosScreen .notice-board .notice-board-add.app-compose-toggle {
+  flex:none !important;
+  border-radius:13px !important;
+  background:#365E56 !important;
+  color:#fff !important;
+  padding:13px 16px !important;
+  font-size:14.5px !important;
+}
+#infosScreen .notice-board .notice-board-add.app-compose-toggle:hover {background:#2D534B !important}
+#infosScreen .notice-board .info-compose-wrap {margin:0 0 16px;padding:0;border:0}
+#infosScreen .notice-board .notice-board-list {margin-top:15px}
+@media(max-width:520px) {
+  #bewegungDetailScreen #belFormToggle,
+  #infosScreen #infoComposeToggle {padding:13px 14px !important}
 }
 </style>
 </body>
