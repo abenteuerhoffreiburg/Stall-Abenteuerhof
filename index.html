@@ -21018,6 +21018,13 @@ function syncSmartMovementContext_({changed=false,placeChanged=false}={}) {
     types.dataset.scope = education ? 'education' : '';
     types.querySelectorAll('[data-quick]').forEach(btn => {
       const value = btn.dataset.quick;
+      // An der Platz-/Bodenarbeit sinnvoll benennen, draußen auch Spaziergang.
+      if (value === 'Führen') {
+        btn.textContent = belOrtVal === 'Draußen' ? 'Spaziergang / Führen' : 'Führen';
+      }
+      if (value === 'Spaziergang / Führen') {
+        btn.textContent = belOrtVal === 'Draußen' ? 'Spaziergang / Führen (alter Eintrag)' : 'Führen (alter Eintrag)';
+      }
       const isCare = value === 'Putzen / Pflege';
       const isPrimary = primary.has(value);
       const isAvailable = available.has(value);
@@ -21807,7 +21814,7 @@ async function renderBelastungList() {
     if (index===0) week.open=true;
     const summary = document.createElement('summary');
     const when = document.createElement('strong');
-    when.textContent = `${index===0 ? 'Letzte Woche mit Einträgen · ' : ''}${weekRangeLabel(weekDates,-1)}`;
+    when.textContent = `${monday === getWeekDates(0)[0] ? 'Diese Woche · ' : ''}${weekRangeLabel(weekDates,-1)}`;
     const count = document.createElement('span');
     count.textContent = `${weekEntries.length} ${weekEntries.length===1?'Eintrag':'Einträge'}`;
     summary.append(when,count);
