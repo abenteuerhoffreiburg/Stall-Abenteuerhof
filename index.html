@@ -13182,8 +13182,9 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-header" id="gesDetailHeader"></div>
   <div class="detail-sub" id="gesDetailSub">Gesundheitseintrag erstellen oder Verlauf ansehen</div>
 
-  <div class="card">
-    <div class="section-label" id="gesFormTitle" style="margin-top:0;">Neuen Gesundheitseintrag erstellen</div>
+  <details class="card health-quick-card" id="gesFormCard">
+    <summary class="health-add-heading" id="gesFormTitle">Neuer Gesundheitseintrag</summary>
+    <div class="health-compose-content">
     <label id="gesDateLabel">Datum</label>
     <input type="date" id="gesDate">
 
@@ -13260,7 +13261,8 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <button class="submit-btn" id="gesSubmit">Eintrag speichern</button>
     <button class="toggle-details" id="gesCancelEdit" style="display:none; text-align:center; width:100%;">Bearbeiten abbrechen</button>
     <div class="save-status" id="gesSaveStatus"></div>
-  </div>
+    </div>
+  </details>
   <div class="section-label" id="gesTimelineTitle">Verlauf</div>
   <div class="entry-list" id="gesList"></div>
 </div>
@@ -21979,7 +21981,9 @@ function applyGesundheitRoleCopy() {
   if (entryType) entryType.style.display = isVolunteerViewer ? 'none' : '';
   if (visibility) visibility.style.display = (isVolunteerViewer || isPrivateVolunteerEntry) ? 'none' : '';
   if (priorityAccess) priorityAccess.style.display = isPrivateVolunteerEntry ? 'none' : '';
-  if (formTitle) formTitle.textContent = isVolunteerViewer ? 'Beobachtung melden' : 'Neuen Gesundheitseintrag erstellen';
+  if (formTitle) formTitle.textContent = editingGesId
+    ? (isVolunteerViewer ? 'Beobachtung bearbeiten' : 'Gesundheitseintrag bearbeiten')
+    : (isVolunteerViewer ? 'Beobachtung melden' : 'Neuer Gesundheitseintrag');
   if (timelineTitle) timelineTitle.textContent = isVolunteerViewer ? 'Bisherige Meldungen' : 'Verlauf';
   if (submit && !editingGesId) submit.textContent = isVolunteerViewer ? 'An Amira schicken' : 'Eintrag speichern';
   if (moreDetails) {
@@ -22019,6 +22023,7 @@ function applyGesundheitRoleCopy() {
 }
 
 function resetGesForm() {
+  document.getElementById('gesFormCard').open = false;
   document.getElementById('gesMoreDetails').open = false;
   editingGesId = null;
   editingGesCreated = null;
@@ -22057,6 +22062,7 @@ function resetGesForm() {
 }
 
 async function fillGesForm(e, existingPhotoUrl) {
+  document.getElementById('gesFormCard').open = true;
   document.getElementById('gesMoreDetails').open = !!(e.professional || existingPhotoUrl || e.visibleDays || e.pushAudience === 'all');
   editingGesId = e.id;
   editingGesCreated = e.created;
@@ -34683,6 +34689,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(draftTimer_);saveVisibleDraft_();}});
   function restoreExpiryDraft_(prefix,d){const mode=d.visibilityMode||(d.expiresOn?'until':'permanent');document.querySelectorAll(`#${prefix}VisibilityMode .chip`).forEach(c=>c.classList.toggle('selected',c.dataset.val===mode));document.getElementById(`${prefix}ExpiresOn`).value=d.expiresOn||'';document.getElementById(`${prefix}ExpiresOnWrap`).style.display=mode==='until'?'block':'none';if(prefix==='ges')updateGesExpiryPreview_();}
   async function restoreHealthDraft_(d){
+    document.getElementById('gesFormCard').open = true;
     if(d.editId&&d.base)await fillGesForm(d.base,d.oldPhotoFileId?await secureMediaPreviewUrl_(d.oldPhotoFileId):null);
     editingGesId=d.editId||null;editingGesCreated=d.created||d.base?.created||null;editingGesAckFields=draftClone_(d.ackFields||null);editingGesOldPhotoFileId=d.oldPhotoFileId||null;gesRolleVal=d.rolle||gesRolleVal;
     document.getElementById('gesDate').value=d.date||todayStr();document.getElementById('gesEntryType').value=d.entryType||'observation';document.getElementById('gesProfessional').value=d.professional||'';document.getElementById('gesNote').value=d.note||'';document.getElementById('gesAuthor').value=d.author||document.getElementById('gesAuthor').value;document.getElementById('gesImportant').checked=!!d.important;document.getElementById('gesAccessAudience').value=d.audience||'all';restoreExpiryDraft_('ges',d);document.getElementById('gesNotifyOthers').checked=d.notify!==false;document.getElementById('gesPushAudience').value=d.pushAudience||'team';
@@ -39379,6 +39386,61 @@ body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
   #ponyGroupPlanningView .simple-preparation-head,
   #ponyGroupPlanningView .simple-preparation-form {padding:15px}
   #ponyGroupPlanningView .simple-preparation-actions {grid-template-columns:1fr}
+}
+</style>
+
+<style id="health-folded-composer-v1">
+/* Gesundheit: dieselbe einklappbare Eingabe wie bei „Neue Aufgabe“. */
+#gesundheitDetailScreen #gesFormCard {
+  margin:0 0 22px !important;
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  overflow:visible !important;
+}
+#gesundheitDetailScreen #gesFormTitle {
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height:50px;
+  margin:0 !important;
+  padding:13px 16px !important;
+  border-radius:13px !important;
+  background:#365E56 !important;
+  box-shadow:0 2px 8px rgba(30,64,47,.08) !important;
+  color:#fff !important;
+  font:700 14.5px/1.2 var(--font-display) !important;
+  list-style:none;
+  cursor:pointer;
+}
+#gesundheitDetailScreen #gesFormTitle::-webkit-details-marker { display:none; }
+#gesundheitDetailScreen #gesFormTitle::marker { content:''; }
+#gesundheitDetailScreen #gesFormTitle::after {
+  content:'+';
+  color:#fff;
+  font:400 23px/1 var(--font-display);
+}
+#gesundheitDetailScreen #gesFormCard[open] > #gesFormTitle::after { content:'−'; }
+#gesundheitDetailScreen #gesFormTitle:hover { background:#2D534B !important; }
+#gesundheitDetailScreen #gesFormTitle:focus-visible {
+  outline:3px solid var(--navy-light);
+  outline-offset:2px;
+}
+#gesundheitDetailScreen #gesFormCard[open] {
+  background:#fff !important;
+  border:1px solid #CBDAD0 !important;
+  border-radius:15px !important;
+  box-shadow:0 6px 24px rgba(34,56,44,.055) !important;
+}
+#gesundheitDetailScreen #gesFormCard[open] > #gesFormTitle {
+  border-radius:14px 14px 0 0 !important;
+  box-shadow:none !important;
+}
+#gesundheitDetailScreen .health-compose-content { padding:18px 18px 20px !important; }
+@media(max-width:520px) {
+  #gesundheitDetailScreen .health-compose-content { padding:13px 14px 15px !important; }
 }
 </style>
 </body>
