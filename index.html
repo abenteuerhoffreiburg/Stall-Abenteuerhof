@@ -21274,7 +21274,6 @@ function setBelFormOpen_(open) {
 }
 
 function resetQuickForm() {
-  setBelFormOpen_(false);
   document.querySelector('#bewegungDetailScreen > .card')?.classList.remove('bel-saved');
   hideMovementAfterSave_();
   belExtraActivitiesExpanded_=false;
@@ -21295,6 +21294,7 @@ function resetQuickForm() {
   belPendingBatchSave = null;
   editingBelId = null;
   editingBelCreated = null;
+  setBelFormOpen_(false);
 
   document.getElementById('belActivityMode').querySelectorAll('.chip').forEach(b => b.classList.remove('selected'));
   document.getElementById('belKontext').querySelectorAll('.chip').forEach(b => b.classList.remove('selected'));
