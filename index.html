@@ -34666,6 +34666,18 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   const draftFormPony_={health:null,movement:null};
   const draftEditBase_={health:null,movement:null,todo:null,notice:null};
   const draftSaves_=new Map();
+  const draftEditBaselines_=new Map();
+  function draftEditableSignature_(data){
+    if(!data)return '';
+    const editable={...data};
+    delete editable.base;
+    delete editable.created;
+    return JSON.stringify(editable);
+  }
+  function rememberDraftEditBaseline_(kind){
+    const current=draftData_(kind);
+    if(current?.editId)draftEditBaselines_.set(draftKey_(kind,current),draftEditableSignature_(current));
+  }
   const draftClone_=value=>value==null?value:JSON.parse(JSON.stringify(value));
   function draftData_(kind){
     if(kind==='health')return healthDraft_();
@@ -34708,7 +34720,11 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   function noticeDraft_(){return {writerRole:getRole(),editId:editingInfoId||null,base:draftClone_(draftEditBase_.notice),text:document.getElementById('infoText')?.value||'',author:document.getElementById('infoAuthor')?.value||'',audience:infoVisibilityAudience({visibilityAudience:document.getElementById('infoAccessAudience')?.value}),visibilityMode:document.querySelector('#infoVisibilityMode .chip.selected')?.dataset.val||'permanent',expiresOn:document.getElementById('infoExpiresOn')?.value||'',notify:!!document.getElementById('infoNotifyOthers')?.checked,created:editingInfoCreated,date:editingInfoDate,reactions:draftClone_(editingInfoReactions),comments:draftClone_(editingInfoComments),existingMedia:draftClone_(infoExistingMedia),pendingMedia:draftClone_(infoPendingMedia),removedMedia:draftClone_(infoRemovedMedia),voiceDataUrl:voiceDataUrl||null,voiceRemoved:!!voiceRemoved,oldAudioFileId:editingInfoOldAudioFileId||null};}
   function meaningfulDraft_(kind,data){
     if(!data)return false;
-    if(data.editId)return true;
+    if(data.editId){
+      // Opening an existing entry alone must not create a draft.
+      const baseline=draftEditBaselines_.get(draftKey_(kind,data));
+      return baseline===undefined||draftEditableSignature_(data)!==baseline;
+    }
     if(kind==='health')return !!String(data.note||'').trim()||!!String(data.professional||'').trim()||!!data.photoDataUrl;
     if(kind==='movement')return !!String(data.note||'').trim()||!!data.editId||
       (Array.isArray(data.activities)&&data.activities.length>0)||
@@ -34769,7 +34785,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   function draftKindForScreen_(name){if(name==='gesundheitDetailScreen')return'health';if(name==='bewegungDetailScreen')return'movement';if(name==='todoScreen')return'todo';if(name==='infosScreen'&&currentInfoPanel==='notices')return'notice';return null;}
   function offerDraft_(screenName){
     if(draftRestoring_)return;
-    document.querySelectorAll('.draft-restore-banner').forEach(el=>el.remove());const kind=draftKindForScreen_(screenName);if(!kind)return;const saved=getDraft_(kind);if(!saved||!meaningfulDraft_(kind,saved.data))return;const screen=document.getElementById(screenName);if(!screen||screen.style.display!=='block')return;
+    document.querySelectorAll('.draft-restore-banner').forEach(el=>el.remove());const kind=draftKindForScreen_(screenName);if(!kind)return;const saved=getDraft_(kind);if(!saved)return;if(!meaningfulDraft_(kind,saved.data)){clearDraftKey_(draftKey_(kind));return;}const screen=document.getElementById(screenName);if(!screen||screen.style.display!=='block')return;
     const key=draftKey_(kind);const draftDate=/^\d{4}-\d{2}-\d{2}$/.test(String(saved.data?.date||''))?saved.data.date:'';const isOlderFormDraft=(kind==='movement'||kind==='health')&&!saved.data?.editId&&draftDate&&draftDate!==todayStr();const savedLabel=new Date(saved.at).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});const banner=document.createElement('div');banner.className='draft-restore-banner';banner.innerHTML=`<div class="draft-restore-copy"><strong>${isOlderFormDraft?`Angefangener Eintrag vom ${escapeHtml(fmtDate(draftDate))}`:'Du hast hier noch etwas angefangen'}</strong><small>${isOlderFormDraft?'Möchtest du diesen älteren Eintrag öffnen oder für heute neu beginnen?':`Zuletzt bearbeitet am ${escapeHtml(savedLabel)}. Möchtest du weitermachen?`}</small></div><div class="draft-restore-actions">${isOlderFormDraft?'<button type="button" class="draft-restore-new">Für heute neu</button>':'<button type="button" class="draft-restore-discard">Neu beginnen</button>'}<button type="button" class="draft-restore-continue">${isOlderFormDraft?'Eintrag öffnen':'Weitermachen'}</button></div>`;const anchor=screen.querySelector('.detail-header,.primary-screen-header');if(anchor)anchor.insertAdjacentElement('beforebegin',banner);else screen.prepend(banner);
     const discard=banner.querySelector('.draft-restore-discard,.draft-restore-new');if(discard)discard.onclick=()=>{clearDraftKey_(key);banner.remove();if(isOlderFormDraft)showActionToast('Neuer Eintrag für heute');};banner.querySelector('.draft-restore-continue').onclick=async()=>{clearTimeout(draftTimer_);draftRestoring_=true;try{if(kind==='health')await restoreHealthDraft_(saved.data);if(kind==='movement')restoreMovementDraft_(saved.data);if(kind==='todo')await restoreTodoDraft_(saved.data);if(kind==='notice')await restoreNoticeDraft_(saved.data);banner.remove();showActionToast('Eintrag wieder geöffnet');}catch(e){showActionToast('Der angefangene Eintrag konnte nicht vollständig geöffnet werden. Er bleibt auf diesem Gerät erhalten.');}finally{draftRestoring_=false;scheduleDraftSave_();}};
   }
@@ -34784,16 +34800,22 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   wrapDraftReset_('notice',()=>resetInfoForm,value=>resetInfoForm=value);
   const oldOpenHealthDraft_=openGesundheitDetail;openGesundheitDetail=async function(...args){clearTimeout(draftTimer_);saveVisibleDraft_();draftNavigation_=true;try{return await oldOpenHealthDraft_.apply(this,args);}finally{draftNavigation_=false;offerDraft_('gesundheitDetailScreen');}};
   const oldOpenMovementDraft_=openBewegungDetail;openBewegungDetail=async function(...args){clearTimeout(draftTimer_);saveVisibleDraft_();draftNavigation_=true;try{return await oldOpenMovementDraft_.apply(this,args);}finally{draftNavigation_=false;offerDraft_('bewegungDetailScreen');}};
-  const oldFillHealthDraft_=fillGesForm;fillGesForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillHealthDraft_.call(this,entry,...args);draftEditBase_.health=draftClone_(entry);draftFormPony_.health=activePonyId;offerDraft_('gesundheitDetailScreen');return result;};
-  const oldFillMovementDraft_=fillBelForm;fillBelForm=function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=oldFillMovementDraft_.call(this,entry,...args);draftEditBase_.movement=draftClone_(entry);draftFormPony_.movement=activePonyId;offerDraft_('bewegungDetailScreen');return result;};
-  const oldFillTodoDraft_=startTodoEdit;startTodoEdit=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillTodoDraft_.call(this,entry,...args);draftEditBase_.todo=draftClone_(entry);offerDraft_('todoScreen');return result;};
-  const oldFillNoticeDraft_=fillInfoForm;fillInfoForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillNoticeDraft_.call(this,entry,...args);draftEditBase_.notice=draftClone_(entry);offerDraft_('infosScreen');return result;};
+  const oldFillHealthDraft_=fillGesForm;fillGesForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillHealthDraft_.call(this,entry,...args);draftEditBase_.health=draftClone_(entry);draftFormPony_.health=activePonyId;rememberDraftEditBaseline_('health');offerDraft_('gesundheitDetailScreen');return result;};
+  const oldFillMovementDraft_=fillBelForm;fillBelForm=function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=oldFillMovementDraft_.call(this,entry,...args);draftEditBase_.movement=draftClone_(entry);draftFormPony_.movement=activePonyId;rememberDraftEditBaseline_('movement');offerDraft_('bewegungDetailScreen');return result;};
+  const oldFillTodoDraft_=startTodoEdit;startTodoEdit=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillTodoDraft_.call(this,entry,...args);draftEditBase_.todo=draftClone_(entry);rememberDraftEditBaseline_('todo');offerDraft_('todoScreen');return result;};
+  const oldFillNoticeDraft_=fillInfoForm;fillInfoForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillNoticeDraft_.call(this,entry,...args);draftEditBase_.notice=draftClone_(entry);rememberDraftEditBaseline_('notice');offerDraft_('infosScreen');return result;};
   const oldDraftStatus_=showSaveStatus;
   showSaveStatus=function(el,state,message){const result=oldDraftStatus_(el,state,message);for(const save of draftSaves_.values())if(el===save.status&&state==='ok')save.success=true;return result;};
   function wrapDraftClear_(buttonId,kind,statusId){
     const btn=document.getElementById(buttonId);if(!btn?.onclick)return;const old=btn.onclick;
     btn.onclick=async function(ev){if(btn.disabled)return;clearTimeout(draftTimer_);saveVisibleDraft_();const snapshot=draftSnapshot_(kind);let expectedRaw=null;try{expectedRaw=snapshot?.key?localStorage.getItem(snapshot.key):null;}catch(e){}const save={snapshot,expectedRaw,status:document.getElementById(statusId),success:false};draftSaves_.set(kind,save);
-      try{return await old.call(this,ev);}finally{clearTimeout(draftTimer_);if(save.success&&snapshot?.key){try{const raw=localStorage.getItem(snapshot.key);if(raw===save.expectedRaw)clearDraftKey_(snapshot.key);}catch(e){}}else if(visibleDraftKind_()===kind)saveVisibleDraft_();draftSaves_.delete(kind);}
+      try{return await old.call(this,ev);}finally{clearTimeout(draftTimer_);if(save.success&&snapshot?.key){try{
+        const raw=localStorage.getItem(snapshot.key);
+        const persisted=raw?JSON.parse(raw):null;
+        // A refreshed timestamp is not an actual unsaved change.
+        // Preserve a newer draft when its form fields have changed.
+        if(raw===save.expectedRaw||(persisted?.data&&draftEditableSignature_(persisted.data)===draftEditableSignature_(snapshot.data)))clearDraftKey_(snapshot.key);
+      }catch(e){}}else if(visibleDraftKind_()===kind)saveVisibleDraft_();draftSaves_.delete(kind);}
     };
   }
   wrapDraftClear_('gesSubmit','health','gesSaveStatus');wrapDraftClear_('belSubmit','movement','belSaveStatus');wrapDraftClear_('todoSubmit','todo','todoSaveStatus');wrapDraftClear_('infoSubmit','notice','infoSaveStatus');
