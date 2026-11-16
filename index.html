@@ -19290,7 +19290,7 @@ function reactionBarHtml(entry) {
   const stored = entry && entry.reactions && typeof entry.reactions === 'object'
     ? Object.keys(entry.reactions)
     : [];
-  const used = stored.filter(emoji => !emoji.startsWith('comment-heart:') && reactionCount(entry, emoji) > 0);
+  const used = stored.filter(emoji => !emoji.startsWith('❤️#') && reactionCount(entry, emoji) > 0);
 
   const buttons = used.map(emoji => {
     const count = reactionCount(entry, emoji);
@@ -19418,7 +19418,13 @@ function wireReactions(div, entry, saveFn, rerenderFn) {
   }
 }
 
-function commentHeartKey_(comment){return 'comment-heart:' + String(comment?.id || '');}
+function commentHeartKey_(comment){
+  // Stable, short per-comment reaction key for existing social mutation APIs.
+  const id=String(comment?.id || '');
+  let hash=2166136261;
+  for(let i=0;i<id.length;i++){hash^=id.charCodeAt(i);hash=Math.imul(hash,16777619);}
+  return '❤️#'+(hash>>>0).toString(16).padStart(8,'0');
+}
 function commentsHtml(entry) {
   const comments = entry.comments || [];
   let html = '<div class="comment-section">';
