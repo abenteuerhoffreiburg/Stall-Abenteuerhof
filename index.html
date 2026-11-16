@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.49. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.50. -->
+<style>
+ .home-personal-inbox{margin:10px 0 18px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.home-personal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.home-personal-head strong{font-size:13px}.home-personal-head button{background:none;border:0;color:var(--text-secondary);font-size:11px;cursor:pointer}
+.home-personal-message{display:flex;flex-direction:column;position:relative;width:100%;padding:11px 24px 11px 4px;text-align:left;background:transparent;border:0;border-top:1px solid var(--border);cursor:pointer;gap:4px}
+.home-personal-message strong{font-size:12px}.home-personal-message small{font-size:11px;color:var(--text-secondary)}
+.home-personal-message>span{position:absolute;right:3px;top:12px}.home-personal-message.read{opacity:.6}
+.home-personal-empty{font-size:12px;color:var(--text-secondary)}
+.comment-heart{background:none;border:0;cursor:pointer;color:var(--text-tertiary);font-size:14px;min-height:28px;padding:0 7px}
+.comment-heart.active{color:#c34450}
+.bel-backfill-open{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;margin:8px 0 14px;padding:10px 13px;border:1px solid var(--border-strong);border-radius:12px;background:var(--surface);color:var(--text-primary);font:700 13px var(--font-display);cursor:pointer;text-align:left}
+.bel-backfill-open:hover,.bel-backfill-open:focus-visible{background:var(--surface-alt)}
+.bel-quick-date{padding:12px 0 15px;margin-bottom:10px;border-bottom:1px solid var(--border)}
+.bel-quick-date label{display:block;margin:0 0 7px;font-weight:700}
+.bel-quick-date input{display:block;min-height:44px;max-width:100%;width:100%}
+.bel-quick-date small{display:block;margin-top:6px;color:var(--text-secondary)}
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.49">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.49">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.49">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.50">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.50">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.50">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11888,7 +11905,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.49" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.50" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12056,6 +12073,13 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
   </div>
 
+  <section id="homePersonalInbox" class="home-personal-inbox" hidden aria-label="Persönliche Mitteilungen">
+    <div class="home-personal-head">
+      <strong>🔔 Neu für dich <span id="homePersonalCount"></span></strong>
+      <button type="button" id="homePersonalHistoryToggle" aria-expanded="false">Gelesene ansehen</button>
+    </div>
+    <div id="homePersonalMessages"></div>
+  </section>
   <div class="section-label" id="homeSectionsLabel">Bereiche</div>
   <div class="folder-list" id="homeSectionList">
     <div class="folder-row info" id="openInfos" data-home-section="infos">
@@ -12867,7 +12891,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
-    <div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
+    <div class="changelog-version">Version 1.25.50</div><p>Aktivitäten nachtragen ist einfacher sichtbar; Gruppenbuch und Pony-Bewegung bleiben getrennt. Persönliche Mitteilungen, Kommentar-Herzen und Entwurfs-Hinweise wurden überarbeitet.</p><div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
     <div class="changelog-version">Version 1.25.46</div><p>Die Vorbereitung der Ponygruppen ist jetzt auch ohne App-Erfahrung verständlich.</p><ul><li>Statt automatischer Mehrwochen- und Konzeptplanung wird nur noch der ausgewählte Termin vorbereitet.</li><li>Es gibt drei klare Angaben: Was machen wir, was muss bereitliegen und welcher Hinweis ist fürs Team wichtig.</li><li>Nach dem Speichern erscheint ein deutliches grünes „Gespeichert“; jede weitere Änderung wird sofort als „Noch nicht gespeichert“ markiert.</li><li>Angefangene Formulare sprechen nicht mehr technisch von alten Entwürfen, sondern fragen verständlich nach „Weitermachen“ oder „Neu beginnen“.</li><li>Bestehende ausführliche Planungen bleiben erhalten und können bei Bedarf aufgeklappt werden.</li></ul><div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
     <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
@@ -12966,7 +12990,13 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="belDetailSub">Tätigkeit, Dauer, Rahmen und Ort – fertig.</div>
 
   <button type="button" class="app-compose-toggle" id="belFormToggle" aria-expanded="false" aria-controls="belFormCard">Neuer Eintrag</button>
+  <button type="button" class="bel-backfill-open" id="belBackfillOpen" aria-controls="belFormCard">↶ Aktivität nachtragen <span aria-hidden="true">›</span></button>
   <div class="card" id="belFormCard" hidden>
+    <div class="bel-quick-date" id="belQuickDate">
+      <label for="belDate">Für welchen Tag?</label>
+      <input type="date" id="belDate">
+      <small>Heute vorausgewählt · zum Nachtragen den Tag ändern</small>
+    </div>
     <div id="belTodayStatusSection" class="bel-today-status">
       <label class="bel-primary-label">Was möchtest du eintragen?</label>
       <div class="bel-primary-actions" id="belPrimaryActions">
@@ -13142,8 +13172,6 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
           <div class="scale-btn" data-val="10">10</div>
         </div>
 
-        <label>Datum</label>
-        <input type="date" id="belDate">
         <label>Notiz — optional</label>
         <textarea id="belNote" placeholder="Besonderheiten…"></textarea>
         <input type="hidden" id="belAuthor">
@@ -16367,85 +16395,9 @@ async function savePonies() { return await storageSet('ponies', JSON.stringify(p
 /* Shared, read-only projection of saved group content into general pony activities.
  * This function deliberately copies no attendance, free text or future wishes.
  */
-function ponyGroupActivityProjection_(data) {
-  var groups = {
-    'mo-ponybande': {title:'Ponybande',day:'Montag'},
-    'di-1': {title:'Gruppe 1',day:'Dienstag'}, 'di-2': {title:'Gruppe 2',day:'Dienstag'},
-    'mi-1': {title:'Gruppe 1',day:'Mittwoch'}, 'mi-2': {title:'Gruppe 2',day:'Mittwoch'},
-    'do-1': {title:'Gruppe 1',day:'Donnerstag'}, 'do-2': {title:'Gruppe 2',day:'Donnerstag'}
-  };
-  var allowedTags = ['Reiten','Bodenarbeit','Spaziergang / Führen','Putzen / Pflege','Spiel / Theorie','Kutsche / Fahren','Stallarbeit','Sonstiges'];
-  var aliases = {'Putzen':'Putzen / Pflege','Führen':'Spaziergang / Führen','Theorie':'Spiel / Theorie'};
-  function parse(raw) { try {var item=JSON.parse(raw);return item && typeof item==='object' && !Array.isArray(item)?item:null;} catch(e) {return null;} }
-  function validDate(value) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ''))) return false;
-    var date = new Date(value + 'T12:00:00Z');
-    return !isNaN(date.getTime()) && date.toISOString().slice(0,10) === value;
-  }
-  function timestamp(value) {var n=Number(value);return Number.isFinite(n) && n>0?n:0;}
-  data = data && typeof data==='object' ? data : {};
-  var ponyIds = {};
-  try {
-    var ponies = JSON.parse(data.ponies || '[]');
-    if (Array.isArray(ponies)) ponies.forEach(function(pony) {
-      var id=String(pony && pony.id || '');
-      if (id && id.indexOf(':')<0) ponyIds[id]=true;
-    });
-  } catch(e) {}
-  var cancelled = {}, latest = {};
-  Object.keys(data).forEach(function(key) {
-    var scheduleMatch=/^ponygroup:schedule:([^:]+):(\d{4}-\d{2}-\d{2})$/.exec(key);
-    if (scheduleMatch && Object.prototype.hasOwnProperty.call(groups,scheduleMatch[1])) {
-      var schedule=parse(data[key]);
-      var date=String(schedule && schedule.date || scheduleMatch[2]);
-      if (schedule && !schedule._archived && schedule.cancelled && validDate(date)) cancelled[scheduleMatch[1]+':'+date]=true;
-      return;
-    }
-    var match=/^ponygroup:([^:]+):(\d{4}-\d{2}-\d{2})$/.exec(key);
-    if (!match || !Object.prototype.hasOwnProperty.call(groups,match[1]) || !validDate(match[2])) return;
-    var content=parse(data[key]);
-    if (!content || content.activitySync !== true || content.groupId && content.groupId !== match[1]) return;
-    var syncId=String(content.activitySyncId || '');
-    if (syncId.indexOf(match[1]+'-')!==0 || !validDate(syncId.slice(match[1].length+1))) return;
-    var identity=match[1]+':'+syncId;
-    var candidate={key:key,groupId:match[1],date:match[2],syncId:syncId,content:content,updated:timestamp(content.updated)||timestamp(content.created)};
-    var prior=latest[identity];
-    if (!prior || candidate.updated>prior.updated || candidate.updated===prior.updated && candidate.key>prior.key) latest[identity]=candidate;
-  });
-  var result = {};
-  Object.keys(latest).forEach(function(identity) {
-    var source=latest[identity], content=source.content, group=groups[source.groupId];
-    if (content._archived || cancelled[source.groupId+':'+source.date]) return;
-    var tags=[];
-    (Array.isArray(content.tags)?content.tags:[]).forEach(function(raw) {
-      var tag=aliases[String(raw)] || String(raw);
-      if (allowedTags.indexOf(tag)>=0 && tags.indexOf(tag)<0) tags.push(tag);
-    });
-    var activities=[], ground=[];
-    if (tags.indexOf('Reiten')>=0) activities.push('Reiten');
-    if (tags.indexOf('Bodenarbeit')>=0) ground.push('Bodenarbeit');
-    if (tags.indexOf('Spaziergang / Führen')>=0) ground.push('Spaziergang / Führen');
-    if (ground.length) activities.push('Arbeit vom Boden');
-    if (tags.indexOf('Kutsche / Fahren')>=0) activities.push('Kutsche / Fahren');
-    var mode=activities.length?'movement':tags.indexOf('Putzen / Pflege')>=0?'no-movement':'group-content';
-    if (mode==='no-movement') activities.push('Putzen / Pflege');
-    var selected={};
-    (Array.isArray(content.ponyIds)?content.ponyIds:[]).forEach(function(value) {
-      var ponyId=String(value);
-      if (!Object.prototype.hasOwnProperty.call(ponyIds,ponyId) || selected[ponyId]) return;
-      selected[ponyId]=true;
-      var entry={
-        id:'pgsync-'+source.syncId,date:source.date,kontext:'Ponygruppen',gruppe:group.title,
-        ponyGroupId:source.groupId,ponyGroupDay:group.day,sourceContentKey:source.key,
-        _ponyGroupDerived:true,ponyGroupContentTags:tags.slice(),activityMode:mode,
-        aktivitaet:activities.slice(),bodenarten:ground.slice(),bodenarbeit:ground.indexOf('Bodenarbeit')>=0,
-        durationMin:null,value:null,author:String(content.by || ''),
-        created:timestamp(content.created)||source.updated,updated:source.updated
-      };
-      result['belastung:'+ponyId+':'+entry.id]=JSON.stringify(entry);
-    });
-  });
-  return result;
+function ponyGroupActivityProjection_(_data) {
+  // Gruppendokumentation ist keine Ponybewegung. Nur separat angelegte Aktivität zählt.
+  return {};
 }
 
 function ponyGroupActivityReservedKey_(key) {
@@ -16471,7 +16423,7 @@ async function getEntries(kind, ponyId) {
     try {
       const entry = JSON.parse(cache[key]);
       if (!entry || entry._archived || isEntryExpired_(entry)) continue;
-      if (projected && (ponyGroupActivityReservedKey_(key) || entry._ponyGroupDerived)) continue;
+      if (kind === 'belastung' && (ponyGroupActivityReservedKey_(key) || entry._ponyGroupDerived)) continue;
       result.push(entry);
     } catch(e) {
       /* beschädigten Eintrag überspringen */
@@ -17222,8 +17174,8 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.49';
-const STALL_APP_VERSION_DATE = '09.11.2026';
+const STALL_APP_VERSION = '1.25.50';
+const STALL_APP_VERSION_DATE = '17.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
   const settingsLabel = document.getElementById('appVersionLabel');
@@ -19338,7 +19290,7 @@ function reactionBarHtml(entry) {
   const stored = entry && entry.reactions && typeof entry.reactions === 'object'
     ? Object.keys(entry.reactions)
     : [];
-  const used = stored.filter(emoji => reactionCount(entry, emoji) > 0);
+  const used = stored.filter(emoji => !emoji.startsWith('❤️#') && reactionCount(entry, emoji) > 0);
 
   const buttons = used.map(emoji => {
     const count = reactionCount(entry, emoji);
@@ -19466,13 +19418,23 @@ function wireReactions(div, entry, saveFn, rerenderFn) {
   }
 }
 
+function commentHeartKey_(comment){
+  // Stable, short per-comment reaction key for existing social mutation APIs.
+  const id=String(comment?.id || '');
+  let hash=2166136261;
+  for(let i=0;i<id.length;i++){hash^=id.charCodeAt(i);hash=Math.imul(hash,16777619);}
+  return '❤️#'+(hash>>>0).toString(16).padStart(8,'0');
+}
 function commentsHtml(entry) {
   const comments = entry.comments || [];
   let html = '<div class="comment-section">';
   if (comments.length > 0) {
-    html += '<div class="comment-list">' + comments.map(c =>
-      `<div class="comment-item"><span class="comment-author">${escapeHtml(c.author || 'unbekannt')}:</span> ${escapeHtml(c.text)}${isFresh24h(c.created) ? '<span class="fresh-badge comment-fresh">Neu</span>' : ''}</div>`
-    ).join('') + '</div>';
+    html += '<div class="comment-list">' + comments.map(c => {
+      const key = commentHeartKey_(c);
+      const mine = hasMyReaction(entry, key);
+      const count = reactionCount(entry, key);
+      return `<div class="comment-item"><span class="comment-author">${escapeHtml(c.author || 'unbekannt')}:</span> ${escapeHtml(c.text)}${isFresh24h(c.created) ? '<span class="fresh-badge comment-fresh">Neu</span>' : ''} <button type="button" class="comment-heart${mine?' active':''}" data-comment-heart="${escapeHtml(key)}" aria-pressed="${mine}" aria-label="Kommentar mit Herz bestätigen">${mine?'❤️':'♡'}${count?' '+count:''}</button></div>`;
+    }).join('') + '</div>';
   }
   html += `
     <div class="comment-add-row">
@@ -19525,6 +19487,26 @@ function wireComments(div, entry, saveFn, rerenderFn) {
     }
   };
   btn.onclick = submit;
+  div.querySelectorAll('[data-comment-heart]').forEach(heart => {
+    heart.onclick = async () => {
+      if (heart.disabled) return;
+      const key=heart.dataset.commentHeart;
+      const candidate=JSON.parse(JSON.stringify(entry));
+      const wasActive=hasMyReaction(candidate,key);
+      toggleReaction(candidate,key);
+      heart.disabled=true;
+      try{
+        const ok=await saveFn(candidate,{
+          entryMutationOnly:true,
+          entryMutations:[{id:newSocialMutationId_('reaction'),kind:'reaction',emoji:key,active:!wasActive}]
+        });
+        if(!ok){showActionToast('Herz konnte nicht gespeichert werden.');return;}
+        entry.reactions=candidate.reactions;
+        await rerenderSocialEntry_(div,rerenderFn);
+      }catch(e){showActionToast('Herz konnte nicht gespeichert werden.');}
+      finally{heart.disabled=false;}
+    };
+  });
   input.onkeydown = (ev) => {
     if (ev.key === 'Enter') {
       ev.preventDefault();
@@ -19801,6 +19783,92 @@ async function renderTodayHandover() {
 }
 
 /* ---------- Home ---------- */
+
+/* Persönliche, stille Mitteilungen: nur zu eigenen Aufgaben und ihren Kommentaren.
+   Gelesen-Status ist pro Zugang lokal; das eigentliche To-do bleibt im gemeinsamen Datenbestand. */
+let homePersonalHistoryOpen_ = false;
+function personalInboxOwner_(){
+  return String(getCurrentPersonId() || (getRole()+':'+(currentUserName || getRememberedUserName() || '')))
+    .toLocaleLowerCase('de-DE');
+}
+function personalInboxStorageKey_(){return 'stallPersonalReadV1:' + personalInboxOwner_();}
+function personalInboxReadIds_(){
+  try{const obj=JSON.parse(localStorage.getItem(personalInboxStorageKey_()) || '{}');return obj && typeof obj==='object'?obj:{};}
+  catch(e){return {};}
+}
+function personalInboxMarkRead_(id){
+  const seen=personalInboxReadIds_();seen[id]=Date.now();
+  const kept=Object.entries(seen).filter(([,ts])=>Date.now()-Number(ts||0)<90*86400000).slice(-350);
+  try{localStorage.setItem(personalInboxStorageKey_(),JSON.stringify(Object.fromEntries(kept)));}catch(e){}
+}
+function personalInboxEvents_(todos){
+  const me=String(currentUserName || getRememberedUserName() || '').trim().toLocaleLowerCase('de-DE');
+  if(!me || getRole()!=='pferdeteam')return [];
+  const now=Date.now();
+  const events=[];
+  const same=name=>String(name||'').trim().toLocaleLowerCase('de-DE')===me;
+  for(const t of todos){
+    if(!t||!t.id||isLegacyTodoSuggestion(t))continue;
+    const mine=same(t.assignee);
+    const authored=same(t.author);
+    const current=!todoIsDone(t);
+    const updated=Number(t.updated||t.created||0);
+    if(mine&&!authored&&current&&updated>0&&updated<=now&&now-updated<30*86400000){
+      events.push({id:'assigned:'+t.id+':'+updated,task:t,at:updated,
+        title:'Neue Aufgabe für dich',detail:t.text||'Aufgabe'});
+    }
+    if(!mine&&!authored)continue;
+    for(const c of Array.isArray(t.comments)?t.comments:[]){
+      const ts=Number(c.created||0);
+      if(!c.id||same(c.author)||ts<=0||ts>now||now-ts>30*86400000)continue;
+      events.push({id:'comment:'+t.id+':'+c.id,task:t,at:ts,
+        title:(c.author||'Jemand')+' hat dein To-do kommentiert',
+        detail:t.text||'Aufgabe'});
+    }
+  }
+  return events.sort((a,b)=>b.at-a.at).slice(0,120);
+}
+async function openPersonalInboxTask_(id){
+  todoTaskScope='team';todoPersonFilter='Alle';todoView='list';todoSmartView='all';
+  todoFilter='Alle';todoSearchQuery='';
+  const search=document.getElementById('todoSearchInput');
+  if(search)search.value='';
+  todoExpandedIds.add(id);
+  showScreen('todoScreen');
+  await renderTodoList();
+  const card=Array.from(document.querySelectorAll('#todoScreen [data-entry-id]'))
+    .find(el=>el.dataset.entryId===String(id));
+  if(card){card.scrollIntoView({behavior:'smooth',block:'center'});}
+}
+async function renderHomePersonalInbox_(todos){
+  const root=document.getElementById('homePersonalInbox');
+  const host=document.getElementById('homePersonalMessages');
+  if(!root||!host)return;
+  const events=personalInboxEvents_(todos);
+  const read=personalInboxReadIds_();
+  const unread=events.filter(x=>!read[x.id]);
+  const visible=homePersonalHistoryOpen_?events.slice(0,20):unread.slice(0,8);
+  root.hidden=events.length===0;
+  const count=document.getElementById('homePersonalCount');
+  if(count)count.textContent=unread.length?'('+unread.length+' neu)':'';
+  const toggle=document.getElementById('homePersonalHistoryToggle');
+  if(toggle){
+    toggle.textContent=homePersonalHistoryOpen_?'Nur neue anzeigen':'Gelesene ansehen';
+    toggle.setAttribute('aria-expanded',String(homePersonalHistoryOpen_));
+    toggle.onclick=()=>{homePersonalHistoryOpen_=!homePersonalHistoryOpen_;renderHomePersonalInbox_(todos);};
+  }
+  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,85))}</small><span aria-hidden="true">›</span></button>`).join('')||
+    '<p class="home-personal-empty">Alles gelesen.</p>';
+  host.querySelectorAll('[data-inbox-id]').forEach(button=>{
+    button.onclick=async()=>{
+      const e=events.find(event=>event.id===button.dataset.inboxId);
+      if(!e)return;
+      personalInboxMarkRead_(e.id);
+      await openPersonalInboxTask_(e.task.id);
+    };
+  });
+}
+
 function freshActivityTimestamp(item) {
   return Math.max(Number(item && item.updated) || 0, Number(item && item.created) || 0);
 }
@@ -20054,6 +20122,7 @@ async function renderHome() {
   // deshalb werden deren separaten Zusammenfassungen hier nicht mehr aufwendig berechnet.
 
   const todos = await getTodos();
+  await renderHomePersonalInbox_(todos);
   const todoOwner = String(currentUserName || getRememberedUserName() || '').trim();
   const ownTodos = todoOwner
     ? todos.filter(item => String(item && item.assignee || 'Alle').trim().localeCompare(todoOwner, 'de', { sensitivity:'base' }) === 0)
@@ -26535,7 +26604,7 @@ async function savePonyGroupSession_(groupId, dateStr, text, tags = [], wishes =
     text: String(text || '').trim(),
     tags: normalizePonyGroupContentTags(tags),
     wishes: String(wishes || '').trim(),
-    activitySync: true,
+    activitySync: false,
     activitySyncId: previous.activitySyncId || `${groupId}-${dateStr}`,
     ponyIds,
     created: previous.created || at,
@@ -28840,7 +28909,7 @@ async function renderPonyGroupAppointments() {
 
           <div class="pony-group-entry-meta">${entry && entry.updated ? `Zuletzt geändert ${ponyLocationTimeLabel(entry.updated)}${entry.by ? ' · ' + escapeHtml(entry.by) : ''}` : ''}</div>
 
-          <p class="pony-group-sync-help">Beim Speichern werden diese Inhalte automatisch bei den zugeordneten Ponys unter „Aktivitäten“ übernommen. Dauer und Anstrengung werden nicht geschätzt.</p>
+          <p class="pony-group-sync-help">Diese Dokumentation bleibt im Gruppenbuch. Ein Bewegungseintrag entsteht nur über „Zusätzliche Ponyaktivität eintragen“.</p>
           <div class="pony-group-entry-actions">
             <button type="button" class="submit-btn pony-group-save">Ponys &amp; Aktivität speichern</button>
             ${hasContent ? '<button type="button" class="delete-btn pony-group-delete">Archivieren</button>' : ''}
@@ -29349,9 +29418,7 @@ async function renderPonyGroupAppointments() {
         wrapper.dataset.attendanceUnsaved = 'false';
         removePonyGroupEditorDraft_(group.id, actualDateStr);
         const savedSession = await getPonyGroupEntry(group.id, actualDateStr);
-        showActionToast(savedSession?.ponyIds?.length
-          ? `${successText} · Aktivitäten bei den Ponys übernommen`
-          : successText);
+        showActionToast(successText);
         await renderPonyGroupAppointments();
         const refreshed = [...document.querySelectorAll('#ponyGroupAppointments .pony-group-appointment')]
           .find(item => item.dataset.date === actualDateStr);
@@ -31227,6 +31294,13 @@ document.getElementById('belFormToggle').onclick = () => {
   const opening = document.getElementById('belFormCard').hidden;
   if (opening && document.getElementById('belAfterSave').style.display === 'block') resetQuickForm();
   setBelFormOpen_(opening);
+};
+document.getElementById('belBackfillOpen').onclick = () => {
+  if (editingBelId || document.getElementById('belAfterSave').style.display === 'block') resetQuickForm();
+  setBelFormOpen_(true);
+  const date = document.getElementById('belDate');
+  date.scrollIntoView({behavior:'smooth', block:'center'});
+  date.focus({preventScroll:true});
 };
 
 document.getElementById('belNextPonyBtn').onclick=()=>{
@@ -34666,6 +34740,18 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   const draftFormPony_={health:null,movement:null};
   const draftEditBase_={health:null,movement:null,todo:null,notice:null};
   const draftSaves_=new Map();
+  const draftEditBaselines_=new Map();
+  function draftEditableSignature_(data){
+    if(!data)return '';
+    const editable={...data};
+    delete editable.base;
+    delete editable.created;
+    return JSON.stringify(editable);
+  }
+  function rememberDraftEditBaseline_(kind){
+    const current=draftData_(kind);
+    if(current?.editId)draftEditBaselines_.set(draftKey_(kind,current),draftEditableSignature_(current));
+  }
   const draftClone_=value=>value==null?value:JSON.parse(JSON.stringify(value));
   function draftData_(kind){
     if(kind==='health')return healthDraft_();
@@ -34708,7 +34794,11 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   function noticeDraft_(){return {writerRole:getRole(),editId:editingInfoId||null,base:draftClone_(draftEditBase_.notice),text:document.getElementById('infoText')?.value||'',author:document.getElementById('infoAuthor')?.value||'',audience:infoVisibilityAudience({visibilityAudience:document.getElementById('infoAccessAudience')?.value}),visibilityMode:document.querySelector('#infoVisibilityMode .chip.selected')?.dataset.val||'permanent',expiresOn:document.getElementById('infoExpiresOn')?.value||'',notify:!!document.getElementById('infoNotifyOthers')?.checked,created:editingInfoCreated,date:editingInfoDate,reactions:draftClone_(editingInfoReactions),comments:draftClone_(editingInfoComments),existingMedia:draftClone_(infoExistingMedia),pendingMedia:draftClone_(infoPendingMedia),removedMedia:draftClone_(infoRemovedMedia),voiceDataUrl:voiceDataUrl||null,voiceRemoved:!!voiceRemoved,oldAudioFileId:editingInfoOldAudioFileId||null};}
   function meaningfulDraft_(kind,data){
     if(!data)return false;
-    if(data.editId)return true;
+    if(data.editId){
+      // Opening an existing entry alone must not create a draft.
+      const baseline=draftEditBaselines_.get(draftKey_(kind,data));
+      return baseline===undefined||draftEditableSignature_(data)!==baseline;
+    }
     if(kind==='health')return !!String(data.note||'').trim()||!!String(data.professional||'').trim()||!!data.photoDataUrl;
     if(kind==='movement')return !!String(data.note||'').trim()||!!data.editId||
       (Array.isArray(data.activities)&&data.activities.length>0)||
@@ -34769,7 +34859,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   function draftKindForScreen_(name){if(name==='gesundheitDetailScreen')return'health';if(name==='bewegungDetailScreen')return'movement';if(name==='todoScreen')return'todo';if(name==='infosScreen'&&currentInfoPanel==='notices')return'notice';return null;}
   function offerDraft_(screenName){
     if(draftRestoring_)return;
-    document.querySelectorAll('.draft-restore-banner').forEach(el=>el.remove());const kind=draftKindForScreen_(screenName);if(!kind)return;const saved=getDraft_(kind);if(!saved||!meaningfulDraft_(kind,saved.data))return;const screen=document.getElementById(screenName);if(!screen||screen.style.display!=='block')return;
+    document.querySelectorAll('.draft-restore-banner').forEach(el=>el.remove());const kind=draftKindForScreen_(screenName);if(!kind)return;const saved=getDraft_(kind);if(!saved)return;if(!meaningfulDraft_(kind,saved.data)){clearDraftKey_(draftKey_(kind));return;}const screen=document.getElementById(screenName);if(!screen||screen.style.display!=='block')return;
     const key=draftKey_(kind);const draftDate=/^\d{4}-\d{2}-\d{2}$/.test(String(saved.data?.date||''))?saved.data.date:'';const isOlderFormDraft=(kind==='movement'||kind==='health')&&!saved.data?.editId&&draftDate&&draftDate!==todayStr();const savedLabel=new Date(saved.at).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});const banner=document.createElement('div');banner.className='draft-restore-banner';banner.innerHTML=`<div class="draft-restore-copy"><strong>${isOlderFormDraft?`Angefangener Eintrag vom ${escapeHtml(fmtDate(draftDate))}`:'Du hast hier noch etwas angefangen'}</strong><small>${isOlderFormDraft?'Möchtest du diesen älteren Eintrag öffnen oder für heute neu beginnen?':`Zuletzt bearbeitet am ${escapeHtml(savedLabel)}. Möchtest du weitermachen?`}</small></div><div class="draft-restore-actions">${isOlderFormDraft?'<button type="button" class="draft-restore-new">Für heute neu</button>':'<button type="button" class="draft-restore-discard">Neu beginnen</button>'}<button type="button" class="draft-restore-continue">${isOlderFormDraft?'Eintrag öffnen':'Weitermachen'}</button></div>`;const anchor=screen.querySelector('.detail-header,.primary-screen-header');if(anchor)anchor.insertAdjacentElement('beforebegin',banner);else screen.prepend(banner);
     const discard=banner.querySelector('.draft-restore-discard,.draft-restore-new');if(discard)discard.onclick=()=>{clearDraftKey_(key);banner.remove();if(isOlderFormDraft)showActionToast('Neuer Eintrag für heute');};banner.querySelector('.draft-restore-continue').onclick=async()=>{clearTimeout(draftTimer_);draftRestoring_=true;try{if(kind==='health')await restoreHealthDraft_(saved.data);if(kind==='movement')restoreMovementDraft_(saved.data);if(kind==='todo')await restoreTodoDraft_(saved.data);if(kind==='notice')await restoreNoticeDraft_(saved.data);banner.remove();showActionToast('Eintrag wieder geöffnet');}catch(e){showActionToast('Der angefangene Eintrag konnte nicht vollständig geöffnet werden. Er bleibt auf diesem Gerät erhalten.');}finally{draftRestoring_=false;scheduleDraftSave_();}};
   }
@@ -34784,16 +34874,22 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   wrapDraftReset_('notice',()=>resetInfoForm,value=>resetInfoForm=value);
   const oldOpenHealthDraft_=openGesundheitDetail;openGesundheitDetail=async function(...args){clearTimeout(draftTimer_);saveVisibleDraft_();draftNavigation_=true;try{return await oldOpenHealthDraft_.apply(this,args);}finally{draftNavigation_=false;offerDraft_('gesundheitDetailScreen');}};
   const oldOpenMovementDraft_=openBewegungDetail;openBewegungDetail=async function(...args){clearTimeout(draftTimer_);saveVisibleDraft_();draftNavigation_=true;try{return await oldOpenMovementDraft_.apply(this,args);}finally{draftNavigation_=false;offerDraft_('bewegungDetailScreen');}};
-  const oldFillHealthDraft_=fillGesForm;fillGesForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillHealthDraft_.call(this,entry,...args);draftEditBase_.health=draftClone_(entry);draftFormPony_.health=activePonyId;offerDraft_('gesundheitDetailScreen');return result;};
-  const oldFillMovementDraft_=fillBelForm;fillBelForm=function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=oldFillMovementDraft_.call(this,entry,...args);draftEditBase_.movement=draftClone_(entry);draftFormPony_.movement=activePonyId;offerDraft_('bewegungDetailScreen');return result;};
-  const oldFillTodoDraft_=startTodoEdit;startTodoEdit=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillTodoDraft_.call(this,entry,...args);draftEditBase_.todo=draftClone_(entry);offerDraft_('todoScreen');return result;};
-  const oldFillNoticeDraft_=fillInfoForm;fillInfoForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillNoticeDraft_.call(this,entry,...args);draftEditBase_.notice=draftClone_(entry);offerDraft_('infosScreen');return result;};
+  const oldFillHealthDraft_=fillGesForm;fillGesForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillHealthDraft_.call(this,entry,...args);draftEditBase_.health=draftClone_(entry);draftFormPony_.health=activePonyId;rememberDraftEditBaseline_('health');offerDraft_('gesundheitDetailScreen');return result;};
+  const oldFillMovementDraft_=fillBelForm;fillBelForm=function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=oldFillMovementDraft_.call(this,entry,...args);draftEditBase_.movement=draftClone_(entry);draftFormPony_.movement=activePonyId;rememberDraftEditBaseline_('movement');offerDraft_('bewegungDetailScreen');return result;};
+  const oldFillTodoDraft_=startTodoEdit;startTodoEdit=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillTodoDraft_.call(this,entry,...args);draftEditBase_.todo=draftClone_(entry);rememberDraftEditBaseline_('todo');offerDraft_('todoScreen');return result;};
+  const oldFillNoticeDraft_=fillInfoForm;fillInfoForm=async function(entry,...args){clearTimeout(draftTimer_);saveVisibleDraft_();const result=await oldFillNoticeDraft_.call(this,entry,...args);draftEditBase_.notice=draftClone_(entry);rememberDraftEditBaseline_('notice');offerDraft_('infosScreen');return result;};
   const oldDraftStatus_=showSaveStatus;
   showSaveStatus=function(el,state,message){const result=oldDraftStatus_(el,state,message);for(const save of draftSaves_.values())if(el===save.status&&state==='ok')save.success=true;return result;};
   function wrapDraftClear_(buttonId,kind,statusId){
     const btn=document.getElementById(buttonId);if(!btn?.onclick)return;const old=btn.onclick;
     btn.onclick=async function(ev){if(btn.disabled)return;clearTimeout(draftTimer_);saveVisibleDraft_();const snapshot=draftSnapshot_(kind);let expectedRaw=null;try{expectedRaw=snapshot?.key?localStorage.getItem(snapshot.key):null;}catch(e){}const save={snapshot,expectedRaw,status:document.getElementById(statusId),success:false};draftSaves_.set(kind,save);
-      try{return await old.call(this,ev);}finally{clearTimeout(draftTimer_);if(save.success&&snapshot?.key){try{const raw=localStorage.getItem(snapshot.key);if(raw===save.expectedRaw)clearDraftKey_(snapshot.key);}catch(e){}}else if(visibleDraftKind_()===kind)saveVisibleDraft_();draftSaves_.delete(kind);}
+      try{return await old.call(this,ev);}finally{clearTimeout(draftTimer_);if(save.success&&snapshot?.key){try{
+        const raw=localStorage.getItem(snapshot.key);
+        const persisted=raw?JSON.parse(raw):null;
+        // A refreshed timestamp is not an actual unsaved change.
+        // Preserve a newer draft when its form fields have changed.
+        if(raw===save.expectedRaw||(persisted?.data&&draftEditableSignature_(persisted.data)===draftEditableSignature_(snapshot.data)))clearDraftKey_(snapshot.key);
+      }catch(e){}}else if(visibleDraftKind_()===kind)saveVisibleDraft_();draftSaves_.delete(kind);}
     };
   }
   wrapDraftClear_('gesSubmit','health','gesSaveStatus');wrapDraftClear_('belSubmit','movement','belSaveStatus');wrapDraftClear_('todoSubmit','todo','todoSaveStatus');wrapDraftClear_('infoSubmit','notice','infoSaveStatus');
