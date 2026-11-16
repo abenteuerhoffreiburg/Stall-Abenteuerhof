@@ -3,6 +3,15 @@
 <head>
 <!-- Standalone-Ausgabe der optimierten App-Version 1.25.49. -->
 <style>
+ .home-personal-inbox{margin:10px 0 18px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.home-personal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.home-personal-head strong{font-size:13px}.home-personal-head button{background:none;border:0;color:var(--text-secondary);font-size:11px;cursor:pointer}
+.home-personal-message{display:flex;flex-direction:column;position:relative;width:100%;padding:11px 24px 11px 4px;text-align:left;background:transparent;border:0;border-top:1px solid var(--border);cursor:pointer;gap:4px}
+.home-personal-message strong{font-size:12px}.home-personal-message small{font-size:11px;color:var(--text-secondary)}
+.home-personal-message>span{position:absolute;right:3px;top:12px}.home-personal-message.read{opacity:.6}
+.home-personal-empty{font-size:12px;color:var(--text-secondary)}
+.comment-heart{background:none;border:0;cursor:pointer;color:var(--text-tertiary);font-size:14px;min-height:28px;padding:0 7px}
+.comment-heart.active{color:#c34450}
 .bel-backfill-open{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;margin:8px 0 14px;padding:10px 13px;border:1px solid var(--border-strong);border-radius:12px;background:var(--surface);color:var(--text-primary);font:700 13px var(--font-display);cursor:pointer;text-align:left}
 .bel-backfill-open:hover,.bel-backfill-open:focus-visible{background:var(--surface-alt)}
 .bel-quick-date{padding:12px 0 15px;margin-bottom:10px;border-bottom:1px solid var(--border)}
@@ -12064,6 +12073,13 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
   </div>
 
+  <section id="homePersonalInbox" class="home-personal-inbox" hidden aria-label="Persönliche Mitteilungen">
+    <div class="home-personal-head">
+      <strong>🔔 Neu für dich <span id="homePersonalCount"></span></strong>
+      <button type="button" id="homePersonalHistoryToggle" aria-expanded="false">Gelesene ansehen</button>
+    </div>
+    <div id="homePersonalMessages"></div>
+  </section>
   <div class="section-label" id="homeSectionsLabel">Bereiche</div>
   <div class="folder-list" id="homeSectionList">
     <div class="folder-row info" id="openInfos" data-home-section="infos">
@@ -19274,7 +19290,7 @@ function reactionBarHtml(entry) {
   const stored = entry && entry.reactions && typeof entry.reactions === 'object'
     ? Object.keys(entry.reactions)
     : [];
-  const used = stored.filter(emoji => reactionCount(entry, emoji) > 0);
+  const used = stored.filter(emoji => !emoji.startsWith('comment-heart:') && reactionCount(entry, emoji) > 0);
 
   const buttons = used.map(emoji => {
     const count = reactionCount(entry, emoji);
@@ -19402,13 +19418,17 @@ function wireReactions(div, entry, saveFn, rerenderFn) {
   }
 }
 
+function commentHeartKey_(comment){return 'comment-heart:' + String(comment?.id || '');}
 function commentsHtml(entry) {
   const comments = entry.comments || [];
   let html = '<div class="comment-section">';
   if (comments.length > 0) {
-    html += '<div class="comment-list">' + comments.map(c =>
-      `<div class="comment-item"><span class="comment-author">${escapeHtml(c.author || 'unbekannt')}:</span> ${escapeHtml(c.text)}${isFresh24h(c.created) ? '<span class="fresh-badge comment-fresh">Neu</span>' : ''}</div>`
-    ).join('') + '</div>';
+    html += '<div class="comment-list">' + comments.map(c => {
+      const key = commentHeartKey_(c);
+      const mine = hasMyReaction(entry, key);
+      const count = reactionCount(entry, key);
+      return `<div class="comment-item"><span class="comment-author">${escapeHtml(c.author || 'unbekannt')}:</span> ${escapeHtml(c.text)}${isFresh24h(c.created) ? '<span class="fresh-badge comment-fresh">Neu</span>' : ''} <button type="button" class="comment-heart${mine?' active':''}" data-comment-heart="${escapeHtml(key)}" aria-pressed="${mine}" aria-label="Kommentar mit Herz bestätigen">${mine?'❤️':'♡'}${count?' '+count:''}</button></div>`;
+    }).join('') + '</div>';
   }
   html += `
     <div class="comment-add-row">
@@ -19461,6 +19481,26 @@ function wireComments(div, entry, saveFn, rerenderFn) {
     }
   };
   btn.onclick = submit;
+  div.querySelectorAll('[data-comment-heart]').forEach(heart => {
+    heart.onclick = async () => {
+      if (heart.disabled) return;
+      const key=heart.dataset.commentHeart;
+      const candidate=JSON.parse(JSON.stringify(entry));
+      const wasActive=hasMyReaction(candidate,key);
+      toggleReaction(candidate,key);
+      heart.disabled=true;
+      try{
+        const ok=await saveFn(candidate,{
+          entryMutationOnly:true,
+          entryMutations:[{id:newSocialMutationId_('reaction'),kind:'reaction',emoji:key,active:!wasActive}]
+        });
+        if(!ok){showActionToast('Herz konnte nicht gespeichert werden.');return;}
+        entry.reactions=candidate.reactions;
+        await rerenderSocialEntry_(div,rerenderFn);
+      }catch(e){showActionToast('Herz konnte nicht gespeichert werden.');}
+      finally{heart.disabled=false;}
+    };
+  });
   input.onkeydown = (ev) => {
     if (ev.key === 'Enter') {
       ev.preventDefault();
@@ -19737,6 +19777,92 @@ async function renderTodayHandover() {
 }
 
 /* ---------- Home ---------- */
+
+/* Persönliche, stille Mitteilungen: nur zu eigenen Aufgaben und ihren Kommentaren.
+   Gelesen-Status ist pro Zugang lokal; das eigentliche To-do bleibt im gemeinsamen Datenbestand. */
+let homePersonalHistoryOpen_ = false;
+function personalInboxOwner_(){
+  return String(getCurrentPersonId() || (getRole()+':'+(currentUserName || getRememberedUserName() || '')))
+    .toLocaleLowerCase('de-DE');
+}
+function personalInboxStorageKey_(){return 'stallPersonalReadV1:' + personalInboxOwner_();}
+function personalInboxReadIds_(){
+  try{const obj=JSON.parse(localStorage.getItem(personalInboxStorageKey_()) || '{}');return obj && typeof obj==='object'?obj:{};}
+  catch(e){return {};}
+}
+function personalInboxMarkRead_(id){
+  const seen=personalInboxReadIds_();seen[id]=Date.now();
+  const kept=Object.entries(seen).filter(([,ts])=>Date.now()-Number(ts||0)<90*86400000).slice(-350);
+  try{localStorage.setItem(personalInboxStorageKey_(),JSON.stringify(Object.fromEntries(kept)));}catch(e){}
+}
+function personalInboxEvents_(todos){
+  const me=String(currentUserName || getRememberedUserName() || '').trim().toLocaleLowerCase('de-DE');
+  if(!me || getRole()!=='pferdeteam')return [];
+  const now=Date.now();
+  const events=[];
+  const same=name=>String(name||'').trim().toLocaleLowerCase('de-DE')===me;
+  for(const t of todos){
+    if(!t||!t.id||isLegacyTodoSuggestion(t))continue;
+    const mine=same(t.assignee);
+    const authored=same(t.author);
+    const current=!todoIsDone(t);
+    const updated=Number(t.updated||t.created||0);
+    if(mine&&!authored&&current&&updated>0&&updated<=now&&now-updated<30*86400000){
+      events.push({id:'assigned:'+t.id+':'+updated,task:t,at:updated,
+        title:'Neue Aufgabe für dich',detail:t.text||'Aufgabe'});
+    }
+    if(!mine&&!authored)continue;
+    for(const c of Array.isArray(t.comments)?t.comments:[]){
+      const ts=Number(c.created||0);
+      if(!c.id||same(c.author)||ts<=0||ts>now||now-ts>30*86400000)continue;
+      events.push({id:'comment:'+t.id+':'+c.id,task:t,at:ts,
+        title:(c.author||'Jemand')+' hat dein To-do kommentiert',
+        detail:t.text||'Aufgabe'});
+    }
+  }
+  return events.sort((a,b)=>b.at-a.at).slice(0,120);
+}
+async function openPersonalInboxTask_(id){
+  todoTaskScope='team';todoPersonFilter='Alle';todoView='list';todoSmartView='all';
+  todoFilter='Alle';todoSearchQuery='';
+  const search=document.getElementById('todoSearchInput');
+  if(search)search.value='';
+  todoExpandedIds.add(id);
+  showScreen('todoScreen');
+  await renderTodoList();
+  const card=Array.from(document.querySelectorAll('#todoScreen [data-entry-id]'))
+    .find(el=>el.dataset.entryId===String(id));
+  if(card){card.scrollIntoView({behavior:'smooth',block:'center'});}
+}
+async function renderHomePersonalInbox_(todos){
+  const root=document.getElementById('homePersonalInbox');
+  const host=document.getElementById('homePersonalMessages');
+  if(!root||!host)return;
+  const events=personalInboxEvents_(todos);
+  const read=personalInboxReadIds_();
+  const unread=events.filter(x=>!read[x.id]);
+  const visible=homePersonalHistoryOpen_?events.slice(0,20):unread.slice(0,8);
+  root.hidden=events.length===0;
+  const count=document.getElementById('homePersonalCount');
+  if(count)count.textContent=unread.length?'('+unread.length+' neu)':'';
+  const toggle=document.getElementById('homePersonalHistoryToggle');
+  if(toggle){
+    toggle.textContent=homePersonalHistoryOpen_?'Nur neue anzeigen':'Gelesene ansehen';
+    toggle.setAttribute('aria-expanded',String(homePersonalHistoryOpen_));
+    toggle.onclick=()=>{homePersonalHistoryOpen_=!homePersonalHistoryOpen_;renderHomePersonalInbox_(todos);};
+  }
+  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,85))}</small><span aria-hidden="true">›</span></button>`).join('')||
+    '<p class="home-personal-empty">Alles gelesen.</p>';
+  host.querySelectorAll('[data-inbox-id]').forEach(button=>{
+    button.onclick=async()=>{
+      const e=events.find(event=>event.id===button.dataset.inboxId);
+      if(!e)return;
+      personalInboxMarkRead_(e.id);
+      await openPersonalInboxTask_(e.task.id);
+    };
+  });
+}
+
 function freshActivityTimestamp(item) {
   return Math.max(Number(item && item.updated) || 0, Number(item && item.created) || 0);
 }
@@ -19990,6 +20116,7 @@ async function renderHome() {
   // deshalb werden deren separaten Zusammenfassungen hier nicht mehr aufwendig berechnet.
 
   const todos = await getTodos();
+  await renderHomePersonalInbox_(todos);
   const todoOwner = String(currentUserName || getRememberedUserName() || '').trim();
   const ownTodos = todoOwner
     ? todos.filter(item => String(item && item.assignee || 'Alle').trim().localeCompare(todoOwner, 'de', { sensitivity:'base' }) === 0)
