@@ -12,6 +12,8 @@
 .home-personal-empty{font-size:12px;color:var(--text-secondary)}
 .comment-heart{background:none;border:0;cursor:pointer;color:var(--text-tertiary);font-size:14px;min-height:28px;padding:0 7px}
 .comment-heart.active,.comment-heart.has-hearts{color:#c34450}
+.comment-heart-names{font-size:11px;color:var(--text-secondary)}
+.home-personal-heart-icon{color:#c34450;font-size:14px;margin-right:5px}
 .bel-quick-date{padding:12px 0 15px;margin-bottom:10px;border-bottom:1px solid var(--border)}
 .bel-quick-date label{display:block;margin:0 0 7px;font-weight:700}
 .bel-quick-date input{display:block;min-height:44px;max-width:100%;width:100%}
@@ -19443,7 +19445,8 @@ function commentsHtml(entry) {
       const key = commentHeartKey_(c);
       const mine = hasMyReaction(entry, key);
       const count = reactionCount(entry, key);
-      return `<div class="comment-item"><span class="comment-author">${escapeHtml(c.author || 'unbekannt')}:</span> ${escapeHtml(c.text)}${isFresh24h(c.created) ? '<span class="fresh-badge comment-fresh">Neu</span>' : ''} <button type="button" class="comment-heart${mine?' active':''}${count?' has-hearts':''}" data-comment-heart="${escapeHtml(key)}" aria-pressed="${mine}" aria-label="${mine?'Eigenes Herz entfernen':'Kommentar mit Herz bestätigen'}">${count?'♥':'♡'}${count?' '+count:''}</button></div>`;
+      const names = reactionData(entry, key).names;
+      return `<div class="comment-item"><span class="comment-author">${escapeHtml(c.author || 'unbekannt')}:</span> ${escapeHtml(c.text)}${isFresh24h(c.created) ? '<span class="fresh-badge comment-fresh">Neu</span>' : ''} <button type="button" class="comment-heart${mine?' active':''}${count?' has-hearts':''}" data-comment-heart="${escapeHtml(key)}" aria-pressed="${mine}" aria-label="${mine?'Eigenes Herz entfernen':'Kommentar mit Herz bestätigen'}">${count?'♥':'♡'}${count?' '+count:''}</button>${names.length?'<span class="comment-heart-names">· '+escapeHtml(names.join(', '))+'</span>':''}</div>`;
     }).join('') + '</div>';
   }
   html += `
@@ -19919,7 +19922,7 @@ async function renderHomePersonalInbox_(todos){
     toggle.setAttribute('aria-expanded',String(homePersonalHistoryOpen_));
     toggle.onclick=()=>{homePersonalHistoryOpen_=!homePersonalHistoryOpen_;renderHomePersonalInbox_(todos);};
   }
-  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><span class="home-personal-dot ${read[e.id]?"is-read":""}" aria-hidden="true"></span><span class="home-personal-copy"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,58))}</small></span><span class="home-personal-chevron" aria-hidden="true">›</span></button>`).join('')||
+  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><span class="home-personal-dot ${read[e.id]?"is-read":""}" aria-hidden="true"></span><span class="home-personal-copy"><strong>${e.kind==='heart'?'<span class="home-personal-heart-icon" aria-hidden="true">♥</span>':''}${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,58))}</small></span><span class="home-personal-chevron" aria-hidden="true">›</span></button>`).join('')||
     '<p class="home-personal-empty">Alles gelesen.</p>';
   const dismiss=document.getElementById('homePersonalPreviewClose');
   if(dismiss)dismiss.onclick=closePersonalInboxPreview_;
