@@ -11989,15 +11989,13 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <div class="today-card-head">
       <div>
         <div class="today-card-title">Heute</div>
-        <div class="today-card-kicker">Das Wichtigste auf einen Blick</div>
       </div>
       <div class="today-date" id="todayDateLabel">–</div>
     </div>
     <div class="today-primary-actions" aria-label="Schnell eintragen">
-      <button type="button" class="today-primary-action activity" id="todayLogActivityBtn">
+      <button type="button" class="today-primary-action activity" id="todayLogActivityBtn" aria-label="Aktivität oder Pflege eintragen">
         <span>
-          <strong>Aktivität oder Pflege eintragen</strong>
-          <small>Reiten, Spaziergang, Putzen …</small>
+          <strong>Aktivität eintragen</strong>
         </span>
         <span aria-hidden="true">›</span>
       </button>
@@ -12010,15 +12008,23 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
       </button>
     </div>
 
+  <section id="homePersonalInbox" class="home-personal-inbox" hidden aria-label="Persönliche Mitteilungen">
+    <div class="home-personal-head">
+      <div class="home-personal-heading"><h2>Neu für dich</h2><span id="homePersonalCount" class="home-personal-count"></span></div>
+      <button type="button" id="homePersonalHistoryToggle" aria-expanded="false">Gelesene ansehen</button>
+    </div>
+    <div id="homePersonalMessages"></div>
+  </section>
+
     <section class="home-notice-board" aria-labelledby="homeNoticeBoardTitle">
       <div class="home-notice-heading">
-        <div><div class="home-notice-eyebrow">AKTUELLES IM STALL</div><h2 id="homeNoticeBoardTitle">Schwarzes Brett</h2></div>
+        <h2 id="homeNoticeBoardTitle">Schwarzes Brett</h2>
         <button class="home-notice-all" type="button" id="homeNoticeAll">Alle Hinweise <span aria-hidden="true">›</span></button>
       </div>
       <div class="home-notice-feed" id="homeNoticeFeed" aria-live="polite"><p class="home-notice-empty">Hinweise werden geladen …</p></div>
       <button type="button" class="home-notice-compose" id="homeNoticeCompose"><span aria-hidden="true">＋</span> Hinweis schreiben</button>
     </section>
-    <div class="home-support-label">WEITERES IM STALLALLTAG</div>
+    <h2 class="home-support-label">Weiteres</h2>
     <div class="today-grid">
       <button type="button" class="today-item today-calendar-item" id="todayCalendarBtn">
         <span class="today-item-icon calendar" aria-hidden="true">
@@ -12071,13 +12077,6 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
   </div>
 
-  <section id="homePersonalInbox" class="home-personal-inbox" hidden aria-label="Persönliche Mitteilungen">
-    <div class="home-personal-head">
-      <strong>🔔 Neu für dich <span id="homePersonalCount"></span></strong>
-      <button type="button" id="homePersonalHistoryToggle" aria-expanded="false">Gelesene ansehen</button>
-    </div>
-    <div id="homePersonalMessages"></div>
-  </section>
   <div class="section-label" id="homeSectionsLabel">Bereiche</div>
   <div class="folder-list" id="homeSectionList">
     <div class="folder-row info" id="openInfos" data-home-section="infos">
@@ -19843,17 +19842,18 @@ async function renderHomePersonalInbox_(todos){
   const events=personalInboxEvents_(todos);
   const read=personalInboxReadIds_();
   const unread=events.filter(x=>!read[x.id]);
-  const visible=homePersonalHistoryOpen_?events.slice(0,20):unread.slice(0,8);
+  const visible=homePersonalHistoryOpen_?events.slice(0,20):unread.slice(0,3);
   root.hidden=events.length===0;
   const count=document.getElementById('homePersonalCount');
-  if(count)count.textContent=unread.length?'('+unread.length+' neu)':'';
+  if(count)count.textContent=unread.length?`${unread.length} neu`:'';
   const toggle=document.getElementById('homePersonalHistoryToggle');
   if(toggle){
-    toggle.textContent=homePersonalHistoryOpen_?'Nur neue anzeigen':'Gelesene ansehen';
+    toggle.textContent=homePersonalHistoryOpen_?'Weniger anzeigen':(unread.length>3?'Alle anzeigen':'Gelesene ansehen');
+    toggle.hidden=!homePersonalHistoryOpen_ && unread.length<=3 && !events.some(e=>read[e.id]);
     toggle.setAttribute('aria-expanded',String(homePersonalHistoryOpen_));
     toggle.onclick=()=>{homePersonalHistoryOpen_=!homePersonalHistoryOpen_;renderHomePersonalInbox_(todos);};
   }
-  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,85))}</small><span aria-hidden="true">›</span></button>`).join('')||
+  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><span class="home-personal-dot ${read[e.id]?"is-read":""}" aria-hidden="true"></span><span class="home-personal-copy"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,85))}</small></span><span class="home-personal-chevron" aria-hidden="true">›</span></button>`).join('')||
     '<p class="home-personal-empty">Alles gelesen.</p>';
   host.querySelectorAll('[data-inbox-id]').forEach(button=>{
     button.onclick=async()=>{
@@ -39679,6 +39679,62 @@ body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
   #bewegungDetailScreen #belFormToggle,
   #infosScreen #infoComposeToggle {padding:13px 14px !important}
 }
+
+/* Schlanke Startseite: Kacheln außen, ruhige Listen innen */
+#homeScreen .today-card{margin-bottom:22px!important}
+#homeScreen .today-card-head{margin-bottom:14px!important}
+#homeScreen .today-primary-actions{gap:9px!important;margin-bottom:12px!important}
+#homeScreen .today-primary-action{min-height:75px!important;padding:14px 15px!important;border-radius:15px!important}
+#homeScreen .today-primary-action strong{font-size:14px!important;line-height:1.3!important}
+#homeScreen .today-primary-action small{display:none!important}
+#homeScreen .today-primary-action>span:last-child{font-size:19px!important}
+#homeScreen .home-personal-inbox{margin:0 0 15px!important;padding:13px 15px!important;background:var(--surface)!important;border:1px solid var(--border)!important;border-radius:16px!important;box-shadow:none!important}
+#homeScreen .home-personal-inbox[hidden]{display:none!important}
+#homeScreen .home-personal-head{margin:0 0 5px!important;gap:8px!important}
+#homeScreen .home-personal-heading{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+#homeScreen .home-personal-heading h2{margin:0;font-size:16px;font-weight:750;letter-spacing:-.02em;color:var(--text)}
+#homeScreen .home-personal-count{display:inline-flex;background:#EDF3EE;color:#4B7158;border-radius:999px;padding:3px 8px;font-size:10.5px;font-weight:750;line-height:1.3}
+#homeScreen .home-personal-count:empty{display:none}
+#homeScreen .home-personal-head button{min-height:34px;padding:5px 0 5px 7px;color:var(--text-secondary);font-size:11px;font-weight:630}
+#homeScreen .home-personal-head button[hidden]{display:none!important}
+#homeScreen .home-personal-message{display:grid!important;grid-template-columns:7px minmax(0,1fr) 12px;align-items:center;gap:10px;min-height:55px;padding:10px 0!important;border:0!important;border-top:1px solid var(--border)!important;border-radius:0;background:transparent;color:var(--text);text-align:left}
+#homeScreen .home-personal-message:first-child{border-top:0!important}
+#homeScreen .home-personal-message:hover{background:var(--surface-alt)}
+#homeScreen .home-personal-dot{display:block;width:7px;height:7px;border-radius:50%;background:#6C937A}
+#homeScreen .home-personal-dot.is-read{visibility:hidden}
+#homeScreen .home-personal-copy{min-width:0;display:flex;flex-direction:column;gap:3px}
+#homeScreen .home-personal-message strong{font-size:12.5px;font-weight:680;line-height:1.3}
+#homeScreen .home-personal-message small{font-size:11.5px;line-height:1.35;overflow-wrap:anywhere}
+#homeScreen .home-personal-chevron{position:static!important;color:var(--text-tertiary);font-size:19px;line-height:1}
+#homeScreen .home-personal-empty{margin:8px 0 2px}
+#homeScreen .home-notice-board{margin:0 0 19px!important;padding:14px 16px!important;background:#FAF8F2!important;border:1px solid #E9E1D3!important;border-radius:16px!important;box-shadow:none!important}
+#homeScreen .home-notice-heading{margin-bottom:4px!important}
+#homeScreen .home-notice-heading h2{margin:0!important;font-size:17px!important}
+#homeScreen .home-notice-all{min-height:34px;font-size:11.5px!important}
+#homeScreen .home-notice-feed{gap:0!important}
+#homeScreen .home-notice-item{min-height:55px;padding:11px 0!important;gap:4px!important;border:0!important;border-top:1px solid #E9E5DB!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+#homeScreen .home-notice-item:first-child{border-top:0!important}
+#homeScreen .home-notice-item:hover{background:#F5F1E8!important}
+#homeScreen .home-notice-health{border-left:0!important;padding-left:0!important}
+#homeScreen .home-notice-subject{margin:0!important;font-size:14px!important}
+#homeScreen .home-notice-text{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:12.5px!important;line-height:1.4!important}
+#homeScreen .home-notice-meta{order:3;font-size:10.5px!important;gap:8px}
+#homeScreen .home-notice-new{padding:0!important;background:transparent!important;color:#9A724B!important}
+#homeScreen .home-notice-footer,#homeScreen .home-notice-compose{display:none!important}
+#homeScreen .home-support-label{margin:0 0 10px 2px!important;color:var(--text)!important;font-size:16px!important;font-weight:740!important;letter-spacing:-.02em!important;text-transform:none!important}
+#homeScreen .today-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;padding:0!important;width:100%!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important;box-shadow:none!important}
+#homeScreen .today-grid .today-item{position:relative;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;gap:9px!important;min-height:94px!important;padding:12px!important;border:1px solid var(--border)!important;border-radius:14px!important;background:var(--surface)!important;box-shadow:none!important}
+#homeScreen .today-grid .today-item:hover{background:var(--surface-alt)!important}
+#homeScreen .today-grid .today-item[hidden],#homeScreen #todayHealthBtn,#homeScreen #todayFreshBtn{display:none!important}
+#homeScreen .today-grid .today-item-icon{width:30px!important;height:30px!important;min-width:30px!important;flex:0 0 30px!important;border-radius:9px!important}
+#homeScreen .today-grid .today-item-icon svg{width:17px!important;height:17px!important}
+#homeScreen .today-grid .today-item-copy{width:100%;min-width:0;gap:3px!important}
+#homeScreen .today-grid .today-item-label{font-size:13px!important;font-weight:720!important}
+#homeScreen .today-grid .today-item-detail{display:none!important}
+#homeScreen .today-grid .today-item-num:not(.today-pony-location-groups){position:absolute;top:14px;right:12px;min-width:24px!important;height:24px!important;padding:0 6px!important;font-size:11px!important}
+#homeScreen .today-grid .today-pony-location-groups{display:block!important;max-height:3.3em;overflow:hidden;font-size:10.5px!important;line-height:1.55!important}
+#homeScreen .today-grid .today-item-trailing{display:none!important}
+@media(max-width:380px){#homeScreen .today-primary-action{padding:12px!important;min-height:72px!important}#homeScreen .today-primary-action strong{font-size:12.5px!important}#homeScreen .today-grid .today-item{padding:10px!important}#homeScreen .home-personal-inbox,#homeScreen .home-notice-board{padding:12px!important}}
 </style>
 </body>
 </html>
