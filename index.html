@@ -10625,12 +10625,17 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
   #todoScreen .todo-compact-card.todo-overdue { border-color:color-mix(in srgb, var(--brick) 35%, var(--border)); }
   #todoScreen .todo-compact-main { gap:11px; align-items:center; padding:13px 12px; }
   #todoScreen .todo-compact-check { width:22px; height:22px; margin:0; }
-  #todoScreen .todo-compact-body { cursor:pointer; padding-right:22px; }
+  #todoScreen .todo-compact-body { cursor:pointer; padding-right:0; }
   #todoScreen .todo-compact-title { font-size:14.5px; line-height:1.35; cursor:pointer; }
   #todoScreen .todo-compact-meta { gap:5px; margin-top:5px; }
   #todoScreen .todo-compact-meta .todo-badge { border:0; border-radius:999px; padding:3px 7px; }
-  .todo-row-chevron { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--text-tertiary); font-size:17px; pointer-events:none; transition:transform .15s ease; }
-  .todo-compact-card.todo-details-open .todo-row-chevron { transform:translateY(-50%) rotate(90deg); }
+  .todo-row-chevron { flex:0 0 auto; align-self:center; color:var(--text-tertiary); font-size:17px; pointer-events:none; transition:transform .15s ease; }
+  .todo-compact-card.todo-details-open .todo-row-chevron { transform:rotate(90deg); }
+  .todo-edit-pencil { flex:0 0 34px; display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; padding:0; border:1px solid var(--border); border-radius:9px; background:transparent; color:var(--text-secondary); cursor:pointer; }
+  .todo-edit-pencil:hover,.todo-edit-pencil[aria-expanded="true"] { color:var(--navy); border-color:var(--border-strong); background:var(--surface-alt); }
+  .todo-edit-pencil:focus-visible { outline:2px solid var(--navy); outline-offset:2px; }
+  .todo-edit-pencil svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  #todoScreen .todo-compact-main { gap:8px; }
   .todo-comment-count { color:var(--text-secondary); font-size:10.5px; }
   .todo-comments-trigger { border:0; background:transparent; padding:1px 0; font:inherit; font-size:10.5px; color:var(--text-secondary); cursor:pointer; }
   .todo-comments-trigger:hover,.todo-comments-trigger[aria-expanded="true"] { color:var(--navy); }
@@ -24445,10 +24450,10 @@ var TodoSchedule = (function () {
           ${done ? `<div class="todo-completed-by">${todoCompletionLine(completedAt,completedBy)}</div>` : ''}
         </div>
         <span class="todo-row-chevron" aria-hidden="true">›</span>
+        <button type="button" class="todo-edit-pencil" aria-label="Aufgabe bearbeiten" title="Aufgabe bearbeiten" aria-controls="${detailId}" aria-expanded="${expanded}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z"/></svg></button>
       </div>
       <div class="todo-comments-panel" id="${commentPanelId}" ${commentsOpen?'':'hidden'}>
         ${commentsHtml(item)}
-        <button type="button" class="todo-comments-edit-trigger">Aufgabe bearbeiten</button>
       </div>
       <div class="todo-details-panel" id="${detailId}" style="display:${expanded?'block':'none'};">
         <div class="todo-created-meta">Erstellt von ${escapeHtml(item.author || 'unbekannt')}${item.date?' · '+escapeHtml(fmtDate(item.date)):''}</div>
@@ -24485,6 +24490,7 @@ var TodoSchedule = (function () {
       const panel = div.querySelector('.todo-details-panel');
       const commentsPanel = div.querySelector('.todo-comments-panel');
       const commentsButton = div.querySelector('.todo-comments-trigger');
+      const editPencil = div.querySelector('.todo-edit-pencil');
       const toggleTodoDetails = () => {
         const opening = !todoExpandedIds.has(item.id);
         if (opening) {
@@ -24497,6 +24503,7 @@ var TodoSchedule = (function () {
         panel.style.display=opening?'block':'none';
         body.setAttribute('aria-expanded',String(opening));
         commentsButton.setAttribute('aria-expanded','false');
+        editPencil.setAttribute('aria-expanded',String(opening));
       };
       const toggleTodoComments = () => {
         const opening = !todoCommentsExpandedIds.has(item.id);
@@ -24511,11 +24518,12 @@ var TodoSchedule = (function () {
         commentsButton.setAttribute('aria-expanded',String(opening));
         body.setAttribute('aria-expanded',String(opening));
         div.classList.toggle('todo-details-open',opening);
+        editPencil.setAttribute('aria-expanded','false');
         if(opening && !comments) commentsPanel.querySelector('.comment-input')?.focus();
       };
       commentsButton.onclick = event => { event.stopPropagation(); toggleTodoComments(); };
       commentsButton.onkeydown = event => event.stopPropagation();
-      div.querySelector('.todo-comments-edit-trigger').onclick = () => toggleTodoDetails();
+      editPencil.onclick = event => { event.stopPropagation(); toggleTodoDetails(); };
       body.onclick = ev => {
         if (ev.target.closest('input,button,select,label,a')) return;
         toggleTodoComments();
