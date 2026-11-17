@@ -10632,6 +10632,13 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
   .todo-row-chevron { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--text-tertiary); font-size:17px; pointer-events:none; transition:transform .15s ease; }
   .todo-compact-card.todo-details-open .todo-row-chevron { transform:translateY(-50%) rotate(90deg); }
   .todo-comment-count { color:var(--text-secondary); font-size:10.5px; }
+  .todo-comments-trigger { border:0; background:transparent; padding:1px 0; font:inherit; font-size:10.5px; color:var(--text-secondary); cursor:pointer; }
+  .todo-comments-trigger:hover,.todo-comments-trigger[aria-expanded="true"] { color:var(--navy); }
+  .todo-comments-trigger:focus-visible { outline:2px solid var(--navy); outline-offset:3px; border-radius:3px; }
+  .todo-comments-panel { padding:11px 12px 13px 45px; border-top:1px solid var(--border); background:var(--surface-alt); }
+  .todo-comments-panel .comment-section { margin-top:0; }
+  .todo-comments-edit-trigger{margin-top:9px;padding:4px 0;border:0;background:transparent;color:var(--text-secondary);font:600 11px var(--font-display);cursor:pointer}
+  .todo-comments-edit-trigger:hover{color:var(--navy)}
   .todo-details-panel { margin:0; padding:12px 12px 13px 45px; border-top:1px solid var(--border); background:var(--surface-alt); }
   .todo-inline-edit-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin:7px 0 11px; }
   .todo-inline-edit-grid label { margin:0; font-size:10.5px; font-weight:700; color:var(--text-secondary); }
@@ -23675,6 +23682,7 @@ var TodoSchedule = (function () {
     let todoPendingMedia = [];
     let todoRemovedMedia = [];
     const todoExpandedIds = new Set();
+    const todoCommentsExpandedIds = new Set();
     let todoRenderSerial = 0;
     function renderTodoMediaPicker_() {
       renderMediaPicker_(document.getElementById('todoMediaPreview'), todoExistingMedia, todoPendingMedia,
@@ -24398,12 +24406,13 @@ var TodoSchedule = (function () {
     function renderTodoEntry(item,scheduledDate = '') {
       const div = document.createElement('div');
       const detailId = `todoDetails-${++todoRenderSerial}`;
+      const commentPanelId = `todoComments-${todoRenderSerial}`;
       const planned=TodoSchedule.planned(item);
       const planDates=planned?TodoSchedule.dates(item,todoActiveWeek(item)):[];
       const priority = todoPriorityMeta(item), done = planned && scheduledDate ? TodoSchedule.doneOn(item,scheduledDate) : todoIsDone(item);
       const progress=planDates.filter(date=>TodoSchedule.doneOn(item,date)).length;
       const scheduledCompletion=planned?(scheduledDate?(item.scheduleDone||{})[scheduledDate]:planDates.map(date=>(item.scheduleDone||{})[date]).filter(Boolean).sort((a,b)=>(b.at||0)-(a.at||0))[0]):null;
-      const expanded = todoExpandedIds.has(item.id), daily = isDailyTodo(item), weekly = isWeeklyTodo(item);
+      const expanded = todoExpandedIds.has(item.id), commentsOpen = !expanded && todoCommentsExpandedIds.has(item.id), daily = isDailyTodo(item), weekly = isWeeklyTodo(item);
       const legacySuggestion = isLegacyTodoSuggestion(item);
       const dueDateOverdue = !!(item.dueDate && item.dueDate < todayStr() && !done);
       const scheduledOverdue = !!(scheduledDate && scheduledDate < todayStr() && !done);
@@ -24429,13 +24438,17 @@ var TodoSchedule = (function () {
             ${priority.key !== 'normal' ? `<span class="todo-badge todo-priority-${priority.key}">${priority.label}</span>` : ''}
             ${planned && scheduledDate ? `<span class="todo-badge todo-due-badge${scheduledOverdue?' overdue':''}">${scheduledOverdue ? 'Überfällig' : scheduledDate === todayStr() ? 'Heute' : 'Geplant'} · ${escapeHtml(fmtDate(scheduledDate))}</span>` : ''}
             ${item.dueDate ? `<span class="todo-badge todo-due-badge${dueDateOverdue?' overdue':''}">${dueDateOverdue?'Überfällig':item.dueDate===todayStr()?'Heute':'Fällig'} · ${escapeHtml(fmtDate(item.dueDate))}</span>` : ''}
-            ${comments ? `<span class="todo-comment-count">${comments} ${comments===1?'Kommentar':'Kommentare'}</span>` : ''}
+            <button type="button" class="todo-comment-count todo-comments-trigger" aria-controls="${commentPanelId}" aria-expanded="${commentsOpen}">${comments ? `${comments} ${comments===1?'Kommentar':'Kommentare'}` : 'Kommentieren'}</button>
           </div>
           ${entryMediaGridHtml_(item.media, {todo:true})}
           ${planned && !scheduledDate && !legacySuggestion ? `<div class="todo-schedule-note">${item.repeat==='weekly'?'Jede Woche · ab '+escapeHtml(fmtDate(item.scheduledWeek)):'Woche ab '+escapeHtml(fmtDate(item.scheduledWeek))}${planDates.length?' · '+progress+'/'+planDates.length+' erledigt':''}</div><div class="todo-day-completions">${planDates.map(date=>`<label><input type="checkbox" data-task-date="${date}" ${TodoSchedule.doneOn(item,date)?'checked':''} aria-label="${escapeHtml(item.text)} am ${fmtDate(date)} abhaken"><span>${TODO_SHORT_DAYS[(new Date(date+'T12:00:00Z').getUTCDay()||7)-1]} ${fmtDate(date).slice(0,5)}</span></label>`).join('')}</div>` : ''}
           ${done ? `<div class="todo-completed-by">${todoCompletionLine(completedAt,completedBy)}</div>` : ''}
         </div>
         <span class="todo-row-chevron" aria-hidden="true">›</span>
+      </div>
+      <div class="todo-comments-panel" id="${commentPanelId}" ${commentsOpen?'':'hidden'}>
+        ${commentsHtml(item)}
+        <button type="button" class="todo-comments-edit-trigger">Aufgabe bearbeiten</button>
       </div>
       <div class="todo-details-panel" id="${detailId}" style="display:${expanded?'block':'none'};">
         <div class="todo-created-meta">Erstellt von ${escapeHtml(item.author || 'unbekannt')}${item.date?' · '+escapeHtml(fmtDate(item.date)):''}</div>
@@ -24457,7 +24470,6 @@ var TodoSchedule = (function () {
           </label>
         </div>
         <div class="todo-inline-save-state" ${legacySuggestion ? 'hidden' : ''} aria-live="polite"></div>
-        ${commentsHtml(item)}
         <div class="todo-detail-actions"><button type="button" class="todo-edit-btn">${legacySuggestion ? 'Als Aufgabe übernehmen' : 'Mehr Optionen'}</button><button type="button" class="delete-btn">Löschen</button></div>
       </div>`;
       wireMediaOpeners_(div);
@@ -24471,19 +24483,46 @@ var TodoSchedule = (function () {
       });
       const body = div.querySelector('.todo-compact-body');
       const panel = div.querySelector('.todo-details-panel');
+      const commentsPanel = div.querySelector('.todo-comments-panel');
+      const commentsButton = div.querySelector('.todo-comments-trigger');
       const toggleTodoDetails = () => {
         const opening = !todoExpandedIds.has(item.id);
-        if (opening) todoExpandedIds.add(item.id); else todoExpandedIds.delete(item.id);
+        if (opening) {
+          todoExpandedIds.add(item.id);
+          todoCommentsExpandedIds.delete(item.id);
+          commentsPanel.hidden=true;
+          commentsButton.setAttribute('aria-expanded','false');
+        } else todoExpandedIds.delete(item.id);
         div.classList.toggle('todo-details-open',opening);
         panel.style.display=opening?'block':'none';
         body.setAttribute('aria-expanded',String(opening));
+        commentsButton.setAttribute('aria-expanded','false');
       };
+      const toggleTodoComments = () => {
+        const opening = !todoCommentsExpandedIds.has(item.id);
+        if (opening) {
+          todoCommentsExpandedIds.add(item.id);
+          todoExpandedIds.delete(item.id);
+          div.classList.remove('todo-details-open');
+          panel.style.display='none';
+          body.setAttribute('aria-expanded','false');
+        } else todoCommentsExpandedIds.delete(item.id);
+        commentsPanel.hidden=!opening;
+        commentsButton.setAttribute('aria-expanded',String(opening));
+        body.setAttribute('aria-expanded',String(opening));
+        div.classList.toggle('todo-details-open',opening);
+        if(opening && !comments) commentsPanel.querySelector('.comment-input')?.focus();
+      };
+      commentsButton.onclick = event => { event.stopPropagation(); toggleTodoComments(); };
+      commentsButton.onkeydown = event => event.stopPropagation();
+      div.querySelector('.todo-comments-edit-trigger').onclick = () => toggleTodoDetails();
       body.onclick = ev => {
         if (ev.target.closest('input,button,select,label,a')) return;
-        toggleTodoDetails();
+        toggleTodoComments();
       };
       body.onkeydown = ev => {
-        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleTodoDetails(); }
+        if (ev.target !== body) return;
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleTodoComments(); }
       };
       div.querySelector('.todo-compact-check').onchange = async ev => {
         const checkbox = ev.target; checkbox.disabled = true;
