@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.52. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.53. -->
 <style>
  .home-personal-inbox{margin:10px 0 18px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
 .home-personal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
@@ -22,9 +22,9 @@
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.52">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.52">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.52">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.53">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.53">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.53">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11903,7 +11903,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.52" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.53" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12015,6 +12015,21 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
     <div id="homePersonalMessages"></div>
   </section>
+  <div class="home-personal-preview" id="homePersonalPreview" hidden role="dialog" aria-modal="true" aria-labelledby="homePersonalPreviewTitle">
+    <div class="home-personal-preview-overlay" aria-hidden="true"></div>
+    <div class="home-personal-preview-panel">
+      <div class="home-personal-preview-top">
+        <span>Mitteilung</span>
+        <button type="button" id="homePersonalPreviewClose" aria-label="Mitteilung schließen">Schließen <span aria-hidden="true">×</span></button>
+      </div>
+      <h2 id="homePersonalPreviewTitle"></h2>
+      <p class="home-personal-preview-task" id="homePersonalPreviewTask"></p>
+      <div class="home-personal-preview-comment">
+        <span id="homePersonalPreviewCommentLabel"></span>
+        <p id="homePersonalPreviewCommentText"></p>
+      </div>
+    </div>
+  </div>
 
     <section class="home-notice-board" aria-labelledby="homeNoticeBoardTitle">
       <div class="home-notice-heading">
@@ -17169,7 +17184,7 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.52';
+const STALL_APP_VERSION = '1.25.53';
 const STALL_APP_VERSION_DATE = '17.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
@@ -19796,11 +19811,28 @@ function personalInboxMarkRead_(id){
   const kept=Object.entries(seen).filter(([,ts])=>Date.now()-Number(ts||0)<90*86400000).slice(-350);
   try{localStorage.setItem(personalInboxStorageKey_(),JSON.stringify(Object.fromEntries(kept)));}catch(e){}
 }
+/* Herz-Reaktionen besitzen im bisherigen Backend keinen eigenen Zeitstempel.
+   Der erste Sichtkontakt wird pro Person und Gerät einmal gespeichert. */
+function personalInboxHeartSeenAt_(ids){
+  const key='stallPersonalHeartFirstSeenV1:'+personalInboxOwner_();
+  let previous={};
+  try{
+    const parsed=JSON.parse(localStorage.getItem(key)||'{}');
+    if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))previous=parsed;
+  }catch(e){}
+  const now=Date.now(), next={};
+  for(const id of ids){
+    const timestamp=Number(previous[id]);
+    next[id]=timestamp>0&&timestamp<=now?timestamp:now;
+  }
+  try{localStorage.setItem(key,JSON.stringify(next));}catch(e){}
+  return next;
+}
 function personalInboxEvents_(todos){
   const me=String(currentUserName || getRememberedUserName() || '').trim().toLocaleLowerCase('de-DE');
   if(!me || getRole()!=='pferdeteam')return [];
   const now=Date.now();
-  const events=[];
+  const events=[], hearts=[];
   const same=name=>String(name||'').trim().toLocaleLowerCase('de-DE')===me;
   for(const t of todos){
     if(!t||!t.id||isLegacyTodoSuggestion(t))continue;
@@ -19809,31 +19841,64 @@ function personalInboxEvents_(todos){
     const current=!todoIsDone(t);
     const updated=Number(t.updated||t.created||0);
     if(mine&&!authored&&current&&updated>0&&updated<=now&&now-updated<30*86400000){
-      events.push({id:'assigned:'+t.id+':'+updated,task:t,at:updated,
+      events.push({kind:'assigned',id:'assigned:'+t.id+':'+updated,task:t,at:updated,
         title:'Neue Aufgabe für dich',detail:t.text||'Aufgabe'});
     }
-    if(!mine&&!authored)continue;
     for(const c of Array.isArray(t.comments)?t.comments:[]){
+      if(!c||!c.id)continue;
       const ts=Number(c.created||0);
-      if(!c.id||same(c.author)||ts<=0||ts>now||now-ts>30*86400000)continue;
-      events.push({id:'comment:'+t.id+':'+c.id,task:t,at:ts,
-        title:(c.author||'Jemand')+' hat dein To-do kommentiert',
-        detail:t.text||'Aufgabe'});
+      if((mine||authored)&&!same(c.author)&&ts>0&&ts<=now&&now-ts<30*86400000){
+        events.push({kind:'comment',id:'comment:'+t.id+':'+c.id,commentId:c.id,task:t,at:ts,
+          title:(c.author||'Jemand')+' hat dein To-do kommentiert',
+          detail:t.text||'Aufgabe'});
+      }
+      if(!same(c.author))continue;
+      const reactors=new Set();
+      for(const name of reactionData(t,commentHeartKey_(c)).names){
+        const actor=String(name||'').trim();
+        const actorKey=actor.toLocaleLowerCase('de-DE');
+        if(!actor||same(actor)||reactors.has(actorKey))continue;
+        reactors.add(actorKey);
+        hearts.push({kind:'heart',idBase:'heart:'+t.id+':'+c.id+':'+actorKey,
+          commentId:c.id,task:t,actor,
+          title:actor+' hat deinen Kommentar mit ❤️ markiert',
+          detail:t.text||'Aufgabe'});
+      }
     }
+  }
+  const firstSeen=personalInboxHeartSeenAt_(hearts.map(e=>e.idBase));
+  for(const heart of hearts){
+    const at=Number(firstSeen[heart.idBase])||now;
+    events.push({...heart,id:heart.idBase+':'+at,at});
   }
   return events.sort((a,b)=>b.at-a.at).slice(0,120);
 }
-async function openPersonalInboxTask_(id){
-  todoTaskScope='team';todoPersonFilter='Alle';todoView='list';todoSmartView='all';
-  todoFilter='Alle';todoSearchQuery='';
-  const search=document.getElementById('todoSearchInput');
-  if(search)search.value='';
-  todoExpandedIds.add(id);
-  showScreen('todoScreen');
-  await renderTodoList();
-  const card=Array.from(document.querySelectorAll('#todoScreen [data-entry-id]'))
-    .find(el=>el.dataset.entryId===String(id));
-  if(card){card.scrollIntoView({behavior:'smooth',block:'center'});}
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&!document.getElementById('homePersonalPreview')?.hidden)closePersonalInboxPreview_();
+});
+function closePersonalInboxPreview_(){
+  const preview=document.getElementById('homePersonalPreview');
+  if(preview)preview.hidden=true;
+}
+function openPersonalInboxPreview_(event){
+  const preview=document.getElementById('homePersonalPreview');
+  const title=document.getElementById('homePersonalPreviewTitle');
+  const task=document.getElementById('homePersonalPreviewTask');
+  const label=document.getElementById('homePersonalPreviewCommentLabel');
+  const commentText=document.getElementById('homePersonalPreviewCommentText');
+  if(!preview||!title||!task||!label||!commentText)return;
+  title.textContent=event.title;
+  task.textContent=event.task?.text||'Aufgabe';
+  const comment=(event.task?.comments||[]).find(c=>String(c?.id)===String(event.commentId));
+  const isComment=event.kind==='comment'||event.kind==='heart';
+  label.hidden=!isComment;
+  commentText.hidden=!isComment;
+  if(isComment){
+    label.textContent=event.kind==='heart'?'Dein Kommentar':'Kommentar von '+(comment?.author||'Team');
+    commentText.textContent=comment?.text||'Der Kommentar ist nicht mehr vorhanden.';
+  }
+  preview.hidden=false;
+  document.getElementById('homePersonalPreviewClose')?.focus();
 }
 async function renderHomePersonalInbox_(todos){
   const root=document.getElementById('homePersonalInbox');
@@ -19855,12 +19920,17 @@ async function renderHomePersonalInbox_(todos){
   }
   host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><span class="home-personal-dot ${read[e.id]?"is-read":""}" aria-hidden="true"></span><span class="home-personal-copy"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,85))}</small></span><span class="home-personal-chevron" aria-hidden="true">›</span></button>`).join('')||
     '<p class="home-personal-empty">Alles gelesen.</p>';
+  const dismiss=document.getElementById('homePersonalPreviewClose');
+  if(dismiss)dismiss.onclick=closePersonalInboxPreview_;
+  const overlay=document.querySelector('#homePersonalPreview .home-personal-preview-overlay');
+  if(overlay)overlay.onclick=closePersonalInboxPreview_;
   host.querySelectorAll('[data-inbox-id]').forEach(button=>{
     button.onclick=async()=>{
       const e=events.find(event=>event.id===button.dataset.inboxId);
       if(!e)return;
       personalInboxMarkRead_(e.id);
-      await openPersonalInboxTask_(e.task.id);
+      openPersonalInboxPreview_(e);
+      await renderHomePersonalInbox_(todos);
     };
   });
 }
@@ -39736,6 +39806,39 @@ body.role-ehrenamt-mode #gesundheitDetailScreen #gesMoreDetails {
 #homeScreen .today-grid .today-pony-location-groups{display:block!important;max-height:3.3em;overflow:hidden;font-size:10.5px!important;line-height:1.55!important}
 #homeScreen .today-grid .today-item-trailing{display:none!important}
 @media(max-width:380px){#homeScreen .today-primary-action{padding:12px!important;min-height:72px!important}#homeScreen .today-primary-action strong{font-size:12.5px!important}#homeScreen .today-grid .today-item{padding:10px!important}#homeScreen .home-personal-inbox,#homeScreen .home-notice-board{padding:12px!important}}
+
+/* Persönliche Mitteilungen: kleine, ruhige Zeilen statt einer großen Kachel. */
+#homeScreen .home-personal-inbox{padding:9px 12px!important;margin:0 0 12px!important;border-radius:13px!important}
+#homeScreen .home-personal-head{margin:0 0 2px!important;min-height:25px!important}
+#homeScreen .home-personal-heading h2{font-size:14px!important;line-height:1.25!important}
+#homeScreen .home-personal-count{padding:2px 7px!important;font-size:10px!important}
+#homeScreen .home-personal-message{min-height:42px!important;padding:6px 0!important;gap:8px!important}
+#homeScreen .home-personal-copy{gap:1px!important}
+#homeScreen .home-personal-message strong{font-size:12px!important;line-height:1.25!important}
+#homeScreen .home-personal-message small{font-size:11px!important;line-height:1.3!important}
+#homeScreen .home-personal-chevron{font-size:17px!important}
+#homeScreen .home-personal-preview[hidden]{display:none!important}
+#homeScreen .home-personal-preview{
+  position:fixed;inset:0;z-index:30000;
+  display:flex;align-items:center;justify-content:center;padding:16px;
+}
+#homeScreen .home-personal-preview-overlay{position:absolute;inset:0;background:rgba(25,38,30,.48)}
+#homeScreen .home-personal-preview-panel{
+  position:relative;z-index:1;width:min(100%,460px);max-height:80vh;overflow:auto;
+  border-radius:17px;border:1px solid var(--border);background:var(--surface);
+  box-shadow:0 16px 50px rgba(20,32,25,.18);padding:19px;
+}
+#homeScreen .home-personal-preview-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:var(--text-secondary)}
+#homeScreen .home-personal-preview-top button{border:0;background:transparent;color:var(--text);font:650 12px var(--font-display);cursor:pointer;min-height:38px;padding:4px 5px}
+#homeScreen .home-personal-preview-panel h2{font-size:16px;line-height:1.35;margin:9px 0 7px}
+#homeScreen .home-personal-preview-task{font-size:12px;color:var(--text-secondary);line-height:1.45;margin:0 0 13px}
+#homeScreen .home-personal-preview-comment{padding:12px;border-radius:11px;background:var(--surface-alt);border:1px solid var(--border)}
+#homeScreen .home-personal-preview-comment span{display:block;font-size:11px;font-weight:750;color:var(--text-secondary);margin-bottom:6px}
+#homeScreen .home-personal-preview-comment p{margin:0;font-size:13px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+/* Kalender, Aufgaben und Weiden teilen die Zeile statt sie aufzubrechen. */
+#homeScreen .today-grid{grid-template-areas:none!important}
+#homeScreen .today-grid .today-item{grid-area:auto!important;width:100%!important;min-width:0!important}
+@media(min-width:760px){#homeScreen .today-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 </style>
 </body>
 </html>
