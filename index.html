@@ -6,7 +6,7 @@
  .home-personal-inbox{margin:10px 0 18px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
 .home-personal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
 .home-personal-head strong{font-size:13px}.home-personal-head button{background:none;border:0;color:var(--text-secondary);font-size:11px;cursor:pointer}
-.home-personal-message{display:flex;flex-direction:column;position:relative;width:100%;padding:11px 24px 11px 4px;text-align:left;background:transparent;border:0;border-top:1px solid var(--border);cursor:pointer;gap:4px}
+.home-personal-message{display:flex;flex-direction:column;position:relative;width:100%;padding:8px 24px 8px 4px;text-align:left;background:transparent;border:0;border-top:1px solid var(--border);cursor:pointer;gap:2px}
 .home-personal-message strong{font-size:12px}.home-personal-message small{font-size:11px;color:var(--text-secondary)}
 .home-personal-message>span{position:absolute;right:3px;top:12px}.home-personal-message.read{opacity:.6}
 .home-personal-empty{font-size:12px;color:var(--text-secondary)}
@@ -19839,17 +19839,18 @@ function personalInboxEvents_(todos){
     const mine=same(t.assignee);
     const authored=same(t.author);
     const current=!todoIsDone(t);
-    const updated=Number(t.updated||t.created||0);
-    if(mine&&!authored&&current&&updated>0&&updated<=now&&now-updated<30*86400000){
-      events.push({kind:'assigned',id:'assigned:'+t.id+':'+updated,task:t,at:updated,
-        title:'Neue Aufgabe für dich',detail:t.text||'Aufgabe'});
+    // Änderungen an Kommentaren/Reaktionen dürfen keine neue Zuweisung auslösen.
+    const assignedAt=Number(t.assignedAt||t.created||0);
+    if(mine&&!authored&&current&&assignedAt>0&&assignedAt<=now&&now-assignedAt<30*86400000){
+      events.push({kind:'assigned',id:'assigned:'+t.id+':'+assignedAt,task:t,at:assignedAt,
+        title:'Neue Aufgabe',detail:t.text||'Aufgabe'});
     }
     for(const c of Array.isArray(t.comments)?t.comments:[]){
       if(!c||!c.id)continue;
       const ts=Number(c.created||0);
       if((mine||authored)&&!same(c.author)&&ts>0&&ts<=now&&now-ts<30*86400000){
         events.push({kind:'comment',id:'comment:'+t.id+':'+c.id,commentId:c.id,task:t,at:ts,
-          title:(c.author||'Jemand')+' hat dein To-do kommentiert',
+          title:'Neuer Kommentar von '+(c.author||'jemandem'),
           detail:t.text||'Aufgabe'});
       }
       if(!same(c.author))continue;
@@ -19861,7 +19862,7 @@ function personalInboxEvents_(todos){
         reactors.add(actorKey);
         hearts.push({kind:'heart',idBase:'heart:'+t.id+':'+c.id+':'+actorKey,
           commentId:c.id,task:t,actor,
-          title:actor+' hat deinen Kommentar mit ❤️ markiert',
+          title:actor+' gefällt dein Kommentar',
           detail:t.text||'Aufgabe'});
       }
     }
@@ -19918,7 +19919,7 @@ async function renderHomePersonalInbox_(todos){
     toggle.setAttribute('aria-expanded',String(homePersonalHistoryOpen_));
     toggle.onclick=()=>{homePersonalHistoryOpen_=!homePersonalHistoryOpen_;renderHomePersonalInbox_(todos);};
   }
-  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><span class="home-personal-dot ${read[e.id]?"is-read":""}" aria-hidden="true"></span><span class="home-personal-copy"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,85))}</small></span><span class="home-personal-chevron" aria-hidden="true">›</span></button>`).join('')||
+  host.innerHTML=visible.map(e=>`<button class="home-personal-message ${read[e.id]?'read':''}" type="button" data-inbox-id="${escapeHtml(e.id)}" aria-label="${escapeHtml(e.title)}: ${escapeHtml(e.detail)}"><span class="home-personal-dot ${read[e.id]?"is-read":""}" aria-hidden="true"></span><span class="home-personal-copy"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(shortText(e.detail,58))}</small></span><span class="home-personal-chevron" aria-hidden="true">›</span></button>`).join('')||
     '<p class="home-personal-empty">Alles gelesen.</p>';
   const dismiss=document.getElementById('homePersonalPreviewClose');
   if(dismiss)dismiss.onclick=closePersonalInboxPreview_;
@@ -23932,6 +23933,10 @@ var TodoSchedule = (function () {
           if (clean.toLocaleLowerCase('de') === 'pferdeteam') return 'Alle';
           return clean;
     }
+    function todoAssignmentChanged_(before, after) {
+          return normalizeTodoAssigneeName(before).toLocaleLowerCase('de-DE') !==
+            normalizeTodoAssigneeName(after).toLocaleLowerCase('de-DE');
+    }
 
     let todoNamesRefreshPromise = null;
     let todoNamesNextRefreshAt = 0;
@@ -24268,6 +24273,9 @@ var TodoSchedule = (function () {
       if (!who) return;
       if (stateEl) stateEl.textContent = 'Speichert …';
       const updated = {...item, ...changes, updated:Date.now(), updatedBy:who};
+      if (Object.prototype.hasOwnProperty.call(changes,'assignee') && todoAssignmentChanged_(item.assignee,updated.assignee)) {
+        updated.assignedAt=updated.updated;
+      }
       if (!await addTodo(updated)) {
         if (stateEl) stateEl.textContent = 'Speichern fehlgeschlagen';
         else appAlert('Die Änderung konnte nicht gespeichert werden.');
@@ -24548,6 +24556,7 @@ var TodoSchedule = (function () {
           scheduleDays:selectedDays,scheduledWeek:selectedDays.length?TodoSchedule.monday(weekValue):''};
         for (let i=0;i<texts.length;i++) {
           const item={...(existing || {id:'t'+now+'-'+i+'-'+Math.random().toString(36).slice(2,9),date:todayStr(),author:who,created:now+i,done:false,comments:[]}),...options,text:texts[i]};
+          if (!existing || todoAssignmentChanged_(existing.assignee,item.assignee)) item.assignedAt=now+i;
           if (texts.length === 1) item.media = todoMediaForSave;
           if (existing) { item.updated=now; item.updatedBy=who; if (isLegacyTodoSuggestion(item)) item.foejSource='manual'; }
           if (TodoSchedule.planned(item) && item.repeat!=='weekly') item.done=TodoSchedule.allDone(item,item.scheduledWeek);
