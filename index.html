@@ -10637,6 +10637,8 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
   .todo-comments-trigger:focus-visible { outline:2px solid var(--navy); outline-offset:3px; border-radius:3px; }
   .todo-comments-panel { padding:11px 12px 13px 45px; border-top:1px solid var(--border); background:var(--surface-alt); }
   .todo-comments-panel .comment-section { margin-top:0; }
+  .todo-comments-edit-trigger{margin-top:9px;padding:4px 0;border:0;background:transparent;color:var(--text-secondary);font:600 11px var(--font-display);cursor:pointer}
+  .todo-comments-edit-trigger:hover{color:var(--navy)}
   .todo-details-panel { margin:0; padding:12px 12px 13px 45px; border-top:1px solid var(--border); background:var(--surface-alt); }
   .todo-inline-edit-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin:7px 0 11px; }
   .todo-inline-edit-grid label { margin:0; font-size:10.5px; font-weight:700; color:var(--text-secondary); }
@@ -24446,6 +24448,7 @@ var TodoSchedule = (function () {
       </div>
       <div class="todo-comments-panel" id="${commentPanelId}" ${commentsOpen?'':'hidden'}>
         ${commentsHtml(item)}
+        <button type="button" class="todo-comments-edit-trigger">Aufgabe bearbeiten</button>
       </div>
       <div class="todo-details-panel" id="${detailId}" style="display:${expanded?'block':'none'};">
         <div class="todo-created-meta">Erstellt von ${escapeHtml(item.author || 'unbekannt')}${item.date?' · '+escapeHtml(fmtDate(item.date)):''}</div>
@@ -24493,6 +24496,7 @@ var TodoSchedule = (function () {
         div.classList.toggle('todo-details-open',opening);
         panel.style.display=opening?'block':'none';
         body.setAttribute('aria-expanded',String(opening));
+        commentsButton.setAttribute('aria-expanded','false');
       };
       const toggleTodoComments = () => {
         const opening = !todoCommentsExpandedIds.has(item.id);
@@ -24505,16 +24509,20 @@ var TodoSchedule = (function () {
         } else todoCommentsExpandedIds.delete(item.id);
         commentsPanel.hidden=!opening;
         commentsButton.setAttribute('aria-expanded',String(opening));
+        body.setAttribute('aria-expanded',String(opening));
+        div.classList.toggle('todo-details-open',opening);
         if(opening && !comments) commentsPanel.querySelector('.comment-input')?.focus();
       };
       commentsButton.onclick = event => { event.stopPropagation(); toggleTodoComments(); };
       commentsButton.onkeydown = event => event.stopPropagation();
+      div.querySelector('.todo-comments-edit-trigger').onclick = () => toggleTodoDetails();
       body.onclick = ev => {
         if (ev.target.closest('input,button,select,label,a')) return;
-        toggleTodoDetails();
+        toggleTodoComments();
       };
       body.onkeydown = ev => {
-        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleTodoDetails(); }
+        if (ev.target !== body) return;
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleTodoComments(); }
       };
       div.querySelector('.todo-compact-check').onchange = async ev => {
         const checkbox = ev.target; checkbox.disabled = true;
