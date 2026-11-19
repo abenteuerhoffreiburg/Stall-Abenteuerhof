@@ -1,9 +1,8 @@
-const CACHE_NAME = 'stall-abenteuerhof-shell-v12555-20261118';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v12556-20261119';
 const SHELL = [
   './',
   './index.html',
-  './helfi.html',
-  './manifest.webmanifest?v=1.25.55',
+  './manifest.webmanifest?v=1.25.56',
   './access-v122.js',
   './access-v122.css',
   './access-v122.js?v=1244',
@@ -12,9 +11,9 @@ const SHELL = [
   './pony-planner.css',
   './pony-planner.js?v=1244',
   './pony-planner.css?v=1244',
-  './icon-192.png?v=1.25.55',
-  './icon-512.png?v=1.25.55',
-  './apple-touch-icon.png?v=1.25.55'
+  './icon-192.png?v=1.25.56',
+  './icon-512.png?v=1.25.56',
+  './apple-touch-icon.png?v=1.25.56'
 ];
 
 self.addEventListener('install', event => {
@@ -53,7 +52,7 @@ self.addEventListener('fetch', event => {
   }
 
   if (request.mode === 'navigate') {
-    const pageKey = url.pathname.endsWith('/helfi.html') ? './helfi.html' : './index.html';
+    const pageKey = './index.html';
     event.respondWith(
       fetch(request)
         .then(response => {
