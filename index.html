@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.55. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.56. -->
 <style>
  .home-personal-inbox{margin:10px 0 18px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
 .home-personal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
@@ -24,9 +24,9 @@
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.55">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.55">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.55">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.56">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.56">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.56">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -10146,24 +10146,7 @@ body.role-ponygroup-helper-mode #ponyGroupLeadInlineEntry {
 }
 
 
-  /* ===== Helfi-Wochenplan · für das gesamte Pferdeteam im Bereich Ponygruppen ===== */
-  .helfi-plan-inline-entry { margin-top: 12px; }
-  .helfi-plan-open-btn { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:15px 16px; border:1px solid var(--border); border-radius:var(--radius-md); background:var(--surface); color:var(--text); cursor:pointer; font-family:var(--font-display); box-shadow:var(--shadow-sm); text-align:left; }
-  .helfi-plan-open-btn:hover { background:var(--surface-alt); box-shadow:var(--shadow-md); }
-  .helfi-plan-open-btn strong { display:block; font-size:14px; }
-  .helfi-plan-open-btn small { display:block; margin-top:3px; color:var(--text-secondary); font-size:12px; font-weight:500; }
-  .helfi-plan-intro { background:var(--navy-tint); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px 15px; margin-bottom:14px; font-size:13px; color:var(--text-secondary); }
-  .helfi-plan-toolbar { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:end; margin-bottom:14px; }
-  .helfi-plan-toolbar label { margin:0; }
-  .helfi-plan-group { margin-bottom:12px; }
-  .helfi-plan-group h3 { margin:0 0 10px; font-size:15px; }
-  .helfi-plan-time-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .helfi-plan-time-grid label { margin-top:0; }
-  .helfi-plan-group .detail-sub { margin:7px 0 0; }
-  .helfi-plan-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:10px; }
-  .helfi-plan-access-note { margin-top:12px; font-size:12px; color:var(--text-tertiary); }
-  @media(max-width:520px){.helfi-plan-toolbar{grid-template-columns:1fr}.helfi-plan-time-grid{grid-template-columns:1fr 1fr}.helfi-plan-toolbar button{width:100%}}
-
+  
 
   /* ===== Ponygruppen · schneller Termin-Workflow ===== */
   .workflow-card {
@@ -11917,7 +11900,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.55" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.56" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12361,15 +12344,6 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   </div>
 
 
-  <div class="helfi-plan-inline-entry" id="helfiPlanInlineEntry" style="display:none;">
-    <button type="button" class="helfi-plan-open-btn" id="helfiPlanManageBtn">
-      <span>
-        <strong>Helfis einteilen</strong>
-        <small>Wer hilft regelmäßig in welcher Gruppe?</small>
-      </span>
-      <span class="pony-group-row-chevron">›</span>
-    </button>
-  </div>
 
   <div class="pony-group-lead-inline-entry" id="ponyGroupLeadInlineEntry" style="display:none;">
     <button type="button" class="pony-group-lead-open-btn" id="ponyGroupLeadOpenBtn">
@@ -12423,35 +12397,6 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <div id="ponyGroupLeadTodoDoneList" class="pony-group-lead-todo-list" style="display:none;"></div>
   </div>
 
-  <div id="helfiPlanPanel" style="display:none;">
-    <button type="button" class="back-link" id="helfiPlanBack">Ponygruppen</button>
-    <div class="detail-header">Helfis einteilen</div>
-    <div class="detail-sub">Wer hilft regelmäßig in welcher Gruppe?</div>
-    <div class="helfi-plan-intro"><strong>Einmal eintragen, danach läuft die Einteilung automatisch:</strong> Wähle eine Startwoche, trage die Helfis bei ihrer Gruppe ein und speichere. Wenn mehr Helfis als Plätze da sind, wechseln sie sich automatisch ab.</div>
-    <div class="card">
-      <h3>Einladungslink für Helfis</h3>
-      <p class="detail-sub">Helfis brauchen keinen Code. Schick allen Helfis denselben geschützten Einladungslink. Der Link bleibt dauerhaft gleich und kann immer wieder verwendet werden.</p>
-      <div class="helfi-plan-actions">
-        <button type="button" class="secondary-btn" id="helfiInviteCopy">Einladungslink kopieren</button>
-        <button type="button" class="secondary-btn" id="helfiInviteOpen">Als Helfi öffnen</button>
-      </div>
-      <div class="save-status" id="helfiInviteStatus"></div>
-    </div>
-    <div class="card">
-      <div class="helfi-plan-toolbar">
-        <label for="helfiPlanWeek">Ab welcher Woche gilt die Einteilung?
-          <input type="date" id="helfiPlanWeek">
-        </label>
-        <button type="button" class="secondary-btn" id="helfiPlanLoad">Diese Woche öffnen</button>
-      </div>
-      <div class="save-status" id="helfiPlanStatus"></div>
-    </div>
-    <div id="helfiPlanFields"></div>
-    <div class="helfi-plan-actions">
-      <button type="button" class="submit-btn" id="helfiPlanSave" disabled>Helfis speichern</button>
-    </div>
-    <div class="helfi-plan-access-note">Dieser Verwaltungsbereich gehört zu den Ponygruppen und ist für alle angemeldeten Personen im Pferdeteam zugänglich. Der Einladungslink öffnet ausschließlich den Helfi-Kalender und gibt keinen Zugriff auf die Stall-App.</div>
-  </div>
 
   <div id="ponyGroupRosterPanel" style="display:none;">
     <button type="button" class="back-link" id="ponyGroupRosterBackBtn">Ponygruppen</button>
@@ -12880,10 +12825,10 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <p>Push ist freiwillig und kann in den Einstellungen deaktiviert werden. Für die technische Zustellung wird OneSignal verwendet. Push-Texte enthalten bewusst nur neutrale Hinweise – keine Kindernamen, Bedarfe, Gesundheitsnotizen oder sonstigen Detailinhalte.</p>
 
     <h3>Zugriff</h3>
-    <p>Interne Bereiche werden über Rollen und persönliche Zugänge begrenzt. Besonders sensible Funktionen wie Ponygruppen, To-dos, Verwaltung und Datensicherung sind für das Pferdeteam bzw. Admins vorgesehen. Der Helfi-Plan gehört zum internen Ponygruppen-Bereich und ist deshalb für alle angemeldeten Personen im Pferdeteam zugänglich.</p>
+    <p>Interne Bereiche werden über Rollen und persönliche Zugänge begrenzt. Besonders sensible Funktionen wie Ponygruppen, To-dos, Verwaltung und Datensicherung sind für das Pferdeteam bzw. Admins vorgesehen.</p>
 
     <h3>Datenaufbewahrung</h3>
-    <p>Die App löscht Kinder-, Anwesenheits- oder Gesundheitsdaten bewusst nicht automatisch. So wird verhindert, dass ohne abgestimmte Frist versehentlich Dokumentation verloren geht. Für die rein terminbezogenen Abmeldungen und Vertretungen des Helfi-Kalenders kann separat eine automatische Löschfrist eingestellt werden. Die intern vereinbarte Regel kann unten festgehalten werden.</p>
+    <p>Die App löscht Kinder-, Anwesenheits- oder Gesundheitsdaten bewusst nicht automatisch. So wird verhindert, dass ohne abgestimmte Frist versehentlich Dokumentation verloren geht. Die intern vereinbarte Regel kann unten festgehalten werden.</p>
 
     <div id="retentionPolicyAdmin" class="retention-policy-admin" style="display:none;">
       <label for="retentionPolicyText">Interne Aufbewahrungsregel</label>
@@ -12917,7 +12862,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
-    <div class="changelog-version">Version 1.25.55</div><p>Neue Aufgaben-Kommentare erscheinen ausschließlich bei der Erstellerin unter „Neu für dich“. Sie lösen bewusst keinen Push aus; automatische Push-Erinnerungen werden nicht eingerichtet.</p><div class="changelog-version">Version 1.25.51</div><p>Im Bereich Aktivitäten gibt es nur noch „Neuer Eintrag“ mit der direkt sichtbaren Frage „Für welchen Tag?“.</p><div class="changelog-version">Version 1.25.50</div><p>Aktivitäten nachtragen ist einfacher sichtbar; Gruppenbuch und Pony-Bewegung bleiben getrennt. Persönliche Mitteilungen, Kommentar-Herzen und Entwurfs-Hinweise wurden überarbeitet.</p><div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
+    <div class="changelog-version">Version 1.25.56</div><p>Der nicht mehr benötigte Helfi-Kalender wurde vollständig aus der Oberfläche entfernt.</p><ul><li>Die Helfi-Einteilung erscheint nicht mehr bei den Ponygruppen.</li><li>Einladungslink und separate Helfi-Seite wurden entfernt.</li><li>Die normalen Ponygruppen, Personenlisten und Gruppendokumentation bleiben unverändert.</li></ul><div class="changelog-version">Version 1.25.55</div><p>Neue Aufgaben-Kommentare erscheinen ausschließlich bei der Erstellerin unter „Neu für dich“. Sie lösen bewusst keinen Push aus; automatische Push-Erinnerungen werden nicht eingerichtet.</p><div class="changelog-version">Version 1.25.51</div><p>Im Bereich Aktivitäten gibt es nur noch „Neuer Eintrag“ mit der direkt sichtbaren Frage „Für welchen Tag?“.</p><div class="changelog-version">Version 1.25.50</div><p>Aktivitäten nachtragen ist einfacher sichtbar; Gruppenbuch und Pony-Bewegung bleiben getrennt. Persönliche Mitteilungen, Kommentar-Herzen und Entwurfs-Hinweise wurden überarbeitet.</p><div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
     <div class="changelog-version">Version 1.25.46</div><p>Die Vorbereitung der Ponygruppen ist jetzt auch ohne App-Erfahrung verständlich.</p><ul><li>Statt automatischer Mehrwochen- und Konzeptplanung wird nur noch der ausgewählte Termin vorbereitet.</li><li>Es gibt drei klare Angaben: Was machen wir, was muss bereitliegen und welcher Hinweis ist fürs Team wichtig.</li><li>Nach dem Speichern erscheint ein deutliches grünes „Gespeichert“; jede weitere Änderung wird sofort als „Noch nicht gespeichert“ markiert.</li><li>Angefangene Formulare sprechen nicht mehr technisch von alten Entwürfen, sondern fragen verständlich nach „Weitermachen“ oder „Neu beginnen“.</li><li>Bestehende ausführliche Planungen bleiben erhalten und können bei Bedarf aufgeklappt werden.</li></ul><div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
     <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
@@ -17195,7 +17140,7 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.55';
+const STALL_APP_VERSION = '1.25.56';
 const STALL_APP_VERSION_DATE = '18.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
@@ -27985,95 +27930,6 @@ async function printPonyGroupOverview() {
   }
 }
 
-const HELFI_PLAN_GROUPS = [
-  {id:'mo-ponybande',dayName:'Montag',title:'Ponybande',capacity:2,start:'14:30',end:'17:30'},
-  {id:'di-1',dayName:'Dienstag',title:'Gruppe 1',capacity:2,start:'14:30',end:'16:00'},
-  {id:'di-2',dayName:'Dienstag',title:'Gruppe 2',capacity:3,start:'16:00',end:'17:30'},
-  {id:'mi-1',dayName:'Mittwoch',title:'Gruppe 1',capacity:3,start:'14:30',end:'16:00'},
-  {id:'mi-2',dayName:'Mittwoch',title:'Gruppe 2',capacity:2,start:'16:00',end:'17:30'}
-];
-let helfiPlanRevision='', helfiPlanLoadedWeek='', helfiPlanEditing=false, helfiInviteToken='';
-function helfiPlanMonday(value) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value||''))) return '';
-  const d=new Date(value+'T12:00:00Z');
-  if (Number.isNaN(d.getTime())) return '';
-  d.setUTCDate(d.getUTCDate()-((d.getUTCDay()+6)%7));
-  return d.toISOString().slice(0,10);
-}
-function helfiPlanDefaultWeek() {
-  const today=todayStr(), monday=helfiPlanMonday(today);
-  const d=new Date(today+'T12:00:00Z');
-  const day=d.getUTCDay();
-  // Ab Donnerstag direkt die kommende Ponygruppenwoche öffnen.
-  if(day===0||day>=4){const m=new Date(monday+'T12:00:00Z');m.setUTCDate(m.getUTCDate()+7);return m.toISOString().slice(0,10);}
-  return monday;
-}
-function setHelfiPlanBusy(busy) {
-  helfiPlanEditing=busy;
-  ['helfiPlanWeek','helfiPlanLoad'].forEach(id=>{const node=document.getElementById(id);if(node)node.disabled=busy;});
-  document.querySelectorAll('#helfiPlanFields input').forEach(input=>input.disabled=busy);
-}
-async function helfiPlanCall(action,payload={}) {
-  if (getRole() !== 'pferdeteam' || !getTeamToken()) return {ok:false,error:'unauthorized'};
-  try {
-    const request={action,...payload,teamToken:getTeamToken()};
-    if(RUNNING_IN_GAS)return await gasCall('serverHelfiCalendar',request);
-    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
-    try {const response=await fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(request),signal:controller.signal});if(!response.ok)throw new Error('network');return await response.json();}
-    finally{clearTimeout(timer);}
-  }catch(e){return {ok:false,error:'network'};}
-}
-function helfiPlanError(result) {
-  return {unauthorized:'Bitte melde dich mit einem Pferdeteam-Zugang an.',past_week:'Vergangene Wochen bleiben unverändert. Bitte die nächste aktuelle Ponygruppenwoche oder eine spätere Woche wählen.',invalid_week:'Bitte einen Montag als Wochenbeginn wählen.',invalid_plan:'Bitte Namen und Uhrzeiten prüfen. Namen dürfen innerhalb einer Gruppe nicht doppelt vorkommen; pro Gruppe sind höchstens 30 Helfis vorgesehen.',staff_member:'Mitarbeitende/Pferdeteam gehören nicht in den Helfi-Plan'+(result.name?' ('+result.name+')':'')+'.',plan_changed:'Der Plan wurde inzwischen geändert. Bitte neu laden, bevor du speicherst.',existing_booking:'Für den '+fmtDate(result.date||'')+' gibt es bereits eine Zusage, die mit dem geänderten Plan kollidiert. Bitte zuerst die Eintragung oder Vertretung klären.',existing_replacement:'Für den '+fmtDate(result.date||'')+' gibt es bereits eine zugesagte Vertretung, die nicht zum geänderten Plan passt. Bitte zuerst mit den Beteiligten klären.',busy:'Der Plan wird gerade gespeichert. Bitte erneut versuchen.'}[result.error]||'Keine Bestätigung erhalten. Bitte neu laden und den gespeicherten Stand prüfen.';
-}
-function renderHelfiTeamPlan(result) {
-  helfiPlanRevision=result.revision;helfiPlanLoadedWeek=result.week;
-  document.getElementById('helfiPlanFields').innerHTML=HELFI_PLAN_GROUPS.map(g=>{
-    const plan=result.groups[g.id]||{start:g.start,end:g.end,pool:[],members:[],rotationWeeks:1};
-    const pool=Array.isArray(plan.pool)?plan.pool:(plan.members||[]);
-    const names=pool.map(m=>m.name).join(', ');
-    const thisWeek=(plan.members||[]).map(m=>m.name).join(', ');
-    const cycle=pool.length>g.capacity?`Automatischer ${plan.rotationWeeks||1}-Wochen-Rhythmus · diese Woche: ${escapeHtml(thisWeek||'–')}`:`${pool.length||0} von ${g.capacity} Plätzen fest belegt`;
-    return `<div class="card helfi-plan-group" data-plan-group="${g.id}"><h3>${g.dayName} · ${g.title}</h3><div class="helfi-plan-time-grid"><label for="hp-${g.id}-start">Von<input type="time" id="hp-${g.id}-start" data-plan-start value="${escapeHtml(plan.start||g.start)}"></label><label for="hp-${g.id}-end">Bis<input type="time" id="hp-${g.id}-end" data-plan-end value="${escapeHtml(plan.end||g.end)}"></label></div><label for="hp-${g.id}-names">Helfis für diese Gruppe</label><input type="text" id="hp-${g.id}-names" data-plan-names value="${escapeHtml(names)}" placeholder="Alle Vornamen mit Komma trennen"><p class="detail-sub">${g.capacity} Helfi-Plätze · ${cycle}. Sind mehr Namen als Plätze eingetragen, verteilt die App die Einsätze automatisch gleichmäßig. Mitarbeitende/Pferdeteam werden nicht als Helfis geführt.</p></div>`;
-  }).join('');
-  document.getElementById('helfiPlanSave').disabled=false;
-}
-async function loadHelfiTeamPlan() {
-  if(helfiPlanEditing)return;
-  const field=document.getElementById('helfiPlanWeek'),status=document.getElementById('helfiPlanStatus');
-  field.value=helfiPlanMonday(field.value)||helfiPlanDefaultWeek();
-  setHelfiPlanBusy(true);document.getElementById('helfiPlanSave').disabled=true;status.className='save-status saving';status.textContent='Einteilung wird geladen …';
-  const result=await helfiPlanCall('helfiPlanGet',{week:field.value});setHelfiPlanBusy(false);
-  if(!result.ok){status.className='save-status error';status.textContent=helfiPlanError(result);return;}
-  renderHelfiTeamPlan(result);status.className='save-status';status.textContent=result.effectiveWeek?'Diese Einteilung gilt seit der Woche ab '+fmtDate(result.effectiveWeek)+'.':'Noch keine feste Einteilung gespeichert. Trage nur Personen ein, mit denen der Rhythmus abgesprochen ist.';
-}
-function helfiInviteUrl() {
-  if(!helfiInviteToken)return '';
-  const url=new URL('helfi.html',window.location.href);
-  url.search='';url.hash='invite='+encodeURIComponent(helfiInviteToken);
-  return url.href;
-}
-async function loadHelfiInviteLink() {
-  const status=document.getElementById('helfiInviteStatus');
-  status.className='save-status saving';status.textContent='Einladungslink wird geladen …';
-  const result=await helfiPlanCall('helfiInviteGet');
-  if(!result.ok||!result.inviteToken){helfiInviteToken='';status.className='save-status error';status.textContent=helfiPlanError(result);return false;}
-  helfiInviteToken=result.inviteToken;status.className='save-status ok';status.textContent='Einladungslink ist bereit.';return true;
-}
-async function copyHelfiInviteLink() {
-  if(!helfiInviteToken&&!(await loadHelfiInviteLink()))return;
-  const link=helfiInviteUrl(),status=document.getElementById('helfiInviteStatus');
-  try{await navigator.clipboard.writeText(link);}catch(e){const area=document.createElement('textarea');area.value=link;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();}
-  status.className='save-status ok';status.textContent='Einladungslink kopiert.';
-}
-function closeHelfiPlanPanel() {
-  const panel=document.getElementById('helfiPlanPanel');
-  if(panel)panel.style.display='none';
-  const overview=document.getElementById('ponyGroupsOverview');if(overview)overview.style.display='block';
-  const roster=document.getElementById('ponyGroupRosterInlineEntry');if(roster)roster.style.display=getRole()==='pferdeteam'&&!!getTeamToken()?'block':'none';
-  const lead=document.getElementById('ponyGroupLeadInlineEntry');if(lead)lead.style.display=isPonyGroupLead()?'block':'none';
-  const entry=document.getElementById('helfiPlanInlineEntry');if(entry)entry.style.display=getRole()==='pferdeteam'&&!!getTeamToken()?'block':'none';
-}
 
 const PONY_GROUP_LEAD_TODOS_KEY = 'ponygroup:leitung:todos';
 const PONY_GROUP_LEAD_TODOS_LEGACY_KEY = 'ponygroup:leitung:franzi:todos';
@@ -28175,13 +28031,11 @@ function closePonyGroupLeadPanel() {
   const overview = document.getElementById('ponyGroupsOverview');
   const rosterEntry = document.getElementById('ponyGroupRosterInlineEntry');
   const leadEntry = document.getElementById('ponyGroupLeadInlineEntry');
-  const helfiEntry = document.getElementById('helfiPlanInlineEntry');
 
   if (panel) panel.style.display = 'none';
   if (overview) overview.style.display = 'block';
   if (rosterEntry) rosterEntry.style.display = getRole() === 'pferdeteam' ? 'block' : 'none';
   if (leadEntry) leadEntry.style.display = isPonyGroupLead() ? 'block' : 'none';
-  if (helfiEntry) helfiEntry.style.display = getRole() === 'pferdeteam' && !!getTeamToken() ? 'block' : 'none';
 }
 
 async function renderPonyGroupLeadTodos() {
@@ -28280,12 +28134,10 @@ function closePonyGroupRosterPanel() {
   const entry = document.getElementById('ponyGroupRosterInlineEntry');
   const rosterOverview = document.getElementById('ponyGroupRosterOverview');
   const rosterEditor = document.getElementById('ponyGroupRosterEditor');
-  const helfiEntry = document.getElementById('helfiPlanInlineEntry');
 
   if (panel) panel.style.display = 'none';
   if (overview) overview.style.display = 'block';
   if (entry) entry.style.display = getRole() === 'pferdeteam' && !!getTeamToken() ? 'block' : 'none';
-  if (helfiEntry) helfiEntry.style.display = getRole() === 'pferdeteam' && !!getTeamToken() ? 'block' : 'none';
   if (rosterOverview) rosterOverview.style.display = 'flex';
   if (rosterEditor) rosterEditor.style.display = 'none';
 }
@@ -29627,10 +29479,8 @@ async function openPonyGroup(groupId, rangeOffset = 0, focusDateStr = '') {
   document.getElementById('ponyGroupsOverview').style.display = 'none';
   const rosterEntry = document.getElementById('ponyGroupRosterInlineEntry');
   const leadEntry = document.getElementById('ponyGroupLeadInlineEntry');
-  const helfiEntry = document.getElementById('helfiPlanInlineEntry');
   if (rosterEntry) rosterEntry.style.display = 'none';
   if (leadEntry) leadEntry.style.display = 'none';
-  if (helfiEntry) helfiEntry.style.display = 'none';
   document.getElementById('ponyGroupDetail').style.display = 'block';
   document.getElementById('ponyGroupDetailDay').textContent = group.day;
   document.getElementById('ponyGroupDetailTitle').textContent = group.title;
@@ -29651,10 +29501,8 @@ function closePonyGroupDetail() {
 
   const rosterEntry = document.getElementById('ponyGroupRosterInlineEntry');
   const leadEntry = document.getElementById('ponyGroupLeadInlineEntry');
-  const helfiEntry = document.getElementById('helfiPlanInlineEntry');
   if (rosterEntry) rosterEntry.style.display = getRole() === 'pferdeteam' ? 'block' : 'none';
   if (leadEntry) leadEntry.style.display = isPonyGroupLead() ? 'block' : 'none';
-  if (helfiEntry) helfiEntry.style.display = getRole() === 'pferdeteam' && !!getTeamToken() ? 'block' : 'none';
 }
 
 document.querySelectorAll('.pony-group-row').forEach(btn => {
@@ -29738,7 +29586,7 @@ function globalSearchStaticEntries() {
   ];
   if (team) {
     if (areaAccessAllowed('ponygroups')) entries.push(
-      { id:'area-groups', title:'Ponygruppen', sub:'Anwesenheit, Ponyeinteilung und Inhalte', keywords:'ponygruppe ponygruppen kinder anwesenheit ponyeinteilung helfi', kind:'area', target:'groups' }
+      { id:'area-groups', title:'Ponygruppen', sub:'Anwesenheit, Ponyeinteilung und Inhalte', keywords:'ponygruppe ponygruppen kinder anwesenheit ponyeinteilung', kind:'area', target:'groups' }
     );
     entries.push(
       { id:'area-todos', title:'Aufgaben', sub:'To-dos des Pferdeteams', keywords:'aufgabe aufgaben todo to do erledigen', kind:'area', target:'todos' }
@@ -30912,32 +30760,6 @@ document.getElementById('manageBtn').onclick = () => {
 
 
 
-document.getElementById('helfiPlanManageBtn').onclick=async()=>{
-  if(getRole()!=='pferdeteam'||!getTeamToken()){appAlert('Die Helfi-Einteilung ist nur für das Pferdeteam sichtbar.');return;}
-  closePonyGroupDetail();closePonyGroupRosterPanel();closePonyGroupLeadPanel();
-  document.getElementById('ponyGroupsOverview').style.display='none';
-  document.getElementById('ponyGroupRosterInlineEntry').style.display='none';
-  document.getElementById('ponyGroupLeadInlineEntry').style.display='none';
-  document.getElementById('helfiPlanInlineEntry').style.display='none';
-  document.getElementById('helfiPlanPanel').style.display='block';
-  document.getElementById('helfiPlanWeek').value=helfiPlanDefaultWeek();
-  await loadHelfiTeamPlan();
-  await loadHelfiInviteLink();
-};
-document.getElementById('helfiPlanBack').onclick=()=>closeHelfiPlanPanel();
-document.getElementById('helfiPlanLoad').onclick=()=>loadHelfiTeamPlan();
-document.getElementById('helfiPlanWeek').onchange=()=>{const field=document.getElementById('helfiPlanWeek');field.value=helfiPlanMonday(field.value)||field.value;document.getElementById('helfiPlanSave').disabled=true;showSaveStatus(document.getElementById('helfiPlanStatus'),'pending','Bitte jetzt „Diese Woche öffnen“ wählen.');};
-document.getElementById('helfiPlanSave').onclick=async()=>{
-  if(helfiPlanEditing||document.getElementById('helfiPlanSave').disabled)return;
-  const week=document.getElementById('helfiPlanWeek').value;if(week!==helfiPlanLoadedWeek)return;
-  const groups={};document.querySelectorAll('[data-plan-group]').forEach(row=>{groups[row.dataset.planGroup]={start:row.querySelector('[data-plan-start]').value,end:row.querySelector('[data-plan-end]').value,names:row.querySelector('[data-plan-names]').value.split(',').map(v=>v.trim()).filter(Boolean)};});
-  const status=document.getElementById('helfiPlanStatus');setHelfiPlanBusy(true);document.getElementById('helfiPlanSave').disabled=true;status.className='save-status saving';status.textContent='Einteilung wird gespeichert …';
-  const result=await helfiPlanCall('helfiPlanSave',{week,groups,revision:helfiPlanRevision});setHelfiPlanBusy(false);document.getElementById('helfiPlanSave').disabled=false;
-  if(!result.ok){status.className='save-status error';status.textContent=helfiPlanError(result);return;}
-  renderHelfiTeamPlan(result);status.className='save-status ok';status.textContent='Gespeichert. Der faire Wechselrhythmus gilt ab der gewählten Woche.';
-};
-document.getElementById('helfiInviteCopy').onclick=()=>copyHelfiInviteLink();
-document.getElementById('helfiInviteOpen').onclick=async()=>{if(!helfiInviteToken&&!(await loadHelfiInviteLink()))return;window.open(helfiInviteUrl(),'_blank','noopener,noreferrer');};
 
 document.getElementById('ponyGroupLeadOpenBtn').onclick = async () => {
   if (!isPonyGroupLead()) {
@@ -30951,7 +30773,6 @@ document.getElementById('ponyGroupLeadOpenBtn').onclick = async () => {
   document.getElementById('ponyGroupsOverview').style.display = 'none';
   document.getElementById('ponyGroupRosterInlineEntry').style.display = 'none';
   document.getElementById('ponyGroupLeadInlineEntry').style.display = 'none';
-  const helfiEntry = document.getElementById('helfiPlanInlineEntry'); if (helfiEntry) helfiEntry.style.display = 'none';
   document.getElementById('ponyGroupLeadPanel').style.display = 'block';
 
   await renderPonyGroupLeadTodos();
@@ -31018,7 +30839,6 @@ document.getElementById('ponyGroupRosterOpenBtn').onclick = async () => {
   document.getElementById('ponyGroupRosterInlineEntry').style.display = 'none';
   const leadEntry = document.getElementById('ponyGroupLeadInlineEntry');
   if (leadEntry) leadEntry.style.display = 'none';
-  const helfiEntry = document.getElementById('helfiPlanInlineEntry'); if (helfiEntry) helfiEntry.style.display = 'none';
   document.getElementById('ponyGroupRosterPanel').style.display = 'block';
   await renderPonyGroupRosterManager();
 };
@@ -32513,8 +32333,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
 
           const accessManageBtn = document.getElementById('accessManageBtn');
           if (accessManageBtn) accessManageBtn.style.display = (isTeam && currentTeamIsAdmin) ? 'flex' : 'none';
-          const helfiPlanInlineEntry = document.getElementById('helfiPlanInlineEntry');
-          if (helfiPlanInlineEntry) helfiPlanInlineEntry.style.display = isTeam ? 'block' : 'none';
 
           document.querySelectorAll('#infosScreen .team-only').forEach(el => {
             el.style.display = isTeam ? '' : 'none';
@@ -35182,7 +35000,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   const realUploadPhotoToDrive=uploadPhotoToDrive;
   const realDeletePhotoFromDrive=deletePhotoFromDrive;
   const realAdminBackendCall=adminBackendCall;
-  const realHelfiPlanCall=helfiPlanCall;
   const realPushBackendCall=pushBackendCall;
   const realPushNotify=typeof pushNotifyNewEntry==='function' ? pushNotifyNewEntry : null;
 
@@ -35246,7 +35063,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   uploadPhotoToDrive=async function(dataUrl){if(!demoMode)return realUploadPhotoToDrive(dataUrl);showActionToast('Im Testmodus werden Fotos und Sprachmemos nicht hochgeladen');return {ok:false,error:'Testmodus: keine Datei-Uploads'};};
   deletePhotoFromDrive=async function(fileId){if(!demoMode)return realDeletePhotoFromDrive(fileId);showActionToast('Testmodus · echte Dateien bleiben unverändert');return true;};
   adminBackendCall=async function(action,payload={}){if(demoMode&&action!=='listTeamUsers'){showActionToast('Testmodus · Zugänge werden nicht verändert');return {ok:false,error:'demo'};}return realAdminBackendCall(action,payload);};
-  helfiPlanCall=async function(action,payload={}){if(demoMode&&action!=='helfiPlanGet'&&action!=='helfiInviteGet'){showActionToast('Testmodus · Helfi-Plan wird nicht gespeichert');return {ok:false,error:'demo'};}return realHelfiPlanCall(action,payload);};
   pushBackendCall=async function(action,payload={}){if(demoMode&&action!=='pushConfig'){showActionToast('Testmodus · Benachrichtigungseinstellungen werden nicht übertragen');return {ok:true,demo:true};}return realPushBackendCall(action,payload);};
   if(realPushNotify) pushNotifyNewEntry=function(...args){if(demoMode){showActionToast('Testmodus · keine Benachrichtigung gesendet');return Promise.resolve({ok:true,demo:true});}return realPushNotify(...args);};
   const demoBtn=document.getElementById('demoModeToggleBtn'); if(demoBtn)demoBtn.onclick=()=>toggleDemoMode_(!demoMode);
@@ -36525,10 +36341,8 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
     const role = typeof getRole === 'function' ? getRole() : '';
     const fullPgTeam = role === 'pferdeteam' && (currentTeamIsAdmin || teamAuthAccess().ponygroups.grants.some(g => g.groupId === '*' && !g.validFrom && !g.validUntil));
     const roster = document.getElementById('ponyGroupRosterInlineEntry');
-    const helfi = document.getElementById('helfiPlanInlineEntry');
     const lead = document.getElementById('ponyGroupLeadInlineEntry');
     if (roster) roster.style.display = fullPgTeam ? 'block' : 'none';
-    if (helfi) helfi.style.display = fullPgTeam ? 'block' : 'none';
     if (lead && !fullPgTeam) lead.style.display = 'none';
 
     const scope = document.getElementById('ponyGroupAccessScope');
