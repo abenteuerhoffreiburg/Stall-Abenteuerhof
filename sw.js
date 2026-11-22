@@ -1,11 +1,11 @@
-const CACHE_NAME = 'stall-abenteuerhof-shell-v12557-20261122';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v12558-20261122';
 const SHELL = [
   './',
   './index.html',
-  './manifest.webmanifest?v=1.25.57',
-  './icon-192.png?v=1.25.57',
-  './icon-512.png?v=1.25.57',
-  './apple-touch-icon.png?v=1.25.57'
+  './manifest.webmanifest?v=1.25.58',
+  './icon-192.png?v=1.25.58',
+  './icon-512.png?v=1.25.58',
+  './apple-touch-icon.png?v=1.25.58'
 ];
 
 self.addEventListener('install', event => {
@@ -36,7 +36,6 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (url.pathname.includes('/onesignal/')) return;
 
   if (url.origin === self.location.origin && url.pathname.endsWith('/version.json')) {
     event.respondWith(fetch(request, {cache:'no-store'}));

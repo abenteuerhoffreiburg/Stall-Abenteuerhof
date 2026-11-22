@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.57. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.58. -->
 <style>
  .home-personal-inbox{margin:10px 0 18px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
 .home-personal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
@@ -24,9 +24,9 @@
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.57">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.57">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.57">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.58">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.58">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.58">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -694,8 +694,8 @@
   }
   .entry-note { font-size: 13.5px; line-height: 1.5; margin-top: 4px; color: var(--text); }
   .entry-photo { max-width: 170px; border-radius: var(--radius-sm); margin-top: 9px; display: block; border: 1px solid var(--border-strong); box-shadow: var(--shadow-xs); }
-  .push-target { animation: push-target-pulse 2.8s ease-out 1; outline: 3px solid var(--teal); outline-offset: 4px; }
-  @keyframes push-target-pulse { 0%,100% { background: transparent; } 20%,60% { background: var(--teal-tint); } }
+  .entry-focus-target { animation: entry-focus-target-pulse 2.8s ease-out 1; outline: 3px solid var(--teal); outline-offset: 4px; }
+  @keyframes entry-focus-target-pulse { 0%,100% { background: transparent; } 20%,60% { background: var(--teal-tint); } }
   .entry-meta { font-size: 11.5px; color: var(--text-tertiary); margin-top: 7px; display: flex; justify-content: space-between; align-items: center; }
 
   .reaction-bar { display: flex; gap: 6px; margin-top: 9px; }
@@ -8880,90 +8880,6 @@
   }
 
 
-  /* ===== Echte Push-Benachrichtigungen ===== */
-  .push-settings-card { padding: 14px 15px !important; }
-  .push-settings-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .push-status-pill {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;
-    padding: 4px 8px;
-    border-radius: 999px;
-    background: #ECEDE8;
-    color: #6F756C;
-    font-size: 9px;
-    font-weight: 850;
-    white-space: nowrap;
-  }
-  .push-status-pill.ok { background: #E5EFD9; color: #365D31; }
-  .push-status-pill.warn { background: #F7E8DE; color: #8A4A2C; }
-  .push-status-pill.muted { background: #ECEDE8; color: #777B74; }
-  .push-ios-hint,
-  .push-unconfigured {
-    margin-top: 10px;
-    border-radius: 9px;
-    padding: 9px 10px;
-    font-size: 10.5px;
-    line-height: 1.4;
-  }
-  .push-ios-hint { background: #F4F0E4; color: #6D6144; border: 1px solid #E1D7B8; }
-  .push-unconfigured { background: #F7E8DE; color: #7A4A31; border: 1px solid #E5C8B6; }
-  .push-main-actions {
-    display: flex;
-    gap: 7px;
-    flex-wrap: wrap;
-    margin-top: 12px;
-  }
-  .push-main-actions .submit-btn,
-  .push-main-actions .secondary-btn {
-    width: auto !important;
-    margin: 0 !important;
-  }
-  .push-pref-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 13px;
-    padding-top: 11px;
-    border-top: 1px solid var(--border);
-  }
-  .push-pref-row {
-    margin: 0 !important;
-    display: grid;
-    grid-template-columns: 20px minmax(0,1fr);
-    align-items: start;
-    gap: 8px;
-    padding: 8px 9px;
-    border-radius: 9px;
-    background: #FAFAF7;
-    border: 1px solid #E7E9E1;
-    cursor: pointer;
-  }
-  .push-pref-row input {
-    width: 17px;
-    height: 17px;
-    margin: 1px 0 0;
-    accent-color: var(--navy);
-  }
-  .push-pref-row strong {
-    display: block;
-    font-size: 11px;
-    color: var(--text);
-    font-weight: 850;
-  }
-  .push-pref-row small {
-    display: block;
-    margin-top: 2px;
-    font-size: 9.5px;
-    line-height: 1.35;
-    color: var(--text-tertiary);
-  }
   .todo-due-field { margin: 10px 0 0; }
   .todo-due-field label { margin-top: 0 !important; }
   .todo-due-optional { color: var(--text-tertiary); font-weight: 600; font-size: 9.5px; }
@@ -8971,15 +8887,9 @@
   .todo-due-badge.today { background: #F7EDD3; color: #7C5D1E; }
   .todo-due-badge.overdue { background: #F6E1D8; color: #8A432B; }
   .todo-overdue { border-color: #DDBEAF !important; }
-  @media (max-width: 520px) {
-    .push-settings-head { align-items: flex-start; }
-    .push-main-actions { display: grid; grid-template-columns: 1fr 1fr; }
-    .push-main-actions .push-test-btn { grid-column: 1 / -1; }
-  }
 
-
-  /* ===== Push-Auswahl pro Eintrag ===== */
-  .entry-push-option {
+  /* ===== Hervorgehobene Auswahl pro Eintrag ===== */
+  .entry-option-card {
     margin-top: 12px !important;
     padding: 10px 11px;
     display: flex !important;
@@ -8993,7 +8903,7 @@
     letter-spacing: 0 !important;
   }
 
-  .entry-push-option input {
+  .entry-option-card input {
     width: 18px;
     height: 18px;
     margin: 1px 0 0;
@@ -9001,18 +8911,18 @@
     accent-color: var(--navy);
   }
 
-  .entry-push-option span {
+  .entry-option-card span {
     min-width: 0;
   }
 
-  .entry-push-option strong {
+  .entry-option-card strong {
     display: block;
     color: var(--text);
     font-size: 11.5px;
     font-weight: 850;
   }
 
-  .entry-push-option small {
+  .entry-option-card small {
     display: block;
     margin-top: 2px;
     color: var(--text-tertiary);
@@ -9021,7 +8931,7 @@
     font-weight: 500;
   }
 
-  .entry-push-option.disabled {
+  .entry-option-card.disabled {
     opacity: .5;
   }
 
@@ -11900,7 +11810,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.57" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.58" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12618,52 +12528,6 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     </div>
   </div>
 
-  <div class="section-label">Benachrichtigungen</div>
-  <div class="card push-settings-card" id="pushSettingsCard">
-    <div class="push-settings-head">
-      <div>
-        <div class="theme-settings-title">Push-Benachrichtigungen</div>
-        <div class="theme-settings-sub">Echte Benachrichtigungen auf Sperrbildschirm und Mitteilungszentrale – auch wenn die App geschlossen ist.</div>
-      </div>
-      <span class="push-status-pill" id="pushStatusPill">Prüfe …</span>
-    </div>
-
-    <div class="push-ios-hint" id="pushIosHint" style="display:none;">
-      Auf iPhone/iPad funktioniert Push nur mit der zum Home-Bildschirm hinzugefügten Web-App. Öffne anschließend die App über das Stall-Abenteuerhof-Symbol und aktiviere Push hier.
-    </div>
-
-    <div class="push-unconfigured" id="pushUnconfigured" style="display:none;">
-      Push ist technisch eingebaut, aber im Backend noch nicht mit OneSignal verbunden.
-    </div>
-
-    <div id="pushConfiguredControls">
-      <div class="push-main-actions">
-        <button type="button" class="submit-btn push-enable-btn" id="pushEnableBtn">Push aktivieren</button>
-        <button type="button" class="secondary-btn push-disable-btn" id="pushDisableBtn" style="display:none;">Push deaktivieren</button>
-        <button type="button" class="secondary-btn push-test-btn" id="pushTestBtn">Test senden</button>
-      </div>
-      <div class="save-status" id="pushSaveStatus"></div>
-
-      <div class="push-pref-list">
-        <label class="push-pref-row">
-          <input type="checkbox" id="pushPrefHealth" data-push-pref="health" checked>
-          <span><strong>Gesundheit</strong><small>Neue Einträge, bei denen „Benachrichtigung senden“ gewählt wurde</small></span>
-        </label>
-        <label class="push-pref-row">
-          <input type="checkbox" id="pushPrefInfos" data-push-pref="infos" checked>
-          <span><strong>Allgemeine Infos</strong><small>Neue Hinweise, bei denen „Benachrichtigung senden“ gewählt wurde</small></span>
-        </label>
-        <label class="push-pref-row">
-          <input type="checkbox" id="pushPrefChecks" data-push-pref="checks" checked>
-          <span><strong>Stallchecks</strong><small>Reminder für fällige regelmäßige Kontrollen</small></span>
-        </label>
-        <label class="push-pref-row push-team-only" id="pushPrefTodosRow">
-          <input type="checkbox" id="pushPrefTodos" data-push-pref="todos" checked>
-          <span><strong>To-dos</strong><small>Fällig / überfällig – nur wenn es für die Aufgabe aktiviert wurde</small></span>
-        </label>
-      </div>
-    </div>
-  </div>
 
   <div class="section-label">Daten</div>
   <div class="card professional-settings-card">
@@ -12821,8 +12685,6 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <h3>Speicherorte</h3>
     <p>Die zentralen App-Daten werden über Google Apps Script in der verbundenen Google-Tabelle gespeichert. Fotos und Sprachaufnahmen können in Google Drive liegen. Für die Offline-Funktion wird auf dem jeweiligen Gerät zusätzlich eine lokale Kopie zwischengespeichert.</p>
 
-    <h3>Push-Benachrichtigungen</h3>
-    <p>Push ist freiwillig und kann in den Einstellungen deaktiviert werden. Für die technische Zustellung wird OneSignal verwendet. Push-Texte enthalten bewusst nur neutrale Hinweise – keine Kindernamen, Bedarfe, Gesundheitsnotizen oder sonstigen Detailinhalte.</p>
 
     <h3>Zugriff</h3>
     <p>Interne Bereiche werden über Rollen und persönliche Zugänge begrenzt. Besonders sensible Funktionen wie Ponygruppen, To-dos, Verwaltung und Datensicherung sind für das Pferdeteam bzw. Admins vorgesehen.</p>
@@ -12862,7 +12724,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
-    <div class="changelog-version">Version 1.25.57</div><p>Das öffentliche Projekt wurde auf die tatsächlich benötigten App-Dateien reduziert.</p><ul><li>Veraltete Einbau-, Test- und Push-Dokumente wurden entfernt.</li><li>Bereits in der App enthaltene doppelte JavaScript- und CSS-Dateien wurden gelöscht.</li><li>Die laufende App, Icons und der verwendete Push-Worker bleiben unverändert erhalten.</li></ul><div class="changelog-version">Version 1.25.56</div><p>Der nicht mehr benötigte Helfi-Kalender wurde vollständig aus der Oberfläche entfernt.</p><ul><li>Die Helfi-Einteilung erscheint nicht mehr bei den Ponygruppen.</li><li>Einladungslink und separate Helfi-Seite wurden entfernt.</li><li>Die normalen Ponygruppen, Personenlisten und Gruppendokumentation bleiben unverändert.</li></ul><div class="changelog-version">Version 1.25.55</div><p>Neue Aufgaben-Kommentare erscheinen ausschließlich bei der Erstellerin unter „Neu für dich“. Sie lösen bewusst keinen Push aus; automatische Push-Erinnerungen werden nicht eingerichtet.</p><div class="changelog-version">Version 1.25.51</div><p>Im Bereich Aktivitäten gibt es nur noch „Neuer Eintrag“ mit der direkt sichtbaren Frage „Für welchen Tag?“.</p><div class="changelog-version">Version 1.25.50</div><p>Aktivitäten nachtragen ist einfacher sichtbar; Gruppenbuch und Pony-Bewegung bleiben getrennt. Persönliche Mitteilungen, Kommentar-Herzen und Entwurfs-Hinweise wurden überarbeitet.</p><div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
+    <div class="changelog-version">Version 1.25.58</div><p>OneSignal und die nicht verwendeten Push-Benachrichtigungen wurden vollständig aus der aktiven App entfernt.</p><ul><li>Die App lädt keinen externen OneSignal-Code mehr.</li><li>Push-Einstellungen und Benachrichtigungsoptionen wurden aus den Formularen entfernt.</li><li>Bereits registrierte OneSignal-Worker werden beim nächsten Start automatisch abgemeldet.</li><li>„Neu für dich“, Kommentare und Hinweise innerhalb der App bleiben erhalten.</li></ul><div class="changelog-version">Version 1.25.57</div><p>Das öffentliche Projekt wurde auf die tatsächlich benötigten App-Dateien reduziert.</p><ul><li>Veraltete Einbau-, Test- und Push-Dokumente wurden entfernt.</li><li>Bereits in der App enthaltene doppelte JavaScript- und CSS-Dateien wurden gelöscht.</li><li>Die laufende App, Icons und der verwendete Push-Worker bleiben unverändert erhalten.</li></ul><div class="changelog-version">Version 1.25.56</div><p>Der nicht mehr benötigte Helfi-Kalender wurde vollständig aus der Oberfläche entfernt.</p><ul><li>Die Helfi-Einteilung erscheint nicht mehr bei den Ponygruppen.</li><li>Einladungslink und separate Helfi-Seite wurden entfernt.</li><li>Die normalen Ponygruppen, Personenlisten und Gruppendokumentation bleiben unverändert.</li></ul><div class="changelog-version">Version 1.25.55</div><p>Neue Aufgaben-Kommentare erscheinen ausschließlich bei der Erstellerin unter „Neu für dich“. Sie lösen bewusst keinen Push aus; automatische Push-Erinnerungen werden nicht eingerichtet.</p><div class="changelog-version">Version 1.25.51</div><p>Im Bereich Aktivitäten gibt es nur noch „Neuer Eintrag“ mit der direkt sichtbaren Frage „Für welchen Tag?“.</p><div class="changelog-version">Version 1.25.50</div><p>Aktivitäten nachtragen ist einfacher sichtbar; Gruppenbuch und Pony-Bewegung bleiben getrennt. Persönliche Mitteilungen, Kommentar-Herzen und Entwurfs-Hinweise wurden überarbeitet.</p><div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
     <div class="changelog-version">Version 1.25.46</div><p>Die Vorbereitung der Ponygruppen ist jetzt auch ohne App-Erfahrung verständlich.</p><ul><li>Statt automatischer Mehrwochen- und Konzeptplanung wird nur noch der ausgewählte Termin vorbereitet.</li><li>Es gibt drei klare Angaben: Was machen wir, was muss bereitliegen und welcher Hinweis ist fürs Team wichtig.</li><li>Nach dem Speichern erscheint ein deutliches grünes „Gespeichert“; jede weitere Änderung wird sofort als „Noch nicht gespeichert“ markiert.</li><li>Angefangene Formulare sprechen nicht mehr technisch von alten Entwürfen, sondern fragen verständlich nach „Weitermachen“ oder „Neu beginnen“.</li><li>Bestehende ausführliche Planungen bleiben erhalten und können bei Bedarf aufgeklappt werden.</li></ul><div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
     <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
@@ -13200,7 +13062,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <textarea id="gesNote" placeholder="z. B. Medikamentengabe, Auffälligkeiten, Verletzung…"></textarea>
 
     <div class="health-priority-access team-only" id="gesPriorityAccess">
-      <label class="entry-push-option health-important-option" for="gesImportant">
+      <label class="entry-option-card health-important-option" for="gesImportant">
         <input type="checkbox" id="gesImportant">
         <span>
           <strong>Wichtig für den Stallalltag</strong>
@@ -13239,20 +13101,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
     <img id="gesPhotoPreview" style="display:none; max-width:120px; border-radius:6px; margin-top:8px; border:1px solid var(--border-strong);">
     <button type="button" id="gesPhotoRemove" style="display:none; margin-top:6px;" class="toggle-details">Foto entfernen</button>
 
-    <label class="entry-push-option" id="gesNotifyOthersRow" for="gesNotifyOthers">
-      <input type="checkbox" id="gesNotifyOthers" checked>
-      <span>
-        <strong>Benachrichtigung senden</strong>
-        <small id="gesNotifyOthersHelp">Kurze Vorschau senden; Antippen öffnet den Eintrag.</small>
-      </span>
-    </label>
-    <div id="gesPushAudienceWrap" style="display:none;">
-      <label for="gesPushAudience">Wer soll den Push bekommen?</label>
-      <select id="gesPushAudience" aria-describedby="gesNotifyOthersHelp" disabled>
-        <option value="team">Nur Pferdeteam</option>
-        <option value="all">Alle App-Nutzer:innen</option>
-      </select>
-    </div>
+
     <div class="auto-role-hint" id="gesAutoRoleHint">Wird automatisch mit deinem Zugang gespeichert.</div>
     </details>
     <input type="hidden" id="gesAuthor">
@@ -13367,13 +13216,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
           <button type="button" id="voiceRemoveBtn" class="toggle-details">Aufnahme verwerfen</button>
         </div>
 
-        <label class="entry-push-option" for="infoNotifyOthers">
-          <input type="checkbox" id="infoNotifyOthers" checked>
-          <span>
-            <strong>Benachrichtigung senden</strong>
-            <small>Kurze Vorschau senden; Antippen öffnet den Hinweis.</small>
-          </span>
-        </label>
+
         <label>Eingetragen von</label>
         <input type="text" id="infoAuthor" placeholder="Wird automatisch gesetzt" readonly>
         <button class="submit-btn" id="infoSubmit">Hinweis anpinnen</button>
@@ -13568,10 +13411,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
           <label><span>Nächster Check</span><input type="date" id="responsibilityDue"></label>
         </div>
         <label><span>Hinweis – optional</span><textarea id="responsibilityNote" placeholder="Was genau soll geprüft werden?"></textarea></label>
-        <label class="entry-push-option" for="responsibilityNotify">
-          <input type="checkbox" id="responsibilityNotify" checked>
-          <span><strong>Push-Reminder senden</strong><small>Am Fälligkeitstag und anschließend höchstens einmal pro Woche, solange der Check überfällig ist.</small></span>
-        </label>
+
         <div class="info-inline-form-actions">
           <button type="button" class="submit-btn" id="responsibilitySaveBtn">Stallcheck speichern</button>
           <button type="button" class="toggle-details" id="responsibilityCancelBtn">Abbrechen</button>
@@ -13844,7 +13684,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
           </fieldset>
 
           <label class="simple-check"><input type="checkbox" id="todoWeekly"> Jede Woche wiederholen</label>
-          <label class="simple-check"><input type="checkbox" id="todoNotifyOthers" checked> Am Fälligkeitstag erinnern</label>
+
 
         <div class="media-picker todo-media-picker">
           <div class="media-picker-head">
@@ -14299,507 +14139,16 @@ function appTestModeSettingsBlocked_() {
   showActionToast('Testmodus · persönliche Einstellungen bleiben unverändert');
   return true;
 }
-const PUSH_PREFS_KEY = 'stallAbenteuerhofPushPrefsV1';
-const PUSH_DEFAULT_PREFS = { health:true, infos:true, checks:true, todos:true };
-let pushConfigCache = null;
-let oneSignalReadyPromise = null;
-let oneSignalInstance = null;
-
-function pushExternalIdForName(name) {
-  return 'stall-' + String(name || '')
-    .trim()
-    .toLocaleLowerCase('de-DE')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/ß/g, 'ss')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function getPushPrefs() {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(PUSH_PREFS_KEY) || '{}');
-    return { ...PUSH_DEFAULT_PREFS, ...(parsed && typeof parsed === 'object' ? parsed : {}) };
-  } catch(e) {
-    return { ...PUSH_DEFAULT_PREFS };
-  }
-}
-
-function savePushPrefsLocal(prefs) {
-  if (appTestModeActive_()) return getPushPrefs();
-  const clean = {
-    health: prefs.health !== false,
-    infos: prefs.infos !== false,
-    checks: prefs.checks !== false,
-    todos: prefs.todos !== false
-  };
-  try { localStorage.setItem(PUSH_PREFS_KEY, JSON.stringify(clean)); } catch(e) {}
-  return clean;
-}
-
-async function pushBackendCall(action, payload = {}) {
-  payload = { ...payload, teamToken: getDataAccessToken() };
-  try {
-    if(action==='pushNewEntry') {
-      const caps=await requireBackendWriteCapabilities_();
-      if(!caps.deferredEntryPush || (String(payload.key || '').startsWith('info:') && !caps.noticeAudiencePush))return {ok:false,error:'push_update_required',message:'Bitte Backend und Push-Datei gemeinsam aktualisieren. Die Mitteilung bleibt vorgemerkt.'};
-    }
-    if (RUNNING_IN_GAS) {
-      const map = {
-        pushConfig: 'serverPushConfig',
-        savePushPreferences: 'serverSavePushPreferences',
-        sendTestPush: 'serverSendTestPush',
-        pushNewEntry: 'serverPushNewEntry',
-        ensurePushTriggers: 'serverEnsurePushTriggers'
-      };
-      const fn = map[action];
-      if (!fn) throw new Error('unknown push action');
-      if (action === 'pushConfig') return await gasCall(fn, payload.teamToken);
-      if (action === 'savePushPreferences') {
-        return await gasCall(
-          fn,
-          payload.name,
-          payload.role,
-          payload.prefs,
-          payload.subscriptionId || '',
-          payload.teamToken || '',
-          payload.active !== false
-        );
-      }
-      if (action === 'sendTestPush') {
-        return await gasCall(fn, payload.subscriptionId || '', payload.name || '', payload.teamToken || '');
-      }
-      if (action === 'pushNewEntry') return await gasCall(String(payload.key || '').startsWith('info:')?'serverPushNoticeEntry':fn, payload.key, payload.teamToken || '');
-      if (action === 'ensurePushTriggers') return await gasCall(fn, payload.teamToken || '');
-    }
-
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 20000);
-    try {
-      const res = await fetch(GAS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action, ...payload }),
-        signal: controller.signal
-      });
-      if (!res.ok) throw new Error('http ' + res.status);
-      return await res.json();
-    } finally { clearTimeout(timer); }
-  } catch(e) {
-    return { ok:false, error:'backend', message: e && e.message ? e.message : 'Backend nicht erreichbar' };
-  }
-}
-
-async function loadPushConfig() {
-  if (pushConfigCache) return pushConfigCache;
-  const data = await pushBackendCall('pushConfig');
-  pushConfigCache = data && typeof data === 'object' ? data : { ok:false, enabled:false };
-  return pushConfigCache;
-}
-
-function isIosLike() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-}
-
-function isStandaloneWebApp() {
-  return !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
-    window.navigator.standalone === true;
-}
-
-function setPushStatusUi(text, state = '') {
-  const pill = document.getElementById('pushStatusPill');
-  if (!pill) return;
-  pill.textContent = text;
-  pill.className = 'push-status-pill' + (state ? ' ' + state : '');
-}
-
-function readPushPrefsFromUi() {
-  const result = { ...PUSH_DEFAULT_PREFS };
-  document.querySelectorAll('[data-push-pref]').forEach(input => {
-    result[input.dataset.pushPref] = !!input.checked;
-  });
-  return result;
-}
-
-function applyPushPrefsToUi() {
-  const prefs = getPushPrefs();
-  document.querySelectorAll('[data-push-pref]').forEach(input => {
-    input.checked = prefs[input.dataset.pushPref] !== false;
-  });
-  const isTeam = getRole() === 'pferdeteam' && !!getTeamToken();
-  document.querySelectorAll('.push-team-only').forEach(row => {
-    row.style.display = isTeam ? 'flex' : 'none';
-  });
-}
-
-async function ensureOneSignalSdk() {
-  if (oneSignalReadyPromise) return oneSignalReadyPromise;
-
-  oneSignalReadyPromise = (async () => {
-    if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
-      throw new Error('push_requires_https');
-    }
-
-    const cfg = await loadPushConfig();
-    if (!cfg || !cfg.enabled || !cfg.appId) throw new Error('push_not_configured');
-
-    if (!window.OneSignalDeferred) window.OneSignalDeferred = [];
-
-    if (!document.querySelector('script[data-stall-onesignal]')) {
-      await new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
-        script.defer = true;
-        script.dataset.stallOnesignal = '1';
-        script.onload = resolve;
-        script.onerror = () => reject(new Error('onesignal_sdk_load_failed'));
-        document.head.appendChild(script);
-      });
-    }
-
-    const sdk = await new Promise((resolve, reject) => {
-      let settled = false;
-      const timeout = setTimeout(() => {
-        if (!settled) reject(new Error('onesignal_sdk_timeout'));
-      }, 12000);
-
-      window.OneSignalDeferred.push(async function(OneSignal) {
-        try {
-          const workerPath = '/Stall-Abenteuerhof/onesignal/OneSignalSDKWorker.js';
-          const workerScope = '/Stall-Abenteuerhof/onesignal/';
-          const workerUrl = new URL(workerPath, location.origin);
-
-          // GitHub Pages Projektseiten liegen unter /Stall-Abenteuerhof/.
-          // Deshalb den Worker-Pfad ausdrücklich mit diesem Projektpfad setzen.
-          const workerCheck = await fetch(workerUrl.href, { cache: 'no-store' });
-          if (!workerCheck.ok) {
-            throw new Error('onesignal_worker_http_' + workerCheck.status);
-          }
-
-          await OneSignal.init({
-            appId: cfg.appId,
-            safari_web_id: 'web.onesignal.auto.4c35e1cb-920a-4e68-be7d-eea8363a1cf4',
-            serviceWorkerPath: workerPath,
-            serviceWorkerParam: { scope: workerScope },
-            notifyButton: { enable: false }
-          });
-
-          settled = true;
-          clearTimeout(timeout);
-          resolve(OneSignal);
-        } catch(e) {
-          console.error('[Stall Abenteuerhof] OneSignal init fehlgeschlagen:', e);
-          settled = true;
-          clearTimeout(timeout);
-          reject(e);
-        }
-      });
-    });
-
-    oneSignalInstance = sdk;
-    return sdk;
-  })();
-
-  return oneSignalReadyPromise;
-}
-
-function oneSignalSubscriptionId(OneSignal) {
-  try {
-    return String(OneSignal && OneSignal.User && OneSignal.User.PushSubscription && OneSignal.User.PushSubscription.id || '').trim();
-  } catch(e) {
-    return '';
-  }
-}
-
-function oneSignalOptedIn(OneSignal) {
-  try {
-    return !!(OneSignal && OneSignal.User && OneSignal.User.PushSubscription && OneSignal.User.PushSubscription.optedIn);
-  } catch(e) {
-    return false;
-  }
-}
-
-async function syncPushIdentityAndPrefs() {
-  if (appTestModeActive_()) return { ok:false, reason:'demo' };
-  const name = currentUserName || getRememberedUserName() || '';
-  if (!name) return { ok:false, reason:'no_name' };
-
-  const prefs = savePushPrefsLocal(readPushPrefsFromUi());
-  const role = getRole() || 'ehrenamt';
-
-  try {
-    const OneSignal = await ensureOneSignalSdk();
-    if (appTestModeActive_()) return { ok:false, reason:'demo' };
-    const externalId = pushExternalIdForName(name);
-    if (externalId && externalId !== 'stall-') await OneSignal.login(externalId);
-    if (appTestModeActive_()) return { ok:false, reason:'demo' };
-    await OneSignal.User.addTags({
-      stall_role: role,
-      push_health: prefs.health ? '1' : '0',
-      push_infos: prefs.infos ? '1' : '0',
-      push_todos: prefs.todos ? '1' : '0',
-      push_ponygroups: prefs.ponygroups ? '1' : '0',
-      push_shifts: prefs.shifts ? '1' : '0'
-    });
-
-    if (appTestModeActive_()) return { ok:false, reason:'demo' };
-    const subscriptionId = oneSignalSubscriptionId(OneSignal);
-    const active = oneSignalOptedIn(OneSignal);
-    const backend = await pushBackendCall('savePushPreferences', {
-      name,
-      role,
-      prefs,
-      subscriptionId,
-      teamToken: getTeamToken(),
-      active
-    });
-
-    return {
-      ok: backend && backend.ok !== false,
-      registered: !!(backend && backend.registered),
-      waitingForSubscription: !subscriptionId
-    };
-  } catch(e) {
-    return { ok:false, reason:e && e.message ? e.message : 'sdk' };
-  }
-}
-
-async function renderPushSettings() {
-  applyPushPrefsToUi();
-  const unconfigured = document.getElementById('pushUnconfigured');
-  const controls = document.getElementById('pushConfiguredControls');
-  const iosHint = document.getElementById('pushIosHint');
-  const enableBtn = document.getElementById('pushEnableBtn');
-  const disableBtn = document.getElementById('pushDisableBtn');
-
-  if (!unconfigured || !controls) return;
-  if (appTestModeActive_()) {
-    setPushStatusUi('Testmodus', 'muted');
-    controls.style.display = 'none';
-    unconfigured.style.display = 'block';
-    unconfigured.textContent = 'Im Testmodus bleiben deine echten Benachrichtigungseinstellungen unverändert.';
-    return;
-  }
-
-  if (isIosLike() && !isStandaloneWebApp()) {
-    iosHint.style.display = 'block';
-  } else {
-    iosHint.style.display = 'none';
-  }
-
-  if (location.protocol === 'file:') {
-    setPushStatusUi('Nach Veröffentlichung', 'muted');
-    unconfigured.style.display = 'block';
-    unconfigured.textContent = 'Im lokalen Dateivorschau-Modus kann der Browser keine echten Pushs registrieren. Nach dem Upload auf GitHub Pages funktioniert die Einrichtung über HTTPS.';
-    controls.style.display = 'none';
-    return;
-  }
-
-  const cfg = await loadPushConfig();
-  if (appTestModeActive_()) return renderPushSettings();
-  if (!cfg || !cfg.enabled || !cfg.appId) {
-    setPushStatusUi('Noch nicht verbunden', 'warn');
-    unconfigured.style.display = 'block';
-    controls.style.display = 'none';
-    return;
-  }
-
-  unconfigured.style.display = 'none';
-  controls.style.display = 'block';
-
-  try {
-    const OneSignal = await ensureOneSignalSdk();
-    await syncPushIdentityAndPrefs();
-    if (appTestModeActive_()) return renderPushSettings();
-    const permission = !!OneSignal.Notifications.permission;
-    const optedIn = oneSignalOptedIn(OneSignal);
-    const active = permission && optedIn;
-    setPushStatusUi(active ? 'Aktiv' : (permission ? 'Nicht abonniert' : 'Aus'), active ? 'ok' : 'muted');
-    enableBtn.style.display = active ? 'none' : 'inline-flex';
-    disableBtn.style.display = active ? 'inline-flex' : 'none';
-  } catch(e) {
-    console.error('[Stall Abenteuerhof] Push nicht verfügbar:', e);
-    setPushStatusUi('Nicht verfügbar', 'warn');
-    const status = document.getElementById('pushSaveStatus');
-    if (status) {
-      status.className = 'save-status error';
-      status.textContent = e && e.message
-        ? 'Push-Setup: ' + e.message
-        : 'Push konnte nicht initialisiert werden.';
-    }
-  }
-}
-
-async function activatePushNotifications() {
-  if (appTestModeSettingsBlocked_()) return;
-  const status = document.getElementById('pushSaveStatus');
-
-  if (isIosLike() && !isStandaloneWebApp()) {
-    showSaveStatus(status, 'error', 'Auf iPhone/iPad bitte zuerst zum Home-Bildschirm hinzufügen und die App von dort öffnen.');
-    return;
-  }
-
-  showSaveStatus(status, 'saving', 'Öffnet die System-Abfrage …');
-  try {
-    const OneSignal = await ensureOneSignalSdk();
-    await syncPushIdentityAndPrefs();
-    if (appTestModeSettingsBlocked_()) return;
-    const granted = await OneSignal.Notifications.requestPermission();
-    if (appTestModeSettingsBlocked_()) return;
-    if (granted || OneSignal.Notifications.permission) {
-      try { await OneSignal.User.PushSubscription.optIn(); } catch(e) {}
-      await syncPushIdentityAndPrefs();
-      if (appTestModeSettingsBlocked_()) return;
-      showSaveStatus(status, 'ok', ' Push-Benachrichtigungen sind aktiviert');
-    } else {
-      showSaveStatus(status, 'error', 'Benachrichtigungen wurden nicht erlaubt.');
-    }
-  } catch(e) {
-    showSaveStatus(status, 'error', e && e.message ? 'Push konnte nicht aktiviert werden: ' + e.message : 'Push konnte nicht aktiviert werden.');
-  }
-  await renderPushSettings();
-}
-
-async function deactivatePushNotifications() {
-  if (appTestModeSettingsBlocked_()) return;
-  const status = document.getElementById('pushSaveStatus');
-  try {
-    const OneSignal = await ensureOneSignalSdk();
-    if (appTestModeSettingsBlocked_()) return;
-    const subscriptionId = oneSignalSubscriptionId(OneSignal);
-    const name = currentUserName || getRememberedUserName() || '';
-    const prefs = getPushPrefs();
-    const role = getRole() || 'ehrenamt';
-
-    if (subscriptionId && name) {
-      await pushBackendCall('savePushPreferences', {
-        name,
-        role,
-        prefs,
-        subscriptionId,
-        teamToken: getTeamToken(),
-        active: false
-      });
-    }
-
-    if (appTestModeSettingsBlocked_()) return;
-    await OneSignal.User.PushSubscription.optOut();
-    showSaveStatus(status, 'ok', 'Push auf diesem Gerät deaktiviert');
-  } catch(e) {
-    showSaveStatus(status, 'error', 'Push konnte nicht deaktiviert werden.');
-  }
-  await renderPushSettings();
-}
-
-async function sendPushTestToMe() {
-  if (appTestModeSettingsBlocked_()) return;
-  const status = document.getElementById('pushSaveStatus');
-  const name = currentUserName || getRememberedUserName() || '';
-  if (!name) return;
-
-  showSaveStatus(status, 'saving', 'Test wird gesendet …');
-
-  try {
-    const OneSignal = await ensureOneSignalSdk();
-    await syncPushIdentityAndPrefs();
-    if (appTestModeSettingsBlocked_()) return;
-    const subscriptionId = oneSignalSubscriptionId(OneSignal);
-    if (!subscriptionId || !oneSignalOptedIn(OneSignal)) {
-      showSaveStatus(status, 'error', 'Bitte Push auf diesem Gerät zuerst aktivieren.');
-      return;
-    }
-
-    const result = await pushBackendCall('sendTestPush', {
-      subscriptionId,
-      name,
-      teamToken: getTeamToken()
-    });
-    showSaveStatus(
-      status,
-      result && result.ok ? 'ok' : 'error',
-      result && result.ok ? ' Test-Push wurde verschickt' : ((result && result.message) || 'Test konnte nicht gesendet werden')
-    );
-  } catch(e) {
-    showSaveStatus(status, 'error', 'Test konnte nicht gesendet werden.');
-  }
-}
-
-const PENDING_PUSH_NOTIFICATIONS_KEY_ = 'stallPendingPushNotificationsV1';
-let pendingPushNotificationPromise_ = null;
-
-function pushNotificationOwner_() {
+function entryMutationOwner_() {
   return {
     role: getRole() || '',
     personId: String(getCurrentPersonId() || ''),
     name: normalizedPersonKey(currentUserName || getRememberedUserName() || '')
   };
 }
-function samePushNotificationOwner_(a, b) {
+function sameEntryMutationOwner_(a, b) {
   return !!a && !!b && a.role === b.role &&
     (a.personId && b.personId ? a.personId === b.personId : !!a.name && a.name === b.name);
-}
-function pendingPushNotifications_() {
-  try {
-    const value = JSON.parse(localStorage.getItem(PENDING_PUSH_NOTIFICATIONS_KEY_) || '[]');
-    return Array.isArray(value) ? value.filter(item => item && item.id && item.key && item.owner) : [];
-  } catch(e) { return []; }
-}
-function savePendingPushNotifications_(items) {
-  if (appTestModeActive_()) return false;
-  return safeLocalStorageSet(PENDING_PUSH_NOTIFICATIONS_KEY_, JSON.stringify(items));
-}
-
-// Called after data synchronization, including reconnects. This worker never
-// invokes the data worker, so the two synchronization hooks cannot deadlock.
-async function flushPendingPushNotifications_() {
-  if (appTestModeActive_() || !navigator.onLine || !cacheLoaded) return false;
-  if (pendingPushNotificationPromise_) return pendingPushNotificationPromise_;
-  const owner = pushNotificationOwner_();
-  const token = getDataAccessToken();
-  if (!token || !owner.role || (!owner.personId && !owner.name)) return false;
-  pendingPushNotificationPromise_ = (async () => {
-    for (const intent of pendingPushNotifications_()) {
-      if (appTestModeActive_() || !navigator.onLine || token !== getDataAccessToken() ||
-          !samePushNotificationOwner_(owner, pushNotificationOwner_())) break;
-      if (!samePushNotificationOwner_(owner, intent.owner)) continue;
-      if (getPendingOps().some(op => op.key === intent.key)) continue;
-      const raw = cache[intent.key];
-      let record = null;
-      if (raw) {
-        try { record = JSON.parse(raw); } catch(e) { continue; }
-      }
-      // An entry deleted or withdrawn before synchronization needs no push.
-      const privateNoticeWithoutLocalCopy=intent.privateNotice===true && String(intent.key).startsWith('info:');
-      const withdrawn = (!record && !privateNoticeWithoutLocalCopy) || record?._archived || record?.notifyOthers === false;
-      if (!withdrawn) {
-        const result = await pushBackendCall('pushNewEntry', { key:intent.key, teamToken:getTeamToken() });
-        if (!result || result.ok !== true) continue;
-      }
-      if (appTestModeActive_()) break;
-      const remaining = pendingPushNotifications_().filter(item => item.id !== intent.id);
-      if (!savePendingPushNotifications_(remaining)) break;
-    }
-    return true;
-  })();
-  try { return await pendingPushNotificationPromise_; }
-  finally { pendingPushNotificationPromise_ = null; }
-}
-
-async function pushNotifyNewEntry(key) {
-  if (appTestModeActive_() || !key) return false;
-  const owner = pushNotificationOwner_();
-  if (!owner.role || (!owner.personId && !owner.name)) return false;
-  const intent = { id:`${Date.now()}-${Math.random().toString(36).slice(2,9)}`, key, owner, privateNotice:String(key).startsWith('info:') && noticeRawIsTeamOnly_(cache[key]), queuedAt:Date.now() };
-  const previous = pendingPushNotifications_().filter(item => item.key !== key || !samePushNotificationOwner_(item.owner, owner));
-  if (!savePendingPushNotifications_([...previous, intent])) {
-    showActionToast('Eintrag gespeichert; Benachrichtigung konnte nicht vorgemerkt werden. Bitte Gerätespeicher prüfen.');
-    return false;
-  }
-  if (!navigator.onLine) return true;
-  const synced = await flushPendingOps();
-  if (synced && !appTestModeActive_()) await flushPendingPushNotifications_();
-  return true;
 }
 
 const MAX_CELL_CHARS = 45000; // Google-Sheet-Zellenlimit liegt bei 50.000 Zeichen — Sicherheitsabstand
@@ -15209,8 +14558,8 @@ async function requireBackendWriteCapabilities_() {
   backendWriteCapabilities_={...reply,token};return backendWriteCapabilities_;
 }
 function entryMutationOwnerMatches_(owner) {
-  const current=pushNotificationOwner_();
-  return samePushNotificationOwner_(owner,current) && (!owner.name || !current.name || owner.name===current.name);
+  const current=entryMutationOwner_();
+  return sameEntryMutationOwner_(owner,current) && (!owner.name || !current.name || owner.name===current.name);
 }
 function entrySaveOptions_(key,options={}) {
   const pending=getPendingOps().find(op=>op.key===key && op.type==='set');
@@ -15223,7 +14572,7 @@ function entrySaveOptions_(key,options={}) {
   const expected=Object.prototype.hasOwnProperty.call(options,'expectedValue')?options.expectedValue:
     pending && Object.prototype.hasOwnProperty.call(pending,'expectedValue')?prior:
     Object.prototype.hasOwnProperty.call(opened,'expectedValue')?opened.expectedValue:raw;
-  return {expectedKey:key,expectedValue:expected,entryCreate:!committed && (pending?.entryCreate===true || (raw===null && expected===null)),entryMutationOwner:pushNotificationOwner_(),...options};
+  return {expectedKey:key,expectedValue:expected,entryCreate:!committed && (pending?.entryCreate===true || (raw===null && expected===null)),entryMutationOwner:entryMutationOwner_(),...options};
 }
 async function saveEntryRecord_(key,entry,options={}) {
   if (ponyGroupActivityReservedKey_(key)) {showActionToast('Diese Aktivität wird aus der Ponygruppe übernommen. Bitte dort ändern.');return false;}
@@ -15289,13 +14638,12 @@ function queueMergedWrite_(incoming, previous) {
   for(const op of [...related,incoming])for(const action of op.entryMutations || [])actions.set(action.id,action);
   if(actions.size){merged.entryMutations=[...actions.values()];merged.entryMutationOnly=incoming.entryMutationOnly===true && pendingRelated.every(op=>op.entryMutationOnly===true);merged.entryMutationOwner=incoming.entryMutationOwner || related.find(op=>op.entryMutationOwner)?.entryMutationOwner;}
   merged.entryMutationCompletedIds=[...new Set(related.flatMap(op=>[...(op.entryMutationCompletedIds || []),...(op.entryCommitSeen?(op.entryMutations || []).map(action=>action.id):[])]))];
-  for(const field of ['expectedKey','expectedValue','noticeWriterRole','noticeWriterPersonId','noticeNewEntry','newEntryPush','entryCreate','entryMutationOwner']) {
+  for(const field of ['expectedKey','expectedValue','noticeWriterRole','noticeWriterPersonId','noticeNewEntry','entryCreate','entryMutationOwner']) {
     if(!Object.prototype.hasOwnProperty.call(merged,field)) {
       const source=related.slice().reverse().find(op=>Object.prototype.hasOwnProperty.call(op,field));
       if(source)merged[field]=source[field];
     }
   }
-  if(incoming.newEntryPush || related.some(op=>op.newEntryPush || (op.atomicWrites || []).some(write=>write.key===incoming.key && write.writeOptions?.newEntryPush)))merged.newEntryPush=true;
   merged.dependsOn=[...new Set([...previous.flatMap(op=>op.dependsOn || []),...(incoming.dependsOn || [])])];
   const atomicSources=related.filter(op=>Array.isArray(op.atomicWrites) && !op.entryCommitSeen);
   if(Array.isArray(incoming.atomicWrites) || atomicSources.length) {
@@ -15305,7 +14653,6 @@ function queueMergedWrite_(incoming, previous) {
     for(const write of ownWrites)writes.set(write.key,{...write,writeOptions:{...(writes.get(write.key)?.writeOptions || {}),...(write.writeOptions || {})}});
     const main=writes.get(incoming.key);
     if(main && Object.prototype.hasOwnProperty.call(merged,'expectedValue') && !Object.prototype.hasOwnProperty.call(main.writeOptions,'expectedValue'))main.writeOptions={expectedKey:merged.expectedKey || incoming.key,expectedValue:merged.expectedValue};
-    if(main && merged.newEntryPush)main.writeOptions.newEntryPush=true;
     merged.atomicWrites=[...writes.values()];
   }
   const predecessors={};
@@ -15341,7 +14688,7 @@ function queueSelectExpectedValue_(op,key,value) {
 
 function atomicWriteGuard_(entry) {
   const guard={...editWriteOptions_(entry.key),...entry};
-  return {...(Object.prototype.hasOwnProperty.call(guard,'expectedValue')?{expectedKey:guard.expectedKey || entry.key,expectedValue:guard.expectedValue}:{}),...(guard.newEntryPush===true?{newEntryPush:true}:{})};
+  return {...(Object.prototype.hasOwnProperty.call(guard,'expectedValue')?{expectedKey:guard.expectedKey || entry.key,expectedValue:guard.expectedValue}:{})};
 }
 async function storageSetAtomicMany_(entries) {
   if(appTestModeActive_())return storageSetMany(entries);
@@ -15436,7 +14783,7 @@ async function storageSetPonyGroupAtomic_(entries, context = {}) {
   primary.ponyGroupDate = context.dateStr;
   primary.groupDate = context.dateStr;
   primary.entryCreate = true;
-  primary.entryMutationOwner = pushNotificationOwner_();
+  primary.entryMutationOwner = entryMutationOwner_();
   primary.queuePredecessorValues = predecessors;
   return await storageSetAtomicMany_(writes);
 }
@@ -15473,7 +14820,7 @@ function ponyGroupWriteOptionsForKey_(key, options = {}) {
   return {
     expectedKey: key, expectedValue: ponyGroupRawValue_(key), entryCreate: true,
     ponyGroupWrite: true, ponyGroupId: context.groupId, ponyGroupDate: context.dateStr,
-    entryMutationOwner: pushNotificationOwner_(), ...options
+    entryMutationOwner: entryMutationOwner_(), ...options
   };
 }
 function ponyGroupSyncWrites_(op) {
@@ -15957,21 +15304,18 @@ async function parseBackendResponse(res, actionLabel) {
 async function serverSetDirect(key,value,op={}) {
   const actions=Array.isArray(op.entryMutations) && op.entryMutations.length>0;
   const atomic=Array.isArray(op.atomicWrites);
-  const newEntryPush=/^(info:|gesundheit:)/.test(key) && (op.newEntryPush===true || pendingPushNotifications_().some(intent=>intent.key===key && samePushNotificationOwner_(intent.owner,pushNotificationOwner_())));
   const optionsFor=(entryKey,base={})=>({...base,...(entryKey===key?{
     ...(Object.prototype.hasOwnProperty.call(op,'expectedValue')?{expectedKey:op.expectedKey || key,expectedValue:op.expectedValue}:{}),
     ...(op.entryCreate===true?{entryCreate:true}:{}),
-    ...(newEntryPush?{newEntryPush:true}:{}),
     ...(actions?{entryMutations:op.entryMutations,entryMutationOnly:op.entryMutationOnly===true}:{})
   }:{})});
   const atomicFor=()=>op.atomicWrites.map(entry=>({...entry,writeOptions:optionsFor(entry.key,entry.writeOptions)}));
   const noticeWrites=atomic?atomicFor():[{key,value,writeOptions:op}];
   const needsNoticeProtection=noticeWrites.some(item=>noticeParentKey_(item.key) && (noticeRawIsTeamOnly_(item.value) || noticeRawIsTeamOnly_(item.writeOptions?.expectedValue))) || (noticeParentKey_(op.expectedKey || key) && noticeRawIsTeamOnly_(op.expectedValue));
-  if(Object.prototype.hasOwnProperty.call(op,'expectedValue') || atomic || actions || newEntryPush || needsNoticeProtection) {
+  if(Object.prototype.hasOwnProperty.call(op,'expectedValue') || atomic || actions || needsNoticeProtection) {
     const capabilities=await requireBackendWriteCapabilities_();
     if(op.ponyGroupPlanner && !capabilities.ponyGroupPlanning){const error=new Error('Bitte auch das Backend für die Pony-Pass-Planung aktualisieren. Dein Plan bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
     if(actions && !capabilities.entryMutations){const error=new Error('Bitte das korrigierte Backend für Kommentare und Reaktionen veröffentlichen. Die Änderung bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
-    if(newEntryPush && !capabilities.durableEntryPush){const error=new Error('Bitte das korrigierte Backend für Offline-Mitteilungen veröffentlichen. Der Eintrag bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
     if(needsNoticeProtection && !capabilities.noticeAudience){const error=new Error('Bitte das korrigierte Backend für die Sichtbarkeit der Hinweise veröffentlichen. Der Hinweis bleibt lokal vorgemerkt.');error.permanent=true;throw error;}
   }
   const deliver=async()=>{
@@ -16000,7 +15344,7 @@ async function serverSetDirect(key,value,op={}) {
     result=await deliver();
     }
   }
-  if((Object.prototype.hasOwnProperty.call(op,'expectedValue') && !result?.conditionalChecked) || (atomic && !result?.atomicBatch) || (newEntryPush && !result?.durableEntryPush) || (actions && !result?.entryMutations)) {
+  if((Object.prototype.hasOwnProperty.call(op,'expectedValue') && !result?.conditionalChecked) || (atomic && !result?.atomicBatch) || (actions && !result?.entryMutations)) {
     backendWriteCapabilities_=null;const error=new Error('Die Serverbestätigung für diese Änderung ist unvollständig. Bitte das Backend prüfen.');error.permanent=true;throw error;
   }
   rememberEntryWriteResult_(op,result);
@@ -16101,7 +15445,6 @@ async function flushPendingOps() {
   try { return await pendingSyncPromise; }
   finally {
     pendingSyncPromise = null;
-    if(navigator.onLine && typeof flushPendingPushNotifications_==='function') await flushPendingPushNotifications_().catch(()=>false);
     if (navigator.onLine && pendingSyncCount() && !pendingSyncRetryTimer) {
       const retries = getPendingOps().filter(pendingOpAllowedForCurrentRole_).map(op => Number(op.nextRetryAt) || 0).filter(at => at > Date.now());
       schedulePendingSync(retries.length ? Math.max(80, Math.min(...retries) - Date.now()) : 4500);
@@ -17140,7 +16483,7 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.57';
+const STALL_APP_VERSION = '1.25.58';
 const STALL_APP_VERSION_DATE = '18.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
@@ -17649,28 +16992,6 @@ async function runSystemCheck() {
   }
   rows.push(systemCheckRow(swState, 'PWA / Updates', swDetail));
 
-  let pushState = 'warn';
-  let pushDetail = 'Push ist nicht aktiviert oder noch nicht geprüft.';
-  try {
-    const cfg = await loadPushConfig();
-    if (cfg && cfg.enabled && cfg.appId) {
-      pushState = 'ok';
-      pushDetail = 'OneSignal-Backend ist konfiguriert.';
-      if (oneSignalInstance) {
-        pushDetail = oneSignalOptedIn(oneSignalInstance)
-          ? 'Push ist auf diesem Gerät aktiviert.'
-          : 'Push-Backend ist bereit; dieses Gerät ist nicht aktiv angemeldet.';
-        pushState = oneSignalOptedIn(oneSignalInstance) ? 'ok' : 'warn';
-      }
-    } else {
-      pushState = 'error';
-      pushDetail = 'Push-Konfiguration fehlt.';
-    }
-  } catch(e) {
-    pushState = 'warn';
-    pushDetail = 'Push konnte gerade nicht geprüft werden.';
-  }
-  rows.push(systemCheckRow(pushState, 'Push', pushDetail));
 
   const backup = backupStatusData();
   rows.push(systemCheckRow(
@@ -17764,7 +17085,6 @@ function renderSettingsScreen() {
   updateThemePresetSelection(colors);
   renderHomeLayoutSettings();
     renderPersonalNavigationSettings();
-  renderPushSettings();
   renderSettingsSyncSummary();
 
   const status = document.getElementById('themeSaveStatus');
@@ -17817,65 +17137,6 @@ function showScreen(name) {
   updateMainNavigation(name);
 }
 
-function pushDeepLinkTarget_(selector, entryId) {
-  const nodes = Array.from(document.querySelectorAll(selector));
-  return nodes.find(node => String(node.dataset.entryId || '') === String(entryId || '')) || null;
-}
-
-async function handlePushDeepLink() {
-  const url = new URL(location.href);
-  if (url.searchParams.get('push') !== '1') return false;
-
-  const kind = url.searchParams.get('kind') || '';
-  const entryId = url.searchParams.get('entry') || '';
-  const ponyId = url.searchParams.get('pony') || '';
-
-  // Ein Push-Link wird nur einmal verarbeitet, auch wenn die App danach neu lädt.
-  url.searchParams.delete('push');
-  url.searchParams.delete('kind');
-  url.searchParams.delete('pony');
-  url.searchParams.delete('entry');
-  try { history.replaceState({}, document.title, url.toString()); } catch(e) {}
-
-  if (kind === 'gesundheit' && ponyId && ponies.some(p => p.id === ponyId)) {
-    listReturnContext = 'ponys';
-    await openGesundheitDetail(ponyId);
-    const target = pushDeepLinkTarget_('#gesList .entry', entryId);
-    if (target) {
-      target.classList.add('push-target');
-      setTimeout(() => target.scrollIntoView({ behavior:'smooth', block:'center' }), 30);
-    }
-    return true;
-  }
-
-  if (kind === 'info') {
-    resetInfoForm();
-    await Promise.all([renderImportantContacts(), renderResponsibilities(), renderInfoPonyLinks(), renderPonyLocations(), renderPastureWeekOverview(), renderPastures(), renderInfoList(), renderShopList()]);
-    showScreen('infosScreen');
-    const target = pushDeepLinkTarget_('#infoList [data-entry-id]', entryId);
-    if (target) {
-      target.classList.add('push-target');
-      setTimeout(() => target.scrollIntoView({ behavior:'smooth', block:'center' }), 30);
-    }
-    return true;
-  }
-
-  if (kind === 'todo') {
-    todoTaskScope='team';todoPersonFilter='Alle';todoView='list'; todoSmartView='all'; todoFilter = 'Alle';
-    if (entryId) todoExpandedIds.add(entryId);
-    await renderTodoList();
-    showScreen('todoScreen');
-    const target = pushDeepLinkTarget_('#todoListView [data-entry-id]',entryId);
-    if (target && target.closest('details')) target.closest('details').open = true;
-    if (target) {
-      target.classList.add('push-target');
-      setTimeout(() => target.scrollIntoView({ behavior:'smooth', block:'center' }), 30);
-    }
-    return true;
-  }
-
-  return false;
-}
 
 function infoVisibilityAudience(entry) {
   return entry && entry.visibilityAudience === 'team' ? 'team' : 'all';
@@ -22043,35 +21304,6 @@ function applyGesundheitTypeCopy() {
   }
 }
 
-// Nur der ausdrückliche Wert "all" erweitert den Empfängerkreis.
-// Fehlende/alte oder unbekannte Werte bleiben beim bisherigen Pferdeteam-Push.
-function normalizeHealthPushAudience(value) {
-  return value === 'all' ? 'all' : 'team';
-}
-
-function applyGesundheitPushAudience() {
-  const isVolunteerEntry = gesRolleVal === 'Ehrenamt';
-  const isNewVolunteerEntry = isVolunteerEntry && !editingGesId;
-  const isVolunteerViewer = getRole() === 'ehrenamt';
-  const notify = document.getElementById('gesNotifyOthers');
-  const wrap = document.getElementById('gesPushAudienceWrap');
-  const audience = document.getElementById('gesPushAudience');
-  const help = document.getElementById('gesNotifyOthersHelp');
-
-  if (wrap) wrap.style.display = isNewVolunteerEntry && !isVolunteerViewer ? 'block' : 'none';
-  if (audience) audience.disabled = !isNewVolunteerEntry || !notify?.checked;
-  if (!isVolunteerEntry || !help) return;
-
-  if (editingGesId) {
-    help.textContent = 'Beim Bearbeiten wird keine neue Push-Mitteilung versendet.';
-  } else if (!notify?.checked) {
-    help.textContent = 'Für diesen Eintrag wird keine Push-Mitteilung versendet.';
-  } else {
-    help.textContent = normalizeHealthPushAudience(audience?.value) === 'all'
-      ? 'Kurze Vorschau an alle mit aktiviertem Gesundheits-Push; Antippen öffnet den Eintrag.'
-      : 'Kurze Vorschau nur ans Pferdeteam; Antippen öffnet den Eintrag.';
-  }
-}
 
 function applyGesundheitRoleCopy() {
   const isTeamEntry = gesRolleVal === 'Pferdeteam';
@@ -22081,7 +21313,6 @@ function applyGesundheitRoleCopy() {
 
   const hint = document.getElementById('gesAutoRoleHint');
   const help = document.getElementById('gesRoleHelp');
-  const notifyHelp = document.getElementById('gesNotifyOthersHelp');
   const entryTypeLabel = document.getElementById('gesEntryTypeLabel');
   const entryType = document.getElementById('gesEntryType');
   const visibility = document.getElementById('gesVisibilitySection');
@@ -22126,13 +21357,7 @@ function applyGesundheitRoleCopy() {
 
   if (isVolunteerViewer) {
     if (!editingGesId) entryType.value = 'observation';
-    const notifyRow = document.getElementById('gesNotifyOthersRow');
-    const pushAudienceWrap = document.getElementById('gesPushAudienceWrap');
-    if (notifyRow) notifyRow.style.display = 'none';
-    if (pushAudienceWrap) pushAudienceWrap.style.display = 'none';
   }
-
-  applyGesundheitPushAudience();
   applyGesundheitTypeCopy();
 }
 
@@ -22160,11 +21385,6 @@ function resetGesForm() {
   document.getElementById('gesAccessAudience').value = 'all';
   document.getElementById('gesAuthor').value = currentUserName || getRememberedUserName() || '';
 
-  const notifyRow = document.getElementById('gesNotifyOthersRow');
-  const notify = document.getElementById('gesNotifyOthers');
-  if (notifyRow) notifyRow.style.display = 'flex';
-  if (notify) notify.checked = true;
-  document.getElementById('gesPushAudience').value = 'team';
 
   applyGesundheitRoleCopy();
 
@@ -22177,7 +21397,7 @@ function resetGesForm() {
 
 async function fillGesForm(e, existingPhotoUrl) {
   document.getElementById('gesFormCard').open = true;
-  document.getElementById('gesMoreDetails').open = !!(e.professional || existingPhotoUrl || e.visibleDays || e.pushAudience === 'all');
+  document.getElementById('gesMoreDetails').open = !!(e.professional || existingPhotoUrl || e.visibleDays);
   editingGesId = e.id;
   editingGesCreated = e.created;
   editingGesAckFields = {
@@ -22209,11 +21429,6 @@ async function fillGesForm(e, existingPhotoUrl) {
   document.getElementById('gesAccessAudience').value = healthVisibilityAudience(e);
   document.getElementById('gesAuthor').value = e.author || '';
 
-  const notifyRow = document.getElementById('gesNotifyOthersRow');
-  const notify = document.getElementById('gesNotifyOthers');
-  if (notifyRow) notifyRow.style.display = 'flex';
-  if (notify) notify.checked = e.notifyOthers !== false;
-  document.getElementById('gesPushAudience').value = normalizeHealthPushAudience(e.pushAudience);
 
   applyGesundheitRoleCopy();
 
@@ -22355,8 +21570,6 @@ async function renderGesundheitList() {
           ...e,
           visibilityAudience: 'amira',
           recipient: 'amira',
-          notifyOthers: false,
-          pushAudience: undefined,
           workflowStatus: status,
           workflowUpdatedAt: now,
           workflowUpdatedBy: by,
@@ -23226,7 +22439,6 @@ function resetResponsibilityForm() {
   document.getElementById('responsibilityInterval').value = '30';
   document.getElementById('responsibilityDue').value = todayStr();
   document.getElementById('responsibilityNote').value = '';
-  document.getElementById('responsibilityNotify').checked = true;
   document.getElementById('responsibilityFormTitle').textContent = 'Stallcheck anlegen';
   showSaveStatus(document.getElementById('responsibilitySaveStatus'), '', '');
 }
@@ -23238,7 +22450,6 @@ function fillResponsibilityForm(item) {
   document.getElementById('responsibilityInterval').value = String(item.intervalDays || 30);
   document.getElementById('responsibilityDue').value = item.nextDue || todayStr();
   document.getElementById('responsibilityNote').value = item.note || '';
-  document.getElementById('responsibilityNotify').checked = item.notifyOthers !== false;
   document.getElementById('responsibilityFormTitle').textContent = 'Stallcheck bearbeiten';
   document.getElementById('responsibilityFormWrap').style.display = 'block';
 }
@@ -24179,7 +23390,6 @@ var TodoSchedule = (function () {
       document.querySelectorAll('#todoScheduleDays input').forEach(input=>{input.checked=false;});
       document.getElementById('todoScheduledWeek').value=todoDisplayWeek||todoWeekKey();
       updateTodoScheduleFields();
-      document.getElementById('todoNotifyOthers').checked = true;
       document.getElementById('todoMoreOptions').open = false;
       document.getElementById('todoFormTitle').textContent = 'Neue Aufgabe';
       document.getElementById('todoInputHelp').textContent = 'Beschreibe kurz, was erledigt werden soll.';
@@ -24199,7 +23409,6 @@ var TodoSchedule = (function () {
       document.querySelectorAll('#todoScheduleDays input').forEach(input=>{input.checked=TodoSchedule.days(item).includes(Number(input.value));});
       document.getElementById('todoScheduledWeek').value=item.scheduledWeek||todoDisplayWeek||todoWeekKey();
       updateTodoScheduleFields();
-      document.getElementById('todoNotifyOthers').checked = item.notifyOthers !== false;
       document.getElementById('todoMoreOptions').open = true;
       document.getElementById('todoFormTitle').textContent = 'Aufgabe bearbeiten';
       document.getElementById('todoInputHelp').textContent = 'Du bearbeitest diesen Eintrag.';
@@ -24543,7 +23752,7 @@ var TodoSchedule = (function () {
         if (selectedDays.length && !TodoSchedule.date(weekValue)) throw new Error('Bitte eine gültige Planwoche auswählen.');
         const now=Date.now();
         const options = {assignee:todoAssigneeSelected,priority:document.getElementById('todoPriority').value,
-          dueDate:document.getElementById('todoDueDate').value,notifyOthers:document.getElementById('todoNotifyOthers').checked,
+          dueDate:document.getElementById('todoDueDate').value,
           repeat:document.getElementById('todoWeekly').checked?'weekly':!selectedDays.length && existing && isDailyTodo(existing)?'daily':'once',
           scheduleDays:selectedDays,scheduledWeek:selectedDays.length?TodoSchedule.monday(weekValue):''};
         for (let i=0;i<texts.length;i++) {
@@ -24707,8 +23916,6 @@ function resetInfoForm() {
   document.getElementById('infoVisibilityMode').querySelectorAll('.chip').forEach(c => c.classList.toggle('selected', c.dataset.val === 'permanent'));
   document.getElementById('infoExpiresOn').value = '';
   document.getElementById('infoExpiresOnWrap').style.display = 'none';
-  const notify = document.getElementById('infoNotifyOthers');
-  if (notify) notify.checked = true;
   document.getElementById('infoSubmit').textContent = 'Hinweis anpinnen';
   document.getElementById('infoCancelEdit').style.display = 'none';
   resetVoiceUI();
@@ -24732,8 +23939,6 @@ async function fillInfoForm(e) {
   document.getElementById('infoVisibilityMode').querySelectorAll('.chip').forEach(c => c.classList.toggle('selected', c.dataset.val === infoExpiryMode));
   document.getElementById('infoExpiresOn').value = entryExpiresOn_(e);
   document.getElementById('infoExpiresOnWrap').style.display = infoExpiryMode === 'until' ? 'block' : 'none';
-  const notify = document.getElementById('infoNotifyOthers');
-  if (notify) notify.checked = e.notifyOthers !== false;
   document.getElementById('infoSubmit').textContent = 'Änderung speichern';
   document.getElementById('infoCancelEdit').style.display = 'inline-block';
   resetVoiceUI();
@@ -24810,7 +24015,6 @@ document.getElementById('responsibilitySaveBtn').onclick = async () => {
   const intervalDays = Number(document.getElementById('responsibilityInterval').value || 30);
   const nextDue = document.getElementById('responsibilityDue').value || todayStr();
   const note = document.getElementById('responsibilityNote').value.trim();
-  const notifyOthers = !!document.getElementById('responsibilityNotify').checked;
   const status = document.getElementById('responsibilitySaveStatus');
   if (!title) {
     showSaveStatus(status, 'error', 'Bitte eintragen, was geprüft werden soll.');
@@ -24821,7 +24025,7 @@ document.getElementById('responsibilitySaveBtn').onclick = async () => {
   const item = {
     ...(existing || {}),
     id: editingResponsibilityId || ('resp-' + Date.now() + '-' + Math.random().toString(36).slice(2,7)),
-    title, assignee, intervalDays, nextDue, note, notifyOthers,
+    title, assignee, intervalDays, nextDue, note,
     active: true,
     created: existing ? existing.created : Date.now(),
     updated: Date.now(),
@@ -24888,7 +24092,6 @@ document.getElementById('infoCancelEdit').onclick = () => {
 };
 
 document.getElementById('infoSubmit').onclick = async () => {
-  const saveNotifyOthers=!!document.getElementById('infoNotifyOthers')?.checked;
   const saveInfoAudience=infoVisibilityAudience({visibilityAudience:document.getElementById('infoAccessAudience')?.value});
   const saveUserName=currentUserName || getRememberedUserName();
   const saveEditingInfoId=editingInfoId;
@@ -24945,14 +24148,11 @@ document.getElementById('infoSubmit').onclick = async () => {
   } else if(removeAudio) {
     hasAudio=false;
   }
-
-  const notifyOthers = saveNotifyOthers;
   const info = {
     id: infoId,
     text, author, hasAudio,
     visibilityAudience: saveInfoAudience,
     media: infoMediaForSave,
-    notifyOthers,
     expiresOn: infoExpiresOn || undefined,
     date: saveEditingInfoId ? saveEditingInfoDate : todayStr(),
     created: saveEditingInfoId ? saveEditingInfoCreated : Date.now(),
@@ -24967,14 +24167,11 @@ document.getElementById('infoSubmit').onclick = async () => {
   if(newAudioFileId || removeAudio)writes.push({key:audioKey,value:newAudioFileId || '',...editWriteOptions_(recordKey)});
   const removedFiles=infoMediaRemovedAfterSave.map(item=>item.fileId).filter(Boolean);
   if(oldAudioFileId && (newAudioFileId || removeAudio))removedFiles.push(oldAudioFileId);
-  writes.push({key:recordKey,value:JSON.stringify(info),newEntryPush:!saveEditingInfoId && notifyOthers,noticeWriterRole:getRole(),noticeWriterPersonId:getCurrentPersonId(),noticeNewEntry:!saveEditingInfoId,dependsOnKeys:writes.map(item=>item.key),afterSyncDeleteFileIds:removedFiles});
+  writes.push({key:recordKey,value:JSON.stringify(info),noticeWriterRole:getRole(),noticeWriterPersonId:getCurrentPersonId(),noticeNewEntry:!saveEditingInfoId,dependsOnKeys:writes.map(item=>item.key),afterSyncDeleteFileIds:removedFiles});
   const ok = await storageSetAtomicMany_(writes);
   btn.disabled = false;
   if (ok) {
     // Old attachments are removed by synchronization after the new record is confirmed.
-    if (!saveEditingInfoId && notifyOthers) {
-      pushNotifyNewEntry(`info:${infoId}`);
-    }
     showSaveStatus(statusEl, 'ok', !audioOk ? ' Gespeichert (Sprachmemo konnte nicht mitgespeichert werden)' : (saveEditingInfoId ? ' Aktualisiert' : ' Angepinnt'));
     if(editingInfoId===saveEditingInfoId && document.getElementById('infoText').value.trim()===text && infoVisibilityAudience({visibilityAudience:document.getElementById('infoAccessAudience')?.value})===saveInfoAudience && voiceDataUrl===saveVoiceDataUrl && voiceRemoved===saveVoiceRemoved && JSON.stringify(infoPendingMedia)===JSON.stringify(saveInfoPendingMedia))resetInfoForm();
   } else {
@@ -29747,9 +28944,9 @@ async function openStallSearchTarget(panel, focusSelector = '') {
             toggle.textContent = `Ältere Hinweise (${olderList.children.length}) ausblenden`;
           }
         }
-        target.classList.add('push-target');
+        target.classList.add('entry-focus-target');
         target.scrollIntoView({behavior:'smooth',block:'center'});
-        setTimeout(() => target.classList.remove('push-target'), 1600);
+        setTimeout(() => target.classList.remove('entry-focus-target'), 1600);
       }
     }, 60);
   }
@@ -29783,9 +28980,9 @@ async function activateGlobalSearchResult(id) {
     setTimeout(() => {
       const target = document.querySelector(`#todoScreen [data-entry-id="${CSS.escape(String(entry.todoId))}"]`);
       if (target) {
-        target.classList.add('push-target');
+        target.classList.add('entry-focus-target');
         target.scrollIntoView({behavior:'smooth',block:'center'});
-        setTimeout(() => target.classList.remove('push-target'), 1600);
+        setTimeout(() => target.classList.remove('entry-focus-target'), 1600);
       }
     }, 50);
     return;
@@ -30739,18 +29936,6 @@ document.getElementById('changelogBackBtn').onclick = () => {
 };
 
 
-document.getElementById('pushEnableBtn').onclick = () => activatePushNotifications();
-document.getElementById('pushDisableBtn').onclick = () => deactivatePushNotifications();
-document.getElementById('pushTestBtn').onclick = () => sendPushTestToMe();
-document.querySelectorAll('[data-push-pref]').forEach(input => {
-  input.onchange = async () => {
-    if (appTestModeSettingsBlocked_()) { applyPushPrefsToUi(); return; }
-    savePushPrefsLocal(readPushPrefsFromUi());
-    const result = await syncPushIdentityAndPrefs();
-    const status = document.getElementById('pushSaveStatus');
-    showSaveStatus(status, result.ok ? 'ok' : 'error', result.ok ? ' Auswahl gespeichert' : 'Auswahl lokal gespeichert; Push-Sync folgt später');
-  };
-});
 
 document.getElementById('manageBtn').onclick = () => {
   if (getRole() !== 'pferdeteam' || !getTeamToken()) { appAlert('Ponys verwalten ist nur im Pferdeteam möglich.'); return; }
@@ -32019,12 +31204,8 @@ document.getElementById('belSubmit').onclick = async () => {
 };
 
 document.getElementById('gesEntryType').onchange = () => applyGesundheitTypeCopy();
-document.getElementById('gesPushAudience').onchange = () => applyGesundheitPushAudience();
-document.getElementById('gesNotifyOthers').onchange = () => applyGesundheitPushAudience();
 
 document.getElementById('gesSubmit').onclick = async () => {
-  const saveNotifyOthers=!!document.getElementById('gesNotifyOthers')?.checked;
-  const savePushAudience=normalizeHealthPushAudience(document.getElementById('gesPushAudience').value);
   const saveUserName=currentUserName || getRememberedUserName();
   const savePonyId=activePonyId;
   const saveEditingGesId=editingGesId;
@@ -32091,10 +31272,6 @@ document.getElementById('gesSubmit').onclick = async () => {
     hasPhoto=false;
   }
 
-  // Ehrenamts-Beobachtungen landen ausschließlich in Amiras persönlicher Liste.
-  // Der bisherige Team-Push wird deshalb bewusst nicht ausgelöst.
-  const notifyOthers = isSavingVolunteerObservation ? false : saveNotifyOthers;
-
   const entry = {
     id: entryId,
     date,
@@ -32107,9 +31284,7 @@ document.getElementById('gesSubmit').onclick = async () => {
     important,
     visibilityAudience,
     recipient: isSavingVolunteerObservation ? 'amira' : undefined,
-    notifyOthers,
     expiresOn: gesExpiresOn || undefined,
-    pushAudience: isSavingVolunteerObservation ? undefined : (saveGesRolleVal === 'Ehrenamt' ? savePushAudience : undefined),
     visibleDays: undefined,
     created: saveEditingGesId ? saveEditingGesCreated : Date.now(),
     updated: saveEditingGesId ? Date.now() : undefined,
@@ -32130,15 +31305,12 @@ document.getElementById('gesSubmit').onclick = async () => {
   const guard=editWriteOptions_(recordKey);
   if (newPhotoFileId || removePhoto) writes.push({key:photoKey,value:newPhotoFileId || '',...guard});
   const removedFiles=(oldPhotoFileId && (newPhotoFileId || removePhoto))?[oldPhotoFileId]:[];
-  writes.push({key:recordKey,value:JSON.stringify(entry),newEntryPush:!saveEditingGesId && notifyOthers,dependsOnKeys:writes.map(item=>item.key),afterSyncDeleteFileIds:removedFiles});
+  writes.push({key:recordKey,value:JSON.stringify(entry),dependsOnKeys:writes.map(item=>item.key),afterSyncDeleteFileIds:removedFiles});
   const ok = await storageSetAtomicMany_(writes);
   btn.disabled = false;
   if (!ok && newPhotoFileId) await deletePhotoFromDrive(newPhotoFileId);
 
   if (ok) {
-    if (!saveEditingGesId && notifyOthers) {
-      pushNotifyNewEntry(`gesundheit:${savePonyId}:${entryId}`);
-    }
 
     showSaveStatus(
       statusEl,
@@ -32423,9 +31595,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
                     document.getElementById('loading').style.display='none';
                     showScreen('homeScreen');
                     showCachedDataWarning_(navigator.onLine);
-                    await handlePushDeepLink();
                     setTimeout(()=>{refreshAfterFastStart_();},30);
-                    setTimeout(()=>{applyPushPrefsToUi();syncPushIdentityAndPrefs().catch(()=>{});},250);
                     return;
                   }
 
@@ -32446,12 +31616,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
                             document.getElementById('homeScreen').prepend(warn);
                   }
                   showScreen('homeScreen');
-                  await handlePushDeepLink();
-                  // Push-Identität/Präferenzen im Hintergrund synchronisieren, ohne den App-Start zu blockieren.
-                  setTimeout(() => {
-                    applyPushPrefsToUi();
-                    syncPushIdentityAndPrefs().catch(() => {});
-                  }, 250);
           } catch (err) {
                   document.getElementById('loading').innerHTML =
                             '<div style="color:#8B3A32;">Die App konnte nicht geladen werden.<br><span style="font-size:12px;">' +
@@ -32555,9 +31719,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
     document.getElementById('switchRoleBtn').onclick = async () => {
           if (appTestModeSettingsBlocked_()) return;
           if (!await appConfirm('Person oder Bereich wechseln? Der gespeicherte Name auf diesem Gerät wird dabei zurückgesetzt.')) return;
-          try {
-            if (oneSignalInstance) await oneSignalInstance.logout();
-          } catch(e) {}
           localStorage.removeItem('ponyUserRole');
           clearTeamAuth();
           clearRememberedUserName();
@@ -32690,6 +31851,14 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
           window.addEventListener('load', async () => {
             try {
+              const registrations = await navigator.serviceWorker.getRegistrations();
+              for (const existing of registrations) {
+                if (new URL(existing.scope).pathname.includes('/onesignal/')) await existing.unregister();
+              }
+              try {
+                localStorage.removeItem('stallAbenteuerhofPushPrefsV1');
+                localStorage.removeItem('stallPendingPushNotificationsV1');
+              } catch(e) {}
               const reg = await navigator.serviceWorker.register('./sw.js', { updateViaCache:'none' });
               await reg.update().catch(() => {});
 
@@ -34720,10 +33889,10 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   }
   function clearDraftKey_(key){if(demoMode||!key)return;try{localStorage.removeItem(key);}catch(e){}}
   function clearDraft_(kind){clearDraftKey_(draftKey_(kind));}
-  function healthDraft_(){return {editId:editingGesId||null,base:draftClone_(draftEditBase_.health),ponyId:draftFormPony_.health||activePonyId,date:document.getElementById('gesDate')?.value||'',entryType:document.getElementById('gesEntryType')?.value||'observation',professional:document.getElementById('gesProfessional')?.value||'',note:document.getElementById('gesNote')?.value||'',author:document.getElementById('gesAuthor')?.value||'',rolle:gesRolleVal,important:!!document.getElementById('gesImportant')?.checked,audience:document.getElementById('gesAccessAudience')?.value||'all',visibilityMode:document.querySelector('#gesVisibilityMode .chip.selected')?.dataset.val||'permanent',expiresOn:document.getElementById('gesExpiresOn')?.value||'',notify:!!document.getElementById('gesNotifyOthers')?.checked,pushAudience:document.getElementById('gesPushAudience')?.value||'team',photoDataUrl:gesPhotoDataUrl||null,photoRemoved:!!gesPhotoRemoved,oldPhotoFileId:editingGesOldPhotoFileId||null,created:editingGesCreated,ackFields:draftClone_(editingGesAckFields)};}
+  function healthDraft_(){return {editId:editingGesId||null,base:draftClone_(draftEditBase_.health),ponyId:draftFormPony_.health||activePonyId,date:document.getElementById('gesDate')?.value||'',entryType:document.getElementById('gesEntryType')?.value||'observation',professional:document.getElementById('gesProfessional')?.value||'',note:document.getElementById('gesNote')?.value||'',author:document.getElementById('gesAuthor')?.value||'',rolle:gesRolleVal,important:!!document.getElementById('gesImportant')?.checked,audience:document.getElementById('gesAccessAudience')?.value||'all',visibilityMode:document.querySelector('#gesVisibilityMode .chip.selected')?.dataset.val||'permanent',expiresOn:document.getElementById('gesExpiresOn')?.value||'',photoDataUrl:gesPhotoDataUrl||null,photoRemoved:!!gesPhotoRemoved,oldPhotoFileId:editingGesOldPhotoFileId||null,created:editingGesCreated,ackFields:draftClone_(editingGesAckFields)};}
   function movementDraft_(){return {editId:editingBelId||null,base:draftClone_(draftEditBase_.movement),ponyId:draftFormPony_.movement||activePonyId,date:document.getElementById('belDate')?.value||'',note:document.getElementById('belNote')?.value||'',author:document.getElementById('belAuthor')?.value||'',mode:belActivityMode,activities:[...belAktivitaetVal],ground:[...belBodenarbeitVal],noMovement:[...belNoMovementVal],ort:belOrtVal,gruppe:belGruppeVal,kontext:belKontextVal,ponyGroupId:belPonyGroupId,duration:readDuration('belDurationCustom',belDurationVal),scale:belScaleVal,ponyIds:[...belBatchPonyIds],individualDurations:[...belIndividualDurations_.entries()],pendingBatch:draftClone_(belPendingBatchSave),created:editingBelCreated};}
-  function todoDraft_(){return {editId:todoEditingId||null,base:draftClone_(draftEditBase_.todo),text:document.getElementById('todoText')?.value||'',assignee:todoAssigneeSelected,priority:document.getElementById('todoPriority')?.value||'normal',due:document.getElementById('todoDueDate')?.value||'',notify:!!document.getElementById('todoNotifyOthers')?.checked,weekly:!!document.getElementById('todoWeekly')?.checked,week:document.getElementById('todoScheduledWeek')?.value||'',days:[...document.querySelectorAll('#todoScheduleDays input:checked')].map(x=>x.value),existingMedia:draftClone_(todoExistingMedia),pendingMedia:draftClone_(todoPendingMedia),removedMedia:draftClone_(todoRemovedMedia)};}
-  function noticeDraft_(){return {writerRole:getRole(),editId:editingInfoId||null,base:draftClone_(draftEditBase_.notice),text:document.getElementById('infoText')?.value||'',author:document.getElementById('infoAuthor')?.value||'',audience:infoVisibilityAudience({visibilityAudience:document.getElementById('infoAccessAudience')?.value}),visibilityMode:document.querySelector('#infoVisibilityMode .chip.selected')?.dataset.val||'permanent',expiresOn:document.getElementById('infoExpiresOn')?.value||'',notify:!!document.getElementById('infoNotifyOthers')?.checked,created:editingInfoCreated,date:editingInfoDate,reactions:draftClone_(editingInfoReactions),comments:draftClone_(editingInfoComments),existingMedia:draftClone_(infoExistingMedia),pendingMedia:draftClone_(infoPendingMedia),removedMedia:draftClone_(infoRemovedMedia),voiceDataUrl:voiceDataUrl||null,voiceRemoved:!!voiceRemoved,oldAudioFileId:editingInfoOldAudioFileId||null};}
+  function todoDraft_(){return {editId:todoEditingId||null,base:draftClone_(draftEditBase_.todo),text:document.getElementById('todoText')?.value||'',assignee:todoAssigneeSelected,priority:document.getElementById('todoPriority')?.value||'normal',due:document.getElementById('todoDueDate')?.value||'',weekly:!!document.getElementById('todoWeekly')?.checked,week:document.getElementById('todoScheduledWeek')?.value||'',days:[...document.querySelectorAll('#todoScheduleDays input:checked')].map(x=>x.value),existingMedia:draftClone_(todoExistingMedia),pendingMedia:draftClone_(todoPendingMedia),removedMedia:draftClone_(todoRemovedMedia)};}
+  function noticeDraft_(){return {writerRole:getRole(),editId:editingInfoId||null,base:draftClone_(draftEditBase_.notice),text:document.getElementById('infoText')?.value||'',author:document.getElementById('infoAuthor')?.value||'',audience:infoVisibilityAudience({visibilityAudience:document.getElementById('infoAccessAudience')?.value}),visibilityMode:document.querySelector('#infoVisibilityMode .chip.selected')?.dataset.val||'permanent',expiresOn:document.getElementById('infoExpiresOn')?.value||'',created:editingInfoCreated,date:editingInfoDate,reactions:draftClone_(editingInfoReactions),comments:draftClone_(editingInfoComments),existingMedia:draftClone_(infoExistingMedia),pendingMedia:draftClone_(infoPendingMedia),removedMedia:draftClone_(infoRemovedMedia),voiceDataUrl:voiceDataUrl||null,voiceRemoved:!!voiceRemoved,oldAudioFileId:editingInfoOldAudioFileId||null};}
   function meaningfulDraft_(kind,data){
     if(!data)return false;
     if(data.editId){
@@ -34766,7 +33935,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
     document.getElementById('gesFormCard').open = true;
     if(d.editId&&d.base)await fillGesForm(d.base,d.oldPhotoFileId?await secureMediaPreviewUrl_(d.oldPhotoFileId):null);
     editingGesId=d.editId||null;editingGesCreated=d.created||d.base?.created||null;editingGesAckFields=draftClone_(d.ackFields||null);editingGesOldPhotoFileId=d.oldPhotoFileId||null;gesRolleVal=d.rolle||gesRolleVal;
-    document.getElementById('gesDate').value=d.date||todayStr();document.getElementById('gesEntryType').value=d.entryType||'observation';document.getElementById('gesProfessional').value=d.professional||'';document.getElementById('gesNote').value=d.note||'';document.getElementById('gesAuthor').value=d.author||document.getElementById('gesAuthor').value;document.getElementById('gesImportant').checked=!!d.important;document.getElementById('gesAccessAudience').value=d.audience||'all';restoreExpiryDraft_('ges',d);document.getElementById('gesNotifyOthers').checked=d.notify!==false;document.getElementById('gesPushAudience').value=d.pushAudience||'team';
+    document.getElementById('gesDate').value=d.date||todayStr();document.getElementById('gesEntryType').value=d.entryType||'observation';document.getElementById('gesProfessional').value=d.professional||'';document.getElementById('gesNote').value=d.note||'';document.getElementById('gesAuthor').value=d.author||document.getElementById('gesAuthor').value;document.getElementById('gesImportant').checked=!!d.important;document.getElementById('gesAccessAudience').value=d.audience||'all';restoreExpiryDraft_('ges',d);
     gesPhotoDataUrl=d.photoDataUrl||null;gesPhotoRemoved=!!d.photoRemoved;const photoUrl=gesPhotoDataUrl||(!gesPhotoRemoved&&editingGesOldPhotoFileId?await secureMediaPreviewUrl_(editingGesOldPhotoFileId):null);const preview=document.getElementById('gesPhotoPreview');preview.src=photoUrl||'';preview.style.display=photoUrl?'block':'none';document.getElementById('gesPhotoRemove').style.display=photoUrl?'inline-block':'none';document.getElementById('gesMoreDetails').open=!!(photoUrl||d.professional);applyGesundheitRoleCopy();applyGesundheitTypeCopy();
   }
   function restoreMovementDraft_(d){
@@ -34780,12 +33949,12 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   async function restoreTodoDraft_(d){
     document.getElementById('todoFormCard').open=true;
     if(d.editId&&d.base)await startTodoEdit(d.base);
-    todoEditingId=d.editId||null;document.getElementById('todoText').value=d.text||'';todoAssigneeSelected=d.assignee||'Alle';document.getElementById('todoPriority').value=d.priority||'normal';document.getElementById('todoDueDate').value=d.due||'';document.getElementById('todoNotifyOthers').checked=d.notify!==false;document.getElementById('todoWeekly').checked=!!d.weekly;document.getElementById('todoScheduledWeek').value=d.week||todoWeekKey();document.querySelectorAll('#todoScheduleDays input').forEach(x=>x.checked=(d.days||[]).map(String).includes(x.value));updateTodoScheduleFields();document.getElementById('todoMoreOptions').open=true;todoExistingMedia=draftClone_(d.existingMedia||[]);todoPendingMedia=draftClone_(d.pendingMedia||[]);todoRemovedMedia=draftClone_(d.removedMedia||[]);renderTodoMediaPicker_();await renderTodoAssigneePicker();
+    todoEditingId=d.editId||null;document.getElementById('todoText').value=d.text||'';todoAssigneeSelected=d.assignee||'Alle';document.getElementById('todoPriority').value=d.priority||'normal';document.getElementById('todoDueDate').value=d.due||'';document.getElementById('todoWeekly').checked=!!d.weekly;document.getElementById('todoScheduledWeek').value=d.week||todoWeekKey();document.querySelectorAll('#todoScheduleDays input').forEach(x=>x.checked=(d.days||[]).map(String).includes(x.value));updateTodoScheduleFields();document.getElementById('todoMoreOptions').open=true;todoExistingMedia=draftClone_(d.existingMedia||[]);todoPendingMedia=draftClone_(d.pendingMedia||[]);todoRemovedMedia=draftClone_(d.removedMedia||[]);renderTodoMediaPicker_();await renderTodoAssigneePicker();
   }
   async function restoreNoticeDraft_(d){
     if(!noticeDraftAllowed_(d))return;
     if(d.editId&&d.base)await fillInfoForm(d.base);
-    editingInfoId=d.editId||null;editingInfoCreated=d.created||d.base?.created||null;editingInfoDate=d.date||d.base?.date||null;editingInfoReactions=draftClone_(d.reactions);editingInfoComments=draftClone_(d.comments);document.getElementById('infoText').value=d.text||'';document.getElementById('infoAuthor').value=d.author||document.getElementById('infoAuthor').value;document.getElementById('infoAccessAudience').value=infoVisibilityAudience({visibilityAudience:d.audience||d.base?.visibilityAudience});restoreExpiryDraft_('info',d);document.getElementById('infoNotifyOthers').checked=d.notify!==false;infoExistingMedia=draftClone_(d.existingMedia||[]);infoPendingMedia=draftClone_(d.pendingMedia||[]);infoRemovedMedia=draftClone_(d.removedMedia||[]);renderInfoMediaPicker_();voiceDataUrl=d.voiceDataUrl||null;voiceRemoved=!!d.voiceRemoved;editingInfoOldAudioFileId=d.oldAudioFileId||null;
+    editingInfoId=d.editId||null;editingInfoCreated=d.created||d.base?.created||null;editingInfoDate=d.date||d.base?.date||null;editingInfoReactions=draftClone_(d.reactions);editingInfoComments=draftClone_(d.comments);document.getElementById('infoText').value=d.text||'';document.getElementById('infoAuthor').value=d.author||document.getElementById('infoAuthor').value;document.getElementById('infoAccessAudience').value=infoVisibilityAudience({visibilityAudience:d.audience||d.base?.visibilityAudience});restoreExpiryDraft_('info',d);infoExistingMedia=draftClone_(d.existingMedia||[]);infoPendingMedia=draftClone_(d.pendingMedia||[]);infoRemovedMedia=draftClone_(d.removedMedia||[]);renderInfoMediaPicker_();voiceDataUrl=d.voiceDataUrl||null;voiceRemoved=!!d.voiceRemoved;editingInfoOldAudioFileId=d.oldAudioFileId||null;
     const old=document.getElementById('voicePreviewFrame');if(old)old.remove();const frame=document.createElement('audio');frame.id='voicePreviewFrame';frame.className='voice-player';frame.controls=true;if(voiceDataUrl){frame.src=voiceDataUrl;}else if(editingInfoOldAudioFileId&&!voiceRemoved){frame.dataset.secureMediaId=editingInfoOldAudioFileId;hydrateSecureMediaElement_(frame);}document.getElementById('voicePreview').prepend(frame);document.getElementById('voicePreview').style.display=voiceDataUrl||editingInfoOldAudioFileId&&!voiceRemoved?'block':'none';setInfoComposeOpen(true);
   }
   function draftKindForScreen_(name){if(name==='gesundheitDetailScreen')return'health';if(name==='bewegungDetailScreen')return'movement';if(name==='todoScreen')return'todo';if(name==='infosScreen'&&currentInfoPanel==='notices')return'notice';return null;}
@@ -34917,7 +34086,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
       await openGesundheitDetail(entry.ponyId);
       setTimeout(() => {
         const target = document.querySelector(`#gesList [data-entry-id="${CSS.escape(String(entry.entryId))}"]`);
-        if (target) { target.classList.add('push-target'); target.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>target.classList.remove('push-target'),1600); }
+        if (target) { target.classList.add('entry-focus-target'); target.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>target.classList.remove('entry-focus-target'),1600); }
       },60);
       return;
     }
@@ -35000,8 +34169,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   const realUploadPhotoToDrive=uploadPhotoToDrive;
   const realDeletePhotoFromDrive=deletePhotoFromDrive;
   const realAdminBackendCall=adminBackendCall;
-  const realPushBackendCall=pushBackendCall;
-  const realPushNotify=typeof pushNotifyNewEntry==='function' ? pushNotifyNewEntry : null;
 
   function ensureDemoBanner_(){
     let banner=document.getElementById('demoModeBanner');
@@ -35023,7 +34190,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
       saveVisibleDraft_();
       if(pendingSyncPromise)await pendingSyncPromise;
       if(activeRealLoad)await activeRealLoad;
-      if(pendingPushNotificationPromise_)await pendingPushNotificationPromise_;
       if(pendingSyncRetryTimer){clearTimeout(pendingSyncRetryTimer);pendingSyncRetryTimer=null;}
       realPoniesRef=ponies;
       ponies=JSON.parse(JSON.stringify(ponies));
@@ -35063,8 +34229,6 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
   uploadPhotoToDrive=async function(dataUrl){if(!demoMode)return realUploadPhotoToDrive(dataUrl);showActionToast('Im Testmodus werden Fotos und Sprachmemos nicht hochgeladen');return {ok:false,error:'Testmodus: keine Datei-Uploads'};};
   deletePhotoFromDrive=async function(fileId){if(!demoMode)return realDeletePhotoFromDrive(fileId);showActionToast('Testmodus · echte Dateien bleiben unverändert');return true;};
   adminBackendCall=async function(action,payload={}){if(demoMode&&action!=='listTeamUsers'){showActionToast('Testmodus · Zugänge werden nicht verändert');return {ok:false,error:'demo'};}return realAdminBackendCall(action,payload);};
-  pushBackendCall=async function(action,payload={}){if(demoMode&&action!=='pushConfig'){showActionToast('Testmodus · Benachrichtigungseinstellungen werden nicht übertragen');return {ok:true,demo:true};}return realPushBackendCall(action,payload);};
-  if(realPushNotify) pushNotifyNewEntry=function(...args){if(demoMode){showActionToast('Testmodus · keine Benachrichtigung gesendet');return Promise.resolve({ok:true,demo:true});}return realPushNotify(...args);};
   const demoBtn=document.getElementById('demoModeToggleBtn'); if(demoBtn)demoBtn.onclick=()=>toggleDemoMode_(!demoMode);
   syncDemoUi_();
 
@@ -35126,7 +34290,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
 
   /* ---------- Systemcheck in Alltagssprache ---------- */
   const oldRunSystemCheck=runSystemCheck;
-  runSystemCheck=async function(){await oldRunSystemCheck();const list=document.getElementById('systemCheckList');if(!list)return;list.querySelectorAll('.system-check-row').forEach(row=>{const title=row.querySelector('strong');const detail=row.querySelector('small');if(!title||!detail)return;const map={'Internet':'Verbindung','Google-Backend':'Stalldaten','PWA / Updates':'App & Updates','Push':'Benachrichtigungen','App-Version':'Version'};if(map[title.textContent])title.textContent=map[title.textContent];detail.textContent=detail.textContent.replace('Gerät ist online.','Internetverbindung ist verfügbar.').replace('Daten konnten erfolgreich geladen werden.','Stalldaten sind erreichbar und konnten geladen werden.').replace('Keine Änderungen warten auf Synchronisierung.','Alle Änderungen sind synchronisiert.').replace('OneSignal-Backend ist konfiguriert.','Benachrichtigungen sind technisch eingerichtet.');});if(demoMode)list.insertAdjacentHTML('afterbegin',systemCheckRow('warn','Testmodus','Probeänderungen werden in dieser Sitzung nicht in die echten Stalldaten geschrieben.'));};
+  runSystemCheck=async function(){await oldRunSystemCheck();const list=document.getElementById('systemCheckList');if(!list)return;list.querySelectorAll('.system-check-row').forEach(row=>{const title=row.querySelector('strong');const detail=row.querySelector('small');if(!title||!detail)return;const map={'Internet':'Verbindung','Google-Backend':'Stalldaten','PWA / Updates':'App & Updates','App-Version':'Version'};if(map[title.textContent])title.textContent=map[title.textContent];detail.textContent=detail.textContent.replace('Gerät ist online.','Internetverbindung ist verfügbar.').replace('Daten konnten erfolgreich geladen werden.','Stalldaten sind erreichbar und konnten geladen werden.').replace('Keine Änderungen warten auf Synchronisierung.','Alle Änderungen sind synchronisiert.');});if(demoMode)list.insertAdjacentHTML('afterbegin',systemCheckRow('warn','Testmodus','Probeänderungen werden in dieser Sitzung nicht in die echten Stalldaten geschrieben.'));};
 
   /* Settings role visibility */
   const oldRenderSettings=renderSettingsScreen;
@@ -37772,7 +36936,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
       younger:String(plan.younger||''),older:String(plan.older||''),ownIdeas:String(plan.ownIdeas||''),organisation:String(plan.organisation||''),nextPractice:String(plan.nextPractice||'')};
   }
   const memory=new Map();let sequence=0;const PREFIX='stallPonyPlannerDraftV1:';
-  const owner=()=>typeof global.currentAccessOwnerKeyV123_==='function'?global.currentAccessOwnerKeyV123_():JSON.stringify(pushNotificationOwner_());
+  const owner=()=>typeof global.currentAccessOwnerKeyV123_==='function'?global.currentAccessOwnerKeyV123_():JSON.stringify(entryMutationOwner_());
   const draftKey=(g,d)=>PREFIX+JSON.stringify([owner(),g,d]);
   function readOptions(g) {
     const key=draftKey(g,'options');
@@ -37911,7 +37075,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
         const inputSnapshot=JSON.stringify(readCard(card)),btn=card.querySelector('[data-plan-save]');btn.disabled=true;
         const key=keyFor(g,plan.date),value=JSON.stringify({...plan,updated:Date.now(),by:currentUserName||getRememberedUserName()||''});
         const base=JSON.parse(card.dataset.planBase);
-        const ok=await queuePlans([{key,value,expectedKey:key,expectedValue:base,entryCreate:base===null,ponyGroupPlanner:true,entryMutationOwner:pushNotificationOwner_()}]);
+        const ok=await queuePlans([{key,value,expectedKey:key,expectedValue:base,entryCreate:base===null,ponyGroupPlanner:true,entryMutationOwner:entryMutationOwner_()}]);
         if(savingOwner!==owner()||activePonyGroupId!==g)return;
         btn.disabled=false;if(!ok){card.querySelector('[data-plan-status]').textContent='Noch nicht gespeichert. Dein Entwurf bleibt erhalten.';return;}
         card.dataset.planBase=JSON.stringify(value);
@@ -37977,7 +37141,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
       const text=raw=>{const original=parse(raw),p=original?focusPlan(original):null;return p?[p.title,'Planungsgrundlage: '+(p.planningBasis==='regular-concept'?'Reguläre Ponygruppe · Konzeptentwurf':'Freie Pony-Pass-Planung'),'Erster Reittermin: '+(p.ridingAnchor||'nicht festgelegt'),'Lernziele: '+cleanIds(p.goalIds).map(id=>goalMap.get(id).text).join('; '),p.focusText,'Organisation: '+(p.organisation||''),'Wiederaufgreifen: '+(p.nextPractice||''),'Material: '+(p.materials||''),'Jüngere / neue Kinder: '+(p.younger||''),'Erfahrenere Kinder: '+(p.older||'')].join('\n\n'):'Kein gespeicherter Plan';};
       const approved=await appConfirm(writes.map(w=>'Aktueller Stand:\n'+text(data[w.key])+'\n\nDein Stand:\n'+text(w.value)).join('\n\n'),{title:'Planänderungen vergleichen',confirmText:'Meinen Stand übernehmen',cancelText:'Entwurf behalten'});
       if(!approved||resolvingOwner!==owner()||!getPendingOps().some(item=>item.opId===opId&&pendingOpAllowedForCurrentRole_(item)))return;
-      const ok=await queuePlans(writes.map(w=>({key:w.key,value:w.value,expectedKey:w.key,expectedValue:data[w.key]??null,entryCreate:data[w.key]==null,ponyGroupPlanner:true,entryMutationOwner:pushNotificationOwner_()})),true);
+      const ok=await queuePlans(writes.map(w=>({key:w.key,value:w.value,expectedKey:w.key,expectedValue:data[w.key]??null,entryCreate:data[w.key]==null,ponyGroupPlanner:true,entryMutationOwner:entryMutationOwner_()})),true);
       if(ok)showActionToast('Der gewählte Planstand ist zur Synchronisierung vorgemerkt.');
     } catch(e){showActionToast('Der Vergleich ist gerade nicht möglich. Dein Plan bleibt erhalten.');}
   }
@@ -38125,7 +37289,7 @@ function getRole() { return localStorage.getItem('ponyUserRole'); }
         expectedValue:baseRaw,
         entryCreate:baseRaw === null,
         ponyGroupPlanner:true,
-        entryMutationOwner:pushNotificationOwner_()
+        entryMutationOwner:entryMutationOwner_()
       }]);
       saveButton.disabled = false;
       showSaveStatus(status, ok ? 'ok' : 'error', ok ? 'Gespeichert – das Team sieht die Vorbereitung.' : 'Noch nicht gespeichert. Bitte Verbindung prüfen und erneut versuchen.');
