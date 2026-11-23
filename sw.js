@@ -1,11 +1,11 @@
-const CACHE_NAME = 'stall-abenteuerhof-shell-v12561-20261123';
+const CACHE_NAME = 'stall-abenteuerhof-shell-v12562-20261123';
 const SHELL = [
   './',
   './index.html',
-  './manifest.webmanifest?v=1.25.61',
-  './icon-192.png?v=1.25.61',
-  './icon-512.png?v=1.25.61',
-  './apple-touch-icon.png?v=1.25.61'
+  './manifest.webmanifest?v=1.25.62',
+  './icon-192.png?v=1.25.62',
+  './icon-512.png?v=1.25.62',
+  './apple-touch-icon.png?v=1.25.62'
 ];
 
 self.addEventListener('install', event => {
