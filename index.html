@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Standalone-Ausgabe der optimierten App-Version 1.25.61. -->
+<!-- Standalone-Ausgabe der optimierten App-Version 1.25.62. -->
 <style>
  .home-personal-inbox{margin:10px 0 18px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
 .home-personal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
@@ -24,9 +24,9 @@
 <title>Stall Abenteuerhof</title>
 
 
-<link rel="icon" type="image/png" href="icon-192.png?v=1.25.61">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.61">
-<link rel="manifest" href="manifest.webmanifest?v=1.25.61">
+<link rel="icon" type="image/png" href="icon-192.png?v=1.25.62">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.25.62">
+<link rel="manifest" href="manifest.webmanifest?v=1.25.62">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -11837,6 +11837,19 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 }
 </style>
 
+
+<style>
+/* Ponygruppen: die letzten Inhalte bleiben beim Eintragen sichtbar */
+#ponyGroupDetail .pony-group-previous-content{display:block;margin:0 0 14px}
+#ponyGroupDetail .pony-group-recent-box{margin:0;padding:12px 13px;border:1px solid var(--border);border-radius:14px;background:var(--surface-alt)!important;box-shadow:none!important}
+#ponyGroupDetail .pony-group-recent-title{margin-bottom:7px;color:var(--text);font-size:13px;font-weight:800;letter-spacing:0;text-transform:none}
+#ponyGroupDetail .pony-group-recent-row{grid-template-columns:64px minmax(0,1fr);gap:3px 9px;padding:7px 0;font-size:13px;line-height:1.35}
+#ponyGroupDetail .pony-group-recent-row>span{color:var(--text-secondary);font-weight:650}
+#ponyGroupDetail .pony-group-recent-row>strong{font-weight:750}
+#ponyGroupDetail .pony-group-recent-row>small{grid-column:2;color:var(--text-secondary);font-size:12px;line-height:1.35}
+@media(max-width:380px){#ponyGroupDetail .pony-group-recent-row{grid-template-columns:58px minmax(0,1fr)}}
+</style>
+
 </head>
 <body>
 <div id="actionToast" class="action-toast" role="status" aria-live="polite" aria-atomic="true" hidden><span id="actionToastText"></span><button type="button" id="actionToastUndo">Rückgängig</button></div>
@@ -11844,7 +11857,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-brand-row">
-      <img class="topbar-logo" src="./icon-192.png?v=1.25.61" alt="Abenteuerhof Freiburg">
+      <img class="topbar-logo" src="./icon-192.png?v=1.25.62" alt="Abenteuerhof Freiburg">
       <div class="topbar-brand-copy">
         <div class="eyebrow">ABENTEUERHOF FREIBURG</div>
         <button type="button" class="brand-home-btn" id="brandHomeBtn" aria-label="Zur Startseite">Stall Abenteuerhof</button>
@@ -12767,7 +12780,7 @@ body.access-v122-no-tasks #mainNavTodos { display:none !important; }
   <div class="detail-sub" id="changelogVersionLabel">Stall Abenteuerhof · Version 1.25.11 · 24.10.2026</div>
 
   <div class="card changelog-card">
-    <div class="changelog-version">Version 1.25.61</div><p>Die Gruppenseite führt jetzt mit zwei klaren Kacheln durch den Alltag.</p><ul><li>Dokumentation und Anwesenheit sind eindeutig getrennt.</li><li>Es ist immer nur der gewählte Arbeitsbereich sichtbar.</li><li>Bisherige Einträge und Vorbereitung stehen nachgeordnet bereit.</li><li>Der Speichern-Button bleibt in beiden Bereichen erreichbar.</li></ul><div class="changelog-version">Version 1.25.60</div><p>Die Personenlisten bei den Ponygruppen sind klar und selbstverständlich beschriftet.</p><ul><li>Der unnötig warnende Zusatz wurde entfernt.</li><li>Der Einstieg beschreibt jetzt direkt, was sich dort verwalten lässt.</li></ul><div class="changelog-version">Version 1.25.59</div><p>Gesundheitseinträge lassen sich wieder zuverlässig öffnen.</p><ul><li>Beim Antippen eines Ponys öffnet sich die Gesundheitsakte wieder ohne Abbruch.</li><li>Die übrigen Bereiche und gespeicherten Daten bleiben unverändert.</li></ul><div class="changelog-version">Version 1.25.58</div><p>OneSignal und die nicht verwendeten Push-Benachrichtigungen wurden vollständig aus der aktiven App entfernt.</p><ul><li>Die App lädt keinen externen OneSignal-Code mehr.</li><li>Push-Einstellungen und Benachrichtigungsoptionen wurden aus den Formularen entfernt.</li><li>Bereits registrierte OneSignal-Worker werden beim nächsten Start automatisch abgemeldet.</li><li>„Neu für dich“, Kommentare und Hinweise innerhalb der App bleiben erhalten.</li></ul><div class="changelog-version">Version 1.25.57</div><p>Das öffentliche Projekt wurde auf die tatsächlich benötigten App-Dateien reduziert.</p><ul><li>Veraltete Einbau-, Test- und Push-Dokumente wurden entfernt.</li><li>Bereits in der App enthaltene doppelte JavaScript- und CSS-Dateien wurden gelöscht.</li><li>Die laufende App, Icons und der verwendete Push-Worker bleiben unverändert erhalten.</li></ul><div class="changelog-version">Version 1.25.56</div><p>Der nicht mehr benötigte Helfi-Kalender wurde vollständig aus der Oberfläche entfernt.</p><ul><li>Die Helfi-Einteilung erscheint nicht mehr bei den Ponygruppen.</li><li>Einladungslink und separate Helfi-Seite wurden entfernt.</li><li>Die normalen Ponygruppen, Personenlisten und Gruppendokumentation bleiben unverändert.</li></ul><div class="changelog-version">Version 1.25.55</div><p>Neue Aufgaben-Kommentare erscheinen ausschließlich bei der Erstellerin unter „Neu für dich“. Sie lösen bewusst keinen Push aus; automatische Push-Erinnerungen werden nicht eingerichtet.</p><div class="changelog-version">Version 1.25.51</div><p>Im Bereich Aktivitäten gibt es nur noch „Neuer Eintrag“ mit der direkt sichtbaren Frage „Für welchen Tag?“.</p><div class="changelog-version">Version 1.25.50</div><p>Aktivitäten nachtragen ist einfacher sichtbar; Gruppenbuch und Pony-Bewegung bleiben getrennt. Persönliche Mitteilungen, Kommentar-Herzen und Entwurfs-Hinweise wurden überarbeitet.</p><div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
+    <div class="changelog-version">Version 1.25.62</div><p>Beim Dokumentieren sind die letzten drei Gruppeninhalte wieder sofort sichtbar.</p><ul><li>„Die letzten Male“ steht kompakt direkt vor der neuen Aktivität.</li><li>Datum, Aktivität und Hinweis fürs nächste Mal bleiben auf einen Blick erkennbar.</li><li>Der vollständige Verlauf bleibt zusätzlich über „Bisherige Einträge“ erreichbar.</li></ul><div class="changelog-version">Version 1.25.61</div><p>Die Gruppenseite führt jetzt mit zwei klaren Kacheln durch den Alltag.</p><ul><li>Dokumentation und Anwesenheit sind eindeutig getrennt.</li><li>Es ist immer nur der gewählte Arbeitsbereich sichtbar.</li><li>Bisherige Einträge und Vorbereitung stehen nachgeordnet bereit.</li><li>Der Speichern-Button bleibt in beiden Bereichen erreichbar.</li></ul><div class="changelog-version">Version 1.25.60</div><p>Die Personenlisten bei den Ponygruppen sind klar und selbstverständlich beschriftet.</p><ul><li>Der unnötig warnende Zusatz wurde entfernt.</li><li>Der Einstieg beschreibt jetzt direkt, was sich dort verwalten lässt.</li></ul><div class="changelog-version">Version 1.25.59</div><p>Gesundheitseinträge lassen sich wieder zuverlässig öffnen.</p><ul><li>Beim Antippen eines Ponys öffnet sich die Gesundheitsakte wieder ohne Abbruch.</li><li>Die übrigen Bereiche und gespeicherten Daten bleiben unverändert.</li></ul><div class="changelog-version">Version 1.25.58</div><p>OneSignal und die nicht verwendeten Push-Benachrichtigungen wurden vollständig aus der aktiven App entfernt.</p><ul><li>Die App lädt keinen externen OneSignal-Code mehr.</li><li>Push-Einstellungen und Benachrichtigungsoptionen wurden aus den Formularen entfernt.</li><li>Bereits registrierte OneSignal-Worker werden beim nächsten Start automatisch abgemeldet.</li><li>„Neu für dich“, Kommentare und Hinweise innerhalb der App bleiben erhalten.</li></ul><div class="changelog-version">Version 1.25.57</div><p>Das öffentliche Projekt wurde auf die tatsächlich benötigten App-Dateien reduziert.</p><ul><li>Veraltete Einbau-, Test- und Push-Dokumente wurden entfernt.</li><li>Bereits in der App enthaltene doppelte JavaScript- und CSS-Dateien wurden gelöscht.</li><li>Die laufende App, Icons und der verwendete Push-Worker bleiben unverändert erhalten.</li></ul><div class="changelog-version">Version 1.25.56</div><p>Der nicht mehr benötigte Helfi-Kalender wurde vollständig aus der Oberfläche entfernt.</p><ul><li>Die Helfi-Einteilung erscheint nicht mehr bei den Ponygruppen.</li><li>Einladungslink und separate Helfi-Seite wurden entfernt.</li><li>Die normalen Ponygruppen, Personenlisten und Gruppendokumentation bleiben unverändert.</li></ul><div class="changelog-version">Version 1.25.55</div><p>Neue Aufgaben-Kommentare erscheinen ausschließlich bei der Erstellerin unter „Neu für dich“. Sie lösen bewusst keinen Push aus; automatische Push-Erinnerungen werden nicht eingerichtet.</p><div class="changelog-version">Version 1.25.51</div><p>Im Bereich Aktivitäten gibt es nur noch „Neuer Eintrag“ mit der direkt sichtbaren Frage „Für welchen Tag?“.</p><div class="changelog-version">Version 1.25.50</div><p>Aktivitäten nachtragen ist einfacher sichtbar; Gruppenbuch und Pony-Bewegung bleiben getrennt. Persönliche Mitteilungen, Kommentar-Herzen und Entwurfs-Hinweise wurden überarbeitet.</p><div class="changelog-version">Version 1.25.49</div><p>Das Ponygruppenbuch trennt Eintragen und Nachschlagen jetzt klar voneinander.</p><ul><li>Unter „Eintragen“ ist ausschließlich der ausgewählte Termin sichtbar – ohne alte Einträge darüber.</li><li>Inhalte stehen an erster Stelle und lassen sich vollständig ohne Kindernamen oder Anwesenheitsliste dokumentieren.</li><li>Anwesenheit und Ponyzuordnung sind nur noch ein eingeklappter, optionaler Zusatz; bestehende Daten bleiben erhalten.</li><li>Der Verlauf zeigt ausschließlich dokumentierte Inhalte als kompakte Liste und ist unabhängig davon, wer anwesend war.</li><li>Datum und Speicherstatus zeigen eindeutig „Gespeichert“ oder „Nicht gespeichert“ – auch auf kleinen Handys ohne seitliches Scrollen.</li></ul><div class="changelog-version">Version 1.25.48</div><p>Gespeicherte Ponygruppen-Einträge lassen sich jetzt direkt und verständlich korrigieren.</p><ul><li>Bei den bisherigen Einträgen führt „Bearbeiten“ unmittelbar zum vorausgefüllten Termin.</li><li>Bei einem vorhandenen Eintrag heißt die Hauptaktion eindeutig „Änderungen speichern“.</li><li>Nach dem Speichern bleibt die Bestätigung sichtbar und weist auch auf die übernommenen Pony-Aktivitäten hin.</li><li>Der aktuell geöffnete Termin wird nicht mehr zusätzlich unter „Zuletzt in dieser Gruppe“ wiederholt.</li></ul><div class="changelog-version">Version 1.25.47</div><p>Das Ponygruppenbuch bleibt auch auf dem Handy klar und einfach.</p><ul><li>Im Alltag stehen nur noch „Gruppe“ und „Verlauf“ im Vordergrund.</li><li>Anwesenheit, Ponyzuordnung und Aktivität werden gemeinsam in einem übersichtlichen Gruppenbuch erfasst.</li><li>Vorbereitung liegt unter „Weitere Funktionen“, damit sie den täglichen Ablauf nicht überlädt.</li><li>Auf kleinen Handys steht die Ponyauswahl gut lesbar unter Name und Anwesenheit statt gequetscht daneben.</li></ul>
     <div class="changelog-version">Version 1.25.46</div><p>Die Vorbereitung der Ponygruppen ist jetzt auch ohne App-Erfahrung verständlich.</p><ul><li>Statt automatischer Mehrwochen- und Konzeptplanung wird nur noch der ausgewählte Termin vorbereitet.</li><li>Es gibt drei klare Angaben: Was machen wir, was muss bereitliegen und welcher Hinweis ist fürs Team wichtig.</li><li>Nach dem Speichern erscheint ein deutliches grünes „Gespeichert“; jede weitere Änderung wird sofort als „Noch nicht gespeichert“ markiert.</li><li>Angefangene Formulare sprechen nicht mehr technisch von alten Entwürfen, sondern fragen verständlich nach „Weitermachen“ oder „Neu beginnen“.</li><li>Bestehende ausführliche Planungen bleiben erhalten und können bei Bedarf aufgeklappt werden.</li></ul><div class="changelog-version">Version 1.25.45</div><p>Aktivitäten lassen sich jetzt zeitlich klar einordnen.</p><ul><li>Bei normalen Einträgen reicht die kurze Pflichtauswahl „Vormittag“ oder „Nachmittag“; eine genaue Uhrzeit bleibt freiwillig.</li><li>Ponygruppe 1, Ponygruppe 2 und Bildungsprojekte erhalten ihre Tageszeit automatisch.</li><li>Wochenübersicht und Verlauf trennen Vormittag und Nachmittag sichtbar, ohne die Pony-Zeilen oder Wochentage zu verändern.</li><li>Der Verlauf zeigt diese Woche nicht doppelt und hält ältere Einträge platzsparend zurück.</li><li>In den Pony-Grundinfos heißt das Feld jetzt eindeutig „Ehrenamtliche Personen“.</li></ul>
     <div class="changelog-version">Version 1.25.44</div><p>Beobachtungen aus dem Ehrenamt haben jetzt einen klaren, kurzen Weg zu Amira.</p><ul><li>Ehrenamtliche sehen statt der vollständigen Gesundheitsdokumentation nur ein aufgeräumtes Formular „Beobachtung melden“.</li><li>Die Meldung ist ausschließlich für Amira und die meldende Person sichtbar – nicht für das übrige Pferdeteam.</li><li>Amira kann jede Meldung mit „Gelesen“, „Wird geklärt“ oder „Erledigt“ kennzeichnen.</li></ul>
     <div class="changelog-version">Version 1.25.43</div><p>Die Aufgaben beginnen auf dem Handy jetzt direkt unter der Kopfleiste.</p><ul><li>Ein verwaister Platzhalter reserviert oberhalb der Aufgaben keinen Navigationsabstand mehr.</li><li>Die untere Navigation bleibt weiterhin frei und überdeckt keine Inhalte.</li></ul>
@@ -16526,8 +16539,8 @@ function updateThemePresetSelection(colors) {
 }
 
 
-const STALL_APP_VERSION = '1.25.61';
-const STALL_APP_VERSION_DATE = '23.11.2026';
+const STALL_APP_VERSION = '1.25.62';
+const STALL_APP_VERSION_DATE = '24.11.2026';
 (function syncVersionLabels_() {
   const versionText = `Version ${STALL_APP_VERSION} · ${STALL_APP_VERSION_DATE}`;
   const settingsLabel = document.getElementById('appVersionLabel');
@@ -25866,7 +25879,7 @@ function ponyGroupRecentContentHtml(groupId, beforeDateStr) {
 
   return `
     <div class="pony-group-recent-box">
-      <div class="pony-group-recent-title">Zuletzt in dieser Gruppe</div>
+      <div class="pony-group-recent-title">Die letzten Male</div>
       ${recent.map(item => {
         const summary = item.tags.length
           ? item.tags.join(' · ')
@@ -27833,8 +27846,6 @@ function ponyGroupBuildJournal_(wrapper, roster, group, dateStr, hasSavedContent
   fields.appendChild(activityBox);
   const activityHead = activityBox.querySelector('.pony-group-workflow-head strong');
   if (activityHead) activityHead.textContent = 'Aktivität';
-  const oldRecent = activityBox.querySelector('.pony-group-previous-content');
-  if (oldRecent) oldRecent.remove();
   const noteDetails = activityBox.querySelector('.pony-group-content-note-details');
   if (noteDetails) {
     noteDetails.open = true;
@@ -28137,7 +28148,7 @@ async function renderPonyGroupAppointments() {
               <div><strong>Aktivität auswählen</strong><small>Passend zu ${escapeHtml(group.day)}</small></div>
             </div>
 
-            ${recentContentHtml ? `<details class="pony-group-previous-content"><summary>Letzte Inhalte ansehen</summary>${recentContentHtml}</details>` : ''}
+            ${recentContentHtml ? `<section class="pony-group-previous-content" aria-label="Die letzten Male">${recentContentHtml}</section>` : ''}
 
             <div class="pony-group-content-tags primary">
               ${ponyGroupContentTagsFor_(group).map(tag => `<button type="button" class="pony-group-content-tag${contentTags.includes(tag) ? ' selected' : ''}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
